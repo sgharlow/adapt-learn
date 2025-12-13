@@ -66,8 +66,8 @@
       "name": "AI Specialist",
       "description": "Go deep on advanced topics. Master transformers, fine-tuning, deployment, and cutting-edge AI techniques.",
       "targetAudience": "ML engineers, researchers, AI professionals",
-      "duration": "~2 hours",
-      "lessonCount": 7,
+      "duration": "~3 hours",
+      "lessonCount": 11,
       "difficulty": "advanced",
       "color": "#8B5CF6",
       "icon": "brain",
@@ -78,7 +78,11 @@
         "ml-fundamentals-04",
         "ml-fundamentals-05",
         "ml-fundamentals-06",
-        "deep-learning-01"
+        "deep-learning-01",
+        "deep-learning-02",
+        "deep-learning-03",
+        "deep-learning-04",
+        "deep-learning-05"
       ],
       "milestones": [
         {
@@ -92,9 +96,14 @@
           "message": "You know which ML algorithms to use and when!"
         },
         {
-          "afterLesson": 7,
+          "afterLesson": 8,
+          "title": "Neural Network Expert",
+          "message": "You understand CNNs and RNNs!"
+        },
+        {
+          "afterLesson": 11,
           "title": "AI Specialist Certified",
-          "message": "You understand neural networks and deep learning!"
+          "message": "You've mastered deep learning fundamentals!"
         }
       ]
     }
