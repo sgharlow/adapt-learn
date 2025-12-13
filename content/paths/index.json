@@ -35,8 +35,8 @@
       "name": "AI Practitioner",
       "description": "For developers ready to build. Learn to implement ML models, work with popular frameworks, and deploy AI solutions.",
       "targetAudience": "Software developers, data analysts, technical professionals",
-      "duration": "~1.5 hours",
-      "lessonCount": 6,
+      "duration": "~2 hours",
+      "lessonCount": 8,
       "difficulty": "intermediate",
       "color": "#3B82F6",
       "icon": "code",
@@ -46,43 +46,9 @@
         "ml-fundamentals-03",
         "ml-fundamentals-04",
         "ml-fundamentals-05",
-        "ml-fundamentals-06"
-      ],
-      "milestones": [
-        {
-          "afterLesson": 3,
-          "title": "Training Expert",
-          "message": "You understand how machines learn from data!"
-        },
-        {
-          "afterLesson": 6,
-          "title": "AI Practitioner Certified",
-          "message": "You know which ML algorithms to use and when!"
-        }
-      ]
-    },
-    {
-      "id": "specialist",
-      "name": "AI Specialist",
-      "description": "Go deep on advanced topics. Master transformers, fine-tuning, deployment, and cutting-edge AI techniques.",
-      "targetAudience": "ML engineers, researchers, AI professionals",
-      "duration": "~3 hours",
-      "lessonCount": 11,
-      "difficulty": "advanced",
-      "color": "#8B5CF6",
-      "icon": "brain",
-      "lessons": [
-        "ml-fundamentals-01",
-        "ml-fundamentals-02",
-        "ml-fundamentals-03",
-        "ml-fundamentals-04",
-        "ml-fundamentals-05",
         "ml-fundamentals-06",
-        "deep-learning-01",
-        "deep-learning-02",
-        "deep-learning-03",
-        "deep-learning-04",
-        "deep-learning-05"
+        "practical-ai-01",
+        "practical-ai-02"
       ],
       "milestones": [
         {
@@ -97,13 +63,102 @@
         },
         {
           "afterLesson": 8,
+          "title": "AI Practitioner Certified",
+          "message": "You can build and deploy ML projects!"
+        }
+      ]
+    },
+    {
+      "id": "specialist",
+      "name": "AI Specialist",
+      "description": "Go deep on advanced topics. Master transformers, fine-tuning, deployment, and cutting-edge AI techniques.",
+      "targetAudience": "ML engineers, researchers, AI professionals",
+      "duration": "~4 hours",
+      "lessonCount": 15,
+      "difficulty": "advanced",
+      "color": "#8B5CF6",
+      "icon": "brain",
+      "lessons": [
+        "ml-fundamentals-01",
+        "ml-fundamentals-02",
+        "ml-fundamentals-03",
+        "ml-fundamentals-04",
+        "ml-fundamentals-05",
+        "ml-fundamentals-06",
+        "deep-learning-01",
+        "deep-learning-02",
+        "deep-learning-03",
+        "deep-learning-04",
+        "deep-learning-05",
+        "nlp-fundamentals-01",
+        "nlp-fundamentals-02",
+        "nlp-fundamentals-03",
+        "nlp-fundamentals-04"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 3,
+          "title": "Training Expert",
+          "message": "You understand how machines learn from data!"
+        },
+        {
+          "afterLesson": 6,
+          "title": "Algorithm Master",
+          "message": "You know which ML algorithms to use and when!"
+        },
+        {
+          "afterLesson": 9,
           "title": "Neural Network Expert",
-          "message": "You understand CNNs and RNNs!"
+          "message": "You understand CNNs, RNNs, and Transformers!"
         },
         {
           "afterLesson": 11,
+          "title": "Deep Learning Master",
+          "message": "You've mastered deep learning and LLMs!"
+        },
+        {
+          "afterLesson": 15,
           "title": "AI Specialist Certified",
-          "message": "You've mastered deep learning fundamentals!"
+          "message": "You're an expert in NLP and modern AI!"
+        }
+      ]
+    },
+    {
+      "id": "nlp-focus",
+      "name": "NLP Focus",
+      "description": "Specialize in Natural Language Processing. Learn how AI understands, generates, and processes human language.",
+      "targetAudience": "Developers interested in chatbots, text analysis, and language AI",
+      "duration": "~2.5 hours",
+      "lessonCount": 9,
+      "difficulty": "intermediate",
+      "color": "#EC4899",
+      "icon": "chat",
+      "lessons": [
+        "ml-fundamentals-01",
+        "ml-fundamentals-02",
+        "ml-fundamentals-03",
+        "deep-learning-01",
+        "deep-learning-04",
+        "nlp-fundamentals-01",
+        "nlp-fundamentals-02",
+        "nlp-fundamentals-03",
+        "nlp-fundamentals-04"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 3,
+          "title": "ML Foundation",
+          "message": "You understand the basics of machine learning!"
+        },
+        {
+          "afterLesson": 5,
+          "title": "Transformer Expert",
+          "message": "You understand attention and transformers!"
+        },
+        {
+          "afterLesson": 9,
+          "title": "NLP Specialist",
+          "message": "You've mastered natural language processing!"
         }
       ]
     }
@@ -114,45 +169,55 @@
         "id": "aq-1",
         "question": "Have you written code before?",
         "options": [
-          { "value": "none", "label": "No coding experience", "points": { "explorer": 3, "practitioner": 0, "specialist": 0 } },
-          { "value": "basic", "label": "Some basic coding", "points": { "explorer": 2, "practitioner": 2, "specialist": 0 } },
-          { "value": "professional", "label": "I code professionally", "points": { "explorer": 0, "practitioner": 3, "specialist": 2 } }
+          { "value": "none", "label": "No coding experience", "points": { "explorer": 3, "practitioner": 0, "specialist": 0, "nlp-focus": 0 } },
+          { "value": "basic", "label": "Some basic coding", "points": { "explorer": 2, "practitioner": 2, "specialist": 0, "nlp-focus": 2 } },
+          { "value": "professional", "label": "I code professionally", "points": { "explorer": 0, "practitioner": 3, "specialist": 2, "nlp-focus": 3 } }
         ]
       },
       {
         "id": "aq-2",
         "question": "What's your goal with AI learning?",
         "options": [
-          { "value": "understand", "label": "Understand what AI can do", "points": { "explorer": 3, "practitioner": 1, "specialist": 0 } },
-          { "value": "build", "label": "Build AI-powered applications", "points": { "explorer": 1, "practitioner": 3, "specialist": 1 } },
-          { "value": "research", "label": "Deep dive into AI research", "points": { "explorer": 0, "practitioner": 1, "specialist": 3 } }
+          { "value": "understand", "label": "Understand what AI can do", "points": { "explorer": 3, "practitioner": 1, "specialist": 0, "nlp-focus": 1 } },
+          { "value": "build", "label": "Build AI-powered applications", "points": { "explorer": 1, "practitioner": 3, "specialist": 1, "nlp-focus": 2 } },
+          { "value": "research", "label": "Deep dive into AI research", "points": { "explorer": 0, "practitioner": 1, "specialist": 3, "nlp-focus": 2 } },
+          { "value": "language", "label": "Work with text, chatbots, or language AI", "points": { "explorer": 0, "practitioner": 1, "specialist": 1, "nlp-focus": 3 } }
         ]
       },
       {
         "id": "aq-3",
         "question": "How much time can you dedicate weekly?",
         "options": [
-          { "value": "little", "label": "1-2 hours", "points": { "explorer": 3, "practitioner": 1, "specialist": 0 } },
-          { "value": "moderate", "label": "3-5 hours", "points": { "explorer": 2, "practitioner": 3, "specialist": 1 } },
-          { "value": "lots", "label": "5+ hours", "points": { "explorer": 1, "practitioner": 2, "specialist": 3 } }
+          { "value": "little", "label": "1-2 hours", "points": { "explorer": 3, "practitioner": 1, "specialist": 0, "nlp-focus": 1 } },
+          { "value": "moderate", "label": "3-5 hours", "points": { "explorer": 2, "practitioner": 3, "specialist": 1, "nlp-focus": 3 } },
+          { "value": "lots", "label": "5+ hours", "points": { "explorer": 1, "practitioner": 2, "specialist": 3, "nlp-focus": 2 } }
         ]
       },
       {
         "id": "aq-4",
         "question": "Have you worked with machine learning before?",
         "options": [
-          { "value": "never", "label": "Never", "points": { "explorer": 3, "practitioner": 1, "specialist": 0 } },
-          { "value": "tutorials", "label": "Followed some tutorials", "points": { "explorer": 1, "practitioner": 3, "specialist": 1 } },
-          { "value": "projects", "label": "Built ML projects", "points": { "explorer": 0, "practitioner": 2, "specialist": 3 } }
+          { "value": "never", "label": "Never", "points": { "explorer": 3, "practitioner": 1, "specialist": 0, "nlp-focus": 1 } },
+          { "value": "tutorials", "label": "Followed some tutorials", "points": { "explorer": 1, "practitioner": 3, "specialist": 1, "nlp-focus": 2 } },
+          { "value": "projects", "label": "Built ML projects", "points": { "explorer": 0, "practitioner": 2, "specialist": 3, "nlp-focus": 3 } }
         ]
       },
       {
         "id": "aq-5",
         "question": "Do you know what a neural network is?",
         "options": [
-          { "value": "no", "label": "Not really", "points": { "explorer": 3, "practitioner": 0, "specialist": 0 } },
-          { "value": "concept", "label": "I know the concept", "points": { "explorer": 1, "practitioner": 3, "specialist": 1 } },
-          { "value": "build", "label": "I've built them", "points": { "explorer": 0, "practitioner": 1, "specialist": 3 } }
+          { "value": "no", "label": "Not really", "points": { "explorer": 3, "practitioner": 0, "specialist": 0, "nlp-focus": 0 } },
+          { "value": "concept", "label": "I know the concept", "points": { "explorer": 1, "practitioner": 3, "specialist": 1, "nlp-focus": 2 } },
+          { "value": "build", "label": "I've built them", "points": { "explorer": 0, "practitioner": 1, "specialist": 3, "nlp-focus": 3 } }
+        ]
+      },
+      {
+        "id": "aq-6",
+        "question": "Are you interested in language-related AI (chatbots, translation, text analysis)?",
+        "options": [
+          { "value": "not-really", "label": "Not particularly", "points": { "explorer": 2, "practitioner": 2, "specialist": 1, "nlp-focus": 0 } },
+          { "value": "somewhat", "label": "Somewhat interested", "points": { "explorer": 1, "practitioner": 2, "specialist": 2, "nlp-focus": 2 } },
+          { "value": "very", "label": "Very interested - it's my main focus", "points": { "explorer": 0, "practitioner": 1, "specialist": 2, "nlp-focus": 3 } }
         ]
       }
     ]

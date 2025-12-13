@@ -1,0 +1,116 @@
+{
+  "id": "practical-ai-03",
+  "title": "Model Training and Validation Best Practices",
+  "topic": "Practical AI",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["practical-ai-01", "practical-ai-02", "ml-fundamentals-03"],
+  "objectives": [
+    "Master cross-validation techniques for robust model evaluation",
+    "Learn systematic approaches to hyperparameter tuning",
+    "Understand and avoid common pitfalls like data leakage"
+  ],
+  "content": {
+    "introduction": "Training a model is more than just calling 'model.fit()'. How you validate performance, tune parameters, and avoid common mistakes determines whether your model works in the real world or just looks good on paper. In this lesson, we'll cover the essential practices that separate amateur ML from production-ready systems.",
+
+    "sections": [
+      {
+        "title": "Cross-Validation: Beyond Simple Train/Test Split",
+        "content": "A simple train/test split has a problem: your results depend on which data happened to land in which set. One unlucky split might make a good model look bad, or worse, make a bad model look good.\n\n**K-Fold Cross-Validation** solves this:\n1. Split data into K equal parts (folds), typically K=5 or K=10\n2. Train K times, each time using a different fold as the test set\n3. Average the results across all K runs\n\nExample with K=5:\n- Run 1: Train on folds 2,3,4,5, test on fold 1\n- Run 2: Train on folds 1,3,4,5, test on fold 2\n- ...\n- Run 5: Train on folds 1,2,3,4, test on fold 5\n\nBenefits:\n- More reliable performance estimate (averaged over multiple splits)\n- Every data point gets to be in the test set exactly once\n- Helps detect if your model is overly sensitive to training data\n\n**Stratified K-Fold**: For classification with imbalanced classes, ensures each fold has the same class distribution. If 10% of your data is positive, each fold will be 10% positive.\n\n**Time Series Cross-Validation**: For temporal data, always train on past and test on future (never reverse). Use expanding or rolling windows."
+      },
+      {
+        "title": "Hyperparameter Tuning: Finding Optimal Settings",
+        "content": "Every ML algorithm has hyperparameters — settings you choose before training that affect how the model learns. Examples: learning rate, tree depth, regularization strength.\n\n**Grid Search**:\nDefine a grid of hyperparameter values and try all combinations.\n\nExample:\n- learning_rate: [0.001, 0.01, 0.1]\n- n_estimators: [100, 200]\n- max_depth: [3, 5, 10]\n- Total combinations: 3 × 2 × 3 = 18\n\nPros: Thorough, finds best combination in your grid\nCons: Expensive (tries everything), doesn't scale to many parameters\n\n**Random Search**:\nInstead of trying all combinations, randomly sample hyperparameter combinations.\n\nPros: More efficient, often finds good solutions faster\nCons: Might miss the absolute best combination\n\nResearch shows random search often outperforms grid search with the same budget.\n\n**Bayesian Optimization**:\nSmart search that learns from previous trials to pick promising hyperparameters next.\n- Tries a few random combinations\n- Builds a model of which hyperparameters work well\n- Focuses search on promising regions\n\nBest for expensive models where each training run takes significant time.\n\n**Best practice**: Start with random search for quick exploration, use Bayesian optimization if you have compute budget for deeper tuning."
+      },
+      {
+        "title": "Avoiding Data Leakage: The Silent Model Killer",
+        "content": "Data leakage occurs when information from outside the training set influences your model, creating falsely optimistic results that fail in production.\n\n**Common leakage sources**:\n\n**1. Leakage from test set**:\n- Scaling on entire dataset (including test)\n- Feature selection using entire dataset\n- Imputing missing values using all data\nFix: Always fit preprocessing on training data only\n\n**2. Target leakage**:\nFeatures that include information about the target that wouldn't be available at prediction time.\n\nExample: Predicting if a patient will get readmitted using 'days until readmission' as a feature. You won't know this until after readmission!\n\nExample: Predicting customer churn using 'received retention offer'. The offer was given because they churned.\n\n**3. Train-test contamination**:\n- Duplicate rows appearing in both train and test\n- Time series: training on future data to predict past\n- Group leakage: Patient visits split randomly (same patient in train and test)\n\n**4. Feature engineering leakage**:\nCreating features using statistics from entire dataset.\n\nExample: 'user_average_purchase' calculated from all data, including future purchases.\n\n**Prevention checklist**:\n- Split data first, before any preprocessing\n- For time series, only train on past\n- For grouped data (patients, users), keep groups together\n- Ask: 'Will this information be available at prediction time?'"
+      },
+      {
+        "title": "Bias-Variance Tradeoff in Practice",
+        "content": "Understanding the bias-variance tradeoff helps you diagnose and fix model problems.\n\n**Bias**: Error from oversimplified assumptions\n- High bias → Underfitting\n- Model too simple to capture patterns\n- Poor performance on both training and test data\n\n**Variance**: Error from sensitivity to training data fluctuations\n- High variance → Overfitting\n- Model memorizes training data instead of learning patterns\n- Good training performance, poor test performance\n\n**Diagnosing your model**:\n\n**Case 1: High training error, high test error**\n- Problem: Underfitting (high bias)\n- Solutions:\n  - Use more complex model\n  - Add more features\n  - Reduce regularization\n  - Train longer\n\n**Case 2: Low training error, high test error**\n- Problem: Overfitting (high variance)\n- Solutions:\n  - Get more training data\n  - Simplify model\n  - Increase regularization\n  - Use dropout (neural networks)\n  - Feature selection (remove noisy features)\n\n**Case 3: Low training error, moderate test error**\n- Probably okay! Some gap is normal.\n- Can try solutions for overfitting to improve further\n\n**Learning curves** help visualize this:\nPlot training and validation error vs. training set size.\n- Converging curves → More data won't help much\n- Wide gap between curves → Overfitting, more data might help\n- Both curves high → Underfitting, need better model"
+      },
+      {
+        "title": "Regularization: Preventing Overfitting",
+        "content": "Regularization techniques prevent models from fitting noise in training data.\n\n**L1 Regularization (Lasso)**:\nAdds penalty proportional to absolute value of coefficients.\n- Penalty = λ × Σ|weights|\n- Drives some weights to exactly zero\n- Performs feature selection automatically\n- Good when you have many irrelevant features\n\n**L2 Regularization (Ridge)**:\nAdds penalty proportional to square of coefficients.\n- Penalty = λ × Σ(weights²)\n- Shrinks weights toward zero but not to zero\n- Preferred when all features are potentially relevant\n- More stable than L1\n\n**Elastic Net**:\nCombines L1 and L2 penalties.\n- Gets benefits of both\n- Good default choice\n\n**Dropout (Neural Networks)**:\nRandomly drop neurons during training.\n- Forces network to learn redundant representations\n- Can't rely on any single neuron\n- Very effective for deep learning\n\n**Early Stopping**:\nStop training when validation error stops improving.\n- Monitor validation loss during training\n- Save model at best validation performance\n- Stop if no improvement for N epochs\n- Simple and effective\n\n**Data Augmentation**:\nCreate modified copies of training data.\n- Images: Rotate, flip, crop\n- Text: Synonym replacement, back-translation\n- Effectively increases training data\n\n**Choosing regularization strength (λ)**:\nUse cross-validation to find the best value. Too low → overfitting, too high → underfitting."
+      }
+    ],
+
+    "summary": "Robust model training requires cross-validation for reliable evaluation, systematic hyperparameter tuning through grid search or Bayesian optimization, and vigilant avoidance of data leakage. Understanding the bias-variance tradeoff helps diagnose whether models are underfitting or overfitting. Regularization techniques like L1/L2 penalties, dropout, and early stopping prevent overfitting and improve generalization to new data.",
+
+    "keyTakeaways": [
+      "Use K-fold cross-validation for more reliable performance estimates than single train/test split",
+      "Prevent data leakage by fitting all preprocessing only on training data",
+      "Diagnose underfitting (high bias) vs overfitting (high variance) using training and test errors",
+      "Apply regularization to prevent overfitting and improve generalization"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What advantage does K-fold cross-validation have over a simple train/test split?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It trains the model faster",
+        "B: It provides a more reliable performance estimate by averaging results over multiple different train/test splits",
+        "C: It uses less data",
+        "D: It doesn't require a test set"
+      ],
+      "correct": "B",
+      "explanation": "K-fold cross-validation trains and evaluates K times with different train/test splits, then averages the results. This gives a more stable and reliable estimate of true performance compared to a single split, which might be lucky or unlucky depending on which data happened to land where."
+    },
+    {
+      "id": "q2",
+      "question": "What is data leakage and why is it problematic?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When data is accidentally deleted",
+        "B: When information from outside the training set influences the model, creating falsely optimistic results that fail in production",
+        "C: When the model trains too slowly",
+        "D: When you don't have enough data"
+      ],
+      "correct": "B",
+      "explanation": "Data leakage occurs when information that won't be available at prediction time influences your model during training. This makes the model appear to work well in testing but fail in production because it relied on information it won't have in the real world. Examples include scaling on the entire dataset or using features that contain the target information."
+    },
+    {
+      "id": "q3",
+      "question": "If your model has low training error but high test error, what's the problem and solution?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Underfitting — use a more complex model",
+        "B: Overfitting — get more data, simplify the model, or increase regularization",
+        "C: Data leakage — resplit your data",
+        "D: The model is working perfectly"
+      ],
+      "correct": "B",
+      "explanation": "Low training error but high test error indicates overfitting (high variance) — the model has memorized the training data instead of learning generalizable patterns. Solutions include getting more training data, using a simpler model, increasing regularization, or removing noisy features."
+    },
+    {
+      "id": "q4",
+      "question": "What does L1 regularization (Lasso) do that L2 regularization (Ridge) doesn't?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes training faster",
+        "B: It drives some weights exactly to zero, effectively performing feature selection",
+        "C: It requires less data",
+        "D: It works only with neural networks"
+      ],
+      "correct": "B",
+      "explanation": "L1 regularization penalizes the absolute value of weights, which drives some weights to exactly zero — effectively removing those features. This performs automatic feature selection. L2 regularization shrinks weights toward zero but doesn't eliminate them. L1 is useful when you have many irrelevant features."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from scikit-learn documentation and Andrew Ng's ML course",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

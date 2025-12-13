@@ -1,0 +1,116 @@
+{
+  "id": "nlp-fundamentals-02",
+  "title": "Word Embeddings and Representations",
+  "topic": "NLP Fundamentals",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["nlp-fundamentals-01"],
+  "objectives": [
+    "Understand different approaches to representing words as numbers",
+    "Learn how word embeddings capture semantic meaning",
+    "Compare techniques like Bag of Words, TF-IDF, Word2Vec, and GloVe"
+  ],
+  "content": {
+    "introduction": "In the previous lesson, we learned that converting text to numbers is NLP's core challenge. But not all number representations are created equal. In this lesson, we'll explore various techniques for representing words — from simple counting methods to sophisticated embeddings that capture meaning and relationships.",
+
+    "sections": [
+      {
+        "title": "Bag of Words: The Simplest Approach",
+        "content": "Bag of Words (BoW) is the simplest way to represent text numerically. It counts how many times each word appears, ignoring grammar and word order.\n\nHere's how it works:\n1. Create a vocabulary of all unique words in your dataset\n2. For each document, count how many times each vocabulary word appears\n3. Represent the document as a vector of these counts\n\nExample:\n- Document 1: 'I love NLP'\n- Document 2: 'I love machine learning'\n- Vocabulary: ['I', 'love', 'NLP', 'machine', 'learning']\n- Doc 1 vector: [1, 1, 1, 0, 0]\n- Doc 2 vector: [1, 1, 0, 1, 1]\n\nPros: Simple, fast, works surprisingly well for basic tasks like spam detection.\n\nCons: Ignores word order ('dog bites man' vs 'man bites dog'), ignores meaning (all words treated as independent), creates huge sparse vectors."
+      },
+      {
+        "title": "TF-IDF: Weighing Word Importance",
+        "content": "TF-IDF (Term Frequency-Inverse Document Frequency) improves on Bag of Words by weighing words based on their importance.\n\n**Term Frequency (TF)**: How often a word appears in a document. Frequent words get higher scores.\n\n**Inverse Document Frequency (IDF)**: How rare a word is across all documents. Common words like 'the' appear everywhere and get low IDF scores. Rare, distinctive words get high scores.\n\n**TF-IDF = TF × IDF**: Multiplying these together highlights words that are frequent in a specific document but rare overall — these are often the most meaningful words.\n\nExample: In a document about machine learning, 'algorithm' might appear often (high TF) but not in most other documents (high IDF), so it gets a high TF-IDF score. Meanwhile, 'the' appears often (high TF) but in every document (low IDF), so it gets a low score.\n\nTF-IDF is widely used for document search, keyword extraction, and document similarity."
+      },
+      {
+        "title": "The Problem with Traditional Approaches",
+        "content": "Both Bag of Words and TF-IDF have fundamental limitations:\n\n**No semantic understanding**: They treat 'king' and 'queen' as completely unrelated words, even though they're closely connected in meaning.\n\n**High dimensionality**: With a vocabulary of 50,000 words, every document becomes a 50,000-dimensional vector — mostly zeros (sparse).\n\n**No generalization**: If your training data contains 'excellent' but your test data contains 'superb', the model sees them as completely different, even though they mean similar things.\n\n**Word order lost**: 'Not good' and 'good' might have similar representations despite opposite meanings.\n\nThese limitations motivated researchers to develop word embeddings — dense vector representations that capture semantic meaning."
+      },
+      {
+        "title": "Word2Vec: Learning Meaning from Context",
+        "content": "Word2Vec, introduced by Google in 2013, revolutionized NLP. Instead of counting words, it learns to represent words based on their context — the words that appear around them.\n\nThe key insight: 'You shall know a word by the company it keeps.' Words that appear in similar contexts tend to have similar meanings.\n\nWord2Vec creates dense vectors (typically 100-300 dimensions) where:\n- Similar words have similar vectors ('king' and 'queen' are close)\n- Relationships are encoded as vector arithmetic ('king' - 'man' + 'woman' ≈ 'queen')\n- The representations are learned from massive text corpora\n\nTwo approaches:\n**CBOW (Continuous Bag of Words)**: Predict a word from its context\n**Skip-gram**: Predict context words from a target word\n\nWord2Vec embeddings capture semantic relationships without being explicitly taught them — this emerged from learning patterns in text."
+      },
+      {
+        "title": "GloVe and Modern Embeddings",
+        "content": "GloVe (Global Vectors), developed at Stanford, takes a different approach to learning embeddings. Instead of using context windows like Word2Vec, it builds on word co-occurrence statistics from the entire corpus.\n\nGloVe creates a matrix counting how often words appear together, then factorizes this matrix to create embeddings that preserve these co-occurrence patterns.\n\nAdvantages over Word2Vec:\n- Captures global statistical information (Word2Vec is more local)\n- Often performs better on word analogy tasks\n- Training is more efficient on large corpora\n\n**Modern evolution**: Today, we've moved beyond static embeddings to contextual embeddings like those from BERT and GPT. These create different representations for the same word depending on context — so 'bank' in 'river bank' gets a different vector than 'bank' in 'savings bank'.\n\nBut Word2Vec and GloVe remain important foundations for understanding how neural networks learn language."
+      }
+    ],
+
+    "summary": "Word representation techniques evolved from simple counting (Bag of Words) to weighted counting (TF-IDF) to learned semantic embeddings (Word2Vec and GloVe). Traditional approaches treat words as independent symbols, while embeddings capture meaning through dense vectors learned from context. Word2Vec and GloVe can represent semantic relationships like 'king' - 'man' + 'woman' = 'queen', making them far more powerful for capturing language understanding.",
+
+    "keyTakeaways": [
+      "Bag of Words counts word occurrences but ignores meaning and order",
+      "TF-IDF weighs words by importance, highlighting distinctive terms",
+      "Word embeddings like Word2Vec learn semantic relationships from context",
+      "Modern embeddings are dense, low-dimensional vectors that enable arithmetic on meaning"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the main limitation of Bag of Words representation?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It's too slow to compute",
+        "B: It treats all words as independent and ignores word order and meaning",
+        "C: It only works with English text",
+        "D: It requires too much training data"
+      ],
+      "correct": "B",
+      "explanation": "Bag of Words simply counts word occurrences, treating each word as completely independent. It doesn't capture that 'happy' and 'joyful' are related, and it ignores word order entirely, so 'dog bites man' looks the same as 'man bites dog'."
+    },
+    {
+      "id": "q2",
+      "question": "How does TF-IDF improve on simple word counting?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes the vectors smaller",
+        "B: It weighs words based on importance — giving higher scores to words that are frequent in a document but rare overall",
+        "C: It adds grammatical information",
+        "D: It translates words into multiple languages"
+      ],
+      "correct": "B",
+      "explanation": "TF-IDF combines Term Frequency (how often a word appears in a document) with Inverse Document Frequency (how rare it is across all documents). This highlights distinctive, meaningful words while downweighting common ones like 'the' or 'and'."
+    },
+    {
+      "id": "q3",
+      "question": "What key insight does Word2Vec use to learn word meanings?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Words that appear in similar contexts tend to have similar meanings",
+        "B: Longer words are more important than shorter words",
+        "C: Words should be sorted alphabetically",
+        "D: All words should have the same vector length"
+      ],
+      "correct": "A",
+      "explanation": "Word2Vec is based on the distributional hypothesis: 'You shall know a word by the company it keeps.' Words appearing in similar contexts (surrounded by similar words) tend to have similar meanings, so Word2Vec learns to give them similar vector representations."
+    },
+    {
+      "id": "q4",
+      "question": "What makes word embeddings like Word2Vec more powerful than Bag of Words?",
+      "type": "multiple_choice",
+      "options": [
+        "A: They use more storage space",
+        "B: They capture semantic relationships, allowing vector arithmetic like 'king' - 'man' + 'woman' = 'queen'",
+        "C: They only work with small vocabularies",
+        "D: They require less training data"
+      ],
+      "correct": "B",
+      "explanation": "Word embeddings create dense vector representations where semantic relationships are encoded mathematically. This enables vector arithmetic that captures meaning — subtracting 'man' from 'king' and adding 'woman' gives a vector close to 'queen'. This semantic understanding is impossible with simple counting approaches."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS224N and original Word2Vec/GloVe papers",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

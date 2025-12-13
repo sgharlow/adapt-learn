@@ -1,0 +1,116 @@
+{
+  "id": "nlp-fundamentals-03",
+  "title": "Language Models and Text Generation",
+  "topic": "NLP Fundamentals",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["nlp-fundamentals-01", "nlp-fundamentals-02", "deep-learning-01"],
+  "objectives": [
+    "Understand what language models are and how they work",
+    "Learn the evolution from N-gram models to neural language models",
+    "Grasp the basic architecture principles behind models like GPT"
+  ],
+  "content": {
+    "introduction": "Language models are at the heart of modern NLP — powering everything from autocomplete on your phone to ChatGPT. But what exactly is a language model? At its core, it's a system that learns the probability of word sequences, enabling it to predict what comes next or generate coherent text. Let's explore how these models evolved and how they work.",
+
+    "sections": [
+      {
+        "title": "What is a Language Model?",
+        "content": "A language model is a probability distribution over sequences of words. More simply: it learns how likely different word combinations are in a language.\n\nFor example, given 'The cat sat on the', a good language model assigns high probability to 'mat' or 'floor' and low probability to 'refrigerator' or 'loudly'.\n\nLanguage models answer two key questions:\n1. **Probability**: How likely is this sequence? 'I love pizza' vs 'Pizza love I'\n2. **Prediction**: What word comes next? 'The weather is ___' → probably 'nice', 'sunny', or 'bad'\n\nApplications include:\n- **Text generation**: Writing articles, stories, code\n- **Autocomplete**: Suggesting the next word as you type\n- **Speech recognition**: Choosing between 'recognize speech' vs 'wreck a nice beach'\n- **Machine translation**: Picking natural-sounding translations\n\nThe better a model captures language patterns, the better it performs these tasks."
+      },
+      {
+        "title": "N-gram Models: The Statistical Approach",
+        "content": "N-gram models were the original approach to language modeling. They predict the next word based on the previous N-1 words.\n\n**Unigram (N=1)**: Each word's probability is independent\n- P('cat') = count('cat') / total_words\n- Simple but ignores all context\n\n**Bigram (N=2)**: Probability depends on the previous word\n- P('sat' | 'cat') = count('cat sat') / count('cat')\n- 'The cat' → probably 'sat', 'ran', 'meowed'\n\n**Trigram (N=3)**: Uses previous two words\n- P('on' | 'cat sat') = count('cat sat on') / count('cat sat')\n\nN-grams work by counting sequences in training data and using these statistics to predict likely continuations.\n\nLimitations:\n- Can't handle sequences longer than N\n- Struggle with rare combinations\n- Vocabulary explosion as N grows\n- No deep understanding of meaning"
+      },
+      {
+        "title": "Neural Language Models: Learning Patterns",
+        "content": "Neural networks transformed language modeling by learning complex patterns rather than just counting sequences.\n\n**RNN Language Models** (Recurrent Neural Networks):\nInstead of fixed N-word windows, RNNs maintain a 'hidden state' that theoretically captures all previous context. They process text sequentially, updating their internal representation with each word.\n\nAdvantages over N-grams:\n- Can handle arbitrary sequence lengths\n- Learn meaningful word representations\n- Generalize better to unseen sequences\n- Capture long-range dependencies (in theory)\n\nHowever, RNNs struggled with truly long-range dependencies. They'd forget information from many steps back due to the 'vanishing gradient' problem.\n\n**LSTM and GRU** (Long Short-Term Memory, Gated Recurrent Units):\nThese improved RNN architectures used 'gates' to control information flow, helping them remember important information across longer sequences. They became the standard for language modeling in the 2010s."
+      },
+      {
+        "title": "The Transformer Revolution",
+        "content": "In 2017, the 'Attention is All You Need' paper introduced Transformers — the architecture behind GPT, BERT, and modern language models.\n\nKey innovation: **Self-attention mechanism**\nInstead of processing text sequentially, Transformers look at all words simultaneously and learn which words are relevant to each other.\n\nFor the sentence 'The animal didn't cross the street because it was too tired':\n- Attention helps the model learn that 'it' refers to 'animal', not 'street'\n- The model weighs how much each word should influence the representation of 'it'\n\nBenefits:\n- **Parallelization**: Process all words at once, enabling faster training\n- **Long-range dependencies**: Directly connect distant words\n- **Scalability**: Can be scaled to billions of parameters\n\nTransformers enabled the modern era of large language models by making it practical to train on massive datasets."
+      },
+      {
+        "title": "GPT and Autoregressive Generation",
+        "content": "GPT (Generative Pre-trained Transformer) demonstrates how modern language models work.\n\n**Architecture**: GPT is a decoder-only Transformer that predicts the next word given all previous words.\n\n**Training approach**:\n1. **Pre-training**: Train on massive text corpora to predict the next word. This teaches the model language patterns, world knowledge, and reasoning.\n2. **Fine-tuning** (optional): Adapt to specific tasks using smaller labeled datasets.\n\n**How generation works** (autoregressive):\n1. Start with a prompt: 'The weather today is'\n2. Model predicts next word: 'sunny' (probability distribution over all words)\n3. Append 'sunny' to context: 'The weather today is sunny'\n4. Predict next word: 'and'\n5. Continue until complete\n\nThis simple prediction task, when done at scale with billions of parameters, produces remarkably coherent and knowledgeable text.\n\n**Key insight**: By learning to predict the next word on internet-scale text, the model implicitly learns grammar, facts, reasoning patterns, and even some common sense."
+      }
+    ],
+
+    "summary": "Language models learn probability distributions over word sequences, enabling them to predict what comes next and generate text. The field evolved from statistical N-gram models through neural RNNs and LSTMs to modern Transformer architectures. GPT-style models use self-attention to process text in parallel and are trained autoregressively to predict the next word, which implicitly teaches them language structure, world knowledge, and reasoning patterns.",
+
+    "keyTakeaways": [
+      "Language models learn probabilities of word sequences to predict and generate text",
+      "N-grams use counting, neural models learn patterns, Transformers use attention",
+      "Self-attention enables models to connect related words across long distances",
+      "Autoregressive training (predict next word) implicitly teaches comprehensive language understanding"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the fundamental task that language models learn?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Translating between languages",
+        "B: Learning the probability of word sequences to predict what comes next",
+        "C: Correcting grammar mistakes",
+        "D: Summarizing long documents"
+      ],
+      "correct": "B",
+      "explanation": "At their core, language models learn probability distributions over sequences of words. This lets them predict likely next words given context. While they can be used for translation, grammar correction, and summarization, these are applications built on top of the fundamental next-word prediction task."
+    },
+    {
+      "id": "q2",
+      "question": "What is the main limitation of N-gram models?",
+      "type": "multiple_choice",
+      "options": [
+        "A: They're too slow to run",
+        "B: They can only look at a fixed window of N-1 previous words and can't capture longer-range dependencies",
+        "C: They only work with English",
+        "D: They require neural networks"
+      ],
+      "correct": "B",
+      "explanation": "N-gram models only consider the previous N-1 words when predicting the next word. A trigram model only sees the last 2 words, so it can't use context from earlier in the sentence. This fixed window limitation prevents them from capturing long-range dependencies in language."
+    },
+    {
+      "id": "q3",
+      "question": "What key innovation did Transformers introduce for language modeling?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Processing text one word at a time",
+        "B: Self-attention mechanism that lets the model weigh the relevance of all words to each other",
+        "C: Using larger datasets",
+        "D: Removing the need for training data"
+      ],
+      "correct": "B",
+      "explanation": "Transformers introduced the self-attention mechanism, which allows the model to process all words simultaneously and learn which words are relevant to each other. This enables better handling of long-range dependencies and parallel processing, unlike sequential RNNs."
+    },
+    {
+      "id": "q4",
+      "question": "How does GPT generate text autoregressively?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It generates all words at once in parallel",
+        "B: It predicts the next word, adds it to the context, then predicts the following word, continuing one word at a time",
+        "C: It randomly selects words from a dictionary",
+        "D: It translates from another language"
+      ],
+      "correct": "B",
+      "explanation": "Autoregressive generation works by predicting one word at a time: predict the next word given the context so far, add that word to the context, then predict the next word, and repeat. Each prediction builds on all previous predictions, creating coherent text sequences."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS224N, 'Attention is All You Need', and GPT papers",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

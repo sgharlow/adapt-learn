@@ -1,0 +1,116 @@
+{
+  "id": "practical-ai-04",
+  "title": "Deploying ML Models to Production",
+  "topic": "Practical AI",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["practical-ai-01", "practical-ai-03"],
+  "objectives": [
+    "Understand different model serving approaches and their tradeoffs",
+    "Learn how to build APIs for real-time model predictions",
+    "Master monitoring and maintenance practices for production ML systems"
+  ],
+  "content": {
+    "introduction": "A model that performs perfectly in your Jupyter notebook is worthless until it's deployed and serving predictions in the real world. Deployment introduces new challenges: latency requirements, scale, monitoring, and maintenance. In this lesson, we'll explore how to take models from development to production and keep them running reliably.",
+
+    "sections": [
+      {
+        "title": "Model Serving Patterns: Batch vs Real-Time",
+        "content": "Different applications require different serving patterns. Choose based on your latency and throughput requirements.\n\n**Batch Prediction**:\nRun model periodically on a large set of inputs, store results.\n\nExample: Predict customer churn risk for all customers every night\n- Predictions stored in database\n- Application reads pre-computed predictions\n- Latency: Pre-computed (instant lookup)\n- Update frequency: Daily/weekly\n\nPros:\n- Simple to implement and debug\n- Can use powerful models (no strict latency constraints)\n- Easy to monitor and rollback\n\nCons:\n- Predictions can be stale\n- Doesn't work for real-time inputs (can't predict for new users)\n- Storage overhead for all predictions\n\n**Real-Time Prediction (Online Serving)**:\nCompute predictions on-demand when requested.\n\nExample: Fraud detection on credit card transactions\n- Request arrives with transaction details\n- Model predicts fraud probability immediately\n- Response must be fast (< 100ms typically)\n\nPros:\n- Predictions always up-to-date\n- Works with fresh data and new inputs\n- Lower storage requirements\n\nCons:\n- Strict latency requirements\n- Harder to deploy and scale\n- More complex error handling\n\n**Hybrid Approach**:\nCombine both — batch predictions for common cases, real-time for new or changed inputs."
+      },
+      {
+        "title": "Building Model APIs with REST and Containers",
+        "content": "For real-time serving, you need to wrap your model in an API that applications can call.\n\n**REST API Structure**:\n\nSimple prediction endpoint:\n```\nPOST /predict\nRequest:\n{\n  \"features\": {\n    \"age\": 35,\n    \"income\": 50000,\n    \"credit_score\": 720\n  }\n}\n\nResponse:\n{\n  \"prediction\": \"approved\",\n  \"probability\": 0.87,\n  \"model_version\": \"v2.1\"\n}\n```\n\n**Popular frameworks**:\n- **Flask/FastAPI**: Python web frameworks for simple APIs\n- **TensorFlow Serving**: Optimized for TensorFlow models\n- **TorchServe**: PyTorch's serving solution\n- **MLflow**: Full MLOps platform with serving\n\n**Containerization with Docker**:\nPackage your model, code, and dependencies in a container.\n\nBenefits:\n- Reproducible environment (same dependencies everywhere)\n- Easy deployment to any cloud platform\n- Version control entire serving environment\n- Isolation from other services\n\nBasic Dockerfile pattern:\n1. Start with Python base image\n2. Install dependencies (requirements.txt)\n3. Copy model files and code\n4. Expose API port\n5. Run API server\n\n**Scaling considerations**:\n- Load balancer distributes requests across multiple API instances\n- Auto-scaling adds/removes instances based on traffic\n- Cache frequent predictions to reduce load\n- Use GPU instances for deep learning models with high throughput"
+      },
+      {
+        "title": "Model Versioning and A/B Testing",
+        "content": "Production systems need to handle multiple model versions and safely test improvements.\n\n**Model Versioning**:\nTrack and manage different versions of your model.\n\n**What to version**:\n- Model weights/artifacts\n- Training code and hyperparameters\n- Training data version or hash\n- Preprocessing pipeline\n- Evaluation metrics\n\nTools: MLflow, DVC (Data Version Control), Neptune.ai\n\nBenefits:\n- Reproduce any previous model\n- Rollback if new version has issues\n- Compare performance across versions\n- Debug issues by testing with older versions\n\n**A/B Testing for ML Models**:\nGradually roll out new models while measuring impact.\n\nPattern:\n1. Deploy new model (v2) alongside existing model (v1)\n2. Route small percentage of traffic to v2 (e.g., 5%)\n3. Monitor metrics: prediction accuracy, latency, business KPIs\n4. If v2 performs better, gradually increase traffic\n5. Eventually, v2 serves 100% and v1 is retired\n\n**Shadow mode**:\nBefore A/B testing, run new model in shadow mode:\n- Both models get all requests\n- Only v1's predictions are returned to users\n- Compare v2's predictions offline\n- Catch issues before they affect users\n\n**Canary deployment**:\nGradual rollout strategy:\n- Deploy to small subset (one server, one region)\n- Monitor closely for issues\n- Expand to larger subset\n- Eventually deploy everywhere\n\nThis minimizes blast radius if something goes wrong."
+      },
+      {
+        "title": "Monitoring Production ML Systems",
+        "content": "Unlike traditional software, ML models can degrade silently over time. Active monitoring is essential.\n\n**What to monitor**:\n\n**1. System metrics**:\n- Latency: 95th/99th percentile response time\n- Throughput: Requests per second\n- Error rate: Failed predictions\n- Resource usage: CPU, memory, GPU\n\n**2. Data quality metrics**:\n- Input distribution: Are inputs different from training data?\n- Missing values: Increase in nulls/missing features?\n- Feature ranges: Outliers or impossible values?\n- Schema compliance: Expected features present?\n\n**3. Model performance metrics**:\n- Prediction distribution: Sudden shift in predictions?\n- Confidence scores: Average probability scores\n- Ground truth comparison: Compare predictions to actual outcomes (when available)\n\n**4. Business metrics**:\n- Revenue impact\n- User engagement\n- Conversion rates\n- Customer satisfaction\n\n**Detecting data drift**:\nStatistical tests to detect when input distribution changes:\n- Kolmogorov-Smirnov test\n- Population Stability Index (PSI)\n- Compare feature distributions over time windows\n\nWhen drift detected: Retrain model with recent data\n\n**Alerting strategy**:\n- Critical: Model errors, severe latency spikes\n- Warning: Gradual performance degradation, data drift\n- Info: New version deployed, retrain scheduled\n\nDashboards: Grafana, DataDog, or custom dashboards showing key metrics over time."
+      },
+      {
+        "title": "Model Maintenance and Retraining",
+        "content": "Production models require ongoing maintenance. The world changes, and models must adapt.\n\n**When to retrain**:\n\n**1. Scheduled retraining**:\n- Regular cadence (weekly, monthly)\n- Incorporates new data\n- Captures gradual trends\n- Good default approach\n\n**2. Triggered retraining**:\n- Data drift detected\n- Performance drops below threshold\n- Significant business event (new product launch, policy change)\n- Manual trigger when needed\n\n**3. Continuous learning**:\n- Retrain constantly on streaming data\n- Complex to implement correctly\n- Risk of learning bad patterns\n- Good for rapidly changing environments\n\n**Retraining pipeline**:\n1. Collect new training data (logs, user feedback)\n2. Validate data quality\n3. Train model with current hyperparameters\n4. Evaluate on hold-out test set\n5. If improvement: Deploy new version (with A/B test)\n6. If regression: Investigate before deployment\n\n**Handling feedback loops**:\nModel predictions can influence future data.\n\nExample: Recommendation system\n- Model recommends certain products\n- Users only see recommended products\n- Training data becomes biased toward recommended items\n- Model reinforces initial biases\n\nMitigation:\n- Exploration: Occasionally show random items\n- Debias training data\n- Use causal inference techniques\n\n**Model retirement**:\nEventually, models become obsolete:\n- Business requirements change\n- Better approaches available\n- Maintenance cost exceeds value\n\nRetirement checklist:\n- Notify stakeholders\n- Archive model artifacts and documentation\n- Redirect traffic to replacement\n- Monitor for issues\n- Keep backup for rollback period"
+      }
+    ],
+
+    "summary": "Deploying ML models to production requires choosing appropriate serving patterns (batch vs real-time), building scalable APIs with containers, implementing version control and A/B testing for safe deployments, monitoring system and model performance continuously, and maintaining models through retraining. Production ML is an ongoing process of deployment, monitoring, and iteration — models are never truly 'done'.",
+
+    "keyTakeaways": [
+      "Choose batch serving for periodic predictions, real-time APIs for immediate responses",
+      "Use containers and REST APIs for scalable, reproducible model serving",
+      "Monitor data drift and model performance continuously in production",
+      "Retrain models regularly or when triggered by performance degradation or drift"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "When is batch prediction more appropriate than real-time serving?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When you need predictions for new users immediately",
+        "B: When predictions can be computed periodically and don't need to reflect the very latest data",
+        "C: When you have very strict latency requirements",
+        "D: Batch prediction is always better than real-time"
+      ],
+      "correct": "B",
+      "explanation": "Batch prediction is ideal when: (1) predictions don't need to be instant, (2) the input data is relatively stable, and (3) you can pre-compute predictions for all entities periodically. Examples include nightly churn predictions or weekly product recommendations. Real-time serving is needed for immediate responses or new/changing inputs."
+    },
+    {
+      "id": "q2",
+      "question": "What is shadow mode deployment and why is it useful?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Running the new model on all requests but only using the old model's predictions, allowing offline comparison",
+        "B: Deploying models at night when users aren't active",
+        "C: Hiding the model from users permanently",
+        "D: Running only the new model"
+      ],
+      "correct": "A",
+      "explanation": "Shadow mode runs the new model in parallel with the existing model on all production traffic, but only returns the existing model's predictions to users. This lets you compare the new model's performance offline and catch issues before the new model affects users — reducing risk before full deployment."
+    },
+    {
+      "id": "q3",
+      "question": "What is data drift and why does it matter for production ML systems?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When data moves to a different database",
+        "B: When the statistical distribution of input data changes over time, potentially degrading model performance",
+        "C: When some data gets deleted",
+        "D: When the database runs out of storage"
+      ],
+      "correct": "B",
+      "explanation": "Data drift occurs when the distribution of input features changes over time — customer behavior shifts, economic conditions change, new product categories appear. Models trained on old distributions may perform poorly on new distributions. Monitoring drift helps detect when retraining is needed to maintain performance."
+    },
+    {
+      "id": "q4",
+      "question": "Why should you version your ML models in production?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It's legally required",
+        "B: To enable rollback if issues occur, reproduce results, and compare performance across versions",
+        "C: To make the model run faster",
+        "D: To reduce storage costs"
+      ],
+      "correct": "B",
+      "explanation": "Model versioning enables critical production practices: quickly rolling back to a previous version if issues arise, reproducing any historical prediction, comparing performance across versions, and debugging by testing with different model versions. It's essential for maintaining reliable ML systems."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google MLOps practices and industry deployment guides",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

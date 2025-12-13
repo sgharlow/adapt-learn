@@ -1,0 +1,116 @@
+{
+  "id": "practical-ai-01",
+  "title": "Building Your First ML Project",
+  "topic": "Practical AI",
+  "difficulty": "beginner",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "objectives": [
+    "Understand the end-to-end ML project workflow",
+    "Learn how to frame problems for machine learning",
+    "Recognize the iterative nature of ML development"
+  ],
+  "content": {
+    "introduction": "Building your first machine learning project can feel overwhelming. Where do you start? What steps do you take? In this lesson, we'll walk through the complete ML project workflow — from understanding your problem to deploying a working solution. You'll learn that successful ML is less about fancy algorithms and more about systematic problem-solving.",
+
+    "sections": [
+      {
+        "title": "Step 1: Define Your Problem Clearly",
+        "content": "The most critical step happens before writing any code: clearly defining what problem you're solving.\n\n**Ask yourself**:\n- What exactly am I trying to predict or classify?\n- What does success look like? (How accurate does it need to be?)\n- How will the model be used in practice?\n- What data do I have or can I collect?\n\n**Example — Bad framing**: 'Build an AI to improve sales'\n**Good framing**: 'Predict which customers are likely to churn in the next 30 days, achieving 80% precision, so the sales team can proactively reach out'\n\n**Common problem types**:\n- **Classification**: Assign to categories (spam/not spam, dog/cat/bird)\n- **Regression**: Predict a number (house price, temperature, sales revenue)\n- **Clustering**: Group similar items (customer segments)\n- **Recommendation**: Suggest items users might like\n\nGetting the problem definition right saves countless hours of work on the wrong solution."
+      },
+      {
+        "title": "Step 2: Collect and Explore Your Data",
+        "content": "Machine learning is fundamentally about learning from data. The quality and quantity of your data often matters more than your choice of algorithm.\n\n**How much data do you need?**\nIt depends, but rough guidelines:\n- Simple problems (tabular data, clear patterns): Hundreds to thousands of examples\n- Complex problems (images, text): Thousands to millions\n- Modern deep learning: Often millions, but transfer learning reduces this\n\n**Where to get data**:\n- Existing internal data (databases, logs, customer records)\n- Public datasets (Kaggle, UCI, government data)\n- Web scraping (where legal and ethical)\n- Synthetic data generation\n- Human labeling services\n\n**Explore before modeling**:\n- Plot distributions of features\n- Look for outliers and anomalies\n- Check class balance (do you have equal positive/negative examples?)\n- Identify missing values\n- Understand correlations between features\n\nMost ML practitioners spend 70-80% of their time on data work, not modeling. This is normal and necessary."
+      },
+      {
+        "title": "Step 3: Start Simple, Then Iterate",
+        "content": "Beginners often jump to complex models immediately. Experts start simple.\n\n**Why start simple?**\n- Quick to implement and test\n- Easier to debug when things go wrong\n- Creates a baseline to beat\n- Often 'good enough' for the problem\n\n**A good workflow**:\n1. **Simple baseline**: Start with basic heuristics (e.g., 'always predict the most common class')\n2. **Classical ML**: Try logistic regression, decision trees, or random forests\n3. **Evaluate**: How well does it work? Where does it fail?\n4. **Add complexity if needed**: Neural networks, more features, ensemble methods\n\n**Example — Email spam detection**:\n- Baseline: Mark emails with 'FREE' in subject as spam (maybe 60% accuracy)\n- Simple ML: Logistic regression on word counts (maybe 85% accuracy)\n- Advanced: Neural network with embeddings (maybe 92% accuracy)\n\nOften, the simple ML approach is good enough and much easier to maintain in production. Only add complexity when you need it and when you understand why simpler approaches fail."
+      },
+      {
+        "title": "Step 4: Evaluate and Debug Your Model",
+        "content": "Training a model is just the beginning. Understanding how well it works and why it fails is crucial.\n\n**Split your data**:\n- **Training set** (70-80%): Used to train the model\n- **Validation set** (10-15%): Used to tune hyperparameters and make decisions\n- **Test set** (10-15%): Used only once at the end to measure final performance\n\nNever train and test on the same data — you'll get falsely high results.\n\n**Choose the right metrics**:\n- **Classification**: Accuracy, precision, recall, F1-score, ROC-AUC\n- **Regression**: Mean squared error, mean absolute error, R²\n- **Business metrics**: Revenue impact, user engagement, time saved\n\nThe metric should align with your business goal. For rare disease detection, you care more about recall (catching all cases) than overall accuracy.\n\n**Debug systematically**:\n- Too high error → Underfitting → Try more complex model, more features\n- Training good, test bad → Overfitting → Get more data, simplify model, regularization\n- Errors on specific examples → Inspect failures, add relevant features\n\nError analysis — looking at what the model gets wrong — is more valuable than blindly trying new algorithms."
+      },
+      {
+        "title": "Step 5: Deploy and Monitor",
+        "content": "A model that sits on your laptop has zero value. Real impact comes from deployment.\n\n**Deployment options**:\n- **Batch predictions**: Run model periodically on all data (e.g., nightly churn predictions)\n- **Real-time API**: Serve predictions on-demand (e.g., spam filter)\n- **Edge deployment**: Run on devices (e.g., smartphone face recognition)\n\n**Key deployment considerations**:\n- **Latency**: How fast does prediction need to be?\n- **Scale**: How many predictions per second?\n- **Dependencies**: What libraries does your model need?\n- **Updates**: How will you update the model?\n\n**Monitor in production**:\nModels degrade over time as the world changes (called 'data drift').\n\nMonitor:\n- Prediction distribution (are you seeing the same types of inputs?)\n- Model performance (are predictions still accurate?)\n- Input data quality (missing values, outliers)\n- Business metrics (is the model driving expected outcomes?)\n\n**The ML lifecycle is iterative**:\nDeploy → Monitor → Identify issues → Collect new data → Retrain → Deploy\n\nThis cycle continues as long as the model is in use. Machine learning projects are never truly 'done'."
+      }
+    ],
+
+    "summary": "Building ML projects follows a systematic workflow: clearly define the problem, collect and explore data, start with simple models and iterate, evaluate thoroughly, and deploy with monitoring. Most time is spent on data work, not algorithms. Start simple, measure everything, and only add complexity when needed. Successful ML is an iterative process of deployment, monitoring, and continuous improvement.",
+
+    "keyTakeaways": [
+      "Define problems clearly with specific success metrics before coding",
+      "Data quality and quantity often matter more than algorithm choice",
+      "Start with simple baselines and only add complexity when necessary",
+      "Monitor deployed models continuously as data and the world change"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Why is it important to clearly define your problem before building an ML model?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It's a legal requirement",
+        "B: It ensures you build the right solution with clear success criteria rather than wasting time on the wrong approach",
+        "C: It makes the code run faster",
+        "D: It reduces the amount of data needed"
+      ],
+      "correct": "B",
+      "explanation": "Clearly defining the problem — what you're predicting, how you'll measure success, and how it'll be used — prevents building the wrong solution. A vague goal like 'improve sales' could lead anywhere, while 'predict customer churn with 80% precision' gives a clear target and measures success."
+    },
+    {
+      "id": "q2",
+      "question": "What's the recommended approach when starting a new ML project?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Immediately use the most advanced deep learning model",
+        "B: Start with simple baselines and only add complexity if needed",
+        "C: Collect as much data as possible before doing anything",
+        "D: Skip evaluation and deploy quickly"
+      ],
+      "correct": "B",
+      "explanation": "Experts start simple — create a baseline, try classical ML like logistic regression, evaluate results, and only add complexity (like neural networks) when simpler approaches fail. Simple models are faster to develop, easier to debug, and often good enough for the problem."
+    },
+    {
+      "id": "q3",
+      "question": "Why should you split your data into training, validation, and test sets?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To make the training process faster",
+        "B: To get an honest measure of how the model performs on unseen data and avoid overly optimistic results",
+        "C: It's not necessary — you can use all data for training",
+        "D: To reduce the amount of data you need"
+      ],
+      "correct": "B",
+      "explanation": "Splitting data is crucial for honest evaluation. Training and testing on the same data gives falsely high results. The test set provides an unbiased measure of real-world performance, while the validation set helps tune the model without contaminating your final test results."
+    },
+    {
+      "id": "q4",
+      "question": "What is data drift and why does it matter for deployed models?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When data moves to a different server",
+        "B: When the patterns in real-world data change over time, causing model performance to degrade",
+        "C: When you lose some of your training data",
+        "D: When data gets corrupted"
+      ],
+      "correct": "B",
+      "explanation": "Data drift occurs when the real-world data distribution changes over time — customer behavior shifts, new product types appear, economic conditions change. Models trained on old patterns may perform poorly on new patterns, so monitoring and retraining are essential for production ML systems."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from industry best practices and Google's ML Crash Course",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

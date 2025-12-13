@@ -1,0 +1,116 @@
+{
+  "id": "practical-ai-02",
+  "title": "Working with Data: Collection and Preprocessing",
+  "topic": "Practical AI",
+  "difficulty": "beginner",
+  "duration": 11,
+  "prerequisites": ["practical-ai-01"],
+  "objectives": [
+    "Learn strategies for collecting high-quality training data",
+    "Master essential data cleaning and preprocessing techniques",
+    "Understand how to handle missing values and outliers effectively"
+  ],
+  "content": {
+    "introduction": "Data is the fuel of machine learning. A sophisticated algorithm with poor data will underperform a simple algorithm with good data. In this lesson, we'll explore practical techniques for collecting, cleaning, and preparing data for machine learning. These unglamorous but critical skills separate successful ML projects from failed ones.",
+
+    "sections": [
+      {
+        "title": "Data Sources and Collection Strategies",
+        "content": "Before you can train a model, you need data. Where you get it and how you collect it significantly impacts your project's success.\n\n**Internal data sources**:\n- **Databases**: Transaction records, customer data, inventory logs\n- **Application logs**: User behavior, error logs, performance metrics\n- **Sensors/IoT**: Temperature readings, GPS coordinates, accelerometer data\n- **User-generated content**: Reviews, comments, uploaded images\n\n**External data sources**:\n- **Public datasets**: Kaggle, UCI ML Repository, government open data\n- **APIs**: Weather data, financial data, social media\n- **Web scraping**: Extracting data from websites (check legal/ethical guidelines)\n- **Third-party data vendors**: Purchased datasets for specific domains\n\n**Labeling strategies**:\nMany ML tasks need labeled data (supervised learning).\n- **Manual labeling**: Hire annotators (expensive but high quality)\n- **Crowdsourcing**: Amazon Mechanical Turk, Scale AI (cheaper, needs quality control)\n- **Semi-supervised**: Label small subset, use model to help label rest\n- **Weak supervision**: Use heuristics or existing models to generate noisy labels\n- **Active learning**: Model identifies most valuable examples to label\n\nRemember: Garbage in, garbage out. Invest in data quality early."
+      },
+      {
+        "title": "Understanding and Handling Missing Data",
+        "content": "Real-world data is messy. Missing values are one of the most common issues you'll face.\n\n**Why data is missing**:\n- **Randomly**: Sensor failure, user skipped optional field\n- **Systematically**: Certain users never provide phone numbers, older records lack new fields\n- **Informative**: Missing itself is meaningful (no income reported might indicate unemployment)\n\n**Strategies for handling missing values**:\n\n**1. Deletion**:\n- Drop rows with any missing values (simple but loses data)\n- Drop columns with too many missing values\n- Only viable when you have abundant data and missing is random\n\n**2. Imputation**:\n- **Mean/median**: Replace with average (for numerical features)\n- **Mode**: Replace with most common value (for categorical features)\n- **Forward/backward fill**: Use previous/next value (for time series)\n- **Model-based**: Predict missing values using other features\n\n**3. Create indicator**:\n- Keep original feature, add a 'was_missing' flag\n- Lets model learn if missingness is informative\n\n**Best practice**: Try multiple approaches and validate which works best for your specific data and task."
+      },
+      {
+        "title": "Dealing with Outliers and Anomalies",
+        "content": "Outliers are data points that differ significantly from others. They can be errors or genuine extreme values.\n\n**Identifying outliers**:\n- **Visualization**: Box plots, scatter plots reveal unusual values\n- **Statistical methods**: Values beyond 3 standard deviations from mean\n- **IQR method**: Values below Q1 - 1.5×IQR or above Q3 + 1.5×IQR\n- **Domain knowledge**: Age = 200 years is obviously wrong\n\n**What to do with outliers**:\n\n**1. Investigate first**:\nIs it an error (typo, sensor malfunction) or a real extreme value?\n\n**2. Errors → Remove or correct**:\nAge = 999 is clearly a data entry error\n\n**3. Real outliers → Consider carefully**:\n- **Keep them**: If they represent important cases (fraud detection needs fraud examples)\n- **Cap/floor**: Limit values to reasonable range (incomes above $1M → $1M)\n- **Transform**: Log transformation reduces impact of extremes\n- **Separate model**: Build special model for outliers\n\n**Example — House prices**:\nA $50 million mansion is real but rare. Capping it might lose information, but including it might skew your model. Log-transforming price often works well: log($100K) and log($50M) are closer than raw values.\n\nThe right approach depends on your domain and whether outliers matter for your use case."
+      },
+      {
+        "title": "Feature Scaling and Normalization",
+        "content": "Machine learning algorithms often work better when features are on similar scales.\n\n**Why scaling matters**:\nImagine predicting house prices using:\n- Square footage: 500-5000\n- Number of bedrooms: 1-5\n- Price per square foot: $100-$1000\n\nAlgorithms using distance (k-NN, k-means) or gradient descent (linear regression, neural networks) will be dominated by the feature with the largest scale.\n\n**Scaling techniques**:\n\n**1. Standardization (Z-score normalization)**:\nTransform to mean=0, standard deviation=1\nNew value = (original - mean) / standard_deviation\n- Results in values roughly between -3 and +3\n- Preserves outliers\n- Good default choice\n\n**2. Min-Max scaling**:\nTransform to a fixed range, typically [0, 1]\nNew value = (original - min) / (max - min)\n- All values fall in [0, 1]\n- Sensitive to outliers (one extreme value affects everything)\n- Good when you need bounded range\n\n**3. Robust scaling**:\nUse median and IQR instead of mean and std\n- Less affected by outliers\n- Good when data has extreme values\n\n**Important**: Fit the scaler on training data only, then apply to validation and test data. Never fit on test data or you'll leak information."
+      },
+      {
+        "title": "Encoding Categorical Variables",
+        "content": "Machine learning models need numbers, but many features are categorical (color, country, product type). How do you convert them?\n\n**1. Label Encoding**:\nAssign each category a number: Red=0, Blue=1, Green=2\n- Simple and compact\n- Problem: Implies ordering (Blue > Red) which doesn't exist\n- Only use for ordinal features (Small=0, Medium=1, Large=2)\n\n**2. One-Hot Encoding**:\nCreate binary column for each category\n- Color_Red: [1, 0, 0]\n- Color_Blue: [0, 1, 0]\n- Color_Green: [0, 0, 1]\n- No false ordering implied\n- Problem: High cardinality (many categories) creates many columns\n- Good default for categorical features\n\n**3. Target/Mean Encoding**:\nReplace category with average target value for that category\n- Color_Red → average price of red items\n- Risk of overfitting\n- Needs careful cross-validation\n\n**4. Embedding Encoding**:\nLearn dense representations (like word embeddings)\n- Useful for high-cardinality features (user IDs, product IDs)\n- Requires neural network\n\n**Best practice**: Use one-hot encoding as default. Consider embeddings for very high cardinality or when using neural networks.\n\nRemember to handle unseen categories in test data — add an 'unknown' category or fall back to a default."
+      }
+    ],
+
+    "summary": "Effective data work involves collecting from diverse sources, handling missing values through deletion or imputation, dealing with outliers carefully based on domain knowledge, scaling features to similar ranges, and encoding categorical variables appropriately. The right preprocessing choices depend on your data characteristics and the algorithms you're using. Always fit preprocessing on training data and apply to test data to avoid data leakage.",
+
+    "keyTakeaways": [
+      "Data quality matters more than algorithm sophistication — invest in good data",
+      "Handle missing values through deletion, imputation, or creating missingness indicators",
+      "Scale features using standardization or min-max to help algorithms converge",
+      "Encode categorical variables with one-hot encoding by default, embeddings for high cardinality"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "When should you delete rows with missing values?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Always — missing data is useless",
+        "B: When you have abundant data and missing values are random, so deletion doesn't create bias",
+        "C: Never — always keep all data",
+        "D: Only for categorical features"
+      ],
+      "correct": "B",
+      "explanation": "Deletion is appropriate when: (1) you have enough data that losing some rows doesn't hurt, and (2) missingness is random (not systematic). If missing values are informative or data is limited, imputation or creating missingness indicators is better."
+    },
+    {
+      "id": "q2",
+      "question": "Why is feature scaling important for many machine learning algorithms?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes the data take less storage space",
+        "B: Algorithms using distance or gradient descent work better when features are on similar scales",
+        "C: It's required by law",
+        "D: It removes all outliers"
+      ],
+      "correct": "B",
+      "explanation": "Many algorithms (k-NN, k-means, linear regression, neural networks) use distances or gradient descent, which are affected by feature magnitude. If one feature ranges from 0-10000 and another from 0-1, the larger scale dominates. Scaling puts features on similar scales for fair treatment."
+    },
+    {
+      "id": "q3",
+      "question": "What's the main problem with using label encoding (Red=0, Blue=1, Green=2) for categorical features?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It takes too much computation time",
+        "B: It implies a false ordering relationship between categories (Blue > Red)",
+        "C: It can't handle more than 10 categories",
+        "D: It only works for colors"
+      ],
+      "correct": "B",
+      "explanation": "Label encoding assigns numbers (0, 1, 2...) to categories, which implies an ordering: Blue (1) > Red (0) < Green (2). For nominal categories like color, this ordering is meaningless and can mislead models. One-hot encoding avoids this by creating independent binary features."
+    },
+    {
+      "id": "q4",
+      "question": "When fitting a scaler for feature scaling, what's the correct approach?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Fit the scaler on all your data including test set",
+        "B: Fit the scaler only on training data, then apply the same transformation to validation and test data",
+        "C: Fit separate scalers for training, validation, and test sets",
+        "D: Scaling doesn't need to be fitted"
+      ],
+      "correct": "B",
+      "explanation": "You must fit the scaler only on training data to avoid data leakage. If you fit on the test set, you're using information from data the model shouldn't see. The correct approach: fit on training data, then apply that same transformation to validation and test data using the training statistics."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from scikit-learn documentation and industry best practices",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

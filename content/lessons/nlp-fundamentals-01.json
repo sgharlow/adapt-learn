@@ -1,0 +1,116 @@
+{
+  "id": "nlp-fundamentals-01",
+  "title": "Introduction to Natural Language Processing",
+  "topic": "NLP Fundamentals",
+  "difficulty": "intermediate",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "objectives": [
+    "Understand what Natural Language Processing is and why it's challenging",
+    "Learn the basic steps of text preprocessing",
+    "Recognize the fundamental problems NLP aims to solve"
+  ],
+  "content": {
+    "introduction": "Natural Language Processing, or NLP, is the field of AI that helps computers understand, interpret, and generate human language. From chatbots to translation services, NLP powers some of the most impressive AI applications today. In this lesson, we'll explore what makes language processing so challenging and how machines begin to tackle it.",
+
+    "sections": [
+      {
+        "title": "What is Natural Language Processing?",
+        "content": "Natural Language Processing is the intersection of computer science, artificial intelligence, and linguistics. It focuses on enabling computers to process and understand human language in a meaningful way.\n\nUnlike structured data (like spreadsheets or databases), human language is messy, ambiguous, and context-dependent. The same sentence can mean different things depending on tone, context, or even punctuation. For example, 'Let's eat, Grandma' versus 'Let's eat Grandma' — a comma completely changes the meaning!\n\nNLP applications include:\n- Machine translation (Google Translate)\n- Sentiment analysis (understanding if a review is positive or negative)\n- Chatbots and virtual assistants (Siri, Alexa)\n- Text summarization and question answering\n- Speech recognition and text-to-speech"
+      },
+      {
+        "title": "Why is NLP So Challenging?",
+        "content": "Human language presents unique challenges that don't exist in other ML domains:\n\n**Ambiguity**: Words can have multiple meanings. 'Bank' could mean a financial institution or the side of a river.\n\n**Context-dependence**: Understanding requires context. 'It's sick!' could be negative (about illness) or positive (slang for cool).\n\n**Variability**: People express the same idea in countless ways. 'I love this' and 'This is amazing' convey similar sentiment.\n\n**Implicit meaning**: Much is left unsaid. 'Can you pass the salt?' is technically a yes/no question, but it's understood as a request.\n\n**Cultural and temporal changes**: Language evolves. Slang, idioms, and word meanings change over time and across cultures.\n\nThese challenges make NLP one of the most complex and fascinating areas of AI research."
+      },
+      {
+        "title": "Text Preprocessing: Getting Text Ready",
+        "content": "Before we can apply machine learning to text, we need to clean and prepare it. This process is called preprocessing, and it's crucial for good NLP results.\n\n**Lowercasing**: Convert all text to lowercase so 'Apple' and 'apple' are treated the same (unless case matters for your task).\n\n**Removing punctuation and special characters**: Strip out punctuation marks, unless they're meaningful for your analysis.\n\n**Removing stop words**: Common words like 'the', 'is', 'and' often don't add meaning and can be removed.\n\n**Stemming and Lemmatization**: Reduce words to their root form. 'Running', 'runs', and 'ran' all become 'run'. Stemming is crude (cuts word endings), while lemmatization is smarter (uses language rules).\n\nThe right preprocessing depends on your task. For sentiment analysis, you might keep punctuation like '!!!' since it signals strong emotion. For topic modeling, you'd likely remove it."
+      },
+      {
+        "title": "Tokenization: Breaking Text into Pieces",
+        "content": "Tokenization is the process of breaking text into smaller units called tokens. These are typically words, but can also be characters, subwords, or sentences.\n\n**Word tokenization**: Split text into individual words. 'I love NLP' becomes ['I', 'love', 'NLP']. Seems simple, but what about 'don't' or 'New York'?\n\n**Sentence tokenization**: Split text into sentences. Useful for tasks that operate on sentence-level meaning.\n\n**Subword tokenization**: Modern approaches like Byte-Pair Encoding (BPE) split text into subword units. This handles rare words better — 'unhappiness' might become ['un', 'happiness'].\n\nWhy does this matter? Machine learning models need consistent input. By tokenizing, we convert messy text into structured tokens that models can process. The quality of tokenization directly impacts model performance."
+      },
+      {
+        "title": "From Text to Numbers: The Core Challenge",
+        "content": "Machine learning models work with numbers, not words. The central challenge of NLP is converting text into numerical representations that preserve meaning.\n\nThis is harder than it sounds. We need representations where:\n- Similar words have similar numbers (so the model knows 'happy' and 'joyful' are related)\n- The representation captures context (so 'bank' near 'river' differs from 'bank' near 'money')\n- Relationships are preserved (like 'king' - 'man' + 'woman' = 'queen')\n\nEarly approaches like one-hot encoding treated each word as completely independent. Modern approaches like word embeddings (which we'll cover in the next lesson) create rich representations that capture semantic meaning.\n\nThis transformation from text to numbers is where the magic of NLP happens — and it's what enables computers to truly 'understand' language."
+      }
+    ],
+
+    "summary": "Natural Language Processing enables computers to understand and work with human language, which is inherently ambiguous and context-dependent. Success requires careful preprocessing — including lowercasing, removing stop words, and stemming — followed by tokenization to break text into processable units. The ultimate challenge is converting words into numerical representations that preserve meaning, which is essential for applying machine learning to language tasks.",
+
+    "keyTakeaways": [
+      "NLP deals with the inherent complexity and ambiguity of human language",
+      "Preprocessing steps like lowercasing and removing stop words prepare text for analysis",
+      "Tokenization breaks text into units (words, sentences, or subwords)",
+      "Converting text to meaningful numbers is the core technical challenge"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Why is natural language processing more challenging than processing structured data?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Language requires more storage space",
+        "B: Language is ambiguous, context-dependent, and constantly evolving",
+        "C: There aren't enough text datasets available",
+        "D: Computers can't process letters, only numbers"
+      ],
+      "correct": "B",
+      "explanation": "Human language is uniquely challenging because it's ambiguous (words have multiple meanings), context-dependent (meaning changes based on situation), and constantly evolving. These properties don't exist in structured data like spreadsheets."
+    },
+    {
+      "id": "q2",
+      "question": "What is the purpose of tokenization in NLP?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To make text longer and more detailed",
+        "B: To break text into smaller units like words or subwords for processing",
+        "C: To encrypt text for security",
+        "D: To translate text into another language"
+      ],
+      "correct": "B",
+      "explanation": "Tokenization breaks text into smaller, manageable units (tokens) — typically words, subwords, or sentences. This creates consistent input that machine learning models can process effectively."
+    },
+    {
+      "id": "q3",
+      "question": "When preprocessing text, why might you remove stop words like 'the', 'is', and 'and'?",
+      "type": "multiple_choice",
+      "options": [
+        "A: They are grammatically incorrect",
+        "B: They appear frequently but often don't contribute meaningful content to analysis",
+        "C: They are too difficult for models to process",
+        "D: They always confuse machine learning models"
+      ],
+      "correct": "B",
+      "explanation": "Stop words are common words that appear frequently but typically don't add semantic meaning for tasks like topic modeling or sentiment analysis. Removing them can improve model focus on meaningful content — though for some tasks, they should be kept."
+    },
+    {
+      "id": "q4",
+      "question": "What is the fundamental challenge that all NLP systems must solve?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Making computers talk like humans",
+        "B: Converting text into numerical representations that preserve meaning",
+        "C: Creating larger datasets",
+        "D: Translating every language into English first"
+      ],
+      "correct": "B",
+      "explanation": "The core challenge is converting words (text) into numbers that machine learning models can process, while preserving the semantic meaning and relationships between words. This transformation enables computers to mathematically reason about language."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS224N and Hugging Face NLP Course",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

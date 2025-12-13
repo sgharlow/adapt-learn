@@ -1,0 +1,116 @@
+{
+  "id": "nlp-fundamentals-04",
+  "title": "NLP Applications: Sentiment, NER, and Classification",
+  "topic": "NLP Fundamentals",
+  "difficulty": "intermediate",
+  "duration": 11,
+  "prerequisites": ["nlp-fundamentals-01", "nlp-fundamentals-02"],
+  "objectives": [
+    "Understand key practical NLP tasks and their real-world applications",
+    "Learn how sentiment analysis works and why it's challenging",
+    "Grasp the fundamentals of named entity recognition and text classification"
+  ],
+  "content": {
+    "introduction": "Understanding language theory is important, but NLP's real power comes from practical applications that solve real problems. In this lesson, we'll explore three fundamental NLP tasks: sentiment analysis, named entity recognition, and text classification. These form the building blocks for countless AI applications you interact with daily.",
+
+    "sections": [
+      {
+        "title": "Sentiment Analysis: Understanding Emotions in Text",
+        "content": "Sentiment analysis determines the emotional tone behind text — whether it's positive, negative, or neutral. It's one of the most common NLP applications.\n\n**Common use cases**:\n- **Social media monitoring**: Track brand reputation by analyzing tweets and posts\n- **Product reviews**: Automatically categorize reviews and identify problems\n- **Customer support**: Prioritize angry customers or identify satisfaction trends\n- **Market research**: Analyze customer feedback at scale\n\n**The basic approach**:\n1. Collect labeled examples (reviews marked positive/negative)\n2. Convert text to numerical features (using techniques from lesson 2)\n3. Train a classifier (could be logistic regression, SVM, or neural network)\n4. Predict sentiment on new text\n\n**Why it's hard**:\n- Sarcasm: 'Oh great, another delay' (negative, but contains 'great')\n- Context: 'This movie is not good' vs 'This movie is not bad'\n- Domain-specific language: 'This drug is aggressive' (positive in medical context)\n- Mixed sentiments: 'Great product, terrible customer service'"
+      },
+      {
+        "title": "Advanced Sentiment: Aspect-Based and Beyond",
+        "content": "Modern sentiment analysis goes beyond simple positive/negative classification.\n\n**Aspect-based sentiment analysis**:\nInstead of overall sentiment, identify sentiment toward specific aspects.\n\nReview: 'The food was amazing but the service was terrible.'\n- Food: Positive\n- Service: Negative\n- Overall: Mixed\n\nThis is far more useful for businesses trying to improve specific areas.\n\n**Emotion detection**:\nGo beyond positive/negative to detect specific emotions: joy, anger, sadness, fear, surprise.\n\n**Intensity/Degree**:\nNot just 'positive', but how positive?\n- 'It's okay' (mildly positive)\n- 'It's good' (moderately positive)\n- 'It's amazing!' (very positive)\n\n**Modern approaches**:\nPre-trained language models like BERT can be fine-tuned on sentiment data with minimal examples, achieving state-of-the-art results. Transfer learning has made sentiment analysis much more accessible and accurate."
+      },
+      {
+        "title": "Named Entity Recognition: Finding Key Information",
+        "content": "Named Entity Recognition (NER) identifies and classifies named entities in text — people, organizations, locations, dates, and more.\n\n**Example**: 'Apple Inc. announced a new iPhone in Cupertino on September 12.'\n- Apple Inc. → ORGANIZATION\n- iPhone → PRODUCT\n- Cupertino → LOCATION\n- September 12 → DATE\n\n**Why NER matters**:\n- **Information extraction**: Automatically extract structured data from documents\n- **Search engines**: Improve search by understanding entities\n- **Question answering**: 'Where was the iPhone announced?' → 'Cupertino'\n- **Content organization**: Tag news articles by people and organizations mentioned\n\n**How it works**:\nNER is typically framed as a sequence labeling problem. For each word, predict its entity type (or 'not an entity').\n\nCommon tagging scheme (BIO):\n- B-PER: Beginning of person name\n- I-PER: Inside person name\n- O: Not an entity\n\n'[Barack B-PER] [Obama I-PER] visited [Paris B-LOC]'\n\nModern NER systems use neural networks (like BiLSTM-CRF or Transformers) that consider surrounding context when making predictions."
+      },
+      {
+        "title": "Text Classification: Categorizing Documents",
+        "content": "Text classification assigns documents to predefined categories. It's one of the most fundamental and widely-used NLP tasks.\n\n**Common applications**:\n- **Spam detection**: Email is spam or not spam\n- **Topic categorization**: News articles into sports, politics, technology, etc.\n- **Intent classification**: Customer query is about billing, technical support, or returns\n- **Language detection**: Identify which language a text is written in\n- **Content moderation**: Flag toxic, hateful, or inappropriate content\n\n**The classification pipeline**:\n1. **Preprocessing**: Clean and tokenize text\n2. **Feature extraction**: Convert text to numbers (TF-IDF, embeddings, etc.)\n3. **Model training**: Use labeled examples to train a classifier\n4. **Prediction**: Classify new documents\n\n**Traditional approaches**:\n- Naive Bayes: Fast, works well with small datasets\n- Logistic Regression: Simple but effective baseline\n- SVM: Works well with TF-IDF features\n\n**Modern deep learning**:\n- CNN for text: Capture local patterns\n- RNN/LSTM: Model sequences\n- Transformers: State-of-the-art results with pre-training"
+      },
+      {
+        "title": "Putting It All Together: Real-World Systems",
+        "content": "In practice, real-world NLP systems often combine multiple tasks.\n\n**Customer support automation**:\n1. **Intent classification**: What is the customer asking about?\n2. **Sentiment analysis**: How urgent/angry is the customer?\n3. **NER**: Extract account numbers, product names, dates\n4. **Response generation**: Generate or select appropriate response\n\n**Content analysis platform**:\n1. **Topic classification**: Categorize articles\n2. **NER**: Extract people, organizations, locations\n3. **Sentiment**: Determine article tone\n4. **Summarization**: Generate headlines or abstracts\n\n**Key considerations for production**:\n- **Accuracy vs. speed**: Real-time applications may need faster, simpler models\n- **Domain adaptation**: Models trained on news may not work well on tweets\n- **Class imbalance**: Spam is rare, so you might have 100 legitimate emails for every spam\n- **Evaluation**: Choose metrics that match your goals (precision vs. recall trade-offs)\n\nThe best approach depends on your specific use case, available data, and computational resources. Often, a simple model that's well-tuned to your domain outperforms a complex general-purpose model."
+      }
+    ],
+
+    "summary": "Practical NLP applications solve real-world problems through tasks like sentiment analysis (understanding emotional tone), named entity recognition (extracting people, places, organizations), and text classification (categorizing documents). Modern systems often combine multiple NLP tasks and use transfer learning with pre-trained models for better accuracy. Success in production requires balancing accuracy, speed, and domain-specific tuning.",
+
+    "keyTakeaways": [
+      "Sentiment analysis determines emotional tone but must handle sarcasm and context",
+      "Named Entity Recognition extracts structured information like people and places",
+      "Text classification assigns documents to categories for tasks like spam detection",
+      "Real-world systems combine multiple NLP tasks to solve complex problems"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What makes sentiment analysis challenging?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Text is too short",
+        "B: Sarcasm, context-dependence, and mixed sentiments make it difficult to determine true emotional tone",
+        "C: There aren't enough sentiment labels available",
+        "D: Only positive and negative sentiments exist"
+      ],
+      "correct": "B",
+      "explanation": "Sentiment analysis is challenging because human language is complex. Sarcasm can flip meaning ('Oh great, another delay' is negative), context matters ('not bad' vs 'not good'), and single texts can have mixed sentiments ('great product, terrible service'). These nuances are hard for models to capture."
+    },
+    {
+      "id": "q2",
+      "question": "What is the purpose of Named Entity Recognition (NER)?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To translate text into other languages",
+        "B: To identify and classify named entities like people, organizations, and locations in text",
+        "C: To measure how long a document is",
+        "D: To correct spelling mistakes"
+      ],
+      "correct": "B",
+      "explanation": "NER identifies and classifies named entities in text — specific instances of people (Barack Obama), organizations (Apple Inc.), locations (Paris), dates, and more. This enables extracting structured information from unstructured text for applications like information extraction and question answering."
+    },
+    {
+      "id": "q3",
+      "question": "In aspect-based sentiment analysis, what advantage does it have over simple sentiment classification?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It's faster to compute",
+        "B: It identifies sentiment toward specific aspects rather than overall sentiment, revealing nuanced opinions",
+        "C: It only works with positive reviews",
+        "D: It doesn't require training data"
+      ],
+      "correct": "B",
+      "explanation": "Aspect-based sentiment analysis breaks down sentiment by specific aspects. A restaurant review might say 'great food but terrible service' — overall sentiment is unclear, but aspect-based analysis correctly identifies positive sentiment for food and negative for service. This is more actionable for improvement."
+    },
+    {
+      "id": "q4",
+      "question": "Which of these is an example of text classification?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Categorizing emails as spam or not spam",
+        "B: Translating English to Spanish",
+        "C: Generating a story from a prompt",
+        "D: Converting speech to text"
+      ],
+      "correct": "A",
+      "explanation": "Text classification assigns documents to predefined categories. Spam detection is a classic example — given an email, classify it as 'spam' or 'not spam'. Other examples include topic categorization, intent classification, and content moderation. The other options are different NLP tasks (translation, generation, speech recognition)."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS224N and industry best practices",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}
