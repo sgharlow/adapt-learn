@@ -1,0 +1,117 @@
+{
+  "id": "ml-fundamentals-03",
+  "title": "How Machines Learn: Training and Testing",
+  "topic": "ML Fundamentals",
+  "difficulty": "beginner",
+  "duration": 9,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "objectives": [
+    "Understand the training process in machine learning",
+    "Learn why we split data into training and testing sets",
+    "Recognize the problem of overfitting and how to avoid it"
+  ],
+  "content": {
+    "introduction": "How does a machine actually learn from data? And how do we know if it's learned something useful or just memorized the answers? In this lesson, we'll explore the learning process and discover why testing is just as important as training.",
+
+    "sections": [
+      {
+        "title": "The Learning Process: An Analogy",
+        "content": "Imagine you're studying for a math exam. You practice with problems from your textbook, learning the patterns and techniques. But if the exam only asks those exact same problems, it's not testing if you understand math — it's testing if you memorized the answers.\n\nMachine learning works the same way:\n\n**Training** - Like practicing with textbook problems\n- The model sees examples and learns patterns\n- It adjusts itself to make better predictions\n- This is where the actual learning happens\n\n**Testing** - Like taking the real exam\n- The model faces new examples it hasn't seen\n- We measure how well it performs\n- This tells us if it really learned or just memorized\n\nThe key insight: We must keep some data hidden during training to fairly test the model's ability to generalize to new situations."
+      },
+      {
+        "title": "The Train-Test Split",
+        "content": "To evaluate a model properly, we split our data into separate sets:\n\n**Training Set (typically 70-80% of data)**\n- Used to teach the model\n- The model sees the inputs and correct outputs\n- It adjusts its parameters to improve performance\n\n**Test Set (typically 20-30% of data)**\n- Held back until training is complete\n- Used to evaluate final performance\n- The model never sees this during training\n\nThink of it like this: if you have 1,000 cat and dog photos, you might use 800 to train the model and keep 200 hidden to test if it can really distinguish cats from dogs it hasn't seen before.\n\nSometimes we add a third set — a **validation set** — used during training to tune settings without contaminating the final test set."
+      },
+      {
+        "title": "The Training Loop: How Learning Happens",
+        "content": "Here's what happens inside the training process:\n\n1. **Initialize**: Start with random guesses (the model knows nothing)\n\n2. **Predict**: Make predictions on training examples\n\n3. **Measure Error**: Compare predictions to correct answers\n- If predicting cat but answer is dog, that's an error\n- Calculate how wrong the predictions are\n\n4. **Adjust**: Update the model to reduce the error\n- This is the 'learning' step\n- The model tweaks its internal parameters\n\n5. **Repeat**: Go through all examples multiple times\n- Each pass through the data is called an 'epoch'\n- Typically train for many epochs until improvement plateaus\n\nThink of it like adjusting the sights on a rifle — you take a shot, see where it landed, adjust, and try again. Gradually, you zero in on the target."
+      },
+      {
+        "title": "The Danger of Overfitting",
+        "content": "Overfitting is one of the biggest challenges in machine learning. It happens when a model learns the training data too well — including all its quirks and noise — and fails to generalize to new data.\n\nReal-world analogy: A student who memorizes every practice problem perfectly but can't solve new problems on the exam has overfitted to the practice set.\n\nSigns of overfitting:\n- Very high accuracy on training data (98%+)\n- Much lower accuracy on test data (60%)\n- The gap reveals the model memorized rather than understood\n\nCauses:\n- Training for too long\n- Model is too complex for the amount of data\n- Not enough variety in training data\n\nThe solution is to find the right balance — learning the true patterns without memorizing noise."
+      },
+      {
+        "title": "Preventing Overfitting",
+        "content": "Several strategies help prevent overfitting:\n\n**1. More Training Data**\n- Harder to memorize 10,000 examples than 100\n- More data shows the model what truly matters\n\n**2. Simpler Models**\n- Use only as much complexity as needed\n- Start simple, add complexity only if necessary\n\n**3. Regularization**\n- Penalize the model for being too complex\n- Forces it to focus on the strongest patterns\n\n**4. Early Stopping**\n- Stop training when performance on validation data stops improving\n- Don't train longer than necessary\n\n**5. Data Augmentation**\n- Create variations of training examples\n- For images: rotate, flip, zoom, crop\n- Teaches the model to be robust to variations\n\nThe goal is a model that performs well on both training AND test data — evidence it learned generalizable patterns, not just memorized examples."
+      }
+    ],
+
+    "summary": "Machine learning involves training a model on one set of data and testing it on unseen data to ensure it has learned generalizable patterns. We split data into training and test sets to fairly evaluate performance. During training, the model iteratively makes predictions, measures errors, and adjusts to improve. The key challenge is avoiding overfitting — when a model memorizes training data but fails on new examples. Strategies like using more data, simpler models, and early stopping help create models that truly understand patterns rather than just memorizing answers.",
+
+    "keyTakeaways": [
+      "Split data into training (learn) and test (evaluate) sets",
+      "Training is an iterative process: predict, measure error, adjust",
+      "Overfitting means memorizing training data, not learning patterns",
+      "Good models perform well on both training AND test data",
+      "Prevent overfitting with more data, simpler models, and early stopping"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Why do we split data into training and test sets?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To make the training faster",
+        "B: To evaluate if the model can generalize to new, unseen data",
+        "C: To use less data",
+        "D: Because we have too much data"
+      ],
+      "correct": "B",
+      "explanation": "We split data to create a fair test. If we evaluated on the same data used for training, we couldn't tell if the model learned patterns or just memorized answers. The test set, hidden during training, reveals if the model can generalize to new situations."
+    },
+    {
+      "id": "q2",
+      "question": "A model achieves 99% accuracy on training data but only 65% on test data. What's the problem?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model is perfect",
+        "B: The model is underfitting",
+        "C: The model is overfitting",
+        "D: There's not enough training data"
+      ],
+      "correct": "C",
+      "explanation": "This is a classic sign of overfitting. The large gap between training accuracy (99%) and test accuracy (65%) suggests the model memorized the training examples rather than learning generalizable patterns. It performs great on what it's seen but poorly on new data."
+    },
+    {
+      "id": "q3",
+      "question": "What happens during one iteration of the training loop?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model makes predictions, measures errors, and adjusts to improve",
+        "B: The model is tested on new data",
+        "C: The data is split into train and test sets",
+        "D: The model is saved to disk"
+      ],
+      "correct": "A",
+      "explanation": "Each training iteration (or step) follows this cycle: make predictions on training data, calculate how wrong they are (error/loss), and adjust the model's parameters to reduce that error. This cycle repeats many times until the model converges on good predictions."
+    },
+    {
+      "id": "q4",
+      "question": "Which of these is NOT a good strategy to prevent overfitting?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Using more training data",
+        "B: Training for as long as possible",
+        "C: Using a simpler model",
+        "D: Stopping training when validation performance stops improving"
+      ],
+      "correct": "B",
+      "explanation": "Training for as long as possible often CAUSES overfitting. The model will keep adjusting to fit the training data better and better, including its noise and quirks. Instead, use early stopping — halt training when the model stops improving on validation data."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google ML Crash Course and Andrew Ng's ML course",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

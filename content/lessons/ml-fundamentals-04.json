@@ -1,0 +1,117 @@
+{
+  "id": "ml-fundamentals-04",
+  "title": "Features and Labels: The Building Blocks",
+  "topic": "ML Fundamentals",
+  "difficulty": "beginner",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03"],
+  "objectives": [
+    "Understand what features and labels are in machine learning",
+    "Learn how to identify good features for a problem",
+    "Recognize the importance of feature engineering"
+  ],
+  "content": {
+    "introduction": "Every machine learning problem starts with data, but not all data is created equal. How you represent your data — what features you choose and how you prepare them — often matters more than which algorithm you use. Let's explore the building blocks that turn raw data into machine learning gold.",
+
+    "sections": [
+      {
+        "title": "Features: The Input Variables",
+        "content": "Features are the input variables that describe your data. They're the characteristics or properties that the model uses to make predictions.\n\nThink of features like clues in a detective story:\n\n**Predicting house prices?**\n- Features: square footage, number of bedrooms, location, age, lot size\n- Each feature is a clue about what the house might be worth\n\n**Detecting spam email?**\n- Features: sender address, word frequency, has attachments, time sent\n- Each feature helps distinguish spam from legitimate mail\n\n**Recognizing handwritten digits?**\n- Features: pixel values in the image\n- Each pixel brightness is a feature\n\nFeatures can be:\n- **Numerical**: age (35), price ($250,000), temperature (72.5)\n- **Categorical**: color (red/blue/green), country (USA/Canada/Mexico)\n- **Binary**: has_pool (yes/no), is_urgent (true/false)"
+      },
+      {
+        "title": "Labels: The Output We're Predicting",
+        "content": "The label (also called target or outcome) is what you're trying to predict. It's the answer to your question.\n\nIn supervised learning:\n- **Features** are what you know (the inputs)\n- **Label** is what you want to predict (the output)\n\nExamples:\n\n**Email Spam Detection**\n- Features: email content, sender, subject line\n- Label: spam or not spam\n\n**Medical Diagnosis**\n- Features: symptoms, test results, patient history\n- Label: disease present or not\n\n**Stock Price Prediction**\n- Features: historical prices, trading volume, market indicators\n- Label: tomorrow's price\n\nDuring training, the model sees both features AND labels. During prediction (after training), it sees only features and must predict the label."
+      },
+      {
+        "title": "The Art of Feature Selection",
+        "content": "Choosing the right features is crucial. Good features make learning easy; poor features make it impossible.\n\n**What makes a good feature?**\n\n1. **Relevance** - It should actually relate to what you're predicting\n- House size matters for price; owner's favorite color doesn't\n\n2. **Availability** - You must have it at prediction time\n- Can't use 'actual sale price' to predict sale price!\n\n3. **Measurability** - You can capture it consistently\n- 'Number of bedrooms' is clear; 'house feels cozy' is not\n\n4. **Non-redundant** - Avoid features that duplicate information\n- Area in sq ft and sq meters carry the same information\n\n5. **Sufficient signal** - Contains meaningful patterns\n- Random noise won't help predictions\n\nMore features isn't always better. Too many irrelevant features can confuse the model and slow down training. Start with features you believe matter, then experiment."
+      },
+      {
+        "title": "Feature Engineering: Creating Better Features",
+        "content": "Feature engineering is the process of transforming raw data into features that better represent the underlying problem. It's often where the real magic happens.\n\n**Common techniques:**\n\n**1. Combining features**\n- Raw: length and width\n- Engineered: area = length × width\n- Why: Area might be more predictive than dimensions alone\n\n**2. Extracting from dates**\n- Raw: '2025-12-25'\n- Engineered: day_of_week (Thursday), month (December), is_holiday (yes)\n- Why: Temporal patterns often matter\n\n**3. Binning numerical values**\n- Raw: age (exact number)\n- Engineered: age_group (child/teen/adult/senior)\n- Why: Sometimes ranges matter more than exact values\n\n**4. Text to numbers**\n- Raw: product review text\n- Engineered: word counts, sentiment score, length\n- Why: Models need numbers, not text\n\n**5. Normalization**\n- Raw: salary ($20,000-$500,000), age (0-100)\n- Engineered: scale both to 0-1 range\n- Why: Prevents large numbers from dominating small ones\n\nGood feature engineering can dramatically improve model performance."
+      },
+      {
+        "title": "Feature Engineering in Practice",
+        "content": "Let's see feature engineering in action with a real example:\n\n**Problem**: Predict customer churn (will they cancel their subscription?)\n\n**Raw data available:**\n- Account creation date\n- Last login timestamp\n- Monthly usage hours\n- Support tickets opened\n- Payment history\n\n**Engineered features:**\n- Days_since_signup = today - account_creation_date\n- Days_since_last_login = today - last_login\n- Usage_trend = this_month_hours / last_month_hours\n- Support_ticket_rate = tickets / months_active\n- Missed_payment_count = number of late/failed payments\n- Engagement_score = weighted combination of logins and usage\n\nThese engineered features often predict churn much better than the raw data because they capture relevant patterns:\n- Declining usage suggests dissatisfaction\n- Long time since login indicates disengagement\n- Payment issues are clear warning signs\n\nFeature engineering requires domain knowledge — understanding the problem helps you create features that matter."
+      }
+    ],
+
+    "summary": "Features are the input variables that describe your data, while labels are what you're trying to predict. Choosing good features — relevant, measurable, and available — is crucial for ML success. Feature engineering transforms raw data into more predictive features through techniques like combining variables, extracting temporal information, binning values, and normalization. Often, creative feature engineering improves model performance more than choosing a fancier algorithm. The key is understanding your problem domain well enough to create features that capture meaningful patterns.",
+
+    "keyTakeaways": [
+      "Features are inputs (what you know); labels are outputs (what you predict)",
+      "Good features are relevant, measurable, available, and non-redundant",
+      "More features isn't always better — quality over quantity",
+      "Feature engineering transforms raw data into more predictive features",
+      "Domain knowledge is essential for creating meaningful features"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "You're building a model to predict whether a student will pass an exam. Which of these would be a good feature?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The actual exam score (what we're trying to predict)",
+        "B: Hours studied, previous grades, attendance rate",
+        "C: The student's favorite color",
+        "D: How the teacher feels about the student"
+      ],
+      "correct": "B",
+      "explanation": "Option B contains relevant, measurable features that logically relate to exam performance. Option A is the label (what we're predicting), so it can't be a feature. Options C and D are either irrelevant (favorite color) or unmeasurable/unavailable (teacher's feelings)."
+    },
+    {
+      "id": "q2",
+      "question": "What is feature engineering?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Building physical features into products",
+        "B: Transforming raw data into more predictive features",
+        "C: Selecting which machine learning algorithm to use",
+        "D: Splitting data into training and test sets"
+      ],
+      "correct": "B",
+      "explanation": "Feature engineering is the process of creating new, more predictive features from raw data. This might involve combining existing features (e.g., creating 'area' from length × width), extracting information (e.g., 'day of week' from a date), or transforming values (e.g., normalization). It's often the key to improving model performance."
+    },
+    {
+      "id": "q3",
+      "question": "You have a dataset with features: square_footage (500-5000), price_dollars (50000-2000000), and bedrooms (1-6). Why might you want to normalize these features?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To make the data easier to read",
+        "B: To prevent features with larger numerical ranges from dominating the model",
+        "C: To reduce the amount of data",
+        "D: Normalization is never necessary"
+      ],
+      "correct": "B",
+      "explanation": "Normalization (scaling features to similar ranges, like 0-1) prevents features with large values (price_dollars: 50,000-2,000,000) from dominating features with small values (bedrooms: 1-6). Many ML algorithms are sensitive to feature scales, so normalization ensures all features contribute appropriately to predictions."
+    },
+    {
+      "id": "q4",
+      "question": "Which of these is an example of good feature engineering for predicting customer churn?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Using raw signup date as a feature",
+        "B: Creating a feature 'days_since_last_login' from the last login timestamp",
+        "C: Using customer's street address as a feature",
+        "D: Using the customer ID number as a feature"
+      ],
+      "correct": "B",
+      "explanation": "Creating 'days_since_last_login' is excellent feature engineering — it transforms a raw timestamp into a meaningful metric. Recent logins suggest engagement; long gaps suggest churn risk. Raw signup dates (A) are less meaningful than 'account_age', street addresses (C) have too many unique values, and customer IDs (D) are just identifiers with no predictive value."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google ML Crash Course and Kaggle Learn",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

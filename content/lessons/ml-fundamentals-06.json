@@ -1,0 +1,118 @@
+{
+  "id": "ml-fundamentals-06",
+  "title": "Common ML Algorithms: When to Use What",
+  "topic": "ML Fundamentals",
+  "difficulty": "intermediate",
+  "duration": 13,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03", "ml-fundamentals-04", "ml-fundamentals-05"],
+  "objectives": [
+    "Understand the most common machine learning algorithms",
+    "Learn the strengths and weaknesses of each algorithm",
+    "Know which algorithm to choose for different problems"
+  ],
+  "content": {
+    "introduction": "Machine learning offers dozens of algorithms, each with different strengths. Should you use a decision tree or a neural network? Random forest or logistic regression? Understanding the key algorithms and when to use them will help you solve problems more effectively and avoid common pitfalls.",
+
+    "sections": [
+      {
+        "title": "Linear Regression: The Foundation",
+        "content": "Linear regression is the simplest supervised learning algorithm for predicting continuous values. It fits a straight line (or plane in multiple dimensions) through your data.\n\n**How it works:**\n- Finds the best-fit line: y = mx + b\n- For multiple features: y = w₁x₁ + w₂x₂ + ... + b\n- 'Best fit' means minimizing the distance from points to the line\n\n**When to use:**\n- Predicting continuous outcomes (prices, temperatures, sales)\n- Relationship between variables appears linear\n- You need an interpretable model\n- You have limited data\n\n**Strengths:**\n- Fast to train\n- Easy to interpret (coefficients show feature importance)\n- Works well with small datasets\n- Baseline for comparison with complex models\n\n**Weaknesses:**\n- Only captures linear relationships\n- Sensitive to outliers\n- Assumes features are independent\n- Poor with complex, non-linear patterns\n\n**Example use cases:**\n- Predicting house prices from square footage\n- Estimating sales based on advertising spend\n- Forecasting temperature from historical data\n\nLinear regression is often underestimated — try it first before moving to complex models."
+      },
+      {
+        "title": "Logistic Regression and Decision Trees",
+        "content": "**Logistic Regression:**\nDespite the name, it's a classification algorithm (not regression!).\n\n**How it works:**\n- Uses a sigmoid function to output probabilities (0 to 1)\n- Threshold at 0.5: >0.5 = class 1, <0.5 = class 0\n- Can extend to multiple classes\n\n**When to use:**\n- Binary classification (yes/no, spam/not spam)\n- You need probability estimates, not just class labels\n- Features have roughly linear relationship with log-odds\n- You need interpretability\n\n**Strengths:**\n- Outputs well-calibrated probabilities\n- Fast training and prediction\n- Works well with many features\n- Regularization prevents overfitting\n\n**Weaknesses:**\n- Assumes linear decision boundaries\n- Doesn't capture feature interactions automatically\n- May underperform with complex patterns\n\n---\n\n**Decision Trees:**\nMake decisions by asking a series of yes/no questions.\n\n**How it works:**\n- Splits data based on features\n- Each split creates a branch\n- Leaves contain predictions\n- Example: Is price > $100? → Is brand == 'Apple'? → Predict: High demand\n\n**Strengths:**\n- Easy to understand and visualize\n- Handles both numerical and categorical features\n- Captures non-linear patterns\n- Requires minimal data preprocessing\n\n**Weaknesses:**\n- Prone to overfitting (creates overly complex trees)\n- Unstable (small data changes affect tree structure)\n- Biased toward features with many values\n\n**When to use:**\n- Need an interpretable model\n- Have mixed data types\n- Don't want to spend time on feature scaling"
+      },
+      {
+        "title": "Ensemble Methods: Random Forests and Gradient Boosting",
+        "content": "Ensemble methods combine multiple models to improve performance — like getting a second opinion from several doctors.\n\n**Random Forests:**\n'Wisdom of the crowd' for machine learning.\n\n**How it works:**\n- Trains many decision trees (100-1000+)\n- Each tree sees a random subset of data and features\n- Final prediction is average (regression) or vote (classification)\n\n**Strengths:**\n- Highly accurate on many problems\n- Reduces overfitting compared to single trees\n- Handles missing data well\n- Provides feature importance rankings\n- Little hyperparameter tuning needed\n\n**Weaknesses:**\n- Slower to train than single trees\n- Less interpretable (100+ trees vs 1 tree)\n- Larger model size\n\n**When to use:**\n- You want high accuracy without much tuning\n- Have tabular/structured data\n- Need feature importance\n- Can afford longer training time\n\n---\n\n**Gradient Boosting (XGBoost, LightGBM, CatBoost):**\nBuilds trees sequentially, each correcting the previous one's errors.\n\n**How it works:**\n- Train a tree\n- Find where it made mistakes\n- Train next tree to fix those mistakes\n- Repeat, gradually 'boosting' performance\n\n**Strengths:**\n- Often the most accurate algorithm for tabular data\n- Wins many Kaggle competitions\n- Handles different feature types well\n- Good with small-to-medium datasets\n\n**Weaknesses:**\n- Requires careful hyperparameter tuning\n- Can overfit easily if not tuned\n- Slower training than random forests\n- More complex to understand\n\n**When to use:**\n- You need maximum accuracy on structured data\n- Have time for hyperparameter tuning\n- Working on a competition or critical application"
+      },
+      {
+        "title": "Support Vector Machines and K-Nearest Neighbors",
+        "content": "**Support Vector Machines (SVM):**\nFinds the best boundary (hyperplane) that separates classes.\n\n**How it works:**\n- Finds the maximum margin between classes\n- Only cares about points near the boundary ('support vectors')\n- Can use 'kernels' to handle non-linear boundaries\n\n**Strengths:**\n- Effective in high-dimensional spaces\n- Memory efficient (only stores support vectors)\n- Versatile (different kernels for different patterns)\n- Works well with limited data\n\n**Weaknesses:**\n- Slow on large datasets (>100,000 samples)\n- Requires feature scaling\n- Choosing the right kernel is tricky\n- Doesn't output probability estimates naturally\n\n**When to use:**\n- Medium-sized datasets with clear margin\n- High-dimensional data (many features)\n- Text classification problems\n- Image classification (with appropriate kernels)\n\n---\n\n**K-Nearest Neighbors (KNN):**\nClassifies based on the K closest training examples.\n\n**How it works:**\n- For a new point, find K nearest training points\n- Classification: majority vote among K neighbors\n- Regression: average of K neighbors\n- No actual training — just stores data\n\n**Strengths:**\n- Simple and intuitive\n- No training phase\n- Naturally handles multi-class problems\n- Non-parametric (makes no assumptions about data)\n\n**Weaknesses:**\n- Slow predictions (must compare to all training data)\n- Sensitive to feature scaling\n- Struggles with high-dimensional data ('curse of dimensionality')\n- Requires lots of memory (stores all training data)\n\n**When to use:**\n- Small-to-medium datasets\n- Need quick prototyping\n- Non-linear decision boundaries\n- Data naturally clusters"
+      },
+      {
+        "title": "Choosing the Right Algorithm: A Decision Guide",
+        "content": "Here's a practical guide for algorithm selection:\n\n**Start with the problem type:**\n\n**Regression (predicting numbers):**\n1. Start: Linear Regression\n2. If non-linear: Random Forest or Gradient Boosting\n3. For large datasets: Neural Networks\n\n**Classification (predicting categories):**\n1. Start: Logistic Regression\n2. If non-linear: Random Forest or Gradient Boosting\n3. For images/text: Deep Learning\n4. For small datasets: SVM\n\n**Consider your constraints:**\n\n**Need interpretability?**\n- Linear/Logistic Regression\n- Single Decision Tree\n- Avoid: Neural Networks, large ensembles\n\n**Have limited data (<1,000 samples)?**\n- Linear/Logistic Regression\n- SVM\n- Avoid: Deep Learning (will overfit)\n\n**Have huge data (millions of samples)?**\n- Gradient Boosting\n- Deep Learning\n- Avoid: KNN, SVM (too slow)\n\n**Need fast predictions?**\n- Linear/Logistic Regression\n- Avoid: KNN, large ensembles\n\n**Have text or images?**\n- Deep Learning (CNNs, Transformers)\n- Traditional: TF-IDF + Logistic Regression (baseline)\n\n**Have tabular/structured data?**\n- Random Forest or Gradient Boosting\n- These typically beat neural networks on tabular data\n\n**General strategy:**\n1. Start simple (Linear/Logistic Regression)\n2. Establish a baseline score\n3. Try Random Forest (good default choice)\n4. If accuracy matters most: Gradient Boosting\n5. If data is images/text/audio: Deep Learning\n6. Compare results, choose based on your constraints"
+      }
+    ],
+
+    "summary": "Machine learning offers many algorithms, each suited for different scenarios. Linear regression is simple and interpretable for continuous predictions. Logistic regression handles binary classification. Decision trees are easy to understand but prone to overfitting. Random forests combine many trees for robust performance. Gradient boosting builds trees sequentially for maximum accuracy on tabular data. SVMs work well with high-dimensional data and limited samples. KNN is simple but slow on large datasets. Choose algorithms based on your problem type, data size, need for interpretability, and computational constraints. Start simple, establish baselines, then experiment with more complex approaches.",
+
+    "keyTakeaways": [
+      "Start simple: try linear/logistic regression first",
+      "Random forests are excellent general-purpose algorithms",
+      "Gradient boosting typically wins on tabular data competitions",
+      "Deep learning excels at images, text, and audio",
+      "Consider interpretability, data size, and speed constraints",
+      "No single algorithm is best for everything — experiment and compare"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "You need to predict house prices with high accuracy on a dataset of 50,000 houses with features like size, location, and age. Which algorithm would be a good choice?",
+      "type": "multiple_choice",
+      "options": [
+        "A: K-Nearest Neighbors (too slow on large datasets)",
+        "B: Random Forest or Gradient Boosting (excellent for tabular regression)",
+        "C: Single Decision Tree (will likely overfit)",
+        "D: Convolutional Neural Network (designed for images)"
+      ],
+      "correct": "B",
+      "explanation": "For tabular regression with medium-to-large datasets, Random Forest or Gradient Boosting are excellent choices. They handle non-linear relationships, don't require extensive feature engineering, and typically achieve high accuracy. KNN would be too slow with 50,000 samples, single trees overfit, and CNNs are for images."
+    },
+    {
+      "id": "q2",
+      "question": "You're building a spam filter and your stakeholders need to understand why emails are classified as spam. Which algorithm should you choose?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Random Forest with 500 trees",
+        "B: Deep Neural Network",
+        "C: Logistic Regression or Decision Tree",
+        "D: K-Nearest Neighbors"
+      ],
+      "correct": "C",
+      "explanation": "For interpretability, logistic regression or a single decision tree are ideal. Logistic regression shows which features (words, sender patterns) increase spam probability with clear coefficients. Decision trees create visual flowcharts. Random forests (500 trees) and neural networks are 'black boxes' — accurate but hard to explain."
+    },
+    {
+      "id": "q3",
+      "question": "What's the main advantage of ensemble methods like Random Forests over single decision trees?",
+      "type": "multiple_choice",
+      "options": [
+        "A: They train faster",
+        "B: They're easier to interpret",
+        "C: They reduce overfitting and are more accurate by combining many trees",
+        "D: They require less data"
+      ],
+      "correct": "C",
+      "explanation": "Ensembles combine predictions from many models, which reduces overfitting (averaging smooths out individual trees' mistakes) and improves accuracy. Single trees often overfit by creating complex rules for training data. The trade-off is that ensembles train slower (many trees vs one) and are harder to interpret."
+    },
+    {
+      "id": "q4",
+      "question": "You have only 500 training examples for a binary classification problem with 100 features. Which algorithm would work well?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Deep Neural Network (needs lots of data)",
+        "B: Support Vector Machine or Logistic Regression with regularization",
+        "C: Gradient Boosting with 1000 trees (will overfit)",
+        "D: Random Forest (will overfit)"
+      ],
+      "correct": "B",
+      "explanation": "With limited data (500 samples) and many features (100), you need algorithms that work well in small-data regimes. SVM and regularized logistic regression are designed for this — they can handle high-dimensional data without overfitting. Deep learning needs thousands/millions of examples. Large ensembles would overfit on only 500 samples."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from scikit-learn documentation, Hands-On Machine Learning by Aurélien Géron, and Kaggle Learn",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

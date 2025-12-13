@@ -1,0 +1,118 @@
+{
+  "id": "ml-fundamentals-05",
+  "title": "Model Evaluation: Measuring Success",
+  "topic": "ML Fundamentals",
+  "difficulty": "beginner",
+  "duration": 11,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03", "ml-fundamentals-04"],
+  "objectives": [
+    "Understand different metrics for evaluating ML models",
+    "Learn when to use accuracy, precision, recall, and other metrics",
+    "Recognize why a single metric isn't always enough"
+  ],
+  "content": {
+    "introduction": "You've built a machine learning model — but is it any good? A model that's 95% accurate sounds impressive, but what if it fails on the cases that matter most? Understanding how to properly evaluate models is essential for building AI systems that work in the real world.",
+
+    "sections": [
+      {
+        "title": "Accuracy: The Most Obvious Metric",
+        "content": "Accuracy is the simplest metric: what percentage of predictions were correct?\n\nFormula: Accuracy = (Correct Predictions) / (Total Predictions)\n\nExample: Your model predicts 100 emails\n- 90 predictions are correct\n- Accuracy = 90/100 = 90%\n\nAccuracy works well when:\n- Classes are balanced (roughly equal spam and non-spam)\n- All mistakes are equally bad\n- You care about overall performance\n\nBut accuracy can be misleading. Imagine detecting a rare disease that affects 1% of people. A model that always predicts 'no disease' would be 99% accurate — but completely useless! It never catches actual cases.\n\nThis is why we need more sophisticated metrics that capture different aspects of performance."
+      },
+      {
+        "title": "The Confusion Matrix: Understanding Mistakes",
+        "content": "To evaluate classification models deeply, we use a confusion matrix. It shows not just if predictions were right or wrong, but what kind of mistakes were made.\n\nFor a binary classifier (yes/no, spam/not spam):\n\n**True Positives (TP)**: Correctly predicted positive\n- Email was spam, model said spam ✓\n\n**True Negatives (TN)**: Correctly predicted negative\n- Email was legitimate, model said legitimate ✓\n\n**False Positives (FP)**: Incorrectly predicted positive\n- Email was legitimate, model said spam ✗\n- Also called 'Type 1 error' or 'false alarm'\n\n**False Negatives (FN)**: Incorrectly predicted negative\n- Email was spam, model said legitimate ✗\n- Also called 'Type 2 error' or 'miss'\n\nExample confusion matrix for 100 emails:\n```\n                Predicted: Spam    Predicted: Legitimate\nActual: Spam           45                    5\nActual: Legitimate      3                   47\n```\n\nTP=45, TN=47, FP=3, FN=5\nAccuracy = (45+47)/100 = 92%\n\nBut the confusion matrix reveals more — we're missing 5 spam emails and blocking 3 legitimate ones."
+      },
+      {
+        "title": "Precision and Recall: Different Kinds of Correctness",
+        "content": "Precision and recall capture different trade-offs:\n\n**Precision**: Of all the positive predictions, how many were actually correct?\n- Precision = TP / (TP + FP)\n- Question: 'When the model says spam, how often is it right?'\n- High precision = few false alarms\n\n**Recall**: Of all the actual positives, how many did we catch?\n- Recall = TP / (TP + FN)\n- Question: 'Of all the actual spam, how much did we catch?'\n- High recall = few misses\n\nUsing our email example:\n- Precision = 45 / (45 + 3) = 94% — When we flag spam, we're right 94% of the time\n- Recall = 45 / (45 + 5) = 90% — We catch 90% of actual spam\n\nThe trade-off: You can often improve one by sacrificing the other.\n- Want higher recall? Flag more emails as spam (but precision drops)\n- Want higher precision? Be more selective (but recall drops)\n\nWhich matters more depends on your application."
+      },
+      {
+        "title": "Choosing the Right Metric",
+        "content": "Different problems require different metrics:\n\n**When precision matters more:**\n- Medical treatments with side effects\n  - False positive = unnecessary treatment/harm\n- Spam filtering\n  - False positive = losing important email\n- Court verdicts\n  - False positive = innocent person convicted\n\n**When recall matters more:**\n- Disease screening\n  - False negative = missing a disease that could be treated\n- Fraud detection\n  - False negative = fraud goes undetected\n- Safety systems\n  - False negative = danger not detected\n\n**For regression (predicting numbers):**\n\n**Mean Absolute Error (MAE)**\n- Average absolute difference between predictions and actual values\n- Easy to interpret: 'predictions are off by $50,000 on average'\n\n**Root Mean Squared Error (RMSE)**\n- Penalizes large errors more than small ones\n- Better when big mistakes are much worse than small ones\n\nThe key is to choose metrics that align with real-world consequences of your model's errors."
+      },
+      {
+        "title": "The F1 Score and Beyond",
+        "content": "Sometimes you want a single metric that balances precision and recall:\n\n**F1 Score**: The harmonic mean of precision and recall\n- F1 = 2 × (Precision × Recall) / (Precision + Recall)\n- Ranges from 0 to 1 (higher is better)\n- Only high if BOTH precision and recall are high\n\nUsing our email example:\n- Precision = 94%, Recall = 90%\n- F1 = 2 × (0.94 × 0.90) / (0.94 + 0.90) = 0.92\n\n**Other useful metrics:**\n\n**ROC-AUC** (Receiver Operating Characteristic - Area Under Curve)\n- Measures performance across all possible decision thresholds\n- Value of 0.5 = random guessing, 1.0 = perfect\n- Good for comparing models overall\n\n**Log Loss** (for probability predictions)\n- Rewards confident correct predictions\n- Heavily penalizes confident wrong predictions\n- Better than accuracy when you need probability estimates\n\n**Best practice**: Don't rely on a single metric. Look at multiple metrics to understand different aspects of your model's performance. And always consider real-world impact, not just numbers."
+      }
+    ],
+
+    "summary": "Evaluating machine learning models requires more than just accuracy. The confusion matrix breaks down correct and incorrect predictions into true positives, true negatives, false positives, and false negatives. Precision measures correctness of positive predictions, while recall measures how many positives we catch. Different applications prioritize different metrics — medical screening needs high recall, spam filtering needs high precision. The F1 score balances both, and metrics like ROC-AUC and log loss provide additional perspectives. Choose metrics that align with the real-world consequences of your model's errors.",
+
+    "keyTakeaways": [
+      "Accuracy can be misleading, especially with imbalanced classes",
+      "Precision = correctness of positive predictions",
+      "Recall = percentage of actual positives caught",
+      "There's often a trade-off between precision and recall",
+      "Choose metrics based on real-world costs of different errors",
+      "Use multiple metrics to understand model performance fully"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "A disease affects 1% of the population. A model that always predicts 'no disease' has 99% accuracy. Why is this model useless?",
+      "type": "multiple_choice",
+      "options": [
+        "A: 99% accuracy is too low",
+        "B: It has perfect precision but zero recall — it never catches actual cases",
+        "C: The model is too simple",
+        "D: Actually, this model is excellent"
+      ],
+      "correct": "B",
+      "explanation": "While 99% accurate, this model has 0% recall — it catches zero disease cases. In medical screening, missing all positive cases is catastrophic, even if overall accuracy is high. This demonstrates why accuracy alone is insufficient for imbalanced problems."
+    },
+    {
+      "id": "q2",
+      "question": "What does high precision mean in the context of spam detection?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model catches most spam emails",
+        "B: When the model flags an email as spam, it's usually correct",
+        "C: The model is very fast",
+        "D: The model never makes mistakes"
+      ],
+      "correct": "B",
+      "explanation": "Precision = TP / (TP + FP) measures: of emails flagged as spam, what percentage are actually spam? High precision means few false positives — when you flag something as spam, you're usually right. This is different from recall, which measures what percentage of all spam you catch."
+    },
+    {
+      "id": "q3",
+      "question": "You're building a cancer screening model. A false negative (missing a cancer case) is much worse than a false positive (unnecessary follow-up test). Which metric should you prioritize?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Precision",
+        "B: Recall",
+        "C: Accuracy",
+        "D: Speed"
+      ],
+      "correct": "B",
+      "explanation": "Recall = TP / (TP + FN) measures what percentage of actual cancer cases you catch. High recall means few false negatives. In cancer screening, missing a case (false negative) could be fatal, while a false positive just means more testing. You want to catch all or nearly all actual cases, even if that means some false alarms."
+    },
+    {
+      "id": "q4",
+      "question": "A model has 95% precision and 60% recall. What does this mean?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model is very accurate overall",
+        "B: When it makes a positive prediction, it's usually right, but it misses many actual positive cases",
+        "C: The model catches most positive cases but has many false alarms",
+        "D: The model is perfect"
+      ],
+      "correct": "B",
+      "explanation": "95% precision means when the model predicts positive, it's correct 95% of the time (few false positives). But 60% recall means it only catches 60% of actual positive cases (many false negatives). This model is conservative — it's careful about what it flags as positive, so it's usually right when it does, but it misses a lot of cases."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google ML Crash Course and scikit-learn documentation",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

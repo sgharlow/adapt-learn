@@ -1,0 +1,118 @@
+{
+  "id": "deep-learning-01",
+  "title": "Introduction to Deep Learning and Neural Networks",
+  "topic": "Deep Learning",
+  "difficulty": "beginner",
+  "duration": 12,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03"],
+  "objectives": [
+    "Understand what deep learning is and how it differs from traditional ML",
+    "Learn the basic structure of neural networks",
+    "Recognize why deep learning has become so powerful"
+  ],
+  "content": {
+    "introduction": "Deep learning has powered some of AI's most impressive breakthroughs — from self-driving cars to ChatGPT. But what exactly is it? At its core, deep learning uses artificial neural networks inspired by the human brain. Let's demystify this powerful technology and understand why it's revolutionizing artificial intelligence.",
+
+    "sections": [
+      {
+        "title": "What is Deep Learning?",
+        "content": "Deep learning is a subset of machine learning that uses neural networks with multiple layers — hence 'deep' — to learn from data.\n\n**The hierarchy:**\n- Artificial Intelligence (broadest)\n  - Machine Learning (learning from data)\n    - Deep Learning (using deep neural networks)\n\n**Key differences from traditional ML:**\n\n**Traditional ML:**\n- Requires hand-crafted features\n- You tell it what to look for\n- Works well with smaller datasets\n- Examples: decision trees, support vector machines\n\n**Deep Learning:**\n- Learns features automatically from raw data\n- Discovers what matters on its own\n- Needs large datasets to shine\n- Examples: convolutional neural networks, transformers\n\nThink of it this way: In traditional ML, you tell the model 'look for edges, corners, and textures' in an image. In deep learning, you just show it millions of images and it figures out what features matter."
+      },
+      {
+        "title": "The Neuron: Building Block of Neural Networks",
+        "content": "Artificial neural networks are inspired by biological neurons in the brain. Here's how an artificial neuron works:\n\n**Structure of a neuron:**\n\n1. **Inputs**: Receives multiple input values\n   - Like dendrites receiving signals in biological neurons\n\n2. **Weights**: Each input has a weight (importance)\n   - Some inputs matter more than others\n   - These weights are learned during training\n\n3. **Sum**: Multiply each input by its weight and add them up\n   - Weighted sum = (input₁ × weight₁) + (input₂ × weight₂) + ...\n\n4. **Activation function**: Applies a non-linear transformation\n   - Decides if the neuron should 'fire'\n   - Common functions: ReLU, sigmoid, tanh\n\n5. **Output**: Sends the result to the next layer\n   - Like axons transmitting signals in biological neurons\n\n**Simple example:**\nPredicting if someone will buy a product:\n- Input₁: time_on_page (5 minutes) × weight₁ (0.3) = 1.5\n- Input₂: previous_purchases (10) × weight₂ (0.5) = 5.0\n- Input₃: price_viewed (2) × weight₃ (0.2) = 0.4\n- Sum = 6.9\n- Apply activation function → Output: high probability of purchase\n\nThe magic is in learning the right weights."
+      },
+      {
+        "title": "Neural Network Architecture: Layers Upon Layers",
+        "content": "A neural network is built from layers of neurons working together:\n\n**Input Layer:**\n- Receives your raw data\n- One neuron per feature\n- Example: For a 28×28 pixel image, 784 input neurons (one per pixel)\n\n**Hidden Layers:**\n- Between input and output\n- Extract increasingly complex features\n- 'Deep' networks have many hidden layers\n- First layers might detect edges\n- Middle layers detect shapes\n- Later layers detect complex patterns (faces, objects)\n\n**Output Layer:**\n- Produces the final prediction\n- One neuron for regression (predict a number)\n- Multiple neurons for classification (one per class)\n\n**Connections:**\n- Each neuron in one layer connects to neurons in the next\n- Each connection has a learned weight\n- Information flows forward through the network\n\n**Example architecture for digit recognition:**\n- Input: 784 neurons (28×28 pixels)\n- Hidden layer 1: 128 neurons\n- Hidden layer 2: 64 neurons\n- Output: 10 neurons (digits 0-9)\n\nThis network has 784 + 128 + 64 + 10 = 986 neurons and thousands of connections (weights) to learn."
+      },
+      {
+        "title": "How Neural Networks Learn",
+        "content": "Training a neural network involves adjusting weights so predictions improve:\n\n**The process (forward and backward):**\n\n**1. Forward Pass:**\n- Input data flows through the network\n- Each layer transforms the data\n- Final layer produces a prediction\n\n**2. Calculate Loss:**\n- Compare prediction to actual answer\n- Compute error (how wrong we were)\n- Example: predicted '7' but actual was '3' → high loss\n\n**3. Backward Pass (Backpropagation):**\n- Calculate how much each weight contributed to the error\n- Work backward through layers\n- This is the 'learning' step\n\n**4. Update Weights:**\n- Adjust weights to reduce the error\n- Use an optimizer (like gradient descent)\n- Weights that caused errors get adjusted most\n\n**5. Repeat:**\n- Process thousands or millions of examples\n- Weights gradually improve\n- Network learns to make better predictions\n\nThink of it like practicing basketball free throws:\n- Take a shot (forward pass)\n- See if it went in (calculate loss)\n- Analyze what went wrong (backpropagation)\n- Adjust your technique (update weights)\n- Try again (repeat)\n\nOver time, the network gets better at its task."
+      },
+      {
+        "title": "Why Deep Learning Works So Well Now",
+        "content": "Neural networks aren't new — they were invented in the 1950s. So why are they suddenly so powerful?\n\n**Three factors converged:**\n\n**1. Big Data**\n- Deep learning needs lots of examples to learn well\n- The internet provides millions/billions of images, texts, videos\n- ImageNet dataset: 14 million labeled images\n- Without sufficient data, deep networks overfit\n\n**2. Computational Power**\n- Training deep networks requires massive computation\n- GPUs (graphics cards) accelerate training 10-100x\n- Cloud computing makes powerful hardware accessible\n- What took months now takes hours\n\n**3. Algorithmic Improvements**\n- Better activation functions (ReLU vs sigmoid)\n- Better optimization methods (Adam, batch normalization)\n- Better architectures (ResNet, Transformers)\n- Techniques to train very deep networks\n\n**Results:**\n- Image recognition exceeds human performance\n- Language models can write coherently\n- Game-playing AI beats world champions\n- Speech recognition is highly accurate\n\n**Applications everywhere:**\n- Healthcare: detecting diseases in medical images\n- Automotive: self-driving cars\n- Entertainment: recommendation systems\n- Communication: language translation\n- Creativity: generating images and text\n\nDeep learning excels at problems with large datasets and complex patterns — especially in images, audio, and text."
+      }
+    ],
+
+    "summary": "Deep learning uses artificial neural networks with multiple layers to learn from data. Each neuron receives inputs, multiplies them by learned weights, and applies an activation function to produce an output. Networks are organized in layers — input, hidden, and output — with information flowing forward and learning happening through backpropagation. Deep learning differs from traditional ML by automatically learning features from raw data rather than requiring hand-crafted features. The convergence of big data, powerful GPUs, and algorithmic improvements has made deep learning the dominant approach for complex tasks like image recognition, natural language processing, and game playing.",
+
+    "keyTakeaways": [
+      "Deep learning uses multi-layer neural networks to learn from data",
+      "Neurons combine weighted inputs and apply activation functions",
+      "Networks have input, hidden, and output layers",
+      "Learning happens through forward passes and backpropagation",
+      "Big data, GPUs, and better algorithms made deep learning practical",
+      "Excels at images, audio, text — domains with complex patterns"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What's the main difference between traditional machine learning and deep learning?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Deep learning is always more accurate",
+        "B: Deep learning automatically learns features from raw data, while traditional ML requires hand-crafted features",
+        "C: Traditional ML can't use neural networks",
+        "D: Deep learning doesn't require data"
+      ],
+      "correct": "B",
+      "explanation": "The key difference is feature learning. Traditional ML requires humans to engineer features (edges, textures, patterns), then the algorithm learns from those. Deep learning learns features automatically from raw data — you can feed it raw pixels and it discovers what features matter. This makes deep learning powerful but data-hungry."
+    },
+    {
+      "id": "q2",
+      "question": "What does each connection between neurons in a neural network represent?",
+      "type": "multiple_choice",
+      "options": [
+        "A: A piece of data",
+        "B: A learned weight that determines the importance of that connection",
+        "C: A prediction",
+        "D: An error"
+      ],
+      "correct": "B",
+      "explanation": "Each connection has a weight — a number learned during training that determines how important that connection is. When information flows through the network, it's multiplied by these weights. Training adjusts the weights to improve predictions. A neural network with thousands of neurons might have millions of weights to learn."
+    },
+    {
+      "id": "q3",
+      "question": "Why do we call it 'deep' learning?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Because it learns profound concepts",
+        "B: Because it uses neural networks with many layers (depth)",
+        "C: Because it requires deep thinking",
+        "D: Because the data is stored deep in the network"
+      ],
+      "correct": "B",
+      "explanation": "'Deep' refers to the depth of the neural network — having many hidden layers between input and output. Shallow networks have 1-2 hidden layers; deep networks can have dozens or even hundreds. Each layer learns increasingly abstract features, allowing the network to understand complex patterns."
+    },
+    {
+      "id": "q4",
+      "question": "What made deep learning suddenly successful in the 2010s despite neural networks being invented in the 1950s?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Scientists got smarter",
+        "B: The combination of big data, GPU computing power, and algorithmic improvements",
+        "C: Neural networks were completely redesigned",
+        "D: Companies started caring about AI"
+      ],
+      "correct": "B",
+      "explanation": "Three factors converged: (1) Big Data — the internet provided millions/billions of labeled examples needed to train deep networks, (2) GPUs — graphics cards accelerated training by 10-100x, making it practical, and (3) Algorithmic improvements — better activation functions, optimizers, and architectures. All three were necessary; any one alone wasn't sufficient."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from fast.ai Chapter 1, Deep Learning by Goodfellow et al., and 3Blue1Brown",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

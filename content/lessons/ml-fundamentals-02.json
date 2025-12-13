@@ -1,0 +1,117 @@
+{
+  "id": "ml-fundamentals-02",
+  "title": "Types of Machine Learning",
+  "topic": "ML Fundamentals",
+  "difficulty": "beginner",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01"],
+  "objectives": [
+    "Understand the three main types of machine learning",
+    "Recognize the difference between supervised and unsupervised learning",
+    "Identify when to use each type of ML"
+  ],
+  "content": {
+    "introduction": "Not all machine learning is the same. Just as there are different ways humans learn — from a teacher, through exploration, or by trial and error — machines can learn in different ways too. Understanding these approaches will help you choose the right tool for any problem.",
+
+    "sections": [
+      {
+        "title": "Supervised Learning: Learning with a Teacher",
+        "content": "Supervised learning is like learning with a teacher who provides correct answers. You show the model examples with labels — input paired with the correct output — and it learns to make predictions.\n\nThink of it like flashcards:\n- You show the model a picture of a cat and tell it 'This is a cat'\n- You show it a picture of a dog and say 'This is a dog'\n- After thousands of examples, it learns to recognize cats and dogs on its own\n\nSupervised learning is the most common type and works great when you have labeled data. It's used for tasks where you know what you're looking for: spam detection, medical diagnosis, price prediction, and image recognition."
+      },
+      {
+        "title": "Two Flavors of Supervised Learning",
+        "content": "Supervised learning splits into two categories based on what you're predicting:\n\n**Classification** - Predicting categories or classes\n- Is this email spam or not spam?\n- What breed is this dog?\n- Will this customer buy the product? (Yes/No)\n\n**Regression** - Predicting continuous numbers\n- What will this house sell for? ($320,000)\n- How many customers will visit tomorrow? (1,247)\n- What temperature will it be? (72 degrees)\n\nThe key difference: Classification puts things into buckets. Regression predicts a number on a continuous scale."
+      },
+      {
+        "title": "Unsupervised Learning: Finding Hidden Patterns",
+        "content": "Unsupervised learning is like exploring without a teacher. You give the model data without labels and ask it to find patterns, groups, or structure on its own.\n\nImagine giving someone a box of mixed LEGO pieces and asking them to organize it — they might group by color, size, or shape. That's unsupervised learning.\n\nCommon unsupervised techniques:\n\n**Clustering** - Grouping similar things together\n- Netflix groups movies into genres you might enjoy\n- Companies segment customers into market groups\n- Scientists discover new categories in data\n\n**Dimensionality Reduction** - Finding the most important features\n- Compressing images while keeping important details\n- Visualizing complex data in 2D or 3D\n\nUnsupervised learning is powerful when you don't know what you're looking for yet."
+      },
+      {
+        "title": "Reinforcement Learning: Learning Through Trial and Error",
+        "content": "Reinforcement learning is like training a dog with treats and corrections. The model takes actions in an environment, receives rewards or penalties, and learns which actions lead to the best outcomes.\n\nKey concepts:\n- **Agent**: The learner (like a robot or game player)\n- **Environment**: The world it operates in\n- **Actions**: Choices the agent can make\n- **Rewards**: Feedback telling if actions were good or bad\n\nFamous examples:\n- AlphaGo learning to beat world champions at Go\n- Robots learning to walk through trial and error\n- Self-driving cars learning to navigate safely\n- Video game AI learning winning strategies\n\nReinforcement learning excels when you can't provide examples of correct behavior, but you can define what success looks like."
+      },
+      {
+        "title": "Choosing the Right Type",
+        "content": "How do you know which type to use?\n\n**Use Supervised Learning when:**\n- You have labeled examples (input-output pairs)\n- You want to predict something specific\n- You can clearly define success\n\n**Use Unsupervised Learning when:**\n- You have data but no labels\n- You want to discover hidden patterns\n- You're exploring to understand your data better\n\n**Use Reinforcement Learning when:**\n- The task involves sequences of decisions\n- Feedback comes from interacting with an environment\n- You can define rewards but not specific correct actions\n\nIn practice, many real-world systems combine multiple approaches. A self-driving car might use supervised learning for object detection, unsupervised learning to understand road patterns, and reinforcement learning to improve driving strategy."
+      }
+    ],
+
+    "summary": "Machine learning comes in three main flavors: supervised learning (learning from labeled examples), unsupervised learning (finding patterns without labels), and reinforcement learning (learning through trial and error with rewards). Each type serves different purposes — supervised for prediction tasks with known answers, unsupervised for discovering hidden structure, and reinforcement for sequential decision-making. Understanding these types helps you choose the right approach for your problem.",
+
+    "keyTakeaways": [
+      "Supervised learning uses labeled examples to predict outcomes",
+      "Classification predicts categories, regression predicts numbers",
+      "Unsupervised learning finds patterns in unlabeled data",
+      "Reinforcement learning optimizes decisions through rewards",
+      "Choose the type based on your data and goal"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "You have 10,000 emails, each labeled as 'spam' or 'not spam', and want to build a system to filter future emails. What type of ML is this?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Unsupervised learning",
+        "B: Supervised learning - Classification",
+        "C: Supervised learning - Regression",
+        "D: Reinforcement learning"
+      ],
+      "correct": "B",
+      "explanation": "This is supervised learning (you have labeled data) and specifically classification (predicting discrete categories: spam or not spam). If you were predicting a continuous value like 'spam probability from 0 to 100', that would be regression."
+    },
+    {
+      "id": "q2",
+      "question": "A retail company has millions of customer purchase records and wants to group customers into segments for targeted marketing, but doesn't know what the segments should be. What type of ML should they use?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Supervised learning",
+        "B: Reinforcement learning",
+        "C: Unsupervised learning - Clustering",
+        "D: Supervised learning - Classification"
+      ],
+      "correct": "C",
+      "explanation": "This is unsupervised learning because there are no labels — they don't know what the customer segments are yet. Clustering will automatically group similar customers together based on purchase patterns."
+    },
+    {
+      "id": "q3",
+      "question": "What's the key difference between classification and regression?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Classification uses more data than regression",
+        "B: Classification predicts categories, regression predicts continuous numbers",
+        "C: Regression is more accurate than classification",
+        "D: They are the same thing"
+      ],
+      "correct": "B",
+      "explanation": "Classification predicts discrete categories (cat/dog, spam/not spam), while regression predicts continuous numerical values (house price, temperature). Both are types of supervised learning, but the nature of their output differs."
+    },
+    {
+      "id": "q4",
+      "question": "A robot is learning to navigate a warehouse by receiving points for delivering packages quickly and losing points when it bumps into obstacles. What type of ML is this?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Supervised learning",
+        "B: Unsupervised learning",
+        "C: Reinforcement learning",
+        "D: Classification"
+      ],
+      "correct": "C",
+      "explanation": "This is reinforcement learning — the robot learns through trial and error by taking actions (moving through the warehouse) and receiving rewards (points for deliveries) or penalties (losing points for collisions). The robot isn't given examples of correct paths; it discovers them through experience."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google ML Crash Course and fast.ai",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}
