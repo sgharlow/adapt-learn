@@ -5,14 +5,18 @@ import Link from 'next/link';
 import type { PathsData, LearningPath } from '@/types';
 import { hasStartedLearning } from '@/lib/progressManager';
 import ResumeSessionBanner from '@/components/ResumeSessionBanner';
+import DemoModeBanner from '@/components/DemoModeBanner';
+import { useDemoMode } from '@/hooks/useDemoMode';
 
 export default function Home() {
   const [pathsData, setPathsData] = useState<PathsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasProgress, setHasProgress] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isDemoMode, scenario } = useDemoMode();
 
   useEffect(() => {
+    // Re-check progress after demo mode loads
     setHasProgress(hasStartedLearning());
 
     fetch('/api/paths')
@@ -345,6 +349,9 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Demo Mode Banner */}
+      {isDemoMode && scenario && <DemoModeBanner scenario={scenario} />}
     </main>
   );
 }

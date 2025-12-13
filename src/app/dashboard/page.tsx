@@ -8,10 +8,12 @@ import TopicMasteryHeatmap from '@/components/TopicMasteryHeatmap';
 import RecommendationCard from '@/components/RecommendationCard';
 import ActivityTimeline from '@/components/ActivityTimeline';
 import StreakDisplay from '@/components/StreakDisplay';
+import DemoModeBanner from '@/components/DemoModeBanner';
 import { analyzeGaps, extractTopicsFromLessons, GapAnalysis } from '@/lib/gapDetection';
 import { calculateStats } from '@/lib/progressUtils';
 import { loadProgress } from '@/lib/progressManager';
 import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
+import { useDemoMode } from '@/hooks/useDemoMode';
 import LoadingSpinner, { CardSkeleton, ProgressBarSkeleton } from '@/components/LoadingSpinner';
 
 // Type for enhanced recommendation from API
@@ -35,6 +37,7 @@ export default function Dashboard() {
   const [gapAnalysis, setGapAnalysis] = useState<GapAnalysis | null>(null);
   const [recommendation, setRecommendation] = useState<EnhancedRecommendation | null>(null);
   const [loading, setLoading] = useState(true);
+  const { isDemoMode, scenario } = useDemoMode();
 
   useEffect(() => {
     // Load progress using the progress manager
@@ -330,6 +333,9 @@ export default function Dashboard() {
           </div>
         )}
       </div>
+
+      {/* Demo Mode Banner */}
+      {isDemoMode && scenario && <DemoModeBanner scenario={scenario} />}
     </main>
   );
 }
