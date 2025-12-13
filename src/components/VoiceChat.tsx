@@ -10,12 +10,48 @@ interface VoiceChatProps {
   onClose?: () => void;
 }
 
+// Suggested prompts for different contexts
+const GENERAL_PROMPTS = [
+  'What is machine learning?',
+  'Explain neural networks simply',
+  'How do I get started with AI?',
+  'What are the types of AI?',
+];
+
+const LESSON_PROMPTS = [
+  'Can you explain this concept?',
+  'Give me a real-world example',
+  'What are the key takeaways?',
+  'How is this used in practice?',
+];
+
+// Quick action commands
+const QUICK_ACTIONS = [
+  { id: 'repeat', label: 'Repeat', icon: '🔄', command: 'Please repeat your last response.' },
+  { id: 'simpler', label: 'Simpler', icon: '📝', command: 'Can you explain that in simpler terms?' },
+  { id: 'example', label: 'Example', icon: '💡', command: 'Can you give me a concrete example?' },
+  { id: 'more', label: 'Tell me more', icon: '➕', command: 'Can you elaborate on that?' },
+];
+
+// Voice command patterns
+const VOICE_COMMANDS: { pattern: RegExp; action: string }[] = [
+  { pattern: /^(repeat|say that again|repeat that)/i, action: 'repeat' },
+  { pattern: /^(slower|speak slower|slow down)/i, action: 'slower' },
+  { pattern: /^(explain|explain that|explain more)/i, action: 'simpler' },
+  { pattern: /^(example|give me an example)/i, action: 'example' },
+  { pattern: /^(stop|stop audio|stop playing)/i, action: 'stop' },
+];
+
 export default function VoiceChat({ lessonContext, lessonTitle, onClose }: VoiceChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
   const [autoPlayAudio, setAutoPlayAudio] = useState(true);
+  const [error, setError] = useState<{ message: string; retryable: boolean } | null>(null);
+  const [lastResponse, setLastResponse] = useState<string | null>(null);
+  const [playbackSpeed, setPlaybackSpeed] = useState(1);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -39,24 +75,72 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Check for voice commands
+  const checkVoiceCommand = useCallback((text: string): string | null => {
+    for (const cmd of VOICE_COMMANDS) {
+      if (cmd.pattern.test(text.trim())) {
+        return cmd.action;
+      }
+    }
+    return null;
+  }, []);
+
+  // Handle voice commands
+  const handleVoiceCommand = useCallback((action: string) => {
+    switch (action) {
+      case 'repeat':
+        if (lastResponse) {
+          generateAudioAndPlay(lastResponse);
+        }
+        break;
+      case 'slower':
+        setPlaybackSpeed(prev => Math.max(0.5, prev - 0.25));
+        if (audioRef.current) {
+          audioRef.current.playbackRate = Math.max(0.5, playbackSpeed - 0.25);
+        }
+        break;
+      case 'stop':
+        stopAudio();
+        break;
+      case 'simpler':
+      case 'example':
+        const quickAction = QUICK_ACTIONS.find(a => a.id === action);
+        if (quickAction) {
+          setInputText(quickAction.command);
+          setTimeout(() => sendMessage(quickAction.command), 100);
+        }
+        break;
+    }
+  }, [lastResponse, playbackSpeed]);
+
   const generateAudio = async (text: string): Promise<string | null> => {
+    setIsGeneratingAudio(true);
     try {
       const response = await fetch('/api/audio/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({
+          text,
+          isConversational: true, // Use conversational voice settings
+        }),
       });
 
       if (!response.ok) {
-        console.error('Audio generation failed');
-        return null;
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Audio generation failed');
       }
 
       const data = await response.json();
       return data.audioUrl;
-    } catch (error) {
-      console.error('Audio generation error:', error);
+    } catch (err) {
+      console.error('Audio generation error:', err);
+      setError({
+        message: 'Could not generate audio. Text response is still available.',
+        retryable: true
+      });
       return null;
+    } finally {
+      setIsGeneratingAudio(false);
     }
   };
 
@@ -67,12 +151,29 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
 
     const audio = new Audio(audioUrl);
     audioRef.current = audio;
+    audio.playbackRate = playbackSpeed;
 
-    audio.onplay = () => setIsPlayingAudio(true);
+    audio.onplay = () => {
+      setIsPlayingAudio(true);
+      setError(null);
+    };
     audio.onended = () => setIsPlayingAudio(false);
-    audio.onerror = () => setIsPlayingAudio(false);
+    audio.onerror = () => {
+      setIsPlayingAudio(false);
+      setError({ message: 'Failed to play audio', retryable: true });
+    };
 
-    audio.play().catch(console.error);
+    audio.play().catch((err) => {
+      console.error('Audio playback error:', err);
+      setError({ message: 'Failed to play audio. Please try again.', retryable: true });
+    });
+  };
+
+  const generateAudioAndPlay = async (text: string) => {
+    const audioUrl = await generateAudio(text);
+    if (audioUrl) {
+      playAudio(audioUrl);
+    }
   };
 
   const stopAudio = () => {
@@ -83,18 +184,38 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
     }
   };
 
-  const sendMessage = async () => {
-    if (!inputText.trim() || isLoading) return;
+  const cyclePlaybackSpeed = () => {
+    const speeds = [0.75, 1, 1.25, 1.5];
+    const currentIndex = speeds.indexOf(playbackSpeed);
+    const nextSpeed = speeds[(currentIndex + 1) % speeds.length];
+    setPlaybackSpeed(nextSpeed);
+    if (audioRef.current) {
+      audioRef.current.playbackRate = nextSpeed;
+    }
+  };
+
+  const sendMessage = async (overrideText?: string) => {
+    const messageText = overrideText || inputText.trim();
+    if (!messageText || isLoading) return;
+
+    // Check for voice commands first
+    const voiceCommand = checkVoiceCommand(messageText);
+    if (voiceCommand) {
+      handleVoiceCommand(voiceCommand);
+      setInputText('');
+      return;
+    }
 
     const userMessage: ChatMessage = {
       role: 'user',
-      content: inputText.trim(),
+      content: messageText,
       timestamp: new Date().toISOString(),
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInputText('');
     setIsLoading(true);
+    setError(null);
 
     try {
       const response = await fetch('/api/chat/respond', {
@@ -108,7 +229,8 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
       });
 
       if (!response.ok) {
-        throw new Error('Failed to get response');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to get response');
       }
 
       const data = await response.json();
@@ -119,25 +241,43 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
       };
 
       setMessages(prev => [...prev, assistantMessage]);
+      setLastResponse(data.response);
 
       // Generate and play audio for the response
       if (autoPlayAudio) {
-        const audioUrl = await generateAudio(data.response);
-        if (audioUrl) {
-          playAudio(audioUrl);
-        }
+        await generateAudioAndPlay(data.response);
       }
-    } catch (error) {
-      console.error('Chat error:', error);
+    } catch (err) {
+      console.error('Chat error:', err);
+      setError({
+        message: err instanceof Error ? err.message : 'Something went wrong. Please try again.',
+        retryable: true
+      });
       const errorMessage: ChatMessage = {
         role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
+        content: 'I encountered an error processing your request. Please try again or rephrase your question.',
         timestamp: new Date().toISOString(),
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Quick action handler
+  const handleQuickAction = (action: typeof QUICK_ACTIONS[0]) => {
+    if (action.id === 'repeat' && lastResponse) {
+      generateAudioAndPlay(lastResponse);
+    } else {
+      setInputText(action.command);
+      sendMessage(action.command);
+    }
+  };
+
+  // Suggested prompt handler
+  const handleSuggestedPrompt = (prompt: string) => {
+    setInputText(prompt);
+    sendMessage(prompt);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -190,17 +330,72 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
         </div>
       </div>
 
+      {/* Error Banner */}
+      {error && (
+        <div className="mx-4 mt-2 p-3 bg-red-500/10 border border-red-500/30 rounded-xl flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-red-300 text-sm">{error.message}</span>
+          </div>
+          {error.retryable && (
+            <button
+              onClick={() => setError(null)}
+              className="text-red-400 hover:text-red-300 text-sm underline"
+            >
+              Dismiss
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 && (
-          <div className="text-center py-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-slate-700 mb-4">
-              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
-              </svg>
+          <div className="py-6">
+            {/* Welcome message */}
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-blue-500/30 mb-4">
+                <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                </svg>
+              </div>
+              <h4 className="text-white font-medium mb-1">Ask me anything about AI!</h4>
+              <p className="text-slate-400 text-sm">Type, speak, or try a suggestion below</p>
             </div>
-            <p className="text-slate-400 mb-2">Ask me anything about AI & ML!</p>
-            <p className="text-slate-500 text-sm">Type your question or use the microphone</p>
+
+            {/* Suggested prompts */}
+            <div className="space-y-2">
+              <p className="text-slate-500 text-xs uppercase tracking-wider mb-2">Suggested questions:</p>
+              <div className="flex flex-wrap gap-2">
+                {(lessonContext ? LESSON_PROMPTS : GENERAL_PROMPTS).map((prompt, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleSuggestedPrompt(prompt)}
+                    className="px-3 py-1.5 text-sm text-slate-300 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 hover:border-slate-500 rounded-full transition-all"
+                  >
+                    {prompt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Voice commands hint */}
+            <div className="mt-6 p-3 bg-slate-700/30 rounded-xl border border-slate-600/30">
+              <p className="text-slate-400 text-xs mb-2 flex items-center gap-1.5">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Voice commands:
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Repeat that&quot;</span>
+                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Slower&quot;</span>
+                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Give me an example&quot;</span>
+                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Stop&quot;</span>
+              </div>
+            </div>
           </div>
         )}
 
@@ -212,52 +407,128 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
             <div
               className={`max-w-[80%] px-4 py-3 rounded-2xl ${
                 msg.role === 'user'
-                  ? 'bg-blue-500 text-white rounded-br-md'
-                  : 'bg-slate-700 text-slate-200 rounded-bl-md'
+                  ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-br-md shadow-lg shadow-blue-500/20'
+                  : 'bg-slate-700/80 text-slate-200 rounded-bl-md border border-slate-600/50'
               }`}
             >
-              <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+              <p className="text-sm whitespace-pre-wrap leading-relaxed">{msg.content}</p>
               {msg.role === 'assistant' && (
-                <button
-                  onClick={async () => {
-                    const audioUrl = await generateAudio(msg.content);
-                    if (audioUrl) playAudio(audioUrl);
-                  }}
-                  className="mt-2 text-xs text-slate-400 hover:text-slate-300 flex items-center gap-1"
-                >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  </svg>
-                  Play audio
-                </button>
+                <div className="mt-2 pt-2 border-t border-slate-600/50 flex items-center gap-2">
+                  <button
+                    onClick={() => generateAudioAndPlay(msg.content)}
+                    disabled={isGeneratingAudio}
+                    className="text-xs text-slate-400 hover:text-blue-400 flex items-center gap-1 transition-colors disabled:opacity-50"
+                  >
+                    {isGeneratingAudio ? (
+                      <>
+                        <svg className="w-3 h-3 animate-spin" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                        </svg>
+                        Play
+                      </>
+                    )}
+                  </button>
+                  <span className="text-slate-600">•</span>
+                  <button
+                    onClick={() => navigator.clipboard.writeText(msg.content)}
+                    className="text-xs text-slate-400 hover:text-blue-400 flex items-center gap-1 transition-colors"
+                  >
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                    Copy
+                  </button>
+                </div>
               )}
             </div>
           </div>
         ))}
 
+        {/* Quick Actions (show after first response) */}
+        {messages.length > 0 && !isLoading && (
+          <div className="flex flex-wrap gap-2 justify-center py-2">
+            {QUICK_ACTIONS.map((action) => (
+              <button
+                key={action.id}
+                onClick={() => handleQuickAction(action)}
+                disabled={action.id === 'repeat' && !lastResponse}
+                className="px-3 py-1.5 text-xs text-slate-300 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 hover:border-blue-500/50 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
+              >
+                <span>{action.icon}</span>
+                <span>{action.label}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-slate-700 px-4 py-3 rounded-2xl rounded-bl-md">
+            <div className="bg-slate-700/80 px-4 py-3 rounded-2xl rounded-bl-md border border-slate-600/50">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                <span className="text-sm text-slate-400">Thinking</span>
+                <div className="flex gap-1">
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                </div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {isGeneratingAudio && !isPlayingAudio && (
+          <div className="flex justify-center">
+            <div className="flex items-center gap-2 px-4 py-2 bg-purple-500/20 text-purple-400 rounded-full text-sm border border-purple-500/30">
+              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              <span>Generating audio...</span>
             </div>
           </div>
         )}
 
         {isPlayingAudio && (
           <div className="flex justify-center">
-            <button
-              onClick={stopAudio}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500/20 text-blue-400 rounded-full text-sm"
-            >
-              <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-              </svg>
-              Playing audio... (tap to stop)
-            </button>
+            <div className="flex items-center gap-3 px-4 py-2 bg-blue-500/20 rounded-full border border-blue-500/30">
+              {/* Audio wave animation */}
+              <div className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div
+                    key={i}
+                    className="w-0.5 bg-blue-400 rounded-full animate-pulse"
+                    style={{
+                      height: `${8 + Math.random() * 8}px`,
+                      animationDelay: `${i * 100}ms`
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="text-blue-400 text-sm">Playing</span>
+              <button
+                onClick={cyclePlaybackSpeed}
+                className="px-2 py-0.5 text-xs bg-blue-500/30 text-blue-300 rounded hover:bg-blue-500/40 transition-colors"
+              >
+                {playbackSpeed}x
+              </button>
+              <button
+                onClick={stopAudio}
+                className="p-1 text-blue-400 hover:text-white transition-colors"
+                title="Stop"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M6 6h12v12H6z" />
+                </svg>
+              </button>
+            </div>
           </div>
         )}
 
@@ -265,18 +536,42 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-slate-600 bg-slate-700/30">
+      <div className="p-4 border-t border-slate-600/50 bg-gradient-to-t from-slate-800 to-transparent">
+        {/* Listening indicator */}
+        {isListening && (
+          <div className="mb-3 p-3 bg-red-500/10 border border-red-500/30 rounded-xl">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="relative">
+                  <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse" />
+                  <div className="absolute inset-0 w-3 h-3 bg-red-500 rounded-full animate-ping" />
+                </div>
+                <div>
+                  <p className="text-red-400 text-sm font-medium">Listening...</p>
+                  <p className="text-slate-400 text-xs">Speak your question clearly</p>
+                </div>
+              </div>
+              <button
+                onClick={stopListening}
+                className="px-3 py-1.5 text-xs bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 transition-colors"
+              >
+                Stop
+              </button>
+            </div>
+            {transcript && (
+              <p className="mt-2 text-sm text-slate-300 italic">&quot;{transcript}&quot;</p>
+            )}
+          </div>
+        )}
+
         <div className="flex items-end gap-2">
           {/* Voice input button */}
-          {isSupported && (
+          {isSupported && !isListening && (
             <button
-              onClick={isListening ? stopListening : startListening}
-              className={`flex-shrink-0 p-3 rounded-xl transition-all ${
-                isListening
-                  ? 'bg-red-500 text-white animate-pulse'
-                  : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
-              }`}
-              title={isListening ? 'Stop recording' : 'Start voice input'}
+              onClick={startListening}
+              disabled={isLoading}
+              className="flex-shrink-0 p-3 rounded-xl bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white transition-all disabled:opacity-50 border border-slate-600/50 hover:border-blue-500/50"
+              title="Start voice input"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
@@ -290,18 +585,19 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               onKeyDown={handleKeyPress}
-              placeholder={isListening ? 'Listening...' : 'Ask a question...'}
+              placeholder={isListening ? 'Listening...' : 'Ask anything about AI...'}
               rows={1}
-              className="w-full px-4 py-3 bg-slate-600 text-white placeholder-slate-400 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isListening}
+              className="w-full px-4 py-3 bg-slate-700/80 text-white placeholder-slate-400 rounded-xl resize-none border border-slate-600/50 focus:border-blue-500/50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all disabled:opacity-50"
               style={{ minHeight: '48px', maxHeight: '120px' }}
             />
           </div>
 
           {/* Send button */}
           <button
-            onClick={sendMessage}
-            disabled={!inputText.trim() || isLoading}
-            className="flex-shrink-0 p-3 rounded-xl bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            onClick={() => sendMessage()}
+            disabled={!inputText.trim() || isLoading || isListening}
+            className="flex-shrink-0 p-3 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 disabled:from-slate-600 disabled:to-slate-700 disabled:cursor-not-allowed transition-all shadow-lg shadow-blue-500/20 hover:shadow-blue-500/30 disabled:shadow-none"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -309,11 +605,13 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
           </button>
         </div>
 
-        {isListening && (
-          <p className="mt-2 text-xs text-red-400 text-center animate-pulse">
-            🎤 Recording... speak your question
-          </p>
-        )}
+        {/* Keyboard hint */}
+        <p className="mt-2 text-center text-xs text-slate-500">
+          Press <kbd className="px-1.5 py-0.5 bg-slate-700 rounded text-slate-400">Enter</kbd> to send
+          {isSupported && !isListening && (
+            <span> or click the mic to speak</span>
+          )}
+        </p>
       </div>
     </div>
   );
