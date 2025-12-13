@@ -6,6 +6,7 @@ import { useVoiceInput } from '@/hooks/useVoiceInput';
 import LessonNavigation from '@/components/LessonNavigation';
 import type { Lesson, QuizQuestion, UserProgress } from '@/types';
 import { logQuizCompleted, logLessonCompleted } from '@/lib/progressUtils';
+import { loadProgress, saveProgress } from '@/lib/progressManager';
 
 interface QuizProps {
   lesson: Lesson;
@@ -109,9 +110,8 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
     const endTime = Date.now();
     const totalTime = Math.round((endTime - startTime) / 1000);
 
-    // Save progress to localStorage
-    let progress: UserProgress = JSON.parse(localStorage.getItem('adaptlearn-progress') || '{}');
-    if (!progress.completedLessons) progress.completedLessons = [];
+    // Load progress using the progress manager (handles migration and validation)
+    let progress = loadProgress();
 
     const isFirstCompletion = !progress.completedLessons.includes(lesson.id);
     if (isFirstCompletion) {
@@ -165,7 +165,11 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
     }
     progress = logQuizCompleted(progress, lesson.id, lesson.title, finalScore, lesson.quiz.length);
 
-    localStorage.setItem('adaptlearn-progress', JSON.stringify(progress));
+    // Save using progress manager (handles errors gracefully)
+    const saved = saveProgress(progress);
+    if (!saved) {
+      console.error('Failed to save quiz progress');
+    }
   };
 
   const toggleVoiceMode = () => {

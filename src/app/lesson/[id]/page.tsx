@@ -10,7 +10,9 @@ import VoiceChat from '@/components/VoiceChat';
 import Quiz from '@/components/Quiz';
 import { getCachedAudio, setCachedAudio, generateCacheKey } from '@/lib/audioCache';
 import { logLessonStarted } from '@/lib/progressUtils';
+import { loadProgress, saveProgress } from '@/lib/progressManager';
 import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
+import LoadingSpinner, { LessonSkeleton } from '@/components/LoadingSpinner';
 
 export default function LessonPage() {
   const params = useParams();
@@ -33,17 +35,10 @@ export default function LessonPage() {
         setLesson(data);
         setLoading(false);
 
-        // Log lesson started activity
-        try {
-          const savedProgress = localStorage.getItem('adaptlearn-progress');
-          if (savedProgress) {
-            const progress: UserProgress = JSON.parse(savedProgress);
-            const updatedProgress = logLessonStarted(progress, lessonId, data.title);
-            localStorage.setItem('adaptlearn-progress', JSON.stringify(updatedProgress));
-          }
-        } catch (err) {
-          console.error('Failed to log lesson start:', err);
-        }
+        // Log lesson started activity using progress manager
+        const progress = loadProgress();
+        const updatedProgress = logLessonStarted(progress, lessonId, data.title);
+        saveProgress(updatedProgress);
       })
       .catch(err => {
         setError(err.message);
@@ -53,9 +48,24 @@ export default function LessonPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-slate-400">Loading lesson...</div>
-      </div>
+      <main className="min-h-screen">
+        <div className="bg-slate-800/50 border-b border-slate-700">
+          <div className="max-w-4xl mx-auto px-4 py-6">
+            <div className="h-4 bg-slate-700 rounded w-32 mb-4 animate-pulse" />
+            <div className="h-8 bg-slate-700 rounded w-3/4 mb-2 animate-pulse" />
+            <div className="flex gap-4">
+              <div className="h-6 bg-slate-700 rounded w-20 animate-pulse" />
+              <div className="h-6 bg-slate-700 rounded w-16 animate-pulse" />
+            </div>
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <LessonSkeleton />
+          <div className="flex justify-center mt-8">
+            <LoadingSpinner text="Loading lesson content..." />
+          </div>
+        </div>
+      </main>
     );
   }
 

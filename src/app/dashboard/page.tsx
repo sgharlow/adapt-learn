@@ -10,7 +10,9 @@ import ActivityTimeline from '@/components/ActivityTimeline';
 import StreakDisplay, { StreakBadge } from '@/components/StreakDisplay';
 import { analyzeGaps, extractTopicsFromLessons, GapAnalysis } from '@/lib/gapDetection';
 import { calculateStats } from '@/lib/progressUtils';
+import { loadProgress } from '@/lib/progressManager';
 import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
+import LoadingSpinner, { CardSkeleton, ProgressBarSkeleton } from '@/components/LoadingSpinner';
 
 // Type for enhanced recommendation from API
 interface EnhancedRecommendation {
@@ -35,23 +37,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Load progress from localStorage
-    const savedProgress = localStorage.getItem('adaptlearn-progress');
-    let userProgress: UserProgress;
-    if (savedProgress) {
-      userProgress = JSON.parse(savedProgress);
-      setProgress(userProgress);
-    } else {
-      // Initialize empty progress
-      userProgress = {
-        currentPath: null,
-        completedLessons: [],
-        quizResults: {},
-        topicMastery: {},
-        lastActivity: null,
-      };
-      setProgress(userProgress);
-    }
+    // Load progress using the progress manager (handles migration and validation)
+    const userProgress = loadProgress();
+    setProgress(userProgress);
 
     // Load paths data and lessons for gap analysis
     Promise.all([
@@ -128,9 +116,23 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-slate-400">Loading dashboard...</div>
-      </div>
+      <main className="min-h-screen p-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="mb-8">
+            <div className="h-8 bg-slate-700 rounded w-48 mb-2 animate-pulse" />
+            <div className="h-4 bg-slate-700 rounded w-64 animate-pulse" />
+          </div>
+          <div className="card mb-8">
+            <ProgressBarSkeleton />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <CardSkeleton count={4} />
+          </div>
+          <div className="flex justify-center py-12">
+            <LoadingSpinner size="lg" text="Loading your progress..." />
+          </div>
+        </div>
+      </main>
     );
   }
 

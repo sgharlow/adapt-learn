@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { PathsData, AssessmentQuestion, LearningPath } from '@/types';
+import { loadProgress, saveProgress } from '@/lib/progressManager';
+import { logPathStarted } from '@/lib/progressUtils';
 
 export default function AssessmentPage() {
   const router = useRouter();
@@ -106,20 +108,30 @@ export default function AssessmentPage() {
   };
 
   const handleStartPath = (pathId: string) => {
-    // Save assessment result and set current path
-    const progress = {
+    // Validate path exists
+    const selectedPath = pathsData?.paths.find(p => p.id === pathId);
+    if (!selectedPath) {
+      console.error('Invalid path selected:', pathId);
+      return;
+    }
+
+    // Load existing progress (preserves any previous data) and update with new path
+    let progress = loadProgress();
+    progress = {
+      ...progress,
       currentPath: pathId,
-      completedLessons: [],
-      quizResults: {},
-      topicMastery: {},
       lastActivity: new Date().toISOString(),
-      assessmentResult: {
-        scores,
-        recommendedPath: pathId,
-        completedAt: new Date().toISOString(),
-      },
     };
-    localStorage.setItem('adaptlearn-progress', JSON.stringify(progress));
+
+    // Log path started activity
+    progress = logPathStarted(progress, pathId, selectedPath.name);
+
+    // Save progress
+    const saved = saveProgress(progress);
+    if (!saved) {
+      console.error('Failed to save progress');
+    }
+
     router.push(`/path/${pathId}`);
   };
 

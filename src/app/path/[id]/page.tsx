@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 import type { LearningPath, PathsData, UserProgress } from '@/types';
+import { loadProgress, saveProgress, getLastLessonForPath } from '@/lib/progressManager';
+import { logPathStarted } from '@/lib/progressUtils';
+import LoadingSpinner, { CardSkeleton } from '@/components/LoadingSpinner';
 
 export default function PathPage() {
   const params = useParams();
@@ -11,52 +14,124 @@ export default function PathPage() {
   const pathId = params.id as string;
 
   const [path, setPath] = useState<LearningPath | null>(null);
+  const [allPaths, setAllPaths] = useState<LearningPath[]>([]);
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Load progress
-    const savedProgress = localStorage.getItem('adaptlearn-progress');
-    if (savedProgress) {
-      setProgress(JSON.parse(savedProgress));
-    }
+    // Load progress using progress manager
+    const userProgress = loadProgress();
+    setProgress(userProgress);
 
     // Load path data
     fetch('/api/paths')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load paths');
+        return res.json();
+      })
       .then((data: PathsData) => {
+        setAllPaths(data.paths);
         const foundPath = data.paths.find(p => p.id === pathId);
         setPath(foundPath || null);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, [pathId]);
 
   const startPath = () => {
-    const newProgress: UserProgress = {
+    if (!path || path.lessons.length === 0) return;
+
+    // Load current progress and update
+    let currentProgress = loadProgress();
+
+    // Get the next lesson to continue from
+    const nextLesson = getLastLessonForPath(path.lessons) || path.lessons[0];
+
+    // Update progress with current path
+    currentProgress = {
+      ...currentProgress,
       currentPath: pathId,
-      completedLessons: progress?.completedLessons || [],
-      quizResults: progress?.quizResults || {},
-      topicMastery: progress?.topicMastery || {},
       lastActivity: new Date().toISOString(),
     };
-    localStorage.setItem('adaptlearn-progress', JSON.stringify(newProgress));
-    router.push(`/lesson/${path?.lessons[0]}`);
+
+    // Log path started if it's a new path
+    if (currentProgress.currentPath !== pathId) {
+      currentProgress = logPathStarted(currentProgress, pathId, path.name);
+    }
+
+    saveProgress(currentProgress);
+    router.push(`/lesson/${nextLesson}`);
   };
 
   if (loading) {
     return (
+      <main className="min-h-screen">
+        <div className="max-w-4xl mx-auto px-4 py-12">
+          <div className="h-4 bg-slate-700 rounded w-24 mb-6 animate-pulse" />
+          <div className="h-6 bg-slate-700 rounded w-32 mb-4 animate-pulse" />
+          <div className="h-10 bg-slate-700 rounded w-2/3 mb-4 animate-pulse" />
+          <div className="h-6 bg-slate-700 rounded w-full mb-6 animate-pulse" />
+          <div className="flex gap-6 mb-8">
+            <div className="h-5 bg-slate-700 rounded w-24 animate-pulse" />
+            <div className="h-5 bg-slate-700 rounded w-20 animate-pulse" />
+          </div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <div className="h-8 bg-slate-700 rounded w-32 mb-6 animate-pulse" />
+          <CardSkeleton count={5} />
+          <div className="flex justify-center mt-8">
+            <LoadingSpinner text="Loading learning path..." />
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-slate-400">Loading path...</div>
+        <div className="text-center">
+          <p className="text-red-400 mb-4">{error}</p>
+          <Link href="/" className="btn-primary">Back to Home</Link>
+        </div>
       </div>
     );
   }
 
   if (!path) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-400 mb-4">Path not found</p>
+      <div className="min-h-screen py-12">
+        <div className="max-w-2xl mx-auto px-4 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-500/20 text-red-400 mb-4">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h1 className="text-2xl font-bold text-white mb-2">Path Not Found</h1>
+          <p className="text-slate-400 mb-6">The learning path you&apos;re looking for doesn&apos;t exist.</p>
+
+          {allPaths.length > 0 && (
+            <div className="mb-6">
+              <p className="text-slate-400 text-sm mb-3">Available paths:</p>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {allPaths.map(p => (
+                  <Link
+                    key={p.id}
+                    href={`/path/${p.id}`}
+                    className="px-4 py-2 rounded-lg text-sm transition-colors"
+                    style={{ backgroundColor: `${p.color}20`, color: p.color }}
+                  >
+                    {p.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+
           <Link href="/" className="btn-primary">Back to Home</Link>
         </div>
       </div>

@@ -3,29 +3,32 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import type { PathsData, LearningPath, UserProgress } from '@/types';
+import { hasStartedLearning } from '@/lib/progressManager';
+import ResumeSessionBanner from '@/components/ResumeSessionBanner';
 
 export default function Home() {
   const [pathsData, setPathsData] = useState<PathsData | null>(null);
   const [loading, setLoading] = useState(true);
   const [hasProgress, setHasProgress] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check if user has existing progress
-    const savedProgress = localStorage.getItem('adaptlearn-progress');
-    if (savedProgress) {
-      const progress: UserProgress = JSON.parse(savedProgress);
-      if (progress.currentPath || progress.completedLessons?.length) {
-        setHasProgress(true);
-      }
-    }
+    // Check if user has existing progress using progress manager
+    setHasProgress(hasStartedLearning());
 
     fetch('/api/paths')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to load paths');
+        return res.json();
+      })
       .then(data => {
         setPathsData(data);
         setLoading(false);
       })
-      .catch(() => setLoading(false));
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -122,6 +125,15 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Resume Session Banner (for returning users) */}
+      {hasProgress && pathsData && (
+        <section className="py-4">
+          <div className="max-w-4xl mx-auto px-4">
+            <ResumeSessionBanner paths={pathsData.paths} />
+          </div>
+        </section>
+      )}
 
       {/* How It Works */}
       <section id="how-it-works" className="py-20 border-t border-slate-800">
