@@ -5,13 +5,29 @@ import Link from 'next/link';
 import type { UserProgress, PathsData, LearningPath, Lesson } from '@/types';
 import PathProgress from '@/components/PathProgress';
 import TopicMasteryHeatmap from '@/components/TopicMasteryHeatmap';
+import RecommendationCard from '@/components/RecommendationCard';
 import { analyzeGaps, extractTopicsFromLessons, GapAnalysis } from '@/lib/gapDetection';
+
+// Type for enhanced recommendation from API
+interface EnhancedRecommendation {
+  nextLesson: string;
+  lessonTitle: string;
+  lessonTopic: string;
+  reasoning: string;
+  reasoningType: 'review' | 'continue' | 'advance' | 'fill-gap' | 'complete';
+  priority: 'high' | 'medium' | 'low';
+  pathProgress: number;
+  topicMastery: number | null;
+  alternativeLessons: { lessonId: string; title: string; topic: string; reason: string }[];
+  voiceAnnouncement: string;
+}
 
 export default function Dashboard() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [pathsData, setPathsData] = useState<PathsData | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
   const [gapAnalysis, setGapAnalysis] = useState<GapAnalysis | null>(null);
+  const [recommendation, setRecommendation] = useState<EnhancedRecommendation | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,7 +54,7 @@ export default function Dashboard() {
       fetch('/api/paths').then(res => res.json()),
       loadAllLessons(),
     ])
-      .then(([pathData, lessonData]) => {
+      .then(async ([pathData, lessonData]) => {
         setPathsData(pathData);
         setLessons(lessonData);
 
@@ -47,6 +63,26 @@ export default function Dashboard() {
           const { allTopics, lessonTopicMap } = extractTopicsFromLessons(lessonData);
           const analysis = analyzeGaps(userProgress, allTopics, lessonTopicMap);
           setGapAnalysis(analysis);
+        }
+
+        // Fetch recommendation if user has a current path
+        if (userProgress.currentPath) {
+          try {
+            const recRes = await fetch('/api/adapt/recommend', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                userProgress,
+                currentPath: userProgress.currentPath,
+              }),
+            });
+            if (recRes.ok) {
+              const recData = await recRes.json();
+              setRecommendation(recData);
+            }
+          } catch (error) {
+            console.error('Failed to fetch recommendation:', error);
+          }
         }
 
         setLoading(false);
@@ -170,12 +206,29 @@ export default function Dashboard() {
           />
         </div>
 
-        {/* Recent Activity / Recommendations */}
+        {/* Smart Recommendation */}
+        {recommendation && currentPath && (
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-white">Recommended Next</h3>
+              <span className="text-xs text-slate-500">Powered by adaptive learning</span>
+            </div>
+            <RecommendationCard recommendation={recommendation} />
+          </div>
+        )}
+
+        {/* Recent Activity / Quick Stats */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">Continue Learning</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">
+              {recommendation ? 'Alternative Options' : 'Continue Learning'}
+            </h3>
             {currentPath && progress ? (
-              <NextLessonCard path={currentPath} progress={progress} />
+              recommendation ? (
+                <QuickLessonOptions path={currentPath} progress={progress} excludeLesson={recommendation.nextLesson} />
+              ) : (
+                <NextLessonCard path={currentPath} progress={progress} />
+              )
             ) : (
               <p className="text-slate-400">Start a learning path to get recommendations.</p>
             )}
@@ -390,6 +443,108 @@ function KnowledgeInsights({ progress }: { progress: UserProgress }) {
             ))}
           </div>
         </div>
+      )}
+    </div>
+  );
+}
+
+function QuickLessonOptions({
+  path,
+  progress,
+  excludeLesson,
+}: {
+  path: LearningPath;
+  progress: UserProgress;
+  excludeLesson: string;
+}) {
+  // Get uncompleted lessons excluding the recommended one
+  const availableLessons = path.lessons.filter(
+    l => !progress.completedLessons.includes(l) && l !== excludeLesson
+  ).slice(0, 3);
+
+  // Get lessons that need review
+  const reviewLessons = progress.completedLessons
+    .filter(l => {
+      if (l === excludeLesson) return false;
+      const result = progress.quizResults[l];
+      if (!result) return false;
+      return (result.score / result.totalQuestions) < 0.7;
+    })
+    .slice(0, 2);
+
+  if (availableLessons.length === 0 && reviewLessons.length === 0) {
+    return (
+      <div className="text-center py-4">
+        <p className="text-slate-400 text-sm">No alternative options available.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {reviewLessons.length > 0 && (
+        <>
+          <p className="text-xs text-slate-500 uppercase tracking-wide mb-2">Review Opportunities</p>
+          {reviewLessons.map(lessonId => {
+            const result = progress.quizResults[lessonId];
+            const score = result ? Math.round((result.score / result.totalQuestions) * 100) : 0;
+            return (
+              <Link
+                key={lessonId}
+                href={`/lesson/${lessonId}`}
+                className="flex items-center justify-between p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg hover:bg-amber-500/20 transition-colors group"
+              >
+                <div>
+                  <p className="text-sm text-white group-hover:text-amber-300 transition-colors">
+                    {formatLessonName(lessonId)}
+                  </p>
+                  <p className="text-xs text-amber-500">Quiz score: {score}%</p>
+                </div>
+                <svg
+                  className="w-4 h-4 text-amber-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </Link>
+            );
+          })}
+        </>
+      )}
+
+      {availableLessons.length > 0 && (
+        <>
+          <p className="text-xs text-slate-500 uppercase tracking-wide mb-2 mt-4">Continue Path</p>
+          {availableLessons.map((lessonId, index) => (
+            <Link
+              key={lessonId}
+              href={`/lesson/${lessonId}`}
+              className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg hover:bg-slate-700/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium"
+                  style={{ backgroundColor: `${path.color}30`, color: path.color }}
+                >
+                  {path.lessons.indexOf(lessonId) + 1}
+                </div>
+                <p className="text-sm text-slate-200 group-hover:text-white transition-colors">
+                  {formatLessonName(lessonId)}
+                </p>
+              </div>
+              <svg
+                className="w-4 h-4 text-slate-500 group-hover:text-white transition-colors"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          ))}
+        </>
       )}
     </div>
   );
