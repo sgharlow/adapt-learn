@@ -18,6 +18,7 @@ export default function AssessmentPage() {
     explorer: 0,
     practitioner: 0,
     specialist: 0,
+    'nlp-focus': 0,
   });
   const [showResult, setShowResult] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -75,6 +76,7 @@ export default function AssessmentPage() {
         explorer: prev.explorer + (option.points.explorer || 0),
         practitioner: prev.practitioner + (option.points.practitioner || 0),
         specialist: prev.specialist + (option.points.specialist || 0),
+        'nlp-focus': prev['nlp-focus'] + (option.points['nlp-focus'] || 0),
       }));
       setAnswers(prev => ({ ...prev, [question.id]: selectedOption }));
     }
@@ -97,6 +99,7 @@ export default function AssessmentPage() {
         finalScores.explorer += option.points.explorer || 0;
         finalScores.practitioner += option.points.practitioner || 0;
         finalScores.specialist += option.points.specialist || 0;
+        finalScores['nlp-focus'] += option.points['nlp-focus'] || 0;
       }
     }
 
