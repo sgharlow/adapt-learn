@@ -2,40 +2,89 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import type { UserProgress, PathsData, LearningPath } from '@/types';
+import type { UserProgress, PathsData, LearningPath, Lesson } from '@/types';
 import PathProgress from '@/components/PathProgress';
+import TopicMasteryHeatmap from '@/components/TopicMasteryHeatmap';
+import { analyzeGaps, extractTopicsFromLessons, GapAnalysis } from '@/lib/gapDetection';
 
 export default function Dashboard() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [pathsData, setPathsData] = useState<PathsData | null>(null);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [gapAnalysis, setGapAnalysis] = useState<GapAnalysis | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Load progress from localStorage
     const savedProgress = localStorage.getItem('adaptlearn-progress');
+    let userProgress: UserProgress;
     if (savedProgress) {
-      setProgress(JSON.parse(savedProgress));
+      userProgress = JSON.parse(savedProgress);
+      setProgress(userProgress);
     } else {
       // Initialize empty progress
-      const initialProgress: UserProgress = {
+      userProgress = {
         currentPath: null,
         completedLessons: [],
         quizResults: {},
         topicMastery: {},
         lastActivity: null,
       };
-      setProgress(initialProgress);
+      setProgress(userProgress);
     }
 
-    // Load paths data
-    fetch('/api/paths')
-      .then(res => res.json())
-      .then(data => {
-        setPathsData(data);
+    // Load paths data and lessons for gap analysis
+    Promise.all([
+      fetch('/api/paths').then(res => res.json()),
+      loadAllLessons(),
+    ])
+      .then(([pathData, lessonData]) => {
+        setPathsData(pathData);
+        setLessons(lessonData);
+
+        // Analyze gaps
+        if (lessonData.length > 0) {
+          const { allTopics, lessonTopicMap } = extractTopicsFromLessons(lessonData);
+          const analysis = analyzeGaps(userProgress, allTopics, lessonTopicMap);
+          setGapAnalysis(analysis);
+        }
+
         setLoading(false);
       })
       .catch(() => setLoading(false));
   }, []);
+
+  // Load all lessons from the current path
+  async function loadAllLessons(): Promise<Lesson[]> {
+    try {
+      // Get list of lesson IDs from all paths
+      const pathsRes = await fetch('/api/paths');
+      const pathsData = await pathsRes.json();
+      const allLessonIds = new Set<string>();
+
+      for (const path of pathsData.paths) {
+        for (const lessonId of path.lessons) {
+          allLessonIds.add(lessonId);
+        }
+      }
+
+      // Fetch each lesson
+      const lessonPromises = Array.from(allLessonIds).map(async (id) => {
+        try {
+          const res = await fetch(`/api/lessons/${id}`);
+          if (res.ok) return res.json();
+          return null;
+        } catch {
+          return null;
+        }
+      });
+
+      const lessons = await Promise.all(lessonPromises);
+      return lessons.filter((l): l is Lesson => l !== null);
+    } catch {
+      return [];
+    }
+  }
 
   if (loading) {
     return (
@@ -149,8 +198,16 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Knowledge Gaps */}
-        {progress && Object.keys(progress.quizResults).length > 0 && (
+        {/* Knowledge Gaps & Topic Mastery */}
+        {gapAnalysis && (
+          <div className="card">
+            <h3 className="text-lg font-semibold text-white mb-4">Knowledge Gaps & Mastery</h3>
+            <TopicMasteryHeatmap analysis={gapAnalysis} />
+          </div>
+        )}
+
+        {/* Legacy Knowledge Insights - shown when no gap analysis but has quiz results */}
+        {!gapAnalysis && progress && Object.keys(progress.quizResults).length > 0 && (
           <div className="card">
             <h3 className="text-lg font-semibold text-white mb-4">Knowledge Insights</h3>
             <KnowledgeInsights progress={progress} />
