@@ -1,0 +1,118 @@
+{
+  "id": "deep-learning-03",
+  "title": "Recurrent Neural Networks (RNNs)",
+  "topic": "Deep Learning",
+  "difficulty": "intermediate",
+  "duration": 14,
+  "prerequisites": ["deep-learning-01", "deep-learning-02"],
+  "objectives": [
+    "Understand how RNNs process sequential data",
+    "Learn about LSTM and GRU architectures and why they're needed",
+    "Recognize RNN applications in time series, text, and speech"
+  ],
+  "content": {
+    "introduction": "How do you predict what comes next in a sentence or a stock price trend? Standard neural networks process each input independently, forgetting what came before. Recurrent Neural Networks maintain memory of previous inputs, making them perfect for sequences — from language to music to time series. Let's explore how RNNs give neural networks a sense of time and context.",
+
+    "sections": [
+      {
+        "title": "The Need for Memory: Why Sequence Matters",
+        "content": "Many real-world problems involve sequences where order and context matter critically:\n\n**Sequential data everywhere:**\n\n**Language:**\n- \"The cat sat on the ___\" → prediction depends on previous words\n- \"Bank\" means finance or river edge → context disambiguates\n- Grammar and meaning flow through sentences\n\n**Time series:**\n- Stock prices: today's price relates to yesterday's trend\n- Weather: tomorrow's forecast depends on recent patterns\n- Sensor readings: vibration patterns indicate machine health\n\n**Speech and audio:**\n- Phonemes combine into words\n- Intonation carries meaning across time\n- Music has rhythm, melody, and temporal structure\n\n**Video:**\n- Action unfolds across frames\n- Previous frames provide context\n- Motion is change over time\n\n**Problems with standard networks:**\n\n1. **No memory:**\n   - Each input processed independently\n   - \"The cat\" and \"sat on the mat\" treated separately\n   - Can't track context or dependencies\n\n2. **Fixed input size:**\n   - Sentences have different lengths\n   - Time series vary in duration\n   - Standard networks need fixed dimensions\n\n3. **No parameter sharing across time:**\n   - Learning \"cat\" at position 3 doesn't help at position 10\n   - Must learn patterns separately for each position\n\n**What we need:**\n- Process variable-length sequences\n- Maintain memory of previous inputs\n- Share parameters across time steps\n- Capture temporal dependencies\n\nRecurrent Neural Networks provide exactly this capability through their unique architecture."
+      },
+      {
+        "title": "RNN Architecture: Loops Create Memory",
+        "content": "RNNs process sequences one element at a time while maintaining a hidden state — a form of memory.\n\n**The core idea:**\n\nA regular neural network:\n- Input → Network → Output\n- No memory, no loops\n\nA recurrent neural network:\n- Input + Previous State → Network → Output + New State\n- State loops back as input for the next step\n- Creates memory through this feedback loop\n\n**How RNNs work step-by-step:**\n\n**At time step t:**\n1. Receive input x(t) — could be a word, number, feature vector\n2. Receive hidden state h(t-1) from previous step — the memory\n3. Combine them: h(t) = activation(W_input × x(t) + W_hidden × h(t-1) + bias)\n4. Produce output y(t) if needed\n5. Pass h(t) to the next time step\n\n**Key components:**\n\n**Input sequence:**\n- x(1), x(2), x(3), ..., x(T)\n- Variable length T\n- Example: words in a sentence\n\n**Hidden state (memory):**\n- h(t) captures information from all previous steps\n- Updated at each time step\n- Fixed size (e.g., 256 dimensions)\n\n**Weights (shared across time):**\n- W_input: how to process current input\n- W_hidden: how to process previous memory\n- Same weights used at every time step\n- This is parameter sharing across time\n\n**Output:**\n- Can produce output at each step (many-to-many)\n- Or only at the end (many-to-one)\n- Or other patterns depending on task\n\n**Unrolling through time:**\n\nVisualize the same RNN cell copied for each time step:\n- Step 1: x(1) + h(0) → h(1) → y(1)\n- Step 2: x(2) + h(1) → h(2) → y(2)\n- Step 3: x(3) + h(2) → h(3) → y(3)\n- ...\n\nSame network, same weights, different time steps — the loop creates memory."
+      },
+      {
+        "title": "The Vanishing Gradient Problem and LSTM",
+        "content": "Simple RNNs struggle to learn long-term dependencies due to the vanishing gradient problem. LSTMs solve this.\n\n**The vanishing gradient problem:**\n\n**During training:**\n- Backpropagation flows backward through time\n- Gradients multiply at each step\n- For long sequences (100+ steps), gradients become tiny\n- Network can't learn dependencies from distant past\n\n**Example:**\n- \"The cat, which we bought from the store yesterday, was hungry\"\n- \"cat\" and \"was\" need to agree (singular)\n- 10 words apart\n- Simple RNN forgets \"cat\" by the time it sees \"was\"\n\n**Long Short-Term Memory (LSTM):**\n\nLSTMs are a special RNN architecture designed to remember long-term dependencies.\n\n**Key innovation: Cell state**\n- Separate from hidden state\n- Information highway running through time\n- Minimally modified, preserves gradients\n- Carries information across many steps\n\n**Four main components:**\n\n**1. Forget gate:**\n- Decides what to remove from cell state\n- \"Should I forget the previous subject?\"\n- Sigmoid activation (0 = forget completely, 1 = keep completely)\n\n**2. Input gate:**\n- Decides what new information to add\n- \"Should I remember this new noun?\"\n- Two parts: what to update, what values to add\n\n**3. Cell state update:**\n- Combines forget and input operations\n- Old memories × forget gate + new memories × input gate\n- Selective memory modification\n\n**4. Output gate:**\n- Decides what to output from cell state\n- \"What should I pass to the next layer?\"\n- Filters cell state for current needs\n\n**Why it works:**\n- Cell state can flow unchanged through many steps\n- Gates are additive, not multiplicative\n- Gradients flow more easily backward\n- Can learn dependencies 100+ steps apart\n\n**Example in language:**\n- Forget gate: new sentence → forget previous context\n- Input gate: \"The cat\" → remember the subject\n- Output gate: predicting verb → retrieve subject info\n- Cell state: carries \"cat is singular\" through the sentence\n\nLSTMs became the dominant choice for sequence modeling from 2010-2017, before transformers emerged."
+      },
+      {
+        "title": "GRU: Simplified Alternative to LSTM",
+        "content": "Gated Recurrent Units (GRUs) offer similar performance to LSTMs with fewer parameters and simpler architecture.\n\n**The simplification:**\n\nLSTMs have:\n- Cell state + hidden state (two types of memory)\n- Three gates (forget, input, output)\n- More parameters and computation\n\nGRUs have:\n- Only hidden state (one type of memory)\n- Two gates (reset, update)\n- Fewer parameters, faster training\n\n**GRU components:**\n\n**1. Update gate:**\n- Combines LSTM's forget and input gates\n- Decides how much to keep from past vs new input\n- z(t) = sigmoid(W_z × [h(t-1), x(t)])\n- Acts like a blend control: 0 = all new, 1 = all old\n\n**2. Reset gate:**\n- Decides how much past information to forget\n- r(t) = sigmoid(W_r × [h(t-1), x(t)])\n- Allows model to drop irrelevant history\n\n**3. New memory:**\n- Candidate hidden state considering reset\n- h_candidate = tanh(W × [r(t) × h(t-1), x(t)])\n- What the new memory should be\n\n**4. Final hidden state:**\n- Blend old and new using update gate\n- h(t) = (1 - z(t)) × h(t-1) + z(t) × h_candidate\n- Interpolation between keeping old and accepting new\n\n**Comparison:**\n\n**LSTM advantages:**\n- Separate cell state for very long dependencies\n- More fine-grained control with three gates\n- Slightly better on some tasks\n\n**GRU advantages:**\n- Fewer parameters (faster training, less overfitting)\n- Simpler to implement and understand\n- Often comparable performance\n- Better for smaller datasets\n\n**When to use each:**\n- Try GRU first (simpler, faster)\n- Use LSTM if you need to capture very long dependencies\n- Use LSTM for complex tasks with lots of data\n- Both beat simple RNNs significantly\n\n**In practice:**\n- Both widely used in industry\n- Choice often based on empirical testing\n- GRUs increasingly popular for efficiency\n- Transformers now often preferred for NLP, but RNNs/LSTMs/GRUs still excel for time series\n\nThe key insight: gating mechanisms allow networks to learn what to remember and what to forget — solving the vanishing gradient problem."
+      },
+      {
+        "title": "RNN Applications: From Text to Time Series",
+        "content": "RNNs excel at any task involving sequential data and temporal patterns:\n\n**Natural Language Processing:**\n\n**Language modeling:**\n- Predict next word in sequence\n- Foundation for text generation\n- Used in autocomplete, writing assistants\n- Example: GPT-2 was based on transformers, but earlier models used LSTMs\n\n**Machine translation:**\n- English → French, etc.\n- Encoder-decoder architecture\n- Encoder RNN reads input sentence\n- Decoder RNN generates translation\n- Attention mechanism added for better quality\n\n**Sentiment analysis:**\n- Classify text emotion (positive/negative/neutral)\n- Process tweet/review word by word\n- Final hidden state → sentiment classifier\n- Context matters: \"not bad\" vs \"bad\"\n\n**Named entity recognition:**\n- Identify people, places, organizations in text\n- Output label for each word\n- \"Apple announced...\" → Apple = Organization\n- Context disambiguates: apple (fruit) vs Apple (company)\n\n**Time Series Forecasting:**\n\n**Stock market prediction:**\n- Learn from historical price patterns\n- Capture trends and cycles\n- Multivariate: price, volume, news sentiment\n- Bidirectional RNNs use future context\n\n**Weather forecasting:**\n- Temperature, pressure, humidity sequences\n- Spatial-temporal patterns\n- Multiple sensor inputs\n- Predict hours or days ahead\n\n**Demand forecasting:**\n- Retail inventory planning\n- Energy consumption prediction\n- Traffic flow estimation\n- Seasonal patterns and trends\n\n**Speech and Audio:**\n\n**Speech recognition:**\n- Audio → text transcription\n- Process acoustic features over time\n- Combined with attention mechanisms\n- Powers virtual assistants (Siri, Alexa)\n\n**Speech synthesis:**\n- Text → audio generation\n- WaveNet uses dilated convolutions (CNN variant)\n- Char-RNN speaks character sequences\n- Natural-sounding voices\n\n**Music generation:**\n- Learn patterns in MIDI sequences\n- Generate new melodies and harmonies\n- Style transfer (Bach → Jazz)\n- Character-level music composition\n\n**Video Analysis:**\n\n**Action recognition:**\n- Classify activities in video\n- Combines CNN (spatial) + RNN (temporal)\n- Sports analysis, surveillance\n\n**Video captioning:**\n- Generate text descriptions of video\n- CNN extracts frame features\n- RNN generates caption sequence\n\n**Other Applications:**\n\n**Handwriting generation:**\n- Sequence of pen strokes\n- Generate realistic handwriting\n- Style transfer between writers\n\n**Anomaly detection:**\n- Learn normal sequence patterns\n- Flag unusual behavior\n- Fraud detection, equipment monitoring\n\n**The RNN era and beyond:**\n- RNNs dominated sequence modeling (2010-2017)\n- Transformers now preferred for many NLP tasks (parallel processing)\n- RNNs still excellent for time series, real-time processing, and low-resource settings\n- Understanding RNNs is foundational to understanding transformers"
+      }
+    ],
+
+    "summary": "Recurrent Neural Networks process sequential data by maintaining a hidden state — a form of memory that captures information from previous time steps. Unlike feedforward networks, RNNs have loops that allow information to persist, enabling them to handle variable-length sequences. Simple RNNs suffer from vanishing gradients, making it hard to learn long-term dependencies. LSTMs solve this with a cell state and three gates (forget, input, output) that control information flow, allowing them to remember patterns hundreds of steps back. GRUs simplify LSTMs with two gates (update, reset) while maintaining similar performance. RNNs excel at language modeling, translation, speech recognition, time series forecasting, and any task involving temporal patterns, though transformers have supplanted them for many NLP applications.",
+
+    "keyTakeaways": [
+      "RNNs process sequences by maintaining hidden state (memory) across time steps",
+      "Parameter sharing across time allows handling variable-length sequences",
+      "Vanishing gradients prevent simple RNNs from learning long-term dependencies",
+      "LSTMs use cell state and gates to remember information for 100+ steps",
+      "GRUs simplify LSTMs with fewer parameters while maintaining effectiveness",
+      "Applications include language, speech, time series, video — any sequential data"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the key architectural difference between RNNs and standard feedforward neural networks?",
+      "type": "multiple_choice",
+      "options": [
+        "A: RNNs have more layers",
+        "B: RNNs have loops that allow hidden state to be fed back as input, creating memory",
+        "C: RNNs can only process text data",
+        "D: RNNs don't use activation functions"
+      ],
+      "correct": "B",
+      "explanation": "RNNs have a recurrent connection — the hidden state from time step t becomes an input at time step t+1, along with the new input. This loop creates memory, allowing the network to maintain information from previous time steps. The same weights are shared across all time steps (parameter sharing), enabling the network to process variable-length sequences and learn temporal patterns."
+    },
+    {
+      "id": "q2",
+      "question": "What problem do LSTMs solve that simple RNNs struggle with?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Processing very large images",
+        "B: Learning from small datasets",
+        "C: The vanishing gradient problem, which prevents learning long-term dependencies",
+        "D: Running on GPUs efficiently"
+      ],
+      "correct": "C",
+      "explanation": "Simple RNNs suffer from vanishing gradients during backpropagation through time — gradients become exponentially smaller as they flow backward through many time steps, making it impossible to learn dependencies more than 5-10 steps back. LSTMs solve this with a cell state that acts as an information highway, allowing gradients to flow unchanged. Gates control what information to add, remove, or output, enabling LSTMs to learn dependencies 100+ steps apart."
+    },
+    {
+      "id": "q3",
+      "question": "What is the main advantage of GRUs over LSTMs?",
+      "type": "multiple_choice",
+      "options": [
+        "A: GRUs are always more accurate",
+        "B: GRUs have fewer parameters and are simpler while achieving similar performance",
+        "C: GRUs can process longer sequences",
+        "D: GRUs work better for image data"
+      ],
+      "correct": "B",
+      "explanation": "GRUs simplify the LSTM architecture by using only a hidden state (no separate cell state) and two gates instead of three. This results in fewer parameters, faster training, and less chance of overfitting on small datasets, while maintaining comparable performance on most tasks. The choice between GRU and LSTM often comes down to empirical testing, but GRUs are a good starting point due to their efficiency."
+    },
+    {
+      "id": "q4",
+      "question": "Why do RNNs share parameters across time steps?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To save memory on the GPU",
+        "B: To enable processing of variable-length sequences and learn patterns that can occur at any position",
+        "C: Because RNNs are simpler than other networks",
+        "D: To make training faster"
+      ],
+      "correct": "B",
+      "explanation": "Parameter sharing means the same weights (W_input, W_hidden) are used at every time step. This serves two crucial purposes: (1) It allows the network to handle sequences of any length — you don't need different weights for position 10 vs position 100, and (2) It enables generalization — if the network learns to recognize 'cat' at one position, it automatically recognizes it at any position. This is analogous to how CNNs share filter weights across spatial positions."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS224n, Understanding LSTMs by Chris Olah, and Deep Learning by Goodfellow et al.",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}

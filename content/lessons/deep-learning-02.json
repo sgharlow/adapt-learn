@@ -1,0 +1,118 @@
+{
+  "id": "deep-learning-02",
+  "title": "Convolutional Neural Networks (CNNs)",
+  "topic": "Deep Learning",
+  "difficulty": "intermediate",
+  "duration": 15,
+  "prerequisites": ["deep-learning-01"],
+  "objectives": [
+    "Understand how CNNs process images and spatial data",
+    "Learn the key operations: convolution, pooling, and feature maps",
+    "Recognize CNN applications in computer vision tasks"
+  ],
+  "content": {
+    "introduction": "How do computers see? Convolutional Neural Networks revolutionized computer vision by learning to recognize patterns in images just like our visual cortex does. From facial recognition to medical imaging to self-driving cars, CNNs power most modern image understanding systems. Let's explore how these specialized neural networks work their magic.",
+
+    "sections": [
+      {
+        "title": "Why Regular Neural Networks Don't Work Well for Images",
+        "content": "Before CNNs, we had regular fully-connected neural networks. Why aren't they ideal for images?\n\n**The dimensional explosion problem:**\n\nFor a small 200×200 color image:\n- Pixels: 200 × 200 × 3 (RGB) = 120,000 inputs\n- First hidden layer with 1,000 neurons\n- Connections needed: 120,000 × 1,000 = 120 million weights!\n- Just for one layer!\n\n**Problems with this approach:**\n\n1. **Too many parameters:**\n   - Millions or billions of weights to learn\n   - Requires massive amounts of data\n   - Very slow to train\n   - Easy to overfit\n\n2. **Ignores spatial structure:**\n   - Treats pixels as independent features\n   - A cat in the top-left corner vs bottom-right looks completely different\n   - Doesn't understand that nearby pixels are related\n   - No translation invariance\n\n3. **No shared learning:**\n   - Learning to detect an edge at position (10,10) doesn't help detect edges at (50,50)\n   - Must learn the same patterns everywhere independently\n\n**What we need:**\n- Fewer parameters\n- Understanding of spatial relationships\n- Same patterns reused across the entire image\n- Translation invariance (a cat is a cat, no matter where it is)\n\nThis is exactly what CNNs provide."
+      },
+      {
+        "title": "The Convolution Operation: Sliding Filters",
+        "content": "The convolution operation is the heart of CNNs. Think of it as sliding a magnifying glass over an image to find patterns.\n\n**How convolution works:**\n\n1. **The filter (or kernel):**\n   - A small matrix, typically 3×3 or 5×5\n   - Contains learned weights\n   - Designed to detect a specific pattern\n   - Example: an edge detector, corner detector, texture detector\n\n2. **Sliding window:**\n   - Place the filter at the top-left of the image\n   - Multiply filter values with image pixels (element-wise)\n   - Sum up all the products → single number\n   - Slide the filter one step right\n   - Repeat across the entire image\n\n3. **Output: Feature map**\n   - Shows where the pattern was found\n   - High values = pattern detected strongly\n   - Low values = pattern not present\n\n**Simple example (edge detection):**\n\nVertical edge filter:\n```\n[-1  0  1]\n[-1  0  1]\n[-1  0  1]\n```\n\nWhen this slides over:\n- Uniform region → output ≈ 0\n- Vertical edge → output = high positive or negative\n- Result: highlights vertical edges in the image\n\n**Key advantages:**\n\n- **Parameter sharing:** Same 3×3 filter (9 weights) used everywhere\n- **Translation invariance:** Detects edges anywhere in the image\n- **Local connectivity:** Each neuron only looks at a small region\n- **Fewer parameters:** Instead of millions, just hundreds or thousands\n\nMultiple filters learn different patterns: edges, corners, textures, and eventually complex shapes."
+      },
+      {
+        "title": "Building Deeper: Feature Hierarchies",
+        "content": "CNNs stack multiple convolutional layers to build up understanding from simple to complex:\n\n**Layer-by-layer feature hierarchy:**\n\n**Layer 1 (Early layers):**\n- Learn simple, low-level features\n- Edge detectors: horizontal, vertical, diagonal\n- Color blobs\n- Simple textures\n- 32-64 different filters\n\n**Layer 2-3 (Middle layers):**\n- Combine edges into shapes\n- Corners and curves\n- Patterns and textures\n- Parts of objects (wheels, eyes, windows)\n- 128-256 filters\n\n**Layer 4-5 (Deep layers):**\n- High-level, complex features\n- Object parts assembled together\n- Faces, animals, vehicles\n- Scene compositions\n- 512+ filters\n\n**Example for face recognition:**\n\n- Layer 1: Detects edges at different angles\n- Layer 2: Combines edges into curves, circles\n- Layer 3: Finds eyes, noses, mouths as patterns\n- Layer 4: Recognizes complete faces\n- Output layer: Identifies specific individuals\n\n**How it works:**\n\n1. Each layer receives feature maps from previous layer\n2. Applies convolution with new filters\n3. Produces new, more abstract feature maps\n4. Image size typically gets smaller\n5. Number of feature maps (depth) typically increases\n\n**Visualization:**\n- Input: 224×224×3 (width × height × RGB)\n- After conv1: 112×112×64 (smaller, more channels)\n- After conv2: 56×56×128\n- After conv3: 28×28×256\n- After conv4: 14×14×512\n\nThe spatial dimensions shrink while the depth (number of feature maps) grows — trading spatial resolution for semantic understanding."
+      },
+      {
+        "title": "Pooling: Downsampling and Invariance",
+        "content": "Pooling layers reduce the spatial size of feature maps, making the network more efficient and robust.\n\n**Why pooling?**\n\n1. **Reduce computation:**\n   - Smaller feature maps = fewer parameters\n   - Faster training and inference\n\n2. **Increase invariance:**\n   - Small shifts don't change the output\n   - \"A cat's eye is still an eye, even if it moves 2 pixels\"\n\n3. **Expand receptive field:**\n   - Each neuron sees a larger area of the original image\n   - Builds spatial hierarchy\n\n**Max pooling (most common):**\n\n- Take a region (typically 2×2)\n- Keep only the maximum value\n- Discard the rest\n- Slide to the next region (non-overlapping)\n\n**Example:**\n```\nInput (4×4):        Output (2×2):\n[1  3  2  4]        [3  4]\n[5  6  7  8]   →    [6  9]\n[9  2  1  3]\n[4  5  3  2]\n```\n\nEach 2×2 region becomes one value (the maximum).\n\n**Average pooling:**\n- Takes the average instead of max\n- Smoother, preserves more information\n- Less common than max pooling\n\n**Effects:**\n- Feature map size reduced by half in each dimension\n- Number of channels unchanged\n- Small translations become invisible\n- Keeps the strongest activations (most important features)\n\n**Typical CNN pattern:**\n1. Convolution (learn features)\n2. Activation (ReLU — add non-linearity)\n3. Pooling (downsample)\n4. Repeat 5-20 times\n5. Flatten to 1D vector\n6. Fully-connected layers for final classification\n\nThis pattern appears in almost all successful CNN architectures."
+      },
+      {
+        "title": "CNN Applications: Beyond Image Classification",
+        "content": "CNNs revolutionized computer vision and extended into many domains:\n\n**Image Classification:**\n- What's in this image? (cat, dog, car, etc.)\n- ImageNet competition: superhuman accuracy\n- Applications: photo organization, content moderation\n- Example architectures: ResNet, EfficientNet, Vision Transformer\n\n**Object Detection:**\n- Where are objects and what are they?\n- Draws bounding boxes around objects\n- YOLO, R-CNN families\n- Uses: self-driving cars, surveillance, robotics\n\n**Image Segmentation:**\n- Label every pixel with its class\n- Semantic segmentation: all cats labeled \"cat\"\n- Instance segmentation: each cat labeled separately\n- Medical imaging: tumor detection, organ segmentation\n- Autonomous vehicles: road, pedestrians, vehicles\n\n**Face Recognition:**\n- Identify or verify individuals from faces\n- Unlock phones, security systems\n- FaceNet, DeepFace architectures\n- Billions of comparisons per second\n\n**Medical Imaging:**\n- Detect diseases in X-rays, MRIs, CT scans\n- Often matches or exceeds radiologist performance\n- Diabetic retinopathy, cancer detection\n- Faster diagnosis, accessible in remote areas\n\n**Style Transfer and Generation:**\n- Transfer artistic styles between images\n- Generate realistic images (GANs)\n- Enhance image quality (super-resolution)\n- DeepDream visualizations\n\n**Beyond Images:**\n\n**Audio processing:**\n- 1D convolutions over time\n- Speech recognition, music classification\n- WaveNet for audio generation\n\n**Natural language:**\n- 1D convolutions over text sequences\n- Before transformers, CNNs were used for text classification\n- Character-level or word-level patterns\n\n**Video understanding:**\n- 3D convolutions (spatial + temporal)\n- Action recognition, video classification\n- Two-stream networks combining spatial and motion\n\n**Impact:**\nCNNs transformed computer vision from hand-crafted features to learned features, achieving superhuman performance on many tasks and enabling new applications previously impossible."
+      }
+    ],
+
+    "summary": "Convolutional Neural Networks (CNNs) are specialized neural networks designed for processing grid-like data, especially images. Unlike fully-connected networks, CNNs use convolution operations with small filters that slide across the input, detecting patterns like edges and textures. These filters share parameters across the entire image, dramatically reducing the number of weights needed. CNNs build feature hierarchies by stacking layers — early layers detect simple patterns like edges, while deeper layers recognize complex objects and scenes. Pooling layers downsample feature maps, reducing computation and providing translation invariance. CNNs excel at computer vision tasks including image classification, object detection, segmentation, and face recognition, and have extended to audio, text, and video processing.",
+
+    "keyTakeaways": [
+      "CNNs use convolution operations to detect patterns efficiently across images",
+      "Filters (kernels) slide across the input, sharing parameters and reducing model size",
+      "Layers build feature hierarchies from simple (edges) to complex (objects)",
+      "Pooling downsamples feature maps, increasing efficiency and invariance",
+      "CNNs revolutionized computer vision and extended to audio, text, and video",
+      "Applications include classification, detection, segmentation, and medical imaging"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Why are CNNs better than regular fully-connected neural networks for processing images?",
+      "type": "multiple_choice",
+      "options": [
+        "A: CNNs are always more accurate",
+        "B: CNNs use parameter sharing and preserve spatial structure, requiring far fewer weights",
+        "C: CNNs don't need training data",
+        "D: CNNs process images faster because they're simpler"
+      ],
+      "correct": "B",
+      "explanation": "CNNs solve the dimensional explosion problem through parameter sharing — the same small filter is reused across the entire image instead of having separate weights for each position. This reduces parameters from millions to thousands while preserving spatial relationships. A 3×3 filter with 9 weights can detect edges anywhere in a million-pixel image, whereas a fully-connected layer would need millions of weights."
+    },
+    {
+      "id": "q2",
+      "question": "What does a convolutional filter (kernel) do?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It removes noise from images",
+        "B: It slides across the image, detecting a specific pattern and producing a feature map",
+        "C: It compresses images to save memory",
+        "D: It converts color images to grayscale"
+      ],
+      "correct": "B",
+      "explanation": "A convolutional filter is a small matrix (like 3×3) that slides across the image, performing element-wise multiplication and summing the results at each position. This produces a feature map showing where that pattern appears in the image. Different filters learn to detect different patterns — edges, textures, corners, and eventually complex shapes. The filter weights are learned during training."
+    },
+    {
+      "id": "q3",
+      "question": "What happens to feature maps as you go deeper in a CNN?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Spatial dimensions increase while depth decreases",
+        "B: Both spatial dimensions and depth increase",
+        "C: Spatial dimensions decrease while depth (number of channels) increases",
+        "D: Everything stays the same size"
+      ],
+      "correct": "C",
+      "explanation": "CNNs trade spatial resolution for semantic depth. As you go deeper: (1) Spatial dimensions shrink due to pooling and stride (224×224 → 112×112 → 56×56...), making computation manageable, and (2) Depth increases as more filters are added (3 → 64 → 128 → 256...), capturing more abstract features. Early layers preserve spatial detail but have shallow features; deep layers have coarse spatial resolution but rich semantic understanding."
+    },
+    {
+      "id": "q4",
+      "question": "What is the main purpose of pooling layers in CNNs?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To learn more complex features",
+        "B: To reduce spatial dimensions, decrease computation, and add translation invariance",
+        "C: To add more parameters to the network",
+        "D: To convert feature maps to RGB images"
+      ],
+      "correct": "B",
+      "explanation": "Pooling layers (typically max pooling) downsample feature maps by taking the maximum (or average) value in small regions. This serves three purposes: (1) Reduces spatial size by half, cutting computation and memory, (2) Makes the network invariant to small translations — the object is detected even if it shifts slightly, and (3) Increases each neuron's receptive field, letting it see more of the original image. Pooling doesn't have learnable parameters."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Stanford CS231n, Deep Learning by Goodfellow et al., and fast.ai Practical Deep Learning",
+    "lastUpdated": "2025-12-13",
+    "version": "1.0"
+  }
+}
