@@ -6,7 +6,11 @@ import type { UserProgress, PathsData, LearningPath, Lesson } from '@/types';
 import PathProgress from '@/components/PathProgress';
 import TopicMasteryHeatmap from '@/components/TopicMasteryHeatmap';
 import RecommendationCard from '@/components/RecommendationCard';
+import ActivityTimeline from '@/components/ActivityTimeline';
+import StreakDisplay, { StreakBadge } from '@/components/StreakDisplay';
 import { analyzeGaps, extractTopicsFromLessons, GapAnalysis } from '@/lib/gapDetection';
+import { calculateStats } from '@/lib/progressUtils';
+import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
 
 // Type for enhanced recommendation from API
 interface EnhancedRecommendation {
@@ -144,9 +148,12 @@ export default function Dashboard() {
             <h1 className="text-3xl font-bold text-white mb-2">Your Dashboard</h1>
             <p className="text-slate-400">Track your learning progress</p>
           </div>
-          <Link href="/" className="btn-secondary">
-            Back to Home
-          </Link>
+          <div className="flex items-center gap-3">
+            <VoiceCommandButton />
+            <Link href="/" className="btn-secondary">
+              Back to Home
+            </Link>
+          </div>
         </div>
 
         {/* Current Path Progress */}
@@ -188,23 +195,9 @@ export default function Dashboard() {
         )}
 
         {/* Stats Grid */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <StatCard
-            title="Lessons Completed"
-            value={completedCount.toString()}
-            icon="book"
-          />
-          <StatCard
-            title="Quizzes Taken"
-            value={Object.keys(progress?.quizResults || {}).length.toString()}
-            icon="quiz"
-          />
-          <StatCard
-            title="Topics Mastered"
-            value={Object.values(progress?.topicMastery || {}).filter(t => t.score >= 70).length.toString()}
-            icon="star"
-          />
-        </div>
+        {progress && (
+          <StatsOverview progress={progress} />
+        )}
 
         {/* Smart Recommendation */}
         {recommendation && currentPath && (
@@ -217,8 +210,15 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* Recent Activity / Quick Stats */}
+        {/* Activity and Learning Options */}
         <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {/* Activity Timeline */}
+          <div className="card">
+            <h3 className="text-lg font-semibold text-white mb-4">Recent Activity</h3>
+            <ActivityTimeline activities={progress?.activityLog || []} maxItems={6} />
+          </div>
+
+          {/* Learning Options or Quick Quiz Results */}
           <div className="card">
             <h3 className="text-lg font-semibold text-white mb-4">
               {recommendation ? 'Alternative Options' : 'Continue Learning'}
@@ -233,13 +233,20 @@ export default function Dashboard() {
               <p className="text-slate-400">Start a learning path to get recommendations.</p>
             )}
           </div>
+        </div>
 
+        {/* Streak and Quiz Performance */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          {/* Learning Streak */}
+          <StreakDisplay streak={progress?.streak} />
+
+          {/* Recent Quiz Results */}
           <div className="card">
-            <h3 className="text-lg font-semibold text-white mb-4">Recent Quiz Results</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">Recent Quiz Scores</h3>
             {Object.keys(progress?.quizResults || {}).length > 0 ? (
               <RecentQuizResults results={progress?.quizResults || {}} />
             ) : (
-              <div className="text-center py-4">
+              <div className="text-center py-6">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-700 mb-3">
                   <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
@@ -271,34 +278,113 @@ export default function Dashboard() {
   );
 }
 
-function StatCard({ title, value, icon }: { title: string; value: string; icon: string }) {
-  const iconMap: Record<string, JSX.Element> = {
-    book: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-      </svg>
-    ),
-    quiz: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-      </svg>
-    ),
-    star: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-      </svg>
-    ),
+function StatsOverview({ progress }: { progress: UserProgress }) {
+  const stats = calculateStats(progress);
+
+  return (
+    <div className="mb-8">
+      {/* Main stats row */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+        <StatCard
+          title="Lessons"
+          value={stats.lessonsCompleted}
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          }
+          color="blue"
+        />
+        <StatCard
+          title="Quizzes"
+          value={stats.quizzesTaken}
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          }
+          color="green"
+        />
+        <StatCard
+          title="Avg Score"
+          value={stats.quizzesTaken > 0 ? `${stats.averageScore}%` : '-'}
+          icon={
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          }
+          color={stats.averageScore >= 70 ? 'green' : stats.averageScore >= 50 ? 'yellow' : 'red'}
+        />
+        <StatCard
+          title="Streak"
+          value={stats.currentStreak}
+          icon={<span className="text-lg">🔥</span>}
+          color="orange"
+          subtitle={stats.longestStreak > stats.currentStreak ? `Best: ${stats.longestStreak}` : undefined}
+        />
+      </div>
+
+      {/* Overall mastery bar */}
+      {stats.totalTopics > 0 && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-slate-400">Overall Mastery</span>
+            <span className="text-sm font-medium text-white">{stats.overallMastery}%</span>
+          </div>
+          <div className="h-3 bg-slate-700 rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-500"
+              style={{
+                width: `${stats.overallMastery}%`,
+                background: stats.overallMastery >= 70
+                  ? 'linear-gradient(to right, #10B981, #34D399)'
+                  : stats.overallMastery >= 50
+                    ? 'linear-gradient(to right, #F59E0B, #FBBF24)'
+                    : 'linear-gradient(to right, #EF4444, #F87171)',
+              }}
+            />
+          </div>
+          <div className="flex justify-between mt-2 text-xs text-slate-500">
+            <span>{stats.topicsMastered} of {stats.totalTopics} topics mastered</span>
+            <span>{stats.totalDaysActive} days learning</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function StatCard({
+  title,
+  value,
+  icon,
+  color,
+  subtitle,
+}: {
+  title: string;
+  value: number | string;
+  icon: React.ReactNode;
+  color: 'blue' | 'green' | 'yellow' | 'orange' | 'red';
+  subtitle?: string;
+}) {
+  const colorClasses = {
+    blue: 'bg-blue-500/10 text-blue-400',
+    green: 'bg-green-500/10 text-green-400',
+    yellow: 'bg-yellow-500/10 text-yellow-400',
+    orange: 'bg-orange-500/10 text-orange-400',
+    red: 'bg-red-500/10 text-red-400',
   };
 
   return (
     <div className="card">
-      <div className="flex items-center gap-4">
-        <div className="p-3 bg-blue-500/10 rounded-lg text-blue-400">
-          {iconMap[icon]}
+      <div className="flex items-center gap-3">
+        <div className={`p-2.5 rounded-lg ${colorClasses[color]}`}>
+          {icon}
         </div>
         <div>
-          <p className="text-3xl font-bold text-white">{value}</p>
-          <p className="text-slate-400 text-sm">{title}</p>
+          <p className="text-2xl font-bold text-white">{value}</p>
+          <p className="text-slate-400 text-xs">{title}</p>
+          {subtitle && <p className="text-slate-500 text-xs">{subtitle}</p>}
         </div>
       </div>
     </div>

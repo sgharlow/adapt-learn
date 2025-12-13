@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useVoiceInput } from '@/hooks/useVoiceInput';
 import LessonNavigation from '@/components/LessonNavigation';
-import type { Lesson, QuizQuestion } from '@/types';
+import type { Lesson, QuizQuestion, UserProgress } from '@/types';
+import { logQuizCompleted, logLessonCompleted } from '@/lib/progressUtils';
 
 interface QuizProps {
   lesson: Lesson;
@@ -109,9 +110,11 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
     const totalTime = Math.round((endTime - startTime) / 1000);
 
     // Save progress to localStorage
-    const progress = JSON.parse(localStorage.getItem('adaptlearn-progress') || '{}');
+    let progress: UserProgress = JSON.parse(localStorage.getItem('adaptlearn-progress') || '{}');
     if (!progress.completedLessons) progress.completedLessons = [];
-    if (!progress.completedLessons.includes(lesson.id)) {
+
+    const isFirstCompletion = !progress.completedLessons.includes(lesson.id);
+    if (isFirstCompletion) {
       progress.completedLessons.push(lesson.id);
     }
 
@@ -140,6 +143,7 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
         topic,
         score: Math.round((existingMastery.score + percentage) / 2),
         lessonsCompleted: (existingMastery.lessonsCompleted || 1) + 1,
+        totalLessons: existingMastery.totalLessons || 1,
         lastUpdated: new Date().toISOString(),
       };
     } else {
@@ -147,12 +151,19 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
         topic,
         score: percentage,
         lessonsCompleted: 1,
+        totalLessons: 1,
         lastUpdated: new Date().toISOString(),
       };
     }
 
     // Update last activity
     progress.lastActivity = new Date().toISOString();
+
+    // Log activity: lesson completed (if first time) and quiz completed
+    if (isFirstCompletion) {
+      progress = logLessonCompleted(progress, lesson.id, lesson.title);
+    }
+    progress = logQuizCompleted(progress, lesson.id, lesson.title, finalScore, lesson.quiz.length);
 
     localStorage.setItem('adaptlearn-progress', JSON.stringify(progress));
   };

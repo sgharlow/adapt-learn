@@ -73,7 +73,9 @@ export interface QuizResult {
   lessonId: string;
   score: number;
   totalQuestions: number;
-  answers: QuizAnswer[];
+  answers?: QuizAnswer[];
+  percentage?: number;
+  timeSpent?: number;
   completedAt: string;
 }
 
@@ -83,6 +85,28 @@ export interface QuizAnswer {
   isCorrect: boolean;
 }
 
+// Activity Log Types
+export interface ActivityLogEntry {
+  id: string;
+  type: 'lesson_started' | 'lesson_completed' | 'quiz_completed' | 'path_started' | 'milestone_reached';
+  lessonId?: string;
+  lessonTitle?: string;
+  pathId?: string;
+  pathName?: string;
+  score?: number;
+  totalQuestions?: number;
+  milestoneTitle?: string;
+  timestamp: string;
+}
+
+// Learning Streak Types
+export interface LearningStreak {
+  currentStreak: number;
+  longestStreak: number;
+  lastActiveDate: string;
+  totalDaysActive: number;
+}
+
 // User Progress Types
 export interface UserProgress {
   currentPath: string | null;
@@ -90,6 +114,8 @@ export interface UserProgress {
   quizResults: Record<string, QuizResult>;
   topicMastery: Record<string, TopicMastery>;
   lastActivity: string | null;
+  activityLog?: ActivityLogEntry[];
+  streak?: LearningStreak;
 }
 
 export interface TopicMastery {

@@ -3,12 +3,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import type { Lesson } from '@/types';
+import type { Lesson, UserProgress } from '@/types';
 import AudioPlayer from '@/components/AudioPlayer';
 import LessonNavigation from '@/components/LessonNavigation';
 import VoiceChat from '@/components/VoiceChat';
 import Quiz from '@/components/Quiz';
 import { getCachedAudio, setCachedAudio, generateCacheKey } from '@/lib/audioCache';
+import { logLessonStarted } from '@/lib/progressUtils';
+import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
 
 export default function LessonPage() {
   const params = useParams();
@@ -30,6 +32,18 @@ export default function LessonPage() {
       .then(data => {
         setLesson(data);
         setLoading(false);
+
+        // Log lesson started activity
+        try {
+          const savedProgress = localStorage.getItem('adaptlearn-progress');
+          if (savedProgress) {
+            const progress: UserProgress = JSON.parse(savedProgress);
+            const updatedProgress = logLessonStarted(progress, lessonId, data.title);
+            localStorage.setItem('adaptlearn-progress', JSON.stringify(updatedProgress));
+          }
+        } catch (err) {
+          console.error('Failed to log lesson start:', err);
+        }
       })
       .catch(err => {
         setError(err.message);
@@ -61,9 +75,12 @@ export default function LessonPage() {
       {/* Header */}
       <div className="bg-slate-800/50 border-b border-slate-700">
         <div className="max-w-4xl mx-auto px-4 py-6">
-          <Link href="/dashboard" className="text-blue-400 hover:text-blue-300 text-sm mb-4 inline-block">
-            &larr; Back to Dashboard
-          </Link>
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/dashboard" className="text-blue-400 hover:text-blue-300 text-sm">
+              &larr; Back to Dashboard
+            </Link>
+            <VoiceCommandButton />
+          </div>
           <h1 className="text-3xl font-bold text-white mb-2">{lesson.title}</h1>
           <div className="flex items-center gap-4 text-sm text-slate-400">
             <span className="px-2 py-1 bg-slate-700 rounded">{lesson.topic}</span>
