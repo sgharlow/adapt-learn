@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import type { Lesson, UserProgress } from '@/types';
+import type { Lesson } from '@/types';
 import AudioPlayer from '@/components/AudioPlayer';
 import LessonNavigation from '@/components/LessonNavigation';
 import VoiceChat from '@/components/VoiceChat';
@@ -23,7 +23,6 @@ export default function LessonPage() {
   const [error, setError] = useState<string | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showChat, setShowChat] = useState(false);
-  const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
 
   useEffect(() => {
     fetch(`/api/lessons/${lessonId}`)
@@ -49,7 +48,7 @@ export default function LessonPage() {
   if (loading) {
     return (
       <main className="min-h-screen">
-        <div className="bg-slate-800/50 border-b border-slate-700">
+        <div className="glass border-b border-slate-700/50">
           <div className="max-w-4xl mx-auto px-4 py-6">
             <div className="h-4 bg-slate-700 rounded w-32 mb-4 animate-pulse" />
             <div className="h-8 bg-slate-700 rounded w-3/4 mb-2 animate-pulse" />
@@ -71,37 +70,71 @@ export default function LessonPage() {
 
   if (error || !lesson) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
-          <p className="text-red-400 mb-4">{error || 'Lesson not found'}</p>
-          <Link href="/" className="btn-primary">Back to Home</Link>
+          <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-semibold text-white mb-2">Lesson Not Found</h2>
+          <p className="text-slate-400 mb-6">{error || 'The lesson you\'re looking for doesn\'t exist.'}</p>
+          <div className="flex gap-3 justify-center">
+            <Link href="/dashboard" className="btn-secondary">Dashboard</Link>
+            <Link href="/" className="btn-primary">Home</Link>
+          </div>
         </div>
       </div>
     );
   }
 
+  const difficultyColors = {
+    beginner: 'bg-green-500/10 text-green-400 border-green-500/30',
+    intermediate: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+    advanced: 'bg-purple-500/10 text-purple-400 border-purple-500/30',
+  };
+
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-800/50 border-b border-slate-700">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <Link href="/dashboard" className="text-blue-400 hover:text-blue-300 text-sm">
-              &larr; Back to Dashboard
+      <div className="glass border-b border-slate-700/50 sticky top-0 z-30">
+        <div className="max-w-4xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <Link
+              href="/dashboard"
+              className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group"
+            >
+              <svg className="w-5 h-5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-sm font-medium">Dashboard</span>
             </Link>
             <VoiceCommandButton />
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">{lesson.title}</h1>
-          <div className="flex items-center gap-4 text-sm text-slate-400">
-            <span className="px-2 py-1 bg-slate-700 rounded">{lesson.topic}</span>
-            <span>{lesson.duration} min</span>
-            <span className="capitalize">{lesson.difficulty}</span>
           </div>
         </div>
       </div>
 
+      {/* Lesson Header */}
+      <div className="bg-gradient-to-b from-slate-800/50 to-transparent border-b border-slate-800/50">
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className={`badge border ${difficultyColors[lesson.difficulty as keyof typeof difficultyColors]}`}>
+              {lesson.difficulty}
+            </span>
+            <span className="badge bg-slate-700/50 text-slate-300">{lesson.topic}</span>
+            <span className="flex items-center gap-1.5 text-slate-500 text-sm">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {lesson.duration} min
+            </span>
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{lesson.title}</h1>
+        </div>
+      </div>
+
       {/* Audio Player */}
-      <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border-b border-slate-700">
+      <div className="bg-gradient-to-r from-blue-900/20 via-purple-900/20 to-blue-900/20 border-b border-slate-800/50">
         <div className="max-w-4xl mx-auto px-4 py-6">
           <LessonAudioPlayer lesson={lesson} />
         </div>
@@ -110,69 +143,108 @@ export default function LessonPage() {
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-8">
         {!showQuiz ? (
-          <>
+          <div className="space-y-8">
             {/* Learning Objectives */}
-            <div className="card mb-8">
-              <h2 className="text-lg font-semibold text-white mb-3">Learning Objectives</h2>
-              <ul className="space-y-2">
+            <div className="card bg-gradient-to-br from-green-900/20 to-transparent border-green-500/20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h2 className="text-lg font-semibold text-white">Learning Objectives</h2>
+              </div>
+              <ul className="space-y-3 ml-1">
                 {lesson.objectives.map((obj, i) => (
-                  <li key={i} className="flex items-start gap-2 text-slate-300">
+                  <li key={i} className="flex items-start gap-3 text-slate-300">
                     <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    {obj}
+                    <span>{obj}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Introduction */}
-            <div className="mb-8">
+            <div className="prose prose-invert max-w-none">
               <p className="text-lg text-slate-300 leading-relaxed">{lesson.content.introduction}</p>
             </div>
 
             {/* Sections */}
             {lesson.content.sections.map((section, i) => (
-              <div key={i} className="mb-8">
-                <h2 className="text-2xl font-semibold text-white mb-4">{section.title}</h2>
-                <div className="text-slate-300 leading-relaxed whitespace-pre-line">
-                  {section.content}
+              <section key={i} className="scroll-mt-20" id={`section-${i}`}>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
+                    {i + 1}
+                  </div>
+                  <h2 className="text-2xl font-semibold text-white">{section.title}</h2>
                 </div>
-              </div>
+                <div className="pl-14">
+                  <div className="text-slate-300 leading-relaxed whitespace-pre-line">
+                    {section.content}
+                  </div>
+                </div>
+              </section>
             ))}
 
             {/* Summary */}
-            <div className="card mb-8 bg-blue-900/20 border-blue-500/30">
-              <h2 className="text-lg font-semibold text-white mb-3">Summary</h2>
-              <p className="text-slate-300">{lesson.content.summary}</p>
+            <div className="card bg-gradient-to-br from-blue-900/30 to-purple-900/20 border-blue-500/30">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                </div>
+                <h2 className="text-lg font-semibold text-white">Summary</h2>
+              </div>
+              <p className="text-slate-300 leading-relaxed">{lesson.content.summary}</p>
             </div>
 
             {/* Key Takeaways */}
-            <div className="card mb-8">
-              <h2 className="text-lg font-semibold text-white mb-3">Key Takeaways</h2>
-              <ul className="space-y-2">
+            <div className="card bg-gradient-to-br from-yellow-900/20 to-transparent border-yellow-500/20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <h2 className="text-lg font-semibold text-white">Key Takeaways</h2>
+              </div>
+              <ul className="space-y-3 ml-1">
                 {lesson.content.keyTakeaways.map((takeaway, i) => (
-                  <li key={i} className="flex items-start gap-2 text-slate-300">
-                    <span className="text-yellow-400">•</span>
-                    {takeaway}
+                  <li key={i} className="flex items-start gap-3 text-slate-300">
+                    <span className="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 text-sm font-medium flex-shrink-0">
+                      {i + 1}
+                    </span>
+                    <span>{takeaway}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
             {/* Quiz CTA */}
-            <div className="text-center py-8">
+            <div className="card bg-gradient-to-r from-purple-900/30 via-blue-900/30 to-purple-900/30 border-purple-500/30 text-center py-10">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/25">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-2">Ready to Test Your Knowledge?</h3>
+              <p className="text-slate-400 mb-6 max-w-md mx-auto">
+                Take a quick quiz to reinforce what you've learned and track your progress.
+              </p>
               <button
                 onClick={() => setShowQuiz(true)}
-                className="btn-primary text-lg"
+                className="btn-primary text-lg px-8"
               >
-                Take the Quiz
+                Start Quiz
               </button>
             </div>
 
             {/* Lesson Navigation */}
             <LessonNavigation currentLessonId={lessonId} />
-          </>
+          </div>
         ) : (
           <Quiz lesson={lesson} onComplete={() => setShowQuiz(false)} lessonId={lessonId} />
         )}
@@ -182,18 +254,20 @@ export default function LessonPage() {
       {!showChat && (
         <button
           onClick={() => setShowChat(true)}
-          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 flex items-center justify-center z-40"
+          className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all hover:scale-110 flex items-center justify-center z-40 group"
           title="Ask AI Tutor"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-white group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
+          {/* Pulse ring */}
+          <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping" />
         </button>
       )}
 
       {/* Chat Panel */}
       {showChat && (
-        <div className="fixed bottom-0 right-0 w-full sm:w-[400px] h-[500px] sm:h-[600px] sm:bottom-6 sm:right-6 z-50 shadow-2xl sm:rounded-xl overflow-hidden">
+        <div className="fixed bottom-0 right-0 w-full sm:w-[420px] h-[70vh] sm:h-[600px] sm:bottom-6 sm:right-6 z-50 shadow-2xl sm:rounded-2xl overflow-hidden border border-slate-700/50">
           <VoiceChat
             lessonContext={`Lesson: ${lesson.title}\n\nTopic: ${lesson.topic}\n\nIntroduction: ${lesson.content.introduction}\n\nKey concepts: ${lesson.content.sections.map(s => s.title).join(', ')}`}
             lessonTitle={lesson.title}
@@ -259,4 +333,3 @@ function LessonAudioPlayer({ lesson }: { lesson: Lesson }) {
     />
   );
 }
-
