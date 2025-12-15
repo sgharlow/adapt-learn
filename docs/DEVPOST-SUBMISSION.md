@@ -39,11 +39,17 @@ Our gap detection system monitors your quiz performance across topics. Score bel
 **3. AI-Powered Q&A**
 Confused about a concept? Just ask! Our AI tutor, powered by Google Gemini, provides context-aware explanations. And yes — the response is spoken back to you using ElevenLabs, maintaining the audio-first experience.
 
-**4. Four Curated Learning Paths**
+**4. Ten Curated Learning Paths**
 - **AI Explorer:** Perfect for beginners — understand AI without coding
 - **AI Practitioner:** For developers ready to build ML applications
 - **AI Specialist:** Deep dive into transformers, LLMs, and advanced topics
 - **NLP Focus:** Specialize in language AI, chatbots, and text processing
+- **Generative AI:** Learn how AI creates text, images, audio, and video
+- **Prompt Engineering:** Master the art of communicating with AI
+- **Computer Vision:** Understand how AI sees and processes images
+- **AI Ethics:** Explore bias, fairness, safety, and privacy in AI
+- **AI Tools & APIs:** Build applications with language models and voice AI
+- **AI for Business:** Strategy, use cases, and managing AI projects
 
 **5. Progress Dashboard**
 Track your learning journey with visual progress indicators, topic mastery heatmaps, streak tracking, and personalized next-step recommendations.
@@ -158,7 +164,7 @@ The dashboard shows your progress, celebrates milestones, and provides AI-powere
 - **Seamless ElevenLabs + Gemini Integration:** Voice synthesis and AI reasoning work together naturally
 - **True Audio-First Experience:** Not just an afterthought — voice is the primary interface
 - **Professional UI/UX:** Polished, responsive design that doesn't feel like a hackathon project
-- **19 Curated Lessons:** Quality content across ML fundamentals, deep learning, NLP, and practical AI
+- **42 Curated Lessons:** Quality content across ML, deep learning, NLP, generative AI, ethics, and more
 - **Working Adaptive System:** Gap detection and recommendations actually work in practice
 
 ---
@@ -176,9 +182,9 @@ The dashboard shows your progress, celebrates milestones, and provides AI-powere
 
 ### Short-Term
 - User authentication and cloud persistence
-- More lessons (target: 50+)
 - Spaced repetition for review scheduling
 - Mobile app (React Native)
+- Additional lessons in emerging AI topics
 
 ### Long-Term
 - Multi-voice podcast-style discussions

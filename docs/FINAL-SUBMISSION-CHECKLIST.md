@@ -11,8 +11,8 @@
 ### Code & Build
 - [x] Build passes without errors (`npm run build`)
 - [x] No TypeScript errors
-- [x] All 19 lessons have content and quizzes
-- [x] 4 learning paths configured
+- [x] All 42 lessons have content and quizzes
+- [x] 10 learning paths configured
 - [x] Demo mode works (`?demo=progress`)
 - [x] Audio preloader works (`/demo-preload`)
 
@@ -114,9 +114,9 @@ AdaptLearn reimagines AI education as a voice-first experience. Every lesson is 
 • Voice-First Learning - Natural audio lessons powered by ElevenLabs
 • Adaptive Knowledge Tracking - Detects gaps and adjusts recommendations
 • AI-Powered Q&A - Context-aware answers via Google Gemini
-• 4 Curated Learning Paths - From beginner to specialist
+• 10 Curated Learning Paths - From beginner to specialist
 • Progress Dashboard - Streaks, mastery, and milestones
-• 19 Curated Lessons - ML, deep learning, NLP, practical AI
+• 42 Curated Lessons - ML, deep learning, NLP, generative AI, ethics, and more
 ```
 
 ### Technologies Used
@@ -149,7 +149,7 @@ Before submitting, test these on the PRODUCTION URL:
 
 ### Landing Page
 - [ ] Page loads correctly
-- [ ] All 4 learning paths visible
+- [ ] All 10 learning paths visible
 - [ ] "Start Learning" button works
 - [ ] "Take Assessment" button works
 
@@ -226,13 +226,13 @@ After submitting:
 
 | Metric | Count |
 |--------|-------|
-| Lessons | 19 |
-| Learning Paths | 4 |
+| Lessons | 42 |
+| Learning Paths | 10 |
 | Documentation Files | 8 |
 | React Components | 15+ |
 | API Routes | 6 |
 | Days of Development | 18 |
-| Commits | 18+ |
+| Commits | 20+ |
 
 ---
 
