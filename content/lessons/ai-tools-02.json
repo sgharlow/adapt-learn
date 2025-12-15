@@ -1,0 +1,118 @@
+{
+  "id": "ai-tools-02",
+  "title": "Working with Language Model APIs",
+  "topic": "AI Tools & APIs",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["ai-tools-01", "prompting-01"],
+  "objectives": [
+    "Master the chat completions API pattern",
+    "Understand messages, roles, and conversation history",
+    "Learn about embeddings and semantic search",
+    "Implement function calling and tool use in AI applications"
+  ],
+  "content": {
+    "introduction": "Language Model APIs have become the foundation of modern AI applications—from chatbots to code assistants to content generators. But there's more to these APIs than just sending a prompt and getting a response. In this lesson, we'll dive deep into how language model APIs actually work, exploring chat completions, embeddings, and the powerful technique of function calling that lets AI interact with external tools.",
+
+    "sections": [
+      {
+        "title": "The Chat Completions API Pattern",
+        "content": "Modern language model APIs use a 'chat completions' pattern, which is designed around conversations rather than simple text completion.\n\n**How It Works:**\nInstead of sending a single prompt string, you send a list of messages. Each message has a 'role' and 'content'. The API responds with the next message in the conversation.\n\n**Basic Structure:**\n- You send: Array of messages with roles and content\n- You receive: The model's response message\n- You can include: Temperature (creativity), max tokens (length), and other parameters\n\n**Why This Pattern?**\nThe chat format enables:\n- Multi-turn conversations with context\n- Clear separation between instructions and user input\n- System-level behavior configuration\n- Structured interaction patterns\n\n**Key Parameters:**\n- **Temperature** (0-2): Controls randomness. 0 = deterministic, 2 = very creative\n- **Max Tokens**: Limits response length to control costs\n- **Top P**: Alternative to temperature for controlling randomness\n- **Frequency/Presence Penalty**: Reduces repetition\n\nThis pattern has become the industry standard, adopted by OpenAI, Anthropic, Google, and others with slight variations."
+      },
+      {
+        "title": "Messages, Roles, and Conversation History",
+        "content": "Understanding roles is crucial for effective API usage. There are three primary roles:\n\n**1. System Role**\nSets the behavior and personality of the AI. This is your instruction manual for how the model should act.\n\nExample: 'You are a helpful coding assistant who explains concepts clearly and provides working code examples.'\n\nSystem messages are processed first and influence all subsequent responses. Use them to define expertise, tone, constraints, and output format.\n\n**2. User Role**\nRepresents input from the person using the application. This is where questions, requests, and user content go.\n\nExample: 'How do I sort a list in Python?'\n\n**3. Assistant Role**\nRepresents previous responses from the AI model. When building multi-turn conversations, you include both user messages and assistant responses in the history.\n\n**Managing Conversation History:**\nTo maintain context across multiple turns:\n1. Start with system message (optional but recommended)\n2. Add each user message and assistant response in order\n3. The model sees the entire conversation history\n4. Context is maintained across turns\n\n**Important Considerations:**\n- More history = more tokens = higher cost\n- Models have context limits (4K to 200K tokens depending on model)\n- Truncate old messages when approaching limits\n- Some applications use summarization to compress history\n\n**Conversation State:**\nUnlike a stateful chatbot, API calls are stateless. YOU must manage and send the full conversation history with each request. The API doesn't remember previous calls."
+      },
+      {
+        "title": "Embeddings and Semantic Search",
+        "content": "Embeddings are a powerful but often misunderstood feature of language model APIs. They transform text into numbers that capture meaning.\n\n**What Are Embeddings?**\nAn embedding is a vector (array of numbers) that represents the semantic meaning of text. Similar text gets similar vectors.\n\nExample:\n- 'dog' and 'puppy' have similar embeddings\n- 'dog' and 'airplane' have very different embeddings\n\n**How They're Created:**\nYou send text to an embeddings API endpoint, and receive back a vector (typically 1,536 or 3,072 numbers). The model has learned to encode meaning into these numbers during training.\n\n**Common Use Cases:**\n\n1. **Semantic Search** - Find documents similar to a query based on meaning, not just keywords. Convert both query and documents to embeddings, then find nearest neighbors.\n\n2. **Clustering** - Group similar texts together automatically. Documents with similar embeddings cluster together.\n\n3. **Recommendations** - Find items similar to what a user likes.\n\n4. **Classification** - Train a simple classifier on embeddings instead of raw text.\n\n**Building Semantic Search:**\nTypical workflow:\n1. Convert all your documents into embeddings (one-time process)\n2. Store embeddings in a vector database or array\n3. When user searches, convert their query to an embedding\n4. Calculate similarity (usually cosine similarity) between query and all documents\n5. Return top matches\n\n**Cost and Performance:**\nEmbeddings are much cheaper than chat completions. OpenAI charges about $0.0001 per 1,000 tokens for embeddings versus $0.03+ for completions. They're fast to generate and enable powerful search capabilities without needing to call expensive language models repeatedly."
+      },
+      {
+        "title": "Function Calling and Tool Use",
+        "content": "Function calling (also called 'tool use') is one of the most powerful features of modern language models. It lets AI interact with external systems and APIs.\n\n**The Problem It Solves:**\nLanguage models are trained on static data. They can't check the weather, query databases, or access real-time information. Function calling bridges this gap.\n\n**How Function Calling Works:**\n\n1. **Define Functions** - You describe available functions to the model (name, description, parameters).\n\n2. **Model Decides** - When relevant, the model responds with a function call instead of text, including which function and what arguments.\n\n3. **You Execute** - Your code actually runs the function (the model can't execute anything).\n\n4. **Return Results** - You send the function output back to the model.\n\n5. **Model Responds** - The model incorporates the function result into its final answer.\n\n**Example Flow:**\nUser: 'What's the weather in San Francisco?'\n\nModel returns: Call function 'get_weather' with argument 'location: San Francisco'\n\nYou execute the function, get '72°F, sunny'\n\nYou send result back to model\n\nModel responds: 'The weather in San Francisco is currently 72°F and sunny.'\n\n**Function Definition Format:**\nYou provide a JSON schema describing:\n- Function name\n- Description of what it does\n- Parameters (name, type, description, required/optional)\n\n**Use Cases:**\n- Database queries\n- API integrations (weather, stock prices, etc.)\n- Calendar and email operations\n- E-commerce actions (search products, add to cart)\n- Multi-step workflows\n\n**Key Insight:**\nThe model doesn't actually execute functions—it's just really good at determining WHEN to call them and WITH what arguments. You write the actual function code and execution logic."
+      },
+      {
+        "title": "Best Practices for Production Applications",
+        "content": "Building production applications with language model APIs requires attention to reliability, cost, and user experience.\n\n**1. Error Handling and Retries**\n- Always wrap API calls in try-catch blocks\n- Implement exponential backoff for retries\n- Handle specific error types: rate limits (429), auth errors (401), server errors (500)\n- Set reasonable timeouts—don't let users wait indefinitely\n- Provide fallback responses when API fails\n\n**2. Cost Optimization**\n- Use cheaper models for simple tasks (GPT-3.5 instead of GPT-4)\n- Limit max_tokens to prevent unexpectedly long responses\n- Cache responses for identical requests\n- Implement request deduplication\n- Monitor token usage per user/session\n- Consider streaming responses to reduce perceived latency\n\n**3. Response Streaming**\nMost providers support streaming, where the response comes back incrementally (word by word). This:\n- Improves user experience (feels faster)\n- Allows early display of content\n- Enables cancellation mid-response\n- Reduces perceived latency even though total time is similar\n\n**4. Context Management**\n- Prune old messages when approaching context limits\n- Summarize long conversations to maintain context while reducing tokens\n- Store conversation history efficiently (database, cache, or client-side)\n- Consider separate sessions for different topics\n\n**5. Safety and Moderation**\n- Use moderation APIs to filter inappropriate content\n- Validate and sanitize user inputs\n- Implement rate limiting per user to prevent abuse\n- Monitor for prompt injection attempts\n- Set up content filters for sensitive applications\n\n**6. Monitoring and Observability**\n- Log all API requests and responses (excluding sensitive data)\n- Track latency, error rates, and costs\n- Set up alerts for unusual patterns\n- Monitor token usage trends\n- A/B test different models and prompts\n\nThese practices separate toy projects from production-ready applications."
+      }
+    ],
+
+    "summary": "Language model APIs use a chat completions pattern where you send arrays of messages with roles (system, user, assistant) and receive AI-generated responses. Conversation history must be managed by your application since APIs are stateless. Embeddings convert text into numerical vectors that capture semantic meaning, enabling powerful search and similarity features at low cost. Function calling allows language models to interact with external tools and APIs by determining when to call functions and with what arguments, though you execute the actual functions. Production applications require careful error handling, cost optimization, context management, and monitoring to be reliable and sustainable.",
+
+    "keyTakeaways": [
+      "Chat APIs use messages with roles: system (instructions), user (input), assistant (responses)",
+      "Conversation history must be sent with each request—APIs are stateless",
+      "Embeddings enable semantic search by converting text to vectors",
+      "Function calling lets AI trigger external APIs and tools",
+      "Production apps need error handling, cost controls, and monitoring"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the primary purpose of the 'system' role in chat completions?",
+      "type": "multiple_choice",
+      "options": [
+        "A: To represent the user's input",
+        "B: To set the behavior and personality of the AI",
+        "C: To show previous AI responses",
+        "D: To indicate system errors"
+      ],
+      "correct": "B",
+      "explanation": "The system role sets the instructions for how the AI should behave—its personality, expertise level, tone, and constraints. It's processed first and influences all subsequent responses. User role represents user input, and assistant role represents AI responses."
+    },
+    {
+      "id": "q2",
+      "question": "How do embeddings enable semantic search?",
+      "type": "multiple_choice",
+      "options": [
+        "A: By counting keyword matches between documents",
+        "B: By converting text to vectors, allowing similarity comparison based on meaning",
+        "C: By using a built-in search engine",
+        "D: By automatically indexing all documents alphabetically"
+      ],
+      "correct": "B",
+      "explanation": "Embeddings transform text into numerical vectors that capture semantic meaning. Texts with similar meanings have similar vectors. You can compare these vectors (using cosine similarity) to find semantically similar content, even if they don't share keywords. This is far more powerful than traditional keyword search."
+    },
+    {
+      "id": "q3",
+      "question": "In function calling, who actually executes the function?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The language model executes it automatically",
+        "B: The API provider's servers run the function",
+        "C: Your application code executes it after the model indicates it should be called",
+        "D: Functions execute themselves when mentioned"
+      ],
+      "correct": "C",
+      "explanation": "The language model only DECIDES when to call a function and determines the arguments. It returns this as structured data. Your application code must actually execute the function, get the results, and send those results back to the model. The model cannot execute code—it just has excellent judgment about when functions should be called."
+    },
+    {
+      "id": "q4",
+      "question": "Why are conversation APIs described as 'stateless'?",
+      "type": "multiple_choice",
+      "options": [
+        "A: They don't work properly",
+        "B: They can't remember anything",
+        "C: You must send the full conversation history with each request—the API doesn't store it",
+        "D: They only work for single messages"
+      ],
+      "correct": "C",
+      "explanation": "Stateless means the API doesn't remember previous requests. Each API call is independent. To maintain a conversation, YOU must send the entire message history (all previous user and assistant messages) with each new request. The API processes this full context to generate the next response, but doesn't store anything between calls."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Original content based on OpenAI, Anthropic, and Google API documentation",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

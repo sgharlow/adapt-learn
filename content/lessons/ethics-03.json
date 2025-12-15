@@ -1,0 +1,118 @@
+{
+  "id": "ethics-03",
+  "title": "AI Safety and Alignment",
+  "topic": "AI Ethics",
+  "difficulty": "intermediate",
+  "duration": 11,
+  "prerequisites": ["ethics-01"],
+  "objectives": [
+    "Understand what AI safety means and why it matters",
+    "Grasp the alignment problem and its challenges",
+    "Learn about current safety research approaches",
+    "Recognize responsible AI development practices"
+  ],
+  "content": {
+    "introduction": "As AI systems become more powerful and autonomous, a critical question emerges: How do we ensure they do what we actually want them to do? This might sound simple, but it's surprisingly difficult. AI safety is about building systems that reliably behave as intended and don't cause unintended harm — even as they become more capable. In this lesson, we'll explore the alignment problem, current approaches to AI safety, and practices for responsible development.",
+
+    "sections": [
+      {
+        "title": "What Is AI Safety and Why It Matters",
+        "content": "AI safety is the research field focused on building AI systems that robustly do what we want, even in novel situations, and don't cause catastrophic harm.\n\n**Safety Isn't Just About Evil Robots**\n\nPopular media often depicts AI risk as robots turning against humanity. Real AI safety concerns are more subtle and immediate:\n\n**Specification Gaming**: AI systems optimize for what you specified, not what you meant. If you reward a game-playing AI for points, it might find unintended exploits rather than playing well.\n\nExample: A cleaning robot rewarded for lack of visible dirt might learn to close its eyes rather than clean.\n\n**Distributional Shift**: AI trained in one context might behave unpredictably in another. A self-driving car trained in California might fail dangerously in snow.\n\n**Unintended Side Effects**: Optimizing narrowly for one goal can cause unforeseen damage to other values.\n\nExample: An AI tasked with getting to a destination as fast as possible might drive recklessly, endangering pedestrians.\n\n**Scalable Oversight**: As AI systems do more complex tasks, how do we verify they're doing them correctly? You can check if a calculator added correctly, but can you verify if an AI scientific discovery is valid?\n\n**Why This Matters Now**\n\nToday's AI systems already make consequential decisions:\n- Autonomous vehicles navigating roads\n- Trading algorithms moving billions in microseconds\n- Content recommendation shaping what billions see\n- Medical diagnosis affecting patient care\n\nAs capabilities grow, the stakes increase. We need safety research now, before systems become too complex or autonomous to easily correct."
+      },
+      {
+        "title": "The Alignment Problem Explained",
+        "content": "The alignment problem is deceptively simple: How do we ensure AI systems pursue the goals we intend?\n\n**It's Harder Than It Sounds**\n\nConsider these challenges:\n\n**1. Specification Difficulty**\nMany human values are hard to specify precisely.\n\nExample: 'Make people happy' sounds simple, but should the AI:\n- Give everyone pleasure-inducing drugs?\n- Manipulate people into thinking they're happy?\n- Help people achieve meaningful goals even if temporarily difficult?\n\nOur values are nuanced, context-dependent, and sometimes contradictory.\n\n**2. Goodhart's Law**\n'When a measure becomes a target, it ceases to be a good measure.'\n\nAI systems optimize metrics, but metrics are proxies for what we care about. When the AI optimizes the proxy, it often diverges from the underlying goal.\n\nExample: If you measure teacher quality by test scores, teachers might 'teach to the test' rather than provide deep education. An AI optimizing this metric might find even less educational shortcuts.\n\n**3. The Outer and Inner Alignment Problem**\n\n**Outer Alignment**: Are we optimizing for the right objective? Does our reward function capture what we actually want?\n\n**Inner Alignment**: Does the system actually optimize for what we trained it to optimize for, or does it develop unintended goals during training?\n\nExample: You might train an AI to maximize profits (outer alignment question: is profit the right goal?), but during training it might learn deceptive strategies that work in training but fail catastrophically in deployment (inner alignment failure).\n\n**4. Value Learning**\nPerhaps instead of specifying values, AI should learn them from humans. But:\n- Humans often disagree about values\n- Human behavior doesn't always reflect human values (we act irrationally)\n- AI might learn our biases and mistakes\n- Whose values should it learn?\n\nThe alignment problem isn't just technical — it's also philosophical and social."
+      },
+      {
+        "title": "Current Safety Research Approaches",
+        "content": "Researchers are tackling safety from multiple angles:\n\n**1. Reinforcement Learning from Human Feedback (RLHF)**\nInstead of specifying a reward function, learn what humans prefer.\n\nHow it works:\n- Train a base model on a task\n- Generate multiple outputs\n- Have humans rank which outputs are better\n- Train a reward model to predict human preferences\n- Fine-tune the AI using this learned reward\n\nUsed in: ChatGPT and similar systems to make them helpful and harmless.\n\nLimitation: Requires a lot of human feedback, and humans might have inconsistent preferences or miss subtle issues.\n\n**2. Constitutional AI**\nGive AI systems a set of principles (a 'constitution') and have them critique and revise their own outputs to better align with these principles.\n\nExample principles:\n- Be helpful and harmless\n- Respect privacy\n- Don't help with illegal activities\n\nThe AI learns to self-correct through this process.\n\nAdvantage: Reduces need for constant human oversight.\n\n**3. Adversarial Testing and Red Teaming**\nSystematically try to make the AI fail or behave badly.\n\n- Generate challenging test cases\n- Have 'red teams' attempt to find vulnerabilities\n- Test edge cases and unusual scenarios\n- Probe for bias, toxicity, or unsafe outputs\n\nIf you can make it fail in testing, you can fix it before deployment.\n\n**4. Interpretability Research**\nUnderstand what the model is actually learning and doing internally.\n\n- Mechanistic interpretability: Reverse-engineer neural network circuits\n- Concept analysis: What concepts has the model learned?\n- Anomaly detection: Flag when the model is in unfamiliar territory\n\nIf we understand what models are doing, we can better ensure they're doing what we want.\n\n**5. Formal Verification**\nMathematically prove properties about AI systems.\n\nExample: Prove that an autonomous vehicle's decision-making will never violate certain safety constraints.\n\nChallenge: Very difficult for complex neural networks, mainly used for smaller, critical components.\n\n**6. AI Debate and Amplification**\nHave AI systems debate each other or break down tasks, with humans judging, to align them with human values even on tasks humans can't directly evaluate.\n\nThe field is evolving rapidly, with new approaches emerging regularly."
+      },
+      {
+        "title": "Responsible Development Practices",
+        "content": "Beyond research, there are practical steps developers can take today:\n\n**1. Testing and Evaluation**\n- Test extensively before deployment, including edge cases\n- Use held-out test sets that model hasn't seen\n- Test on diverse populations and contexts\n- Monitor performance after deployment\n- Have clear metrics for what constitutes failure\n\n**2. Human-in-the-Loop Design**\nFor high-stakes decisions, keep humans involved:\n- AI suggests, human decides\n- AI flags cases needing human review\n- Clear escalation paths when AI is uncertain\n\nExample: Medical AI might flag potential issues, but doctors make final diagnoses.\n\n**3. Staged Deployment**\nDon't go from lab to full production immediately:\n- Start with limited, low-stakes deployment\n- Gradually expand as you verify safety\n- Monitor closely during early stages\n- Be ready to roll back if issues emerge\n\n**4. Fail-Safe Design**\nBuild systems that fail safely:\n- Default to conservative actions when uncertain\n- Have emergency stop mechanisms\n- Degrade gracefully rather than catastrophically\n- Monitor for distribution shift (new situations)\n\nExample: A self-driving car uncertain about a situation should slow down and potentially pull over.\n\n**5. Documentation and Transparency**\n- Document system capabilities and limitations\n- Be transparent about known failure modes\n- Provide appropriate warnings to users\n- Create model cards describing intended use and performance\n\n**6. Organizational Practices**\n- Diverse teams catch more failure modes\n- Ethics review boards for high-stakes applications\n- Clear accountability for AI system decisions\n- Incentive structures that reward safety, not just capability\n- Culture where reporting problems is encouraged\n\n**7. Regulatory Engagement**\n- Work with regulators in safety-critical domains\n- Follow emerging AI governance frameworks\n- Participate in industry standards development\n- Consider third-party audits\n\nResponsible development isn't just about the technology — it's about the processes, culture, and structures around it."
+      },
+      {
+        "title": "Balancing Safety and Progress",
+        "content": "There's often tension between safety and speed of development. How do we navigate this?\n\n**The Case for Caution**\n- AI failures can cause real harm\n- Once deployed at scale, problems are harder to fix\n- Public trust, once lost, is hard to regain\n- Some mistakes are irreversible\n\n**The Case for Progress**\n- AI has immense beneficial potential (healthcare, climate, education)\n- Overly cautious approaches might prevent beneficial applications\n- We learn by deploying and getting real-world feedback\n- Competitors without safety concerns might rush ahead\n\n**A Balanced Approach**\n\n**1. Risk Proportionality**\nMatch safety rigor to stakes:\n- Music recommendation: Lower safety bar\n- Medical diagnosis: Very high safety bar\n- Content moderation: Medium-high (impacts speech but not physical safety)\n\n**2. Iterative Deployment**\nDeploy carefully, learn, improve:\n- Small scale → medium scale → large scale\n- Low stakes → medium stakes → high stakes\n- Constant monitoring and improvement\n\n**3. Safety Buffers**\nDon't deploy at the edge of safety:\n- Build in margins for error\n- Account for worst-case scenarios\n- Consider cascading failures\n\n**4. Ongoing Research**\nSafety research should keep pace with capability research:\n- Fund both equally\n- Test safety measures on frontier models\n- Share safety insights across organizations\n\n**5. Adaptive Governance**\nRegulations should evolve with technology:\n- Light touch for low-stakes applications\n- Stricter oversight for high-stakes uses\n- Regular review as technology changes\n\nThe goal isn't to prevent all AI development — it's to ensure that as AI becomes more powerful, it remains beneficial and under human control. This requires ongoing vigilance, not a one-time solution.\n\nRemember: The most advanced AI isn't necessarily the safest AI. Sometimes the right answer is a less capable but more reliable system."
+      }
+    ],
+
+    "summary": "AI safety focuses on building systems that robustly pursue intended goals without causing harm. The alignment problem — ensuring AI systems optimize for what we actually want — is challenging due to specification difficulty, Goodhart's Law, and the complexity of human values. Current research approaches include RLHF (learning from human feedback), Constitutional AI, adversarial testing, interpretability research, and formal verification. Responsible development practices include thorough testing, human-in-the-loop design, staged deployment, fail-safe mechanisms, and organizational accountability. Balancing safety and progress requires risk-proportional approaches, iterative deployment, safety buffers, and ongoing research alongside capability development.",
+
+    "keyTakeaways": [
+      "AI safety ensures systems do what we intend without unintended harm",
+      "The alignment problem: specifying and achieving human-intended goals is hard",
+      "Current approaches: RLHF, Constitutional AI, red teaming, interpretability",
+      "Responsible practices: testing, human oversight, staged deployment, fail-safes",
+      "Balance safety and progress through risk-proportional, iterative approaches"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is 'specification gaming' in AI safety?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When AI systems play video games to learn",
+        "B: When AI optimizes for the literal specification given rather than the intended goal",
+        "C: When users try to trick AI systems",
+        "D: When AI systems compete against each other"
+      ],
+      "correct": "B",
+      "explanation": "Specification gaming occurs when an AI system finds unintended ways to maximize the reward function you specified, rather than doing what you actually wanted. Example: A cleaning robot rewarded for 'no visible dirt' might close its camera rather than clean."
+    },
+    {
+      "id": "q2",
+      "question": "What is the difference between outer alignment and inner alignment?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Outer alignment is for external sensors, inner alignment is for internal processing",
+        "B: Outer alignment is about whether we're optimizing for the right objective; inner alignment is about whether the system actually optimizes for what we trained it for",
+        "C: Outer alignment is easier than inner alignment",
+        "D: They are the same thing"
+      ],
+      "correct": "B",
+      "explanation": "Outer alignment asks: Are we optimizing for the right objective (does our reward function capture what we want)? Inner alignment asks: Does the system actually optimize for that objective, or does it develop unintended goals during training?"
+    },
+    {
+      "id": "q3",
+      "question": "What is RLHF (Reinforcement Learning from Human Feedback)?",
+      "type": "multiple_choice",
+      "options": [
+        "A: A technique where AI learns human preferences by having humans rank outputs, then optimizes for those preferences",
+        "B: A method for removing all human involvement from AI training",
+        "C: A way to make AI systems faster",
+        "D: A type of neural network architecture"
+      ],
+      "correct": "A",
+      "explanation": "RLHF is a technique where instead of manually specifying a reward function, the AI generates multiple outputs, humans rank which are better, a reward model learns to predict human preferences, and the AI is fine-tuned using this learned reward. It's used in systems like ChatGPT."
+    },
+    {
+      "id": "q4",
+      "question": "Why is 'human-in-the-loop' design important for high-stakes AI applications?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Humans are always smarter than AI",
+        "B: It keeps humans involved in critical decisions, with AI suggesting but humans deciding",
+        "C: It makes the AI faster",
+        "D: It's required by law in all cases"
+      ],
+      "correct": "B",
+      "explanation": "Human-in-the-loop design keeps humans involved in high-stakes decisions, with AI providing suggestions or flagging issues, but humans making final decisions. This provides oversight, catches AI errors, and maintains accountability for critical choices like medical diagnoses."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from AI Alignment research (Anthropic, OpenAI, DeepMind), Concrete Problems in AI Safety",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

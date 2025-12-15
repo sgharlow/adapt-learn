@@ -1,0 +1,118 @@
+{
+  "id": "ethics-02",
+  "title": "AI Fairness and Transparency",
+  "topic": "AI Ethics",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["ethics-01"],
+  "objectives": [
+    "Understand different definitions of fairness in AI",
+    "Recognize tradeoffs between competing fairness criteria",
+    "Learn the basics of Explainable AI (XAI)",
+    "Understand model interpretability techniques"
+  ],
+  "content": {
+    "introduction": "We know AI systems can be biased, but what does it mean for an AI to be 'fair'? It turns out fairness isn't simple — there are multiple mathematical definitions that can conflict with each other. And beyond fairness, there's a growing demand for AI transparency: can we understand how these systems make decisions? In this lesson, we'll explore the complex landscape of AI fairness and the emerging field of Explainable AI.",
+
+    "sections": [
+      {
+        "title": "What Does Fairness Mean in AI?",
+        "content": "Imagine an AI that predicts whether someone will repay a loan. Here's a seemingly simple question: What would make this AI fair?\n\nYou might think there's one obvious answer, but mathematicians have identified over 20 different definitions of fairness, and they often conflict. Here are three fundamental approaches:\n\n**Fairness Through Blindness**\nThe idea: Remove protected attributes (race, gender, etc.) from the data. If the AI can't see these attributes, it can't discriminate, right?\n\nThe problem: This rarely works. Other features can serve as proxies. Zip code correlates with race, first names suggest gender, and even seemingly neutral features like 'years of experience' can reflect historical discrimination.\n\n**Demographic Parity**\nThe idea: The AI should give positive outcomes (like loan approvals) at equal rates across all groups. If 50% of Group A gets approved, 50% of Group B should too.\n\nThe appeal: Equal outcomes seem fundamentally fair.\n\nThe controversy: What if the groups have genuinely different characteristics relevant to the decision? Is it fair to maintain equal rates if underlying factors differ?\n\n**Equal Opportunity**\nThe idea: Among people who should get positive outcomes (people who would repay loans), the AI should have equal true positive rates across groups.\n\nThe nuance: This focuses on not denying opportunities to qualified individuals, rather than equalizing all outcomes.\n\nHere's the kicker: It's mathematically proven that you usually can't satisfy all these definitions simultaneously. Choosing a fairness definition is choosing which inequalities you prioritize addressing."
+      },
+      {
+        "title": "The Fairness Tradeoff Problem",
+        "content": "Let's explore a concrete example of why fairness is hard.\n\nImagine predicting recidivism (whether someone will commit another crime). You have two fairness goals:\n\n1. **Predictive Parity**: If someone is predicted high-risk, they should have the same probability of reoffending, regardless of race.\n\n2. **False Positive Equality**: The rate of incorrectly flagging people as high-risk should be equal across races.\n\nSounds reasonable to want both, right? Here's the problem: if the base rates differ between groups (say, Group A reoffends at 40% and Group B at 20%), it's mathematically impossible to achieve both.\n\nThis isn't a technical limitation we can engineer away — it's a fundamental mathematical constraint.\n\n**So what do we do?**\n\nThe answer isn't purely technical; it requires ethical and social judgment:\n\n1. **Context Matters**: In criminal justice, false positives (wrongly predicting someone is high-risk) might be more concerning than in other contexts.\n\n2. **Stakeholder Input**: Different affected groups might prioritize different fairness criteria. Building fair AI requires involving those affected.\n\n3. **Transparency About Tradeoffs**: Be explicit about which fairness definition you're using and what tradeoffs you're making.\n\n4. **Question the Use Case**: Sometimes the fairest AI system is no AI system. Ask if prediction is appropriate for the task at all.\n\nThe key insight: Fairness isn't a checkbox you can tick. It's a set of competing values that require ongoing judgment and accountability."
+      },
+      {
+        "title": "Introduction to Explainable AI",
+        "content": "As AI systems make more important decisions, people increasingly ask: 'Why did the AI decide that?'\n\nThis question matters for several reasons:\n\n**Legal Rights**: In the EU, GDPR gives people a right to explanation for automated decisions. In the US, various regulations require explanations in lending and credit.\n\n**Trust**: People are more likely to trust and accept AI decisions they can understand.\n\n**Debugging**: If you don't know why your model made a mistake, how do you fix it?\n\n**Accountability**: When AI makes a harmful decision, we need to understand what went wrong.\n\nExplainable AI (XAI) is the field focused on making AI systems interpretable and transparent.\n\n**The Accuracy-Interpretability Tradeoff**\n\nThere's often a tension:\n\n- Simple models (like linear regression or decision trees) are easy to understand but may be less accurate.\n- Complex models (like deep neural networks) can be highly accurate but function as 'black boxes'.\n\nTraditionally, this meant choosing between performance and understanding. Modern XAI tries to have both: use powerful models but develop techniques to explain their decisions.\n\n**Two Types of Interpretability**\n\n1. **Global Interpretability**: Understanding the overall model logic. 'What features matter most in general?'\n\n2. **Local Interpretability**: Understanding individual predictions. 'Why did the model predict this specific person is high-risk?'\n\nBoth are valuable for different purposes. Global interpretability helps you understand if the model is using reasonable logic overall. Local interpretability helps explain specific decisions to affected individuals."
+      },
+      {
+        "title": "Model Interpretability Techniques",
+        "content": "Here are key techniques for understanding what AI models are doing:\n\n**1. Feature Importance**\nIdentifies which features (input variables) most influence the model's decisions overall.\n\nExample: In a loan model, you might find that credit score has 40% importance, income 25%, and employment history 15%.\n\nLimitation: Tells you what matters, not how it matters (positive or negative relationship).\n\n**2. LIME (Local Interpretable Model-Agnostic Explanations)**\nFor any individual prediction, LIME creates a simple, interpretable approximation of what the complex model did.\n\nHow it works:\n- Take one prediction you want to explain\n- Generate similar examples by tweaking features\n- See how the model's prediction changes\n- Fit a simple model (like linear regression) to these local examples\n- Use the simple model to explain the complex model's decision\n\nExample: 'This loan was rejected primarily because income was too low (40% contribution) and credit score was borderline (30% contribution).'\n\n**3. SHAP (SHapley Additive exPlanations)**\nBased on game theory, SHAP assigns each feature a contribution to the difference between the actual prediction and the average prediction.\n\nStrength: Mathematically grounded and consistent. Each feature gets a 'fair' share of credit for the prediction.\n\nExample: 'For this prediction of 72% approval probability (vs. average of 50%), credit score contributed +15%, income +10%, but number of existing loans contributed -3%.'\n\n**4. Attention Mechanisms (for Deep Learning)**\nIn models like transformers, attention shows which parts of the input the model focused on.\n\nExample: In a language model, highlighting which words most influenced predicting the next word.\n\n**5. Counterfactual Explanations**\nShows what would need to change for a different outcome.\n\nExample: 'Your loan was denied. If your credit score were 50 points higher OR your income $10,000 higher, you would likely be approved.'\n\nBenefit: Actionable information — tells people what they could change."
+      },
+      {
+        "title": "The Limits of Explainability",
+        "content": "While XAI is valuable, we need to be honest about its limitations:\n\n**1. Explanations Can Be Misleading**\nAn explanation shows what the model used, not necessarily what it should use. If the model learned a biased pattern, the explanation will show that bias, potentially legitimizing it.\n\nExample: If a hiring AI learned to prefer men, SHAP might show that 'male' gender contributes positively — which doesn't make it right.\n\n**2. Post-Hoc Explanations Aren't Perfect**\nTechniques like LIME approximate complex models. The approximation might miss important nuances or oversimplify.\n\n**3. Complexity Still Exists**\nSome models are genuinely doing complex, non-linear reasoning that's hard to summarize simply. A 5-word explanation of a decision made by analyzing millions of parameters may inherently lose information.\n\n**4. Explanation vs. Justification**\nShowing what the model did (explanation) is different from showing the decision was right (justification). XAI provides the former, not necessarily the latter.\n\n**5. The Interpretability Illusion**\nSometimes simple models aren't actually more trustworthy — they're just simpler to describe. A simple but biased model isn't better than a complex fair model.\n\n**Best Practices:**\n\n- Use multiple explanation techniques, not just one\n- Validate explanations with domain experts\n- Be transparent about uncertainty and limitations\n- Combine interpretability with other safeguards (testing, auditing, human oversight)\n- Remember: An explainable decision isn't automatically a fair or correct decision\n\nThe goal isn't perfect transparency — it's sufficient understanding for appropriate trust and accountability."
+      }
+    ],
+
+    "summary": "AI fairness is complex — there are multiple mathematical definitions of fairness that often conflict. Demographic parity, equal opportunity, and predictive parity can't all be satisfied simultaneously, requiring ethical judgment about tradeoffs. Explainable AI (XAI) addresses the need to understand AI decisions through techniques like feature importance, LIME, SHAP, and counterfactual explanations. These provide both global understanding of model behavior and local explanations of individual predictions. However, explainability has limits: explanations can be misleading, post-hoc techniques approximate, and explaining what a model did differs from justifying the decision. Building fair and transparent AI requires combining interpretability with testing, auditing, stakeholder input, and human oversight.",
+
+    "keyTakeaways": [
+      "Multiple definitions of fairness often mathematically conflict",
+      "Fairness requires ethical judgment, not just technical solutions",
+      "XAI provides global (overall) and local (individual) interpretability",
+      "Key techniques: LIME, SHAP, feature importance, counterfactuals",
+      "Explainability is valuable but has limits — combine with other safeguards"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "Why can't you simply remove protected attributes (like race and gender) from data to ensure AI fairness?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It's illegal to remove this data",
+        "B: Other features can serve as proxies for protected attributes",
+        "C: The AI needs this data to function",
+        "D: It makes the AI less accurate in all cases"
+      ],
+      "correct": "B",
+      "explanation": "Even when protected attributes are removed, other features can correlate with them and serve as proxies. For example, zip code often correlates with race, first names suggest gender, and seemingly neutral features can reflect historical discrimination."
+    },
+    {
+      "id": "q2",
+      "question": "What is the fundamental problem with trying to achieve all fairness definitions simultaneously?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It takes too much computing power",
+        "B: It's mathematically impossible when base rates differ between groups",
+        "C: The data is never good enough",
+        "D: AI systems can't process multiple constraints"
+      ],
+      "correct": "B",
+      "explanation": "It's mathematically proven that different fairness criteria (like demographic parity, equal opportunity, and predictive parity) cannot all be satisfied simultaneously when base rates differ between groups. This requires making ethical tradeoffs about which fairness definition to prioritize."
+    },
+    {
+      "id": "q3",
+      "question": "What does LIME (Local Interpretable Model-Agnostic Explanations) do?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Makes all AI models 100% transparent",
+        "B: Creates a simple, interpretable approximation of what a complex model did for a specific prediction",
+        "C: Removes bias from AI systems",
+        "D: Replaces complex models with simple ones"
+      ],
+      "correct": "B",
+      "explanation": "LIME explains individual predictions by creating a simple, interpretable model (like linear regression) that approximates the complex model's behavior locally around that specific prediction. It doesn't change the underlying model, just explains what it did."
+    },
+    {
+      "id": "q4",
+      "question": "What is a counterfactual explanation in XAI?",
+      "type": "multiple_choice",
+      "options": [
+        "A: An explanation that contradicts what the model actually did",
+        "B: A description of what would need to change for a different outcome",
+        "C: An explanation that compares two different models",
+        "D: A method for detecting bias in training data"
+      ],
+      "correct": "B",
+      "explanation": "Counterfactual explanations show what changes to the input would result in a different outcome. For example, 'If your credit score were 50 points higher, your loan would be approved.' This provides actionable information about what could change the decision."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Fairness and Machine Learning (Barocas, Hardt, Narayanan), Interpretable ML book (Molnar)",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "id": "prompting-02",
+  "title": "Effective Prompting Techniques",
+  "topic": "Prompt Engineering",
+  "difficulty": "intermediate",
+  "duration": 9,
+  "prerequisites": ["prompting-01"],
+  "objectives": [
+    "Master zero-shot and few-shot learning techniques",
+    "Apply chain-of-thought prompting for complex reasoning",
+    "Use role-playing and persona prompts effectively",
+    "Understand iterative refinement strategies"
+  ],
+  "content": {
+    "introduction": "Now that you understand the basics of prompt engineering, it's time to learn powerful techniques that professional prompt engineers use daily. These methods can dramatically improve the quality and reliability of AI outputs, especially for complex tasks that require reasoning, creativity, or specific expertise.",
+
+    "sections": [
+      {
+        "title": "Zero-Shot vs Few-Shot Learning",
+        "content": "These terms describe how many examples you provide in your prompt:\n\n**Zero-Shot Prompting** means giving no examples — just instructions:\n'Translate this to French: Hello, how are you?'\n\nThe AI uses its training to complete the task without seeing examples. This works well for common tasks.\n\n**Few-Shot Prompting** means providing examples before your actual request:\n'Translate to French:\nEnglish: Good morning → French: Bonjour\nEnglish: Thank you → French: Merci\nEnglish: Hello, how are you? → French:'\n\nFew-shot is more powerful because:\n- It shows the AI exactly what format you want\n- It demonstrates the style or approach\n- It reduces ambiguity\n- It works better for unusual tasks\n\nRule of thumb: Start zero-shot for speed. Add examples (few-shot) if results aren't meeting your needs."
+      },
+      {
+        "title": "Chain-of-Thought Prompting",
+        "content": "Chain-of-thought (CoT) prompting asks the AI to show its reasoning step-by-step. This dramatically improves performance on complex tasks.\n\n**Without CoT:**\n'Is 47 a prime number?'\nAnswer might be wrong.\n\n**With CoT:**\n'Is 47 a prime number? Let's think step by step.'\n\nThe phrase 'Let's think step by step' or 'Show your reasoning' triggers the AI to break down the problem:\n'To check if 47 is prime:\n1. Check if it's divisible by 2: 47 is odd, so no\n2. Check if divisible by 3: 4+7=11, not divisible by 3\n3. Check up to √47 ≈ 6.9\n4. Not divisible by 2, 3, 5\nTherefore, 47 is prime.'\n\nCoT is especially valuable for:\n- Math and logic problems\n- Multi-step reasoning\n- Debugging code\n- Complex analysis\n\nJust adding 'explain your reasoning' can significantly improve accuracy."
+      },
+      {
+        "title": "Role-Playing and Persona Prompts",
+        "content": "Assigning the AI a specific role or persona shapes its responses powerfully:\n\n**Generic Prompt:**\n'Explain quantum computing'\nProduces generic, unfocused content.\n\n**With Persona:**\n'You are a physics professor known for making complex topics accessible. Explain quantum computing to a smart 12-year-old using everyday analogies.'\n\nEffective personas include:\n- **Expert roles**: 'You are a senior software architect with 15 years of experience'\n- **Communication styles**: 'You are a patient teacher who uses simple language'\n- **Specific perspectives**: 'You are a skeptical journalist fact-checking a claim'\n- **Character traits**: 'You are enthusiastic and encouraging'\n\nThe persona creates a mental framework for the AI. It's like hiring the right expert for the job.\n\nYou can even combine roles: 'You are both a scientist and a storyteller, making research accessible through narrative.'"
+      },
+      {
+        "title": "Structured Prompting Patterns",
+        "content": "Using consistent patterns makes your prompts more reliable:\n\n**The RTF Pattern (Role-Task-Format):**\n'[ROLE] You are a technical writer\n[TASK] Create documentation for this API endpoint\n[FORMAT] Use markdown with code examples'\n\nThis pattern ensures you don't miss critical components.\n\n**The CRISPE Framework:**\n- **C**apacity and Role: What expert is the AI?\n- **I**nsight: Background context\n- **S**tatement: Specific task\n- **P**ersonality: Tone and style\n- **E**xperiment: Try variations\n\nExample:\n'[Capacity] You are an expert SQL developer\n[Insight] We have a users table with columns: id, name, email, created_at\n[Statement] Write a query to find users who signed up in the last 30 days\n[Personality] Be concise and include comments'\n\nUsing frameworks like these makes your prompting systematic rather than ad-hoc."
+      },
+      {
+        "title": "Iterative Refinement Strategies",
+        "content": "Professional prompt engineering involves systematic refinement:\n\n**Strategy 1: Progressive Specificity**\nStart broad, then narrow:\n- V1: 'Write about electric cars'\n- V2: 'Write about electric car benefits'\n- V3: 'Write a 300-word article about environmental benefits of electric cars for a general audience'\n\n**Strategy 2: Add Constraints Incrementally**\nAdd one constraint at a time to see what helps:\n- Add word count\n- Add tone requirement\n- Add format specification\n- Add audience level\n\n**Strategy 3: Example Refinement**\nImprove your few-shot examples:\n- Start with one example\n- Add a second if needed\n- Ensure examples cover edge cases\n- Make examples high-quality\n\n**Strategy 4: Negative Examples**\nShow what you DON'T want:\n'Do not use jargon. Do not exceed 200 words. Do not use bullet points.'\n\nTrack what works. Keep a collection of your best prompts for reuse and adaptation."
+      }
+    ],
+
+    "summary": "Effective prompting techniques significantly improve AI outputs. Zero-shot prompting provides no examples while few-shot includes examples to guide the AI. Chain-of-thought prompting asks the AI to show its reasoning step-by-step, improving accuracy on complex tasks. Role-playing and persona prompts shape the AI's perspective and expertise. Using structured patterns like RTF and CRISPE makes prompting systematic. Finally, iterative refinement through progressive specificity and incremental constraints helps you optimize your prompts over time.",
+
+    "keyTakeaways": [
+      "Few-shot prompting (with examples) beats zero-shot for complex tasks",
+      "Add 'Let's think step by step' for better reasoning",
+      "Personas and roles dramatically shape output quality",
+      "Use structured frameworks like RTF for consistency",
+      "Refine prompts iteratively, adding constraints one at a time"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What's the main difference between zero-shot and few-shot prompting?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Zero-shot is faster to run",
+        "B: Few-shot includes examples while zero-shot does not",
+        "C: Zero-shot only works with numbers",
+        "D: Few-shot requires special software"
+      ],
+      "correct": "B",
+      "explanation": "Few-shot prompting provides examples of the task before giving the actual request, while zero-shot just gives instructions without examples. Few-shot helps the AI understand the desired format and approach."
+    },
+    {
+      "id": "q2",
+      "question": "What does chain-of-thought prompting accomplish?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes the AI respond faster",
+        "B: It asks the AI to show its reasoning step-by-step, improving accuracy",
+        "C: It limits the AI to one-word answers",
+        "D: It connects multiple AI models together"
+      ],
+      "correct": "B",
+      "explanation": "Chain-of-thought prompting encourages the AI to break down its reasoning into steps, which significantly improves accuracy on complex tasks like math, logic, and multi-step problems."
+    },
+    {
+      "id": "q3",
+      "question": "Which prompt makes better use of persona/role-playing?",
+      "type": "multiple_choice",
+      "options": [
+        "A: 'Explain photosynthesis'",
+        "B: 'Tell me about plants'",
+        "C: 'You are an enthusiastic biology teacher. Explain photosynthesis to 5th graders using everyday analogies'",
+        "D: 'What is science?'"
+      ],
+      "correct": "C",
+      "explanation": "Option C assigns a specific role (biology teacher), defines the audience (5th graders), specifies the approach (everyday analogies), and sets a tone (enthusiastic). This gives the AI a clear framework for its response."
+    },
+    {
+      "id": "q4",
+      "question": "When using iterative refinement, what's a good first step?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Start with a complex prompt including every possible constraint",
+        "B: Start broad and simple, then progressively add specificity",
+        "C: Give up if the first attempt doesn't work",
+        "D: Always use the same prompt for every task"
+      ],
+      "correct": "B",
+      "explanation": "Progressive specificity means starting with a simple, broad prompt and then adding constraints and details incrementally. This helps you understand which elements actually improve the output."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Advanced prompt engineering research and best practices",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

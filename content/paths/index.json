@@ -161,6 +161,184 @@
           "message": "You've mastered natural language processing!"
         }
       ]
+    },
+    {
+      "id": "generative-ai",
+      "name": "Generative AI",
+      "description": "Explore the world of generative AI. Learn how AI creates text, images, audio, and video content from scratch.",
+      "targetAudience": "Anyone interested in AI content creation, artists, writers, developers",
+      "duration": "~1 hour",
+      "lessonCount": 5,
+      "difficulty": "beginner",
+      "color": "#F59E0B",
+      "icon": "sparkles",
+      "lessons": [
+        "gen-ai-01",
+        "gen-ai-02",
+        "gen-ai-03",
+        "gen-ai-04",
+        "gen-ai-05"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "Text Gen Expert",
+          "message": "You understand how AI generates text!"
+        },
+        {
+          "afterLesson": 4,
+          "title": "Multimodal Master",
+          "message": "You've learned about image, audio, and video generation!"
+        },
+        {
+          "afterLesson": 5,
+          "title": "Generative AI Graduate",
+          "message": "You're ready to explore the future of generative AI!"
+        }
+      ]
+    },
+    {
+      "id": "prompt-engineering",
+      "name": "Prompt Engineering",
+      "description": "Master the art of communicating with AI. Learn techniques to get better results from language models.",
+      "targetAudience": "Anyone using AI tools, content creators, developers working with LLMs",
+      "duration": "~45 minutes",
+      "lessonCount": 4,
+      "difficulty": "beginner",
+      "color": "#06B6D4",
+      "icon": "pencil",
+      "lessons": [
+        "prompting-01",
+        "prompting-02",
+        "prompting-03",
+        "prompting-04"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "Prompting Pro",
+          "message": "You've mastered effective prompting techniques!"
+        },
+        {
+          "afterLesson": 4,
+          "title": "Prompt Engineer Certified",
+          "message": "You can craft prompts for any task!"
+        }
+      ]
+    },
+    {
+      "id": "computer-vision",
+      "name": "Computer Vision",
+      "description": "Learn how AI sees and understands images. From classification to object detection to real-world applications.",
+      "targetAudience": "Developers interested in image processing, robotics, or visual AI",
+      "duration": "~45 minutes",
+      "lessonCount": 3,
+      "difficulty": "intermediate",
+      "color": "#EF4444",
+      "icon": "eye",
+      "lessons": [
+        "cv-01",
+        "cv-02",
+        "cv-03"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "Detection Master",
+          "message": "You understand image classification and object detection!"
+        },
+        {
+          "afterLesson": 3,
+          "title": "Computer Vision Specialist",
+          "message": "You've mastered modern CV applications!"
+        }
+      ]
+    },
+    {
+      "id": "ai-ethics",
+      "name": "AI Ethics",
+      "description": "Understand the ethical implications of AI. Learn about bias, fairness, safety, and privacy in AI systems.",
+      "targetAudience": "Anyone building or deploying AI, product managers, policy makers",
+      "duration": "~50 minutes",
+      "lessonCount": 4,
+      "difficulty": "beginner",
+      "color": "#14B8A6",
+      "icon": "shield",
+      "lessons": [
+        "ethics-01",
+        "ethics-02",
+        "ethics-03",
+        "ethics-04"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "Fairness Advocate",
+          "message": "You understand AI bias and fairness!"
+        },
+        {
+          "afterLesson": 4,
+          "title": "Responsible AI Champion",
+          "message": "You're ready to build ethical AI systems!"
+        }
+      ]
+    },
+    {
+      "id": "ai-tools",
+      "name": "AI Tools & APIs",
+      "description": "Learn to use AI services and APIs. Build applications with language models, voice AI, and production-ready tools.",
+      "targetAudience": "Developers, software engineers, technical product managers",
+      "duration": "~50 minutes",
+      "lessonCount": 4,
+      "difficulty": "intermediate",
+      "color": "#8B5CF6",
+      "icon": "wrench",
+      "lessons": [
+        "ai-tools-01",
+        "ai-tools-02",
+        "ai-tools-03",
+        "ai-tools-04"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "API Expert",
+          "message": "You can work with language model APIs!"
+        },
+        {
+          "afterLesson": 4,
+          "title": "AI Developer Certified",
+          "message": "You're ready to build production AI applications!"
+        }
+      ]
+    },
+    {
+      "id": "ai-business",
+      "name": "AI for Business",
+      "description": "Learn to leverage AI in business. Strategy, use cases by industry, and managing AI projects successfully.",
+      "targetAudience": "Business leaders, managers, entrepreneurs, non-technical professionals",
+      "duration": "~35 minutes",
+      "lessonCount": 3,
+      "difficulty": "beginner",
+      "color": "#84CC16",
+      "icon": "briefcase",
+      "lessons": [
+        "business-ai-01",
+        "business-ai-02",
+        "business-ai-03"
+      ],
+      "milestones": [
+        {
+          "afterLesson": 2,
+          "title": "Industry Expert",
+          "message": "You understand AI use cases across industries!"
+        },
+        {
+          "afterLesson": 3,
+          "title": "AI Strategy Leader",
+          "message": "You're ready to lead AI initiatives in your organization!"
+        }
+      ]
     }
   ],
   "assessmentQuiz": {

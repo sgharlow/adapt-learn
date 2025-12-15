@@ -1,0 +1,118 @@
+{
+  "id": "prompting-01",
+  "title": "Introduction to Prompt Engineering",
+  "topic": "Prompt Engineering",
+  "difficulty": "beginner",
+  "duration": 8,
+  "prerequisites": ["ml-fundamentals-01"],
+  "objectives": [
+    "Understand what prompt engineering is and why it matters",
+    "Learn the basic components of effective prompts",
+    "Distinguish between system prompts and user prompts",
+    "Identify common prompting mistakes to avoid"
+  ],
+  "content": {
+    "introduction": "Prompt engineering is the art and science of communicating effectively with AI language models. Just as asking the right question matters in human conversation, how you phrase your prompts dramatically affects the quality of AI responses. In this lesson, you'll learn the fundamentals of crafting effective prompts.",
+
+    "sections": [
+      {
+        "title": "What is Prompt Engineering?",
+        "content": "Prompt engineering is the practice of designing inputs to get the best possible outputs from AI language models. Think of it as learning to speak the AI's language.\n\nHere's why it matters:\n- The same question asked differently can produce vastly different results\n- Well-crafted prompts save time and reduce iterations\n- Good prompts unlock capabilities that poor prompts miss entirely\n\nFor example, asking 'Write about dogs' gives generic content. But asking 'Write a 200-word informative paragraph about how dogs communicate with each other through body language, suitable for a middle school science class' produces focused, useful content.\n\nPrompt engineering is becoming a critical skill as AI tools become ubiquitous in work and daily life."
+      },
+      {
+        "title": "Basic Prompt Structure and Components",
+        "content": "Effective prompts typically contain several key components:\n\n1. **Context** - Background information the AI needs\n2. **Task** - What you want the AI to do\n3. **Format** - How you want the output structured\n4. **Constraints** - Limitations or requirements\n5. **Examples** - Sample inputs or outputs (optional but powerful)\n\nA strong prompt might look like:\n'You are a technical writer [context]. Create a 3-step tutorial [task] in markdown format [format] that explains API authentication [task]. Keep it under 300 words [constraint]. Here's an example of the tone I want: [example]'\n\nNot every prompt needs all components, but thinking through these elements helps you craft better requests."
+      },
+      {
+        "title": "System Prompts vs User Prompts",
+        "content": "There are two types of prompts you should understand:\n\n**System Prompts** set the overall behavior and role of the AI. These are like giving the AI its job description. For example:\n'You are a helpful Python tutor who explains concepts simply and provides working code examples.'\n\nSystem prompts establish:\n- The AI's role and expertise\n- Its communication style\n- Overall behavior guidelines\n\n**User Prompts** are the specific questions or tasks you give the AI. For example:\n'Explain list comprehensions with three examples.'\n\nThink of it this way: the system prompt is 'You are a professional chef,' and the user prompt is 'How do I make risotto?'\n\nMost chat interfaces only let you control user prompts, but understanding system prompts helps you guide the AI's role within your user messages."
+      },
+      {
+        "title": "Common Prompting Mistakes",
+        "content": "Avoid these frequent pitfalls:\n\n**1. Being Too Vague**\nBad: 'Tell me about climate'\nGood: 'Explain three main causes of climate change in simple terms'\n\n**2. Assuming Context**\nBad: 'Continue from where we left off'\nGood: 'Continue the JavaScript function we were writing to validate email addresses'\n\n**3. Asking Multiple Unrelated Questions**\nBad: 'Explain Python and also tell me about marketing strategies'\nGood: Ask separately or clearly indicate you want two distinct answers\n\n**4. No Format Guidance**\nBad: 'Give me information on planets'\nGood: 'Create a comparison table of the inner planets showing diameter, distance from sun, and number of moons'\n\n**5. Ignoring Constraints**\nForgetting to specify length, style, audience, or other important parameters"
+      },
+      {
+        "title": "The Power of Iteration",
+        "content": "Perfect prompts rarely happen on the first try. Prompt engineering is iterative:\n\n**Start Simple** - Begin with a basic version of your prompt\n\n**Evaluate Output** - Does it match what you wanted? What's missing?\n\n**Refine** - Add clarity, constraints, or examples\n\n**Test Again** - See if the output improves\n\nFor example:\n- Try 1: 'Write a product description'\n- Try 2: 'Write a 100-word product description for wireless headphones'\n- Try 3: 'Write a 100-word product description for wireless headphones targeting fitness enthusiasts, emphasizing water resistance and battery life'\n\nEach iteration gets more specific and produces better results. Don't be discouraged if your first prompt doesn't work perfectly — that's normal and expected."
+      }
+    ],
+
+    "summary": "Prompt engineering is the skill of crafting effective inputs to get better outputs from AI language models. Good prompts include clear context, task description, format requirements, and constraints. Understanding the difference between system prompts (which set the AI's role) and user prompts (which specify tasks) helps you communicate more effectively. Avoid common mistakes like being too vague or assuming context. Remember that prompt engineering is iterative — you'll refine your prompts based on the outputs you receive.",
+
+    "keyTakeaways": [
+      "Prompt engineering is about communicating effectively with AI",
+      "Include context, task, format, constraints, and examples",
+      "System prompts set behavior; user prompts give tasks",
+      "Iteration and refinement are normal and expected",
+      "Specificity and clarity dramatically improve results"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the primary purpose of prompt engineering?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Making AI models run faster",
+        "B: Designing effective inputs to get better outputs from AI",
+        "C: Programming AI models from scratch",
+        "D: Installing AI software"
+      ],
+      "correct": "B",
+      "explanation": "Prompt engineering is the practice of crafting effective inputs (prompts) to get the best possible outputs from AI language models. It's about communication, not programming or installation."
+    },
+    {
+      "id": "q2",
+      "question": "Which component is NOT typically part of a well-structured prompt?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Context about the task",
+        "B: Clear format requirements",
+        "C: The AI model's source code",
+        "D: Constraints or limitations"
+      ],
+      "correct": "C",
+      "explanation": "Effective prompts include context, task description, format, constraints, and sometimes examples. You don't need (and can't access) the AI's source code to write good prompts."
+    },
+    {
+      "id": "q3",
+      "question": "What's the difference between system prompts and user prompts?",
+      "type": "multiple_choice",
+      "options": [
+        "A: System prompts are faster than user prompts",
+        "B: System prompts set the AI's role and behavior; user prompts give specific tasks",
+        "C: User prompts are only for asking questions",
+        "D: There is no difference between them"
+      ],
+      "correct": "B",
+      "explanation": "System prompts establish the AI's overall role, expertise, and behavior (like a job description), while user prompts are the specific questions or tasks you give the AI within that role."
+    },
+    {
+      "id": "q4",
+      "question": "Which prompt is better for getting useful output?",
+      "type": "multiple_choice",
+      "options": [
+        "A: 'Tell me about dogs'",
+        "B: 'Write a 200-word paragraph explaining how service dogs are trained, suitable for a high school audience'",
+        "C: 'Dogs are interesting'",
+        "D: 'What do you think about animals?'"
+      ],
+      "correct": "B",
+      "explanation": "Option B is specific, includes a clear task (write a paragraph), constraints (200 words, specific topic), and audience (high school). The other options are vague and would produce generic or unhelpful responses."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Best practices in prompt engineering",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

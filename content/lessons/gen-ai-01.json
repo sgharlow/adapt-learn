@@ -1,0 +1,117 @@
+{
+  "id": "gen-ai-01",
+  "title": "What is Generative AI?",
+  "topic": "Generative AI",
+  "difficulty": "beginner",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "objectives": [
+    "Define generative AI and understand its types",
+    "Distinguish between generative and discriminative AI",
+    "Identify key breakthroughs in generative AI",
+    "Recognize real-world applications of generative AI"
+  ],
+  "content": {
+    "introduction": "Generative AI has exploded into public consciousness with tools like ChatGPT, DALL-E, and Midjourney. But what exactly is generative AI, and how does it differ from other types of AI? In this lesson, we'll explore what makes generative AI special and why it's transforming how we create content.",
+
+    "sections": [
+      {
+        "title": "What is Generative AI?",
+        "content": "Generative AI refers to artificial intelligence systems that can create new content — whether that's text, images, audio, video, or code. Unlike traditional AI that recognizes or classifies existing data, generative AI produces original outputs.\n\nThink of it this way:\n- A spam filter (discriminative AI) decides: 'Is this email spam or not?'\n- ChatGPT (generative AI) creates: 'Here's a new email about your topic'\n\nGenerative AI learns patterns from massive amounts of training data, then uses those patterns to generate something new that has never existed before. It's not copying — it's synthesizing new creations based on what it learned."
+      },
+      {
+        "title": "Types of Generative AI",
+        "content": "Generative AI comes in several flavors, each specialized for different types of content:\n\n**Text Generation** - Models like GPT-4, Claude, and Gemini create human-like text. They can write essays, answer questions, generate code, and even craft poetry.\n\n**Image Generation** - Tools like DALL-E, Midjourney, and Stable Diffusion create original images from text descriptions. Type 'a cat astronaut riding a unicorn' and watch it come to life.\n\n**Audio Generation** - Systems like ElevenLabs synthesize realistic voices, while others like MusicLM create original music compositions.\n\n**Video Generation** - Emerging tools like Runway and Pika create video clips from text descriptions or transform existing videos.\n\n**Code Generation** - GitHub Copilot and similar tools write code based on natural language descriptions or existing code patterns.\n\nEach type uses different architectures, but they all share the core idea: learning patterns to create something new."
+      },
+      {
+        "title": "Generative vs Discriminative AI",
+        "content": "Understanding the difference between generative and discriminative AI is crucial:\n\n**Discriminative AI** answers questions like:\n- Is this email spam or legitimate?\n- Does this X-ray show a tumor?\n- Is this transaction fraudulent?\n- What object is in this photo?\n\nIt classifies, categorizes, and makes decisions about existing data.\n\n**Generative AI** creates new content:\n- Write a marketing email about this product\n- Generate an image of a sunset over mountains\n- Compose a jazz melody in the style of Miles Davis\n- Create a video of a dog playing in snow\n\nTechnically, discriminative models learn P(Y|X) — the probability of a label Y given data X. Generative models learn P(X) — the distribution of the data itself, which allows them to sample new examples.\n\nMany modern systems combine both approaches, using discriminative models to guide and refine generative outputs."
+      },
+      {
+        "title": "Key Breakthroughs in Generative AI",
+        "content": "Several major breakthroughs transformed generative AI from research curiosity to world-changing technology:\n\n**GPT-3 (2020)** - OpenAI's 175-billion parameter language model showed that scaling up neural networks dramatically improved text generation quality. It could write coherently about almost any topic.\n\n**DALL-E (2021)** - Demonstrated that AI could generate creative, novel images from text descriptions, sparking imaginations about AI creativity.\n\n**Stable Diffusion (2022)** - Made high-quality image generation accessible by releasing an open-source model that could run on consumer hardware, democratizing AI art.\n\n**ChatGPT (November 2022)** - Combined GPT-3.5 with conversational fine-tuning and a user-friendly interface, bringing generative AI to mainstream awareness with 100 million users in 2 months.\n\n**Midjourney V4-V5 (2022-2023)** - Achieved photorealistic quality in AI-generated images, making it nearly impossible to distinguish from human-created art.\n\n**GPT-4 and Gemini (2023-2024)** - Introduced multimodal capabilities, processing both text and images, and dramatically improved reasoning abilities.\n\nEach breakthrough built on previous research, but together they created an inflection point in AI capabilities."
+      },
+      {
+        "title": "Real-World Applications",
+        "content": "Generative AI is already transforming industries:\n\n**Content Creation** - Writers use ChatGPT for drafting articles, brainstorming, and editing. Marketing teams generate ad copy and social media posts at scale.\n\n**Design and Art** - Designers use Midjourney and DALL-E for concept art, mockups, and inspiration. Game developers generate textures and environments.\n\n**Software Development** - GitHub Copilot helps developers write code faster, suggesting entire functions based on comments or partial code.\n\n**Education** - AI tutors provide personalized explanations and create custom practice problems. Tools like this very platform adapt lessons to your knowledge gaps.\n\n**Entertainment** - Film studios use AI for storyboarding and visual effects. Musicians experiment with AI-generated melodies and lyrics.\n\n**Business Operations** - Companies automate report writing, email responses, and data analysis. Customer service uses AI to draft personalized replies.\n\n**Healthcare** - Researchers use generative AI to discover new drug molecules and generate synthetic medical data for training diagnostic systems.\n\nThe technology is still early, but its impact is already substantial and growing exponentially."
+      }
+    ],
+
+    "summary": "Generative AI creates new content — text, images, audio, video, and code — by learning patterns from massive datasets. Unlike discriminative AI that classifies existing data, generative AI produces original outputs. Key breakthroughs like GPT-3, DALL-E, Stable Diffusion, and ChatGPT have made this technology accessible and powerful. Today, generative AI transforms content creation, design, software development, education, and countless other fields.",
+
+    "keyTakeaways": [
+      "Generative AI creates new content; discriminative AI classifies existing content",
+      "Main types: text, image, audio, video, and code generation",
+      "ChatGPT, DALL-E, Midjourney, and Stable Diffusion are key breakthroughs",
+      "Applications span content creation, design, development, education, and more"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the fundamental difference between generative and discriminative AI?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Generative AI is faster than discriminative AI",
+        "B: Generative AI creates new content while discriminative AI classifies existing data",
+        "C: Discriminative AI is newer technology",
+        "D: Generative AI only works with images"
+      ],
+      "correct": "B",
+      "explanation": "The key distinction is that generative AI creates new, original content (text, images, etc.) while discriminative AI makes decisions about existing data (like classifying emails as spam or not spam)."
+    },
+    {
+      "id": "q2",
+      "question": "Which of these is NOT a type of generative AI?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Text generation like ChatGPT",
+        "B: Image generation like DALL-E",
+        "C: Spam email detection",
+        "D: Audio generation like ElevenLabs"
+      ],
+      "correct": "C",
+      "explanation": "Spam email detection is discriminative AI — it classifies emails as spam or not spam. It doesn't create new content. The other options all generate new content: text, images, or audio."
+    },
+    {
+      "id": "q3",
+      "question": "What made ChatGPT's launch in November 2022 particularly significant?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It was the first AI ever created",
+        "B: It brought generative AI to mainstream awareness with a user-friendly interface",
+        "C: It could generate images",
+        "D: It was the smallest AI model ever built"
+      ],
+      "correct": "B",
+      "explanation": "ChatGPT's user-friendly interface and conversational abilities brought generative AI into mainstream consciousness, reaching 100 million users in just 2 months. While not the first generative AI, it was the first to achieve mass adoption."
+    },
+    {
+      "id": "q4",
+      "question": "Which real-world application is an example of generative AI in action?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Using facial recognition to unlock your phone",
+        "B: GitHub Copilot suggesting code based on your comments",
+        "C: Netflix deciding which category to put a movie in",
+        "D: Your email app sorting messages into folders"
+      ],
+      "correct": "B",
+      "explanation": "GitHub Copilot generates new code based on context and comments — it creates original content. The other options are all discriminative AI tasks (recognition, classification, sorting) that work with existing data."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from OpenAI, Anthropic, and Google AI research",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

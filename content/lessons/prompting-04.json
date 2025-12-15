@@ -1,0 +1,118 @@
+{
+  "id": "prompting-04",
+  "title": "Prompting for Different Tasks",
+  "topic": "Prompt Engineering",
+  "difficulty": "intermediate",
+  "duration": 10,
+  "prerequisites": ["prompting-02"],
+  "objectives": [
+    "Craft effective prompts for creative writing tasks",
+    "Master prompting techniques for code generation",
+    "Use analysis and reasoning prompts effectively",
+    "Apply specialized techniques for summarization and extraction"
+  ],
+  "content": {
+    "introduction": "Different tasks require different prompting strategies. A prompt that works brilliantly for creative writing might fail for code generation. In this lesson, you'll learn task-specific techniques that professionals use to get optimal results across diverse AI applications, from storytelling to data analysis.",
+
+    "sections": [
+      {
+        "title": "Creative Writing Prompts",
+        "content": "Creative writing benefits from freedom balanced with structure:\n\n**Story Generation:**\n'Write a 500-word short story with these elements:\n- Genre: Science fiction\n- Setting: Mars colony in 2157\n- Main character: A botanist who discovers something unexpected\n- Tone: Hopeful but mysterious\n- Perspective: First person\n- Include: Sensory details and emotional depth'\n\nKey techniques:\n\n**1. Set the Creative Temperature:** Use medium to high temperature (0.7-0.9) for variety\n\n**2. Provide Constraints:** Length, tone, style, themes\n\n**3. Specify Style References:**\n'Write in the style of Hemingway: short sentences, minimal adjectives, strong verbs'\n\n**4. Use Emotional Direction:**\n'The story should evoke wonder and curiosity, building to a moment of realization'\n\n**5. Iterate on Variations:**\n'Generate 3 different opening paragraphs, each with a different mood'\n\nFor poetry, specify form:\n'Write a sonnet about artificial intelligence, following the Shakespearean sonnet structure with iambic pentameter'\n\nCreative prompts work best when they provide direction without over-constraining the AI's imaginative capacity."
+      },
+      {
+        "title": "Code Generation Prompts",
+        "content": "Code generation requires precision, not creativity:\n\n**Effective Code Prompt Structure:**\n'[LANGUAGE] Write a Python function\n[PURPOSE] that validates email addresses\n[INPUTS] Takes a string as input\n[OUTPUTS] Returns True if valid, False otherwise\n[REQUIREMENTS]\n- Use regex for validation\n- Check for @ symbol and domain\n- Include docstring with examples\n- Add type hints\n[CONSTRAINTS] No external libraries except standard library'\n\nBest practices:\n\n**1. Specify Language and Version:**\n'Write in Python 3.10+' or 'Use JavaScript ES6 syntax'\n\n**2. Request Testing:**\n'Include 5 test cases covering edge cases: empty string, missing @, multiple @, valid email, international characters'\n\n**3. Ask for Comments:**\n'Add inline comments explaining the regex pattern'\n\n**4. Define Error Handling:**\n'Use try-except blocks and raise ValueError with descriptive messages'\n\n**5. Use Low Temperature:** Set to 0.1-0.3 for deterministic, correct code\n\n**6. Request Explanations:**\n'After the code, explain how the regex pattern works line by line'\n\nFor debugging:\n'Here's code that's producing an error: [code]\nError message: [error]\nExplain the bug and provide the corrected code with explanation.'"
+      },
+      {
+        "title": "Analysis and Reasoning Prompts",
+        "content": "Analysis tasks require structured thinking and evidence:\n\n**Analytical Framework Prompt:**\n'Analyze the following business proposal using this framework:\n1. Identify the core value proposition\n2. List 3 main strengths\n3. List 3 main weaknesses\n4. Assess market viability\n5. Provide a final recommendation with justification\n\nProposal: [insert text]\n\nFor each point, cite specific evidence from the proposal.'\n\nTechniques for reasoning:\n\n**1. Demand Evidence:**\n'Support each claim with specific evidence. Quote directly when possible.'\n\n**2. Use Chain-of-Thought:**\n'Work through this problem step-by-step, showing all reasoning'\n\n**3. Request Multiple Perspectives:**\n'Analyze this decision from three perspectives: financial, ethical, and environmental'\n\n**4. Challenge Assumptions:**\n'Identify and question any assumptions in this argument: [argument]'\n\n**5. Compare and Contrast:**\n'Compare approaches A and B across these dimensions: cost, complexity, scalability, maintenance. Present in a table.'\n\n**For Data Analysis:**\n'Given this dataset: [data]\nPerform exploratory analysis:\n- Calculate key statistics (mean, median, standard deviation)\n- Identify trends and patterns\n- Flag anomalies or outliers\n- Suggest visualizations that would reveal insights'\n\nAlways ask for reasoning transparency in analytical tasks."
+      },
+      {
+        "title": "Summarization and Extraction Prompts",
+        "content": "Summarization and extraction require precision and completeness:\n\n**Summarization Strategies:**\n\n**Extractive Summary (key sentences):**\n'Extract the 5 most important sentences from this article that capture its main points. Present them in order of importance.'\n\n**Abstractive Summary (new wording):**\n'Summarize this article in 150 words, using your own words while preserving all key facts and conclusions.'\n\n**Tiered Summarization:**\n'Provide three summaries of this document:\n- One sentence (tweet-length)\n- One paragraph (executive summary)\n- One page (detailed summary)'\n\n**Audience-Specific:**\n'Summarize this technical paper for: 1) A general audience with no background, 2) A fellow expert in the field'\n\n**Extraction Prompts:**\n\n**Structured Extraction:**\n'Extract from this job posting:\n- Company name\n- Position title\n- Required skills (as bullet list)\n- Years of experience required\n- Salary range (if mentioned)\n\nFormat as JSON. If any field is not mentioned, use null.'\n\n**Entity Extraction:**\n'From this article, extract:\n- All person names\n- All organization names\n- All locations\n- All dates\nReturn as categorized lists.'\n\n**Key Information:**\n'Extract all numerical claims and statistics from this report, including their context. Format as: [Claim] - [Number/Statistic] - [Source/Page]'\n\nFor both summarization and extraction, specify format, length, and what to preserve or exclude."
+      },
+      {
+        "title": "Task-Specific Optimization",
+        "content": "Fine-tuning your approach for each task type:\n\n**Classification Tasks:**\n'Classify this customer review as: Positive, Negative, or Neutral.\nReview: [text]\nProvide:\n- Classification: [answer]\n- Confidence: [High/Medium/Low]\n- Key phrases that informed your decision: [quotes]'\n\n**Translation Tasks:**\n'Translate this technical document from English to Spanish:\n- Maintain technical terminology accuracy\n- Preserve formatting (headers, bullets, code blocks)\n- For ambiguous terms, provide alternatives in brackets\n- Use Latin American Spanish, not Spain Spanish'\n\n**Content Moderation:**\n'Review this user comment for:\n- Offensive language\n- Personal attacks\n- Misinformation\n- Spam\n\nProvide:\n- Overall verdict: [Approve/Flag/Reject]\n- Issues found: [list]\n- Severity: [Low/Medium/High]\n- Suggested action: [explanation]'\n\n**Question Answering:**\n'Answer this question using ONLY information from the provided context. If the answer is not in the context, respond with \"Insufficient information.\"\n\nContext: [text]\nQuestion: [question]\nAnswer:'\n\n**Optimization Pattern:**\n1. Study successful prompts for your task type\n2. Identify required elements\n3. Create a template\n4. Test with diverse inputs\n5. Refine based on failures\n6. Document what works\n\nBuilding a library of task-specific templates saves time and improves consistency."
+      }
+    ],
+
+    "summary": "Different tasks require tailored prompting strategies. Creative writing prompts balance freedom with structure, using higher temperature and emotional direction. Code generation demands precision with low temperature, clear requirements, and test cases. Analysis and reasoning prompts need structured frameworks, evidence requirements, and chain-of-thought reasoning. Summarization prompts specify length and format, while extraction prompts define exact fields and structure. Classification, translation, moderation, and question-answering each have specific patterns. Building task-specific templates and testing them across diverse inputs creates reliable, reusable prompts.",
+
+    "keyTakeaways": [
+      "Creative writing: higher temperature, emotional direction, style references",
+      "Code generation: low temperature, clear specs, test cases, type hints",
+      "Analysis: structured frameworks, evidence demands, multiple perspectives",
+      "Summarization: specify length, format, audience, preservation criteria",
+      "Build task-specific templates and refine through testing"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What temperature setting is best for creative writing tasks?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Very low (0.0-0.2) for consistency",
+        "B: Medium to high (0.7-0.9) for variety and creativity",
+        "C: Temperature doesn't affect creative writing",
+        "D: Always use maximum temperature"
+      ],
+      "correct": "B",
+      "explanation": "Creative writing benefits from medium to high temperature (0.7-0.9) because it produces more varied, imaginative outputs. Low temperature would make creative content repetitive and predictable."
+    },
+    {
+      "id": "q2",
+      "question": "Which element is most important in code generation prompts?",
+      "type": "multiple_choice",
+      "options": [
+        "A: High temperature for creative solutions",
+        "B: Emotional tone and storytelling",
+        "C: Precise specifications, requirements, and low temperature for correctness",
+        "D: Making the prompt as short as possible"
+      ],
+      "correct": "C",
+      "explanation": "Code generation requires precision, not creativity. Low temperature ensures deterministic correct code, and precise specifications (language, inputs, outputs, requirements, constraints) prevent ambiguity and errors."
+    },
+    {
+      "id": "q3",
+      "question": "What makes an analysis prompt effective?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Asking for a quick opinion without justification",
+        "B: Using a structured framework and demanding evidence for claims",
+        "C: Accepting any answer without questioning",
+        "D: Avoiding specific criteria"
+      ],
+      "correct": "B",
+      "explanation": "Effective analysis prompts use structured frameworks (numbered steps, dimensions) and require evidence-based reasoning with citations. This produces thorough, justified analysis rather than unsupported opinions."
+    },
+    {
+      "id": "q4",
+      "question": "When extracting structured data, what should you specify if a field isn't found in the text?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Let the AI make up plausible data",
+        "B: Specify to use null or a specific placeholder like 'NOT_FOUND'",
+        "C: Skip that field entirely",
+        "D: Return an error and stop"
+      ],
+      "correct": "B",
+      "explanation": "Good extraction prompts handle missing data by specifying exactly what to return (null, 'NOT_FOUND', empty string, etc.). This prevents the AI from fabricating information and ensures consistent, machine-readable output."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Task-specific prompt engineering best practices",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

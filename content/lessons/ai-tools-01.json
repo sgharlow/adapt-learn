@@ -1,0 +1,118 @@
+{
+  "id": "ai-tools-01",
+  "title": "Introduction to AI APIs",
+  "topic": "AI Tools & APIs",
+  "difficulty": "beginner",
+  "duration": 10,
+  "prerequisites": ["ml-fundamentals-01"],
+  "objectives": [
+    "Understand what AI APIs are and their benefits",
+    "Learn about major AI API providers and their offerings",
+    "Master API authentication and rate limiting concepts",
+    "Understand cost considerations when using AI APIs"
+  ],
+  "content": {
+    "introduction": "Artificial Intelligence APIs are transforming how developers build applications. Instead of training your own models from scratch—which requires massive data, compute, and expertise—you can access powerful AI capabilities with just a few lines of code. In this lesson, we'll explore what AI APIs are, who provides them, and what you need to know to use them effectively.",
+
+    "sections": [
+      {
+        "title": "What Are AI APIs?",
+        "content": "An AI API (Application Programming Interface) is a service that lets you access sophisticated AI models over the internet. Think of it as renting AI capabilities on-demand.\n\nWithout AI APIs, building an intelligent application might require:\n- Collecting millions of training examples\n- Training models for days or weeks on expensive hardware\n- Hiring ML experts to fine-tune everything\n- Maintaining infrastructure to serve predictions\n\nWith AI APIs, you simply:\n- Sign up for an account\n- Get an API key\n- Make HTTP requests to the service\n- Receive AI-powered results in seconds\n\nIt's like the difference between building your own power plant versus plugging into the electrical grid. AI APIs democratize access to cutting-edge AI."
+      },
+      {
+        "title": "Major AI API Providers",
+        "content": "Several companies offer world-class AI APIs:\n\n**OpenAI** - Best known for GPT models (ChatGPT). Offers text generation, embeddings, image generation (DALL-E), and text-to-speech. Their API is developer-friendly and widely adopted.\n\n**Google Cloud AI** - Provides Gemini models for multimodal AI, Vertex AI for custom models, speech recognition, translation, and vision APIs. Strong integration with Google Cloud services.\n\n**Anthropic** - Creates Claude models, known for longer context windows and strong reasoning. Popular for coding assistance and detailed analysis tasks.\n\n**Microsoft Azure** - Offers Azure OpenAI Service (hosting GPT models), Azure AI Services for vision, speech, and language understanding.\n\n**Amazon AWS** - Provides Bedrock (access to multiple AI models), Rekognition (computer vision), Transcribe (speech-to-text), and Polly (text-to-speech).\n\nEach provider has strengths—OpenAI for general language tasks, Google for multimodal AI, Anthropic for reasoning, and cloud providers for enterprise integration."
+      },
+      {
+        "title": "API Keys and Authentication",
+        "content": "To use AI APIs, you need to prove you're authorized. This is done through API keys—secret tokens that identify your account.\n\n**How API Keys Work:**\n1. You create an API key in the provider's dashboard\n2. The key is a long random string like 'sk-abc123xyz789'\n3. You include this key in your API requests (usually in headers)\n4. The provider validates the key and processes your request\n\n**Critical Security Rules:**\n- Never commit API keys to public repositories (GitHub, etc.)\n- Store keys in environment variables, not in code\n- Rotate keys regularly if they might be compromised\n- Use separate keys for development and production\n- Set up usage limits to prevent runaway costs\n\n**Rate Limiting:**\nAPI providers limit how many requests you can make per minute or hour. This prevents abuse and ensures fair access. If you exceed limits, you'll get an error and need to wait or upgrade your plan.\n\nCommon limits:\n- Free tier: 3-20 requests per minute\n- Paid tier: 100-10,000 requests per minute\n- Enterprise: Custom limits"
+      },
+      {
+        "title": "Cost Considerations and Pricing Models",
+        "content": "AI APIs aren't free—you pay for what you use. Understanding pricing is crucial for building sustainable applications.\n\n**Common Pricing Models:**\n\n1. **Per Token (Text Models)** - Charged based on input + output tokens (roughly 4 characters = 1 token). Example: GPT-4 might cost $0.03 per 1,000 input tokens and $0.06 per 1,000 output tokens.\n\n2. **Per Request (Vision/Speech)** - Fixed cost per API call. Example: Image generation might be $0.02 per image.\n\n3. **Per Minute (Audio)** - Charged for audio duration. Example: Text-to-speech at $0.015 per 1,000 characters.\n\n4. **Per Compute Hour** - For fine-tuning or dedicated deployments.\n\n**Cost Management Tips:**\n- Start with cheaper models (GPT-3.5 vs GPT-4) for testing\n- Cache responses when possible to avoid repeat calls\n- Use shorter prompts—you pay for every token\n- Set budget alerts in provider dashboards\n- Monitor usage daily to catch issues early\n- Consider batching requests when supported\n\nA small app might cost $10-50/month. At scale, costs can reach thousands. Always estimate costs before launching."
+      },
+      {
+        "title": "Getting Started with Your First API Call",
+        "content": "Making your first AI API call is straightforward. Here's the typical workflow:\n\n**Step 1: Sign Up**\nCreate an account with your chosen provider. Most offer free credits ($5-18) to start experimenting.\n\n**Step 2: Get Your API Key**\nNavigate to the API section of your dashboard and generate a new key. Copy it immediately—some providers only show it once.\n\n**Step 3: Install SDK or Use HTTP**\nMost providers offer software development kits (SDKs) for popular languages like Python, JavaScript, and Java. These handle authentication and formatting for you.\n\n**Step 4: Make a Test Call**\nSend a simple request to verify everything works. For example, ask a language model 'What is 2+2?' and confirm you get a response.\n\n**Step 5: Handle Errors**\nPlan for failures—network issues, rate limits, invalid requests. Always implement retry logic and error handling.\n\n**Best Practices:**\n- Read the provider's documentation thoroughly\n- Start with provided examples and modify them\n- Test in development before production\n- Monitor your usage and costs from day one\n\nThe barrier to entry has never been lower. Within minutes, you can add AI superpowers to your applications."
+      }
+    ],
+
+    "summary": "AI APIs provide on-demand access to powerful AI models without requiring you to train or maintain them yourself. Major providers like OpenAI, Google, Anthropic, Microsoft, and Amazon offer various AI capabilities—from text generation to image creation to speech processing. To use these services, you need API keys for authentication, and you must understand rate limits to avoid being blocked. Pricing typically follows pay-per-use models based on tokens, requests, or compute time. With proper security practices and cost monitoring, AI APIs enable developers to build intelligent applications quickly and affordably.",
+
+    "keyTakeaways": [
+      "AI APIs let you access powerful models via simple HTTP requests",
+      "Major providers: OpenAI, Google, Anthropic, Microsoft Azure, Amazon AWS",
+      "Protect API keys like passwords—never commit to version control",
+      "Pricing models: per token, per request, per minute, or per compute hour",
+      "Start small, monitor costs, and scale as needed"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the main benefit of using AI APIs instead of training your own models?",
+      "type": "multiple_choice",
+      "options": [
+        "A: AI APIs are always free to use",
+        "B: You can access powerful AI capabilities without needing massive data, compute, or expertise",
+        "C: AI APIs never have rate limits",
+        "D: You own the AI models when using APIs"
+      ],
+      "correct": "B",
+      "explanation": "The primary advantage of AI APIs is that they democratize access to sophisticated AI. You avoid the enormous costs and complexity of training models yourself, and can instead focus on building your application. APIs do have costs and rate limits, and you don't own the underlying models."
+    },
+    {
+      "id": "q2",
+      "question": "Which of the following is a critical security practice for API keys?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Share them with your team via email",
+        "B: Commit them to your GitHub repository for easy access",
+        "C: Store them in environment variables, not in code",
+        "D: Use the same key for all projects and environments"
+      ],
+      "correct": "C",
+      "explanation": "API keys should be stored in environment variables or secure secret management systems, never hardcoded in your source code. This prevents accidental exposure when code is shared or committed to version control. You should also use separate keys for different environments and never share keys via insecure channels."
+    },
+    {
+      "id": "q3",
+      "question": "If you're charged $0.03 per 1,000 input tokens and you send a prompt with 2,000 tokens, what will it cost?",
+      "type": "multiple_choice",
+      "options": [
+        "A: $0.03",
+        "B: $0.06",
+        "C: $0.60",
+        "D: $3.00"
+      ],
+      "correct": "B",
+      "explanation": "2,000 tokens is 2 × 1,000 tokens. At $0.03 per 1,000 tokens, the cost is 2 × $0.03 = $0.06. Understanding token-based pricing is essential for estimating costs when using language model APIs."
+    },
+    {
+      "id": "q4",
+      "question": "What happens when you exceed an API's rate limit?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Your account is permanently banned",
+        "B: You receive an error and need to wait or upgrade your plan",
+        "C: The API continues to work but charges extra fees",
+        "D: Your requests are queued indefinitely"
+      ],
+      "correct": "B",
+      "explanation": "Rate limits protect the service from abuse and ensure fair access. When you hit the limit, you'll receive an error response (typically HTTP 429). You can either wait until your rate limit resets (often per minute) or upgrade to a higher tier with increased limits. Your account isn't banned—it's a temporary restriction."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Original content based on industry best practices",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

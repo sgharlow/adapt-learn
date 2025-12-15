@@ -1,0 +1,118 @@
+{
+  "id": "ethics-04",
+  "title": "Privacy in AI Systems",
+  "topic": "AI Ethics",
+  "difficulty": "intermediate",
+  "duration": 11,
+  "prerequisites": ["ethics-01"],
+  "objectives": [
+    "Understand data privacy challenges in machine learning",
+    "Learn how federated learning protects privacy",
+    "Grasp the basics of differential privacy",
+    "Get an overview of AI privacy regulations"
+  ],
+  "content": {
+    "introduction": "Machine learning thrives on data — the more, the better for model performance. But this creates a fundamental tension: How do we build powerful AI systems while protecting individual privacy? From medical records to personal photos to browsing history, the data that makes AI useful is often deeply personal. In this lesson, we'll explore privacy challenges in AI, innovative technical solutions like federated learning and differential privacy, and the emerging regulatory landscape.",
+
+    "sections": [
+      {
+        "title": "Data Privacy Challenges in Machine Learning",
+        "content": "Traditional machine learning creates several privacy risks:\n\n**1. Data Centralization**\nStandard ML requires collecting data in one place:\n- Hospitals sending patient records to train medical AI\n- Phones uploading photos to train image recognition\n- Users' messages analyzed for content moderation\n\nThis creates:\n- Single points of failure (one breach exposes everything)\n- Organizations holding data they don't need long-term\n- Users losing control over their information\n\n**2. Model Memorization**\nNeural networks sometimes memorize training data, not just patterns.\n\nExample: A language model trained on emails might occasionally reproduce verbatim text from the training data, potentially leaking private information.\n\nResearch has shown you can extract training data from models, including:\n- Names and addresses\n- Phone numbers\n- Credit card numbers\n- Private messages\n\n**3. Model Inversion Attacks**\nEven without direct memorization, attackers can sometimes reconstruct training data from model outputs.\n\nExample: Given a facial recognition model trained on someone's photos, an attacker might be able to reconstruct an image of that person's face.\n\n**4. Membership Inference Attacks**\nAttackers can determine if a specific person's data was in the training set.\n\nWhy this matters: If you can determine someone was in a medical study's training data, you've learned sensitive health information about them.\n\n**5. Linkage and Re-identification**\nEven 'anonymized' data can often be re-identified by linking with other datasets.\n\nFamous example: In 2000, researchers re-identified the medical records of the Massachusetts governor by linking supposedly anonymous health data with a public voter database using just zip code, birthdate, and gender.\n\n**6. Inference of Sensitive Attributes**\nAI can infer things you never explicitly shared.\n\nExample: Facebook could predict sexual orientation from likes before users came out. Health conditions can be inferred from seemingly unrelated data like purchase history or search patterns.\n\nThe challenge: Privacy risks increase as models get more powerful, but we want powerful models for beneficial applications."
+      },
+      {
+        "title": "Federated Learning Explained",
+        "content": "Federated learning is a paradigm shift: Instead of bringing data to the model, bring the model to the data.\n\n**How It Works**\n\n1. **Central server initializes a model** (e.g., for keyboard prediction on phones)\n\n2. **Model is sent to individual devices** (your phone, hospital's server, etc.)\n\n3. **Each device trains locally** on its own data:\n   - Your phone learns from your typing patterns\n   - Hospital trains on its patient records\n   - Data never leaves the device/organization\n\n4. **Devices send model updates to server**, not raw data:\n   - Only the learned patterns (weights) are shared\n   - The central server never sees individual data\n\n5. **Server aggregates updates** from many devices:\n   - Combines learning from thousands or millions of devices\n   - Creates improved global model\n\n6. **Improved model sent back to devices**\n\n7. **Process repeats**\n\n**Real-World Example: Google Keyboard**\nGboard (Google's keyboard) uses federated learning:\n- Each phone learns from your typing\n- Sends encrypted updates about useful predictions\n- Google combines insights from millions of users\n- Everyone gets better predictions\n- Google never sees your actual messages\n\n**Benefits**\n\n- **Privacy**: Raw data stays on device\n- **Reduced centralization**: No massive data honeypot\n- **Compliance**: Easier to meet regulations like GDPR\n- **Freshness**: Models learn from recent, local data\n\n**Challenges**\n\n- **Communication costs**: Sending model updates can be bandwidth-intensive\n- **Non-IID data**: Each device has different data distribution\n- **Stragglers**: Some devices are slower or offline\n- **Still some privacy risk**: Model updates can sometimes leak information\n\n**Variations**\n\n- **Cross-device**: Millions of phones (like Gboard)\n- **Cross-silo**: Few organizations (like hospitals collaborating)\n- **Horizontal**: Different users, same features\n- **Vertical**: Same users, different features (different companies' data about same people)\n\nFederated learning is increasingly used in healthcare, finance, and any domain with sensitive distributed data."
+      },
+      {
+        "title": "Differential Privacy Basics",
+        "content": "Differential privacy provides mathematical guarantees about privacy — even if an attacker has arbitrary background knowledge.\n\n**The Core Idea**\n\nAdding or removing any individual's data from a dataset should make negligible difference to the output.\n\nMore formally: An adversary looking at the output shouldn't be able to tell if your data was included or not.\n\n**How It Works**\n\nCarefully calibrated noise is added to queries or model outputs.\n\n**Simple Example: Database Query**\n\nImagine a database of salaries:\n- True average salary: $75,000\n- Differentially private answer: $75,000 + random noise\n- Might return: $74,800 or $75,300\n\nWith enough queries, you get accurate aggregate information, but you can't learn about specific individuals.\n\n**In Machine Learning**\n\nNoise can be added during training:\n- DP-SGD (Differentially Private Stochastic Gradient Descent) adds noise to gradients during training\n- This prevents the model from overfitting to (memorizing) individual examples\n- The trained model comes with a privacy guarantee\n\n**The Privacy Budget (epsilon)**\n\nDifferential privacy has a parameter ε (epsilon) measuring privacy loss:\n- Smaller ε = stronger privacy (more noise)\n- Larger ε = weaker privacy (less noise)\n- ε = 0 would be perfect privacy (but useless model)\n- Typical values: ε between 0.1 and 10\n\nImportant property: Privacy loss accumulates. Each query or model trained consumes budget.\n\n**Benefits**\n\n- **Provable guarantees**: Mathematical proof, not just heuristics\n- **Protection against linkage**: Works even if attacker has background knowledge\n- **Composability**: Can track total privacy loss across multiple analyses\n\n**Tradeoffs**\n\n- **Accuracy cost**: Adding noise reduces accuracy\n- **Privacy-utility tradeoff**: More privacy = less accurate results\n- **Complexity**: Harder to implement correctly\n- **Parameter tuning**: Choosing ε requires judgment\n\n**Real-World Use**\n\n- **Apple**: Uses differential privacy for iOS analytics (keyboard usage, emoji frequency)\n- **U.S. Census**: 2020 Census used differential privacy for the first time\n- **Google**: Analytics and federated learning\n- **Meta**: Advertising measurement\n\n**Common Misconceptions**\n\n1. It's not just anonymization (which can be reversed)\n2. It doesn't mean perfect privacy (there's always some ε)\n3. It's not a silver bullet (there are tradeoffs)\n\nDifferential privacy is currently the gold standard for formal privacy protection in data analysis and ML."
+      },
+      {
+        "title": "Privacy Regulations Overview",
+        "content": "The regulatory landscape for AI and data privacy is rapidly evolving. Here are key frameworks:\n\n**1. GDPR (General Data Protection Regulation)**\n\n**Where**: European Union (but affects global companies)\n**Since**: 2018\n\n**Key Provisions for AI**:\n\n- **Data minimization**: Collect only what's necessary\n- **Purpose limitation**: Use data only for stated purposes\n- **Right to explanation**: Some right to understand automated decisions (though legal interpretation is debated)\n- **Right to erasure**: 'Right to be forgotten' — delete user data on request\n- **Data protection by design**: Privacy must be built in, not added later\n- **Data processing agreements**: Clear responsibility for data handling\n\n**Impact on ML**: \n- Harder to collect massive datasets\n- Must handle deletion requests (challenging with trained models)\n- Consent requirements limit some data uses\n- Heavy fines for violations (up to 4% of global revenue)\n\n**2. CCPA/CPRA (California Privacy Acts)**\n\n**Where**: California (but influences U.S. practices)\n**Since**: 2020 (CCPA), enhanced 2023 (CPRA)\n\n**Key Rights**:\n- Know what data is collected\n- Delete personal data\n- Opt out of data selling\n- Opt out of automated decision-making\n- Data portability\n\n**3. AI Act (European Union)**\n\n**Status**: Proposed, likely to take effect 2025-2026\n\n**Risk-Based Approach**:\n\n**Unacceptable Risk** (prohibited):\n- Social scoring by governments\n- Subliminal manipulation\n- Exploiting vulnerabilities of children or disabled people\n\n**High Risk** (strict requirements):\n- Critical infrastructure\n- Education/employment\n- Law enforcement\n- Border control\n- Administration of justice\n\nRequirements: Risk assessment, data quality, transparency, human oversight, accuracy, robustness.\n\n**Limited Risk**: Transparency obligations (disclose AI use)\n\n**Minimal Risk**: No restrictions (most AI applications)\n\n**4. U.S. Sectoral Approach**\n\nNo comprehensive federal AI law yet, but sector-specific:\n\n- **HIPAA**: Health data privacy\n- **FERPA**: Educational records\n- **FCRA**: Credit reporting\n- **ECOA**: Fair lending\n- **FTC**: Deceptive practices enforcement\n\n**State-level**: Various states passing AI-specific laws (Illinois biometric privacy, Maryland facial recognition limits, etc.)\n\n**5. Other Regions**\n\n- **China**: Personal Information Protection Law (PIPL), AI regulations\n- **Brazil**: LGPD (Lei Geral de Proteção de Dados)\n- **India**: Digital Personal Data Protection Act\n- **Canada**: PIPEDA, proposed AI and Data Act\n\n**Compliance Challenges**\n\n- **Fragmentation**: Different rules in different jurisdictions\n- **Uncertainty**: Many laws are new; interpretation evolving\n- **Technical difficulty**: Some requirements (like data deletion from models) are technically challenging\n- **Resource demands**: Compliance requires significant effort, especially for smaller organizations\n\n**Best Practices**\n\n- Design for strictest regulation you might face (often GDPR)\n- Document data sources, uses, and decisions\n- Implement data governance frameworks\n- Regular privacy audits\n- Privacy impact assessments for new AI systems\n- Stay updated on evolving regulations"
+      },
+      {
+        "title": "Building Privacy-Preserving AI",
+        "content": "How do you actually build AI systems that respect privacy? Here's a practical framework:\n\n**1. Privacy by Design Principles**\n\n**Data Minimization**: Collect only what you need\n- Do you really need birth date, or just age range?\n- Do you need exact location, or just city?\n- Can you aggregate data before collection?\n\n**Purpose Specification**: Be clear why you're collecting data\n- Specific, explicit purposes\n- Don't repurpose data without consent\n- Document intended uses\n\n**Anonymization and Pseudonymization**:\n- Remove directly identifying information where possible\n- Use pseudonyms/IDs instead of names\n- But remember: Re-identification is often possible\n\n**2. Technical Tools**\n\nCombine techniques for defense in depth:\n\n**Federated Learning** + **Differential Privacy**:\n- Train locally (federated)\n- Add noise to updates (DP)\n- Double protection\n\n**Secure Computation**:\n- Homomorphic encryption: Compute on encrypted data\n- Secure multi-party computation: Multiple parties compute together without revealing individual data\n- (These are advanced and computationally expensive)\n\n**Data Governance**:\n- Access controls (who can see what data)\n- Audit logs (track all data access)\n- Retention policies (delete when no longer needed)\n- Encryption at rest and in transit\n\n**3. Organizational Practices**\n\n- **Privacy impact assessments** before new projects\n- **Privacy team** involvement in AI development\n- **Training** for engineers on privacy techniques\n- **Incident response plans** for breaches\n- **Third-party audits** of privacy practices\n\n**4. User Control and Transparency**\n\n- Clear privacy policies (actually readable)\n- Granular consent (opt-in for specific uses)\n- Data dashboards (show users what you have)\n- Easy data download (portability)\n- Simple deletion (honor right to erasure)\n\n**5. Tradeoffs and Decisions**\n\nYou'll face tradeoffs:\n\n**Privacy vs. Accuracy**: Privacy-preserving techniques often reduce model performance. Is the tradeoff acceptable?\n\n**Privacy vs. Personalization**: Personalized experiences require personal data. What's the right balance?\n\n**Privacy vs. Cost**: Privacy techniques add computational and engineering costs. How much should you invest?\n\nThese aren't purely technical decisions — they require ethical judgment about values and priorities.\n\n**6. Future Directions**\n\nPrivacy-preserving AI is advancing:\n- Better federated learning algorithms\n- More efficient differential privacy\n- Improved anonymization techniques\n- Privacy-preserving hardware\n- Better tools and libraries\n\nBut fundamentally, privacy in AI requires ongoing attention, not a one-time solution. As AI capabilities grow, so must privacy protections.\n\n**Remember**: The goal isn't to prevent all data use — data powers beneficial AI. The goal is informed consent, appropriate protections, and accountability when building AI systems."
+      }
+    ],
+
+    "summary": "AI systems create privacy risks through data centralization, model memorization, inference attacks, and re-identification. Federated learning addresses this by training models on distributed data without centralization — the model comes to the data, not vice versa. Differential privacy provides mathematical guarantees by adding calibrated noise, preventing disclosure of individual information even with background knowledge. Regulations like GDPR, CCPA, and the proposed EU AI Act establish data rights and AI obligations. Building privacy-preserving AI requires combining technical tools (federated learning, differential privacy, encryption), organizational practices (impact assessments, audits), and user controls (transparency, consent, deletion rights). Privacy in AI involves tradeoffs between privacy, accuracy, and utility that require ethical judgment.",
+
+    "keyTakeaways": [
+      "ML creates privacy risks: memorization, inference attacks, re-identification",
+      "Federated learning trains on distributed data without centralization",
+      "Differential privacy adds calibrated noise for mathematical privacy guarantees",
+      "Key regulations: GDPR (EU), CCPA (California), AI Act (proposed EU)",
+      "Privacy-preserving AI requires technical tools + organizational practices + user control"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the key innovation of federated learning?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes models train faster",
+        "B: It brings the model to the data rather than centralizing data in one place",
+        "C: It completely eliminates all privacy risks",
+        "D: It only works on government data"
+      ],
+      "correct": "B",
+      "explanation": "Federated learning's key innovation is training models on distributed data without centralizing it. The model is sent to individual devices or organizations, trained locally on their data, and only model updates (not raw data) are sent back to be aggregated. This keeps data decentralized."
+    },
+    {
+      "id": "q2",
+      "question": "What does differential privacy do?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It completely removes all personal data from datasets",
+        "B: It adds carefully calibrated noise to provide mathematical guarantees that individual data points can't be identified",
+        "C: It encrypts data so only authorized users can see it",
+        "D: It separates different types of data into different databases"
+      ],
+      "correct": "B",
+      "explanation": "Differential privacy adds calibrated noise to queries or computations to provide mathematical guarantees about privacy. The key property is that adding or removing any individual's data makes negligible difference to outputs, preventing identification even with background knowledge."
+    },
+    {
+      "id": "q3",
+      "question": "What is a 'membership inference attack' in the context of ML privacy?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Hacking into a database to steal member information",
+        "B: Determining whether a specific person's data was in the training set by querying the model",
+        "C: Creating fake memberships in a system",
+        "D: Preventing people from joining a service"
+      ],
+      "correct": "B",
+      "explanation": "A membership inference attack involves determining whether a specific person's data was in the training set by observing model outputs. This is a privacy violation because if you can determine someone was in a medical study's training data, you've learned sensitive health information about them."
+    },
+    {
+      "id": "q4",
+      "question": "Which of these is a key principle of GDPR that affects AI development?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Companies can use data for any purpose once collected",
+        "B: Data minimization - collect only what's necessary for stated purposes",
+        "C: All AI systems must be open source",
+        "D: Users have no rights to their data once shared"
+      ],
+      "correct": "B",
+      "explanation": "Data minimization is a core GDPR principle requiring organizations to collect only data necessary for specific, stated purposes. This affects AI development by limiting massive data collection and requiring clear justification for what data is collected and how it's used."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from Google Federated Learning research, Apple Differential Privacy technical reports, GDPR and AI Act documentation",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

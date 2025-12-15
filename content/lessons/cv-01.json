@@ -1,0 +1,118 @@
+{
+  "id": "cv-01",
+  "title": "Image Classification in Practice",
+  "topic": "Computer Vision",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["deep-learning-01", "deep-learning-02"],
+  "objectives": [
+    "Understand real-world image classification beyond simple datasets",
+    "Learn how transfer learning leverages pre-trained models",
+    "Explore fine-tuning strategies for custom classification tasks",
+    "Compare modern architectures like ResNet, EfficientNet, and Vision Transformers"
+  ],
+  "content": {
+    "introduction": "You've learned about neural networks and deep learning fundamentals. Now it's time to apply those concepts to real-world image classification. In this lesson, we'll move beyond toy datasets like MNIST and explore how practitioners actually build image classifiers that work in production. You'll discover the power of transfer learning and understand the architectures that power modern computer vision applications.",
+
+    "sections": [
+      {
+        "title": "Beyond MNIST: Real-World Challenges",
+        "content": "MNIST digits are clean, centered, and uniform — perfect for learning, but nothing like real-world images. When you move to real applications, you face significant challenges:\n\n**Image Variability** - Objects appear at different angles, in different lighting, partially occluded, or at varying distances. A cat photo might show the cat from above, in shadow, behind furniture, or as a tiny part of a larger scene.\n\n**Scale and Resolution** - Real images come in different sizes and qualities. A medical scan might be 4000x4000 pixels, while a thumbnail is 150x150. Your model needs to handle this variability.\n\n**Class Imbalance** - In medical imaging, disease cases might be only 1% of your dataset. In wildlife monitoring, rare species appear infrequently. This imbalance makes training challenging.\n\n**Domain Specificity** - Satellite imagery looks nothing like product photos. Medical scans require different preprocessing than security camera feeds. Each domain has unique characteristics.\n\nThe good news? You don't need to start from scratch. This is where transfer learning becomes your superpower."
+      },
+      {
+        "title": "Transfer Learning: Standing on the Shoulders of Giants",
+        "content": "Transfer learning is the practice of taking a model trained on one task and adapting it to a related task. Think of it like this: if you learned to play the piano, learning the keyboard becomes much easier because you already understand music theory, rhythm, and finger coordination.\n\nIn computer vision, models are typically pre-trained on ImageNet — a massive dataset with 1.2 million images across 1,000 categories. During this training, the model learns to recognize fundamental visual features:\n\n**Low-level features** (early layers) - Edges, corners, colors, textures. These are universal across almost all images.\n\n**Mid-level features** (middle layers) - Shapes, patterns, simple objects like circles or rectangles.\n\n**High-level features** (later layers) - Complete objects and complex patterns specific to the training data.\n\nHere's the key insight: those low and mid-level features are useful for almost any image classification task. Whether you're classifying dogs, diseases, or defects in manufacturing, edges and shapes matter. So instead of training from scratch, you download a pre-trained model and adapt it to your specific problem.\n\nThis approach gives you three massive advantages: it requires far less training data, trains much faster, and often achieves better performance than training from scratch."
+      },
+      {
+        "title": "Fine-Tuning Strategies for Custom Tasks",
+        "content": "Once you have a pre-trained model, how do you adapt it? There are several strategies, each with different trade-offs:\n\n**Feature Extraction (Frozen Base)** - You freeze all the pre-trained layers and only train a new classification head. This works well when you have very little data (hundreds of images) or when your task is similar to ImageNet. The pre-trained features do the heavy lifting, and you just learn how to combine them for your specific classes.\n\n**Fine-Tuning Top Layers** - You freeze the early layers but allow the later layers to update during training. This is the most common approach. The early layers still detect edges and basic shapes, but the later layers adapt to your specific domain. This works well with moderate amounts of data (thousands of images).\n\n**Full Fine-Tuning** - You allow all layers to update, but start with pre-trained weights instead of random initialization. Use this when you have substantial data (tens of thousands of images) and your domain differs significantly from ImageNet — like medical imaging or satellite imagery.\n\n**Progressive Unfreezing** - Start by training only the head, then gradually unfreeze layers from top to bottom. This prevents the random weights in your new head from corrupting the pre-trained features early in training.\n\nThe key is matching your strategy to your data quantity and domain similarity. More data and less similarity to ImageNet means more layers need to adapt."
+      },
+      {
+        "title": "Modern Architectures: ResNet, EfficientNet, and Vision Transformers",
+        "content": "Let's understand the architectures that power modern image classification:\n\n**ResNet (Residual Networks)** - Introduced the revolutionary skip connection concept. Instead of learning a direct mapping from input to output, layers learn the residual (the difference). This solved the vanishing gradient problem and enabled networks with 50, 101, or even 152 layers. ResNet remains a reliable workhorse — it's well-understood, widely supported, and performs consistently.\n\n**EfficientNet** - Optimized for efficiency by carefully balancing network depth, width, and resolution. Instead of just making networks deeper, EfficientNet scales all three dimensions using a compound scaling method. The result? Better accuracy with fewer parameters and faster inference. EfficientNet models range from B0 (small and fast) to B7 (large and accurate), letting you choose the right speed-accuracy trade-off.\n\n**Vision Transformers (ViT)** - Adapted the transformer architecture from natural language processing to images. Instead of convolutions, ViT splits images into patches and processes them with self-attention mechanisms. ViTs excel when pre-trained on massive datasets and then fine-tuned. They've achieved state-of-the-art results on many benchmarks, though they typically require more data to train effectively than convolutional networks.\n\nWhich should you choose? For most practical applications with limited data, start with EfficientNet or ResNet. They're proven, efficient, and transfer well. If you have access to large-scale pre-training or cutting-edge compute, Vision Transformers offer the highest ceiling."
+      },
+      {
+        "title": "Practical Considerations and Best Practices",
+        "content": "Building production image classifiers requires more than just choosing an architecture. Here are critical practical considerations:\n\n**Data Augmentation** - Artificially expand your training data by applying transformations: rotations, flips, crops, color adjustments, and perspective changes. This helps your model generalize beyond the specific examples you have. But be careful — only apply augmentations that make sense for your domain. Don't flip medical scans if orientation matters diagnostically.\n\n**Input Resolution** - Higher resolution captures more detail but requires more memory and computation. Many models are pre-trained at 224x224, but you can often improve results by fine-tuning at higher resolutions like 384x384 or 512x512, especially if fine details matter for your task.\n\n**Batch Size and Learning Rate** - With transfer learning, use smaller learning rates than training from scratch. You're fine-tuning, not drastically changing the features. A good starting point is 10 to 100 times smaller than the original training learning rate.\n\n**Monitoring Overfitting** - Watch your validation performance. If training accuracy keeps improving but validation plateaus or worsens, you're overfitting. Add regularization, more data augmentation, or stop training earlier.\n\n**Class Imbalance** - If some classes are rare, use techniques like weighted loss functions, oversampling rare classes, or focal loss that focuses learning on hard examples. Don't let your model simply predict the majority class.\n\nRemember: the model is just one piece. Data quality, augmentation strategy, and careful evaluation matter just as much as architecture choice."
+      }
+    ],
+
+    "summary": "Real-world image classification goes far beyond simple datasets like MNIST. Transfer learning allows you to leverage models pre-trained on millions of images, adapting them to your specific task with far less data and training time. You can choose from several fine-tuning strategies based on your data quantity and domain similarity. Modern architectures like ResNet provide reliable performance with skip connections, EfficientNet optimizes for efficiency, and Vision Transformers achieve state-of-the-art results with sufficient data. Success in production requires careful attention to data augmentation, input resolution, learning rates, and handling class imbalance.",
+
+    "keyTakeaways": [
+      "Transfer learning leverages pre-trained features for faster training and better results with less data",
+      "Fine-tuning strategies range from freezing the base to full fine-tuning based on data quantity",
+      "ResNet uses skip connections, EfficientNet balances depth/width/resolution, ViT uses transformers",
+      "Practical success requires data augmentation, appropriate learning rates, and monitoring for overfitting",
+      "Data quality and augmentation strategy matter as much as architecture choice"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the main advantage of transfer learning in image classification?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It makes models run faster during inference",
+        "B: It allows you to achieve good results with less training data by using pre-trained features",
+        "C: It eliminates the need for data augmentation",
+        "D: It works only with ResNet architectures"
+      ],
+      "correct": "B",
+      "explanation": "Transfer learning's primary advantage is leveraging features learned from large datasets (like ImageNet) so you can achieve strong performance with much less task-specific data. The pre-trained model has already learned to recognize edges, shapes, and patterns useful across many tasks."
+    },
+    {
+      "id": "q2",
+      "question": "When should you use the 'feature extraction' strategy (freezing all pre-trained layers)?",
+      "type": "multiple_choice",
+      "options": [
+        "A: When you have millions of training images",
+        "B: When your task is very different from ImageNet",
+        "C: When you have very little data (hundreds of images) or your task is similar to ImageNet",
+        "D: Only when using Vision Transformers"
+      ],
+      "correct": "C",
+      "explanation": "Feature extraction works best with limited data or when your task is similar to the pre-training data. The frozen pre-trained layers provide strong features, and you only train a small classification head, which requires minimal data and prevents overfitting."
+    },
+    {
+      "id": "q3",
+      "question": "What is the key innovation of ResNet architecture?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Using transformer attention mechanisms",
+        "B: Compound scaling of depth, width, and resolution",
+        "C: Skip connections that allow layers to learn residuals",
+        "D: Processing images as patches rather than pixels"
+      ],
+      "correct": "C",
+      "explanation": "ResNet introduced skip connections (also called residual connections) that allow information to bypass layers. This solved the vanishing gradient problem and enabled training of very deep networks (50-152 layers) that would otherwise be impossible to train effectively."
+    },
+    {
+      "id": "q4",
+      "question": "Which architecture is generally best for a production image classifier with limited training data (a few thousand images)?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Vision Transformer, because it's the newest architecture",
+        "B: ResNet or EfficientNet, because they transfer well and are proven",
+        "C: Always train from scratch for best results",
+        "D: Vision Transformers only work with unlimited data"
+      ],
+      "correct": "B",
+      "explanation": "For limited data scenarios, ResNet and EfficientNet are better choices. They're proven, efficient, and transfer well from pre-training. Vision Transformers typically require larger datasets to reach their full potential, though they can work with transfer learning on moderate data."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from fast.ai practical deep learning course",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

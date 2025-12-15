@@ -1,0 +1,117 @@
+{
+  "id": "gen-ai-02",
+  "title": "How Text Generation Works",
+  "topic": "Generative AI",
+  "difficulty": "intermediate",
+  "duration": 12,
+  "prerequisites": ["gen-ai-01", "deep-learning-01"],
+  "objectives": [
+    "Understand autoregressive text generation",
+    "Learn how tokenization works",
+    "Master temperature and sampling strategies",
+    "Comprehend context windows and their limitations"
+  ],
+  "content": {
+    "introduction": "When you type a prompt into ChatGPT and watch it generate a thoughtful response, what's actually happening under the hood? Text generation might seem like magic, but it's based on elegant mathematical principles. In this lesson, we'll demystify how AI generates human-like text, one token at a time.",
+
+    "sections": [
+      {
+        "title": "Autoregressive Generation Explained",
+        "content": "At its core, modern text generation is autoregressive — meaning the model generates text one piece at a time, using what it has already generated to predict what comes next.\n\nHere's how it works:\n\n**Step 1:** You provide a prompt: 'The capital of France is'\n\n**Step 2:** The model predicts the next word based on the prompt: 'Paris'\n\n**Step 3:** Now the input becomes 'The capital of France is Paris'\n\n**Step 4:** The model predicts the next word: 'which'\n\n**Step 5:** Input becomes 'The capital of France is Paris which'\n\nThis continues until the model generates a special stop token or reaches a length limit.\n\nThink of it like finishing someone's sentence, but the model keeps finishing its own sentences over and over. Each prediction is based on everything that came before, which is why earlier words influence later ones — the text maintains coherence and context.\n\nThe model doesn't generate the entire response at once. It's literally predicting one token at a time, which is why you see ChatGPT 'typing' word by word."
+      },
+      {
+        "title": "Tokens and Tokenization",
+        "content": "AI models don't actually work with words — they work with tokens. Understanding tokenization is crucial to understanding text generation.\n\n**What are tokens?**\nTokens are the atomic units that language models process. A token can be:\n- A whole word: 'cat' = 1 token\n- Part of a word: 'unhappiness' = 'un' + 'happiness' = 2 tokens\n- A character: '!' = 1 token\n- Whitespace: A space is often part of a token\n\n**Why tokenization?**\nInstead of learning every possible word (hundreds of thousands), models learn a vocabulary of common subword pieces (typically 50,000-100,000 tokens). This allows them to:\n- Handle rare words by breaking them into known pieces\n- Process multiple languages efficiently\n- Deal with typos and made-up words\n- Keep vocabulary size manageable\n\n**Example:**\nThe sentence 'ChatGPT is amazing!' might tokenize as:\n['Chat', 'G', 'PT', ' is', ' amazing', '!']\n\nThat's 6 tokens, not 3 words.\n\n**Why it matters:**\nMost AI services charge by token, not by word. A 1000-token limit isn't 1000 words — it's typically around 750 words in English. Complex words and code use more tokens."
+      },
+      {
+        "title": "Temperature and Sampling Strategies",
+        "content": "When predicting the next token, the model doesn't just pick the most likely one — that would make it boring and repetitive. Instead, we use sampling strategies to control creativity.\n\n**How prediction works:**\nFor each next token, the model outputs a probability distribution:\n- 'Paris': 75% likely\n- 'Rome': 10% likely\n- 'London': 8% likely\n- Other options: 7% likely\n\n**Temperature** controls randomness:\n\n**Temperature = 0:** Always pick the most likely token (deterministic)\n- Good for: Factual answers, code generation, math\n- Result: 'The capital of France is Paris' (predictable)\n\n**Temperature = 0.7 (medium):** Balanced randomness\n- Good for: General conversation, writing assistance\n- Result: Mostly coherent with some creativity\n\n**Temperature = 1.5 (high):** Very random, creative\n- Good for: Creative writing, brainstorming\n- Result: Can be innovative but sometimes nonsensical\n\n**Other sampling strategies:**\n\n**Top-k sampling:** Only consider the k most likely tokens (e.g., top 40)\n\n**Top-p (nucleus) sampling:** Consider tokens until their cumulative probability reaches p (e.g., 0.9 or 90%)\n\nThese parameters let you tune the trade-off between accuracy and creativity. ChatGPT uses carefully tuned values to balance helpfulness with natural variation."
+      },
+      {
+        "title": "Context Windows and Their Importance",
+        "content": "The context window is the amount of text a model can 'remember' at once — both your prompt and its generated response combined.\n\n**Context window sizes:**\n- GPT-3.5: 4,096 tokens (~3,000 words)\n- GPT-4: 8,192 tokens or 32,768 tokens (~6,000 or ~24,000 words)\n- Claude 3: Up to 200,000 tokens (~150,000 words)\n- Gemini 1.5: Up to 1,000,000 tokens (~750,000 words)\n\n**Why it matters:**\n\nOnce you exceed the context window, the model starts 'forgetting' earlier parts of the conversation. It literally cannot see text beyond the window.\n\n**Example scenario:**\nYou're chatting with a model that has a 4,000-token window:\n- You paste in a 3,000-token document\n- You ask a question (100 tokens)\n- The model generates a 1,000-token response\n- Total: 4,100 tokens — you've exceeded the window!\n- The model will forget part of the original document\n\n**Solutions:**\n\n1. **Summarization:** Summarize earlier conversation to compress context\n2. **Retrieval:** Only feed relevant chunks of long documents\n3. **Larger models:** Use models with bigger windows when needed\n4. **Chunking:** Break tasks into smaller pieces\n\n**The technical constraint:**\nContext windows are limited because attention mechanisms (the core of transformers) scale quadratically with sequence length. Doubling the context window requires 4x more computation. Researchers are actively working on more efficient approaches."
+      },
+      {
+        "title": "Putting It All Together",
+        "content": "Let's trace through what happens when you ask ChatGPT: 'Write a haiku about AI'\n\n**Step 1: Tokenization**\nYour prompt gets split into tokens: ['Write', ' a', ' haiku', ' about', ' AI']\n\n**Step 2: Context Processing**\nThe model processes all tokens in the context window (your prompt plus conversation history) through its neural network layers.\n\n**Step 3: Autoregressive Generation**\nThe model predicts token by token:\n- First token: 'Silicon' (probability distribution, sampled with temperature)\n- Add to context: 'Write a haiku about AI Silicon'\n- Next token: ' minds'\n- Continue: 'awaken'\n\n**Step 4: Temperature Application**\nAt each step, temperature adjusts the probability distribution. Higher temperature = more creative word choices.\n\n**Step 5: Stopping**\nThe model generates until it predicts a stop token or you've reached a reasonable haiku length.\n\n**Final output:**\n```\nSilicon minds awaken\nLearning patterns in the dark\nWisdom without soul\n```\n\n**Behind each word** is a complex prediction process considering billions of parameters, but the principle is simple: predict the next token based on what came before, one step at a time.\n\nThis autoregressive process, combined with tokenization, sampling strategies, and context windows, is how every modern text generation system works — from ChatGPT to GitHub Copilot to AI email assistants."
+      }
+    ],
+
+    "summary": "Text generation works through autoregressive prediction — generating one token at a time based on previous tokens. Models use tokenization to break text into subword pieces, enabling efficient vocabulary management. Temperature and sampling strategies control the randomness and creativity of outputs. Context windows limit how much text the model can process at once, creating important constraints on conversation length and document analysis. Understanding these mechanisms helps you use text generation tools more effectively.",
+
+    "keyTakeaways": [
+      "Autoregressive generation: predict one token at a time using previous context",
+      "Tokens are subword pieces, not whole words; ~750 words = 1000 tokens",
+      "Temperature controls randomness: 0 = deterministic, higher = more creative",
+      "Context windows limit memory; exceeding them causes the model to 'forget'"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What does 'autoregressive' mean in the context of text generation?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model generates all text simultaneously",
+        "B: The model generates text one token at a time, using previous tokens to predict the next",
+        "C: The model can only generate the same response every time",
+        "D: The model generates text backwards from end to beginning"
+      ],
+      "correct": "B",
+      "explanation": "Autoregressive generation means the model predicts one token at a time, with each prediction based on all the tokens that came before it. This is why you see ChatGPT 'typing' word by word rather than producing instant complete responses."
+    },
+    {
+      "id": "q2",
+      "question": "If a model has a 4,000-token context window and you provide a 3,500-token document with a 200-token question, what happens?",
+      "type": "multiple_choice",
+      "options": [
+        "A: The model will process everything normally",
+        "B: The model will refuse to respond",
+        "C: The model will exceed the window and forget part of the earlier content",
+        "D: The model will automatically summarize the document"
+      ],
+      "correct": "C",
+      "explanation": "3,500 tokens + 200 tokens = 3,700 tokens in the window before the response. Once the model starts generating its response, the total will exceed 4,000 tokens, causing earlier content to be dropped from the context window."
+    },
+    {
+      "id": "q3",
+      "question": "What effect does setting temperature to 0 have on text generation?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Makes output completely random and nonsensical",
+        "B: Makes the model always choose the most likely token, producing deterministic output",
+        "C: Increases creativity and variation",
+        "D: Makes the model generate faster"
+      ],
+      "correct": "B",
+      "explanation": "Temperature = 0 makes the model deterministic — it always picks the single most likely next token. This is ideal for tasks requiring accuracy and consistency like coding or factual answers, but eliminates creative variation."
+    },
+    {
+      "id": "q4",
+      "question": "Why do language models use tokens instead of whole words?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Tokens make the model faster",
+        "B: Tokens allow handling rare words, typos, and multiple languages with a fixed vocabulary",
+        "C: Whole words would work better but are too expensive",
+        "D: Tokens are only used for billing purposes"
+      ],
+      "correct": "B",
+      "explanation": "Tokenization breaks text into subword pieces, allowing models to handle rare words (by combining known pieces), typos, made-up words, and multiple languages efficiently while keeping vocabulary size manageable (50k-100k tokens vs. hundreds of thousands of words)."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from OpenAI, Anthropic transformer research",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "id": "ethics-01",
+  "title": "Understanding AI Bias",
+  "topic": "AI Ethics",
+  "difficulty": "beginner",
+  "duration": 12,
+  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "objectives": [
+    "Define AI bias and understand where it originates",
+    "Identify different types of bias in AI systems",
+    "Recognize real-world examples of biased AI",
+    "Learn basic approaches to detecting and measuring bias"
+  ],
+  "content": {
+    "introduction": "Artificial intelligence systems are increasingly making decisions that affect our lives — from loan approvals to job applications to criminal justice. But what happens when these systems inherit or amplify human biases? In this lesson, we'll explore what AI bias is, where it comes from, and why it matters for everyone building or using AI systems.",
+
+    "sections": [
+      {
+        "title": "What Is AI Bias?",
+        "content": "AI bias occurs when a machine learning system produces systematically unfair or prejudiced results for certain groups of people. It's not about the AI having opinions or intentions — it's about patterns in the data and algorithms that lead to unequal outcomes.\n\nThink of it this way: if you train a hiring AI on resumes from the past 20 years at a tech company, and most of those hires were men, the AI might learn to prefer male candidates — not because it's sexist, but because it's pattern-matching on historical data.\n\nBias isn't always obvious. Sometimes it shows up as:\n- Lower accuracy for certain demographic groups\n- Systematically different outcomes for similar inputs\n- Amplification of existing social inequalities\n\nThe key insight: AI systems learn patterns from data, and if that data reflects biased human decisions or unequal societal conditions, the AI will learn those biases too."
+      },
+      {
+        "title": "Three Types of Bias",
+        "content": "Bias can enter AI systems at different stages:\n\n**1. Data Bias**\nThis is the most common source. Your training data might be:\n- Unrepresentative: Not enough examples from certain groups\n- Historical: Reflecting past discrimination\n- Measurement: Some groups measured differently\n\nExample: A facial recognition system trained mostly on light-skinned faces performs poorly on dark-skinned faces.\n\n**2. Algorithmic Bias**\nEven with good data, the algorithm itself might introduce bias:\n- Feature selection: Choosing which attributes to consider\n- Optimization goals: What the model is rewarded for\n- Model assumptions: Mathematical properties that favor certain patterns\n\nExample: A model optimized for overall accuracy might ignore rare cases, which could disproportionately affect minority groups.\n\n**3. Societal Bias**\nThis reflects broader social structures:\n- Labels that encode human prejudice\n- Feedback loops that reinforce inequality\n- Proxy variables that correlate with protected attributes\n\nExample: Using zip code as a feature might serve as a proxy for race, even if race isn't explicitly included."
+      },
+      {
+        "title": "Real-World Examples of Biased AI",
+        "content": "These aren't hypothetical problems — they've happened:\n\n**1. Amazon's Hiring Tool (2018)**\nAmazon built an AI to screen resumes. It learned from 10 years of hiring data, which was mostly male candidates. The system learned to penalize resumes mentioning 'women's' (like 'women's chess club') and downrank graduates from all-women's colleges. Amazon scrapped the tool.\n\n**2. COMPAS Criminal Risk Assessment**\nWidely used in U.S. courts to predict recidivism. ProPublica's investigation found it was twice as likely to falsely flag Black defendants as high-risk compared to white defendants, even when controlling for prior crimes.\n\n**3. Healthcare Algorithm**\nA major hospital system used an algorithm to identify patients needing extra care. It used healthcare spending as a proxy for health needs. Because Black patients historically had less access to care (and thus lower spending), the algorithm systematically underestimated their health needs.\n\n**4. Beauty.AI Contest**\nAn AI beauty contest judged photos submitted worldwide. Nearly all winners were white, despite diverse submissions. The AI was trained predominantly on photos of white people.\n\nThese cases share a pattern: well-intentioned systems that learned problematic patterns from real-world data."
+      },
+      {
+        "title": "Detecting and Measuring Bias",
+        "content": "How do you know if your AI system is biased? Here are key approaches:\n\n**1. Disaggregated Evaluation**\nDon't just measure overall accuracy. Break down performance by demographic groups:\n- Accuracy for each group separately\n- False positive and false negative rates\n- Precision and recall across subgroups\n\nIf performance varies significantly, you likely have a bias problem.\n\n**2. Fairness Metrics**\nResearchers have developed specific metrics:\n- Demographic parity: Similar positive prediction rates across groups\n- Equal opportunity: Similar true positive rates across groups\n- Predictive parity: Similar precision across groups\n\nImportant caveat: These metrics can conflict — you often can't satisfy all of them simultaneously.\n\n**3. Bias Audits**\nSystematic testing with synthetic data:\n- Change only protected attributes (gender, race, etc.)\n- Keep all else constant\n- Measure if outputs change\n\nExample: Submit identical loan applications with only names changed (suggesting different ethnicities) and see if approval rates differ.\n\n**4. Data Analysis**\nBefore training, examine your data:\n- What's the demographic distribution?\n- Are certain groups underrepresented?\n- Do labels reflect historical discrimination?\n\nThe earlier you catch bias, the easier it is to address."
+      },
+      {
+        "title": "Why Bias Matters",
+        "content": "Some people ask: 'Why does this matter if the AI is just learning from real data?'\n\nHere's why bias in AI is a critical issue:\n\n**Amplification**: AI systems can amplify existing biases. They're often deployed at scale and with authority, making biased patterns more impactful than individual human decisions.\n\n**Automation of Inequality**: When biased systems are used in hiring, lending, criminal justice, and healthcare, they can systematically disadvantage entire groups of people — at machine speed and scale.\n\n**Feedback Loops**: Biased AI decisions can create new biased data. If a biased hiring AI is used, the new hires will reflect that bias, and if that data is used for retraining, the bias gets worse.\n\n**Trust and Adoption**: If AI systems produce unfair outcomes, people lose trust in AI technology, limiting its beneficial applications.\n\n**Legal and Ethical Obligations**: In many jurisdictions, discriminatory outcomes violate civil rights laws, regardless of whether a human or algorithm made the decision.\n\nThe goal isn't to make AI perfect — humans aren't unbiased either. The goal is to make AI systems that don't systematically disadvantage groups of people and to be transparent about their limitations."
+      }
+    ],
+
+    "summary": "AI bias occurs when machine learning systems produce systematically unfair outcomes for certain groups. It comes from three main sources: biased training data, algorithmic choices, and societal structures reflected in data. Real-world examples from hiring, criminal justice, and healthcare show this isn't theoretical — biased AI systems have caused real harm. Detecting bias requires disaggregated evaluation, fairness metrics, systematic audits, and careful data analysis. Addressing bias matters because AI systems can amplify inequality at scale, create feedback loops, and undermine trust in AI technology.",
+
+    "keyTakeaways": [
+      "AI bias means systematically unfair outcomes for certain groups",
+      "Three sources: data bias, algorithmic bias, societal bias",
+      "Real cases: Amazon hiring tool, COMPAS, healthcare algorithms",
+      "Detection requires disaggregated evaluation and fairness metrics",
+      "Bias matters because AI amplifies inequality at scale"
+    ]
+  },
+
+  "quiz": [
+    {
+      "id": "q1",
+      "question": "What is the primary reason AI systems develop bias?",
+      "type": "multiple_choice",
+      "options": [
+        "A: AI systems are programmed to be biased by their developers",
+        "B: AI systems learn patterns from data, including biased patterns in that data",
+        "C: AI systems randomly make unfair decisions",
+        "D: AI systems can't process certain types of information"
+      ],
+      "correct": "B",
+      "explanation": "AI systems learn from data, and if that data reflects historical discrimination, unequal representation, or biased human decisions, the AI will learn those patterns. The bias isn't intentional programming — it's learned from biased data."
+    },
+    {
+      "id": "q2",
+      "question": "What happened with Amazon's hiring AI in 2018?",
+      "type": "multiple_choice",
+      "options": [
+        "A: It successfully eliminated bias from hiring decisions",
+        "B: It learned to penalize resumes mentioning 'women's' because training data was mostly male candidates",
+        "C: It only hired women to correct for past bias",
+        "D: It couldn't process resumes from women's colleges"
+      ],
+      "correct": "B",
+      "explanation": "Amazon's AI learned from 10 years of historical hiring data that was predominantly male. It learned to prefer male candidates and penalize indicators of female candidates, like resumes mentioning 'women's chess club' or all-women's colleges. Amazon discontinued the tool."
+    },
+    {
+      "id": "q3",
+      "question": "Which of these is an example of data bias?",
+      "type": "multiple_choice",
+      "options": [
+        "A: A facial recognition system trained mostly on light-skinned faces performing poorly on dark-skinned faces",
+        "B: A calculator giving wrong answers",
+        "C: A website loading slowly",
+        "D: A database being too large"
+      ],
+      "correct": "A",
+      "explanation": "This is a classic example of data bias due to unrepresentative training data. If the system sees mostly one type of face during training, it learns patterns specific to that group and performs poorly on underrepresented groups."
+    },
+    {
+      "id": "q4",
+      "question": "What is 'disaggregated evaluation' and why is it important for detecting bias?",
+      "type": "multiple_choice",
+      "options": [
+        "A: Testing the AI on completely random data",
+        "B: Breaking down performance metrics by demographic groups to see if some groups have worse outcomes",
+        "C: Removing all demographic information from the data",
+        "D: Combining all metrics into a single score"
+      ],
+      "correct": "B",
+      "explanation": "Disaggregated evaluation means measuring performance separately for different demographic groups rather than just overall accuracy. This reveals if the system performs significantly worse for certain groups, which is a key indicator of bias that overall metrics might hide."
+    }
+  ],
+
+  "audioUrls": {
+    "full": null,
+    "summary": null,
+    "sections": {}
+  },
+
+  "metadata": {
+    "author": "AdaptLearn",
+    "source": "Adapted from ProPublica's Machine Bias investigation, AI Fairness research",
+    "lastUpdated": "2025-12-14",
+    "version": "1.0"
+  }
+}
