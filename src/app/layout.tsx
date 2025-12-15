@@ -15,7 +15,21 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "AdaptLearn - Voice-First AI Learning",
-  description: "Learn AI like you listen to podcasts. Personalized audio lessons that adapt to your knowledge gaps.",
+  description: "Learn AI like you listen to podcasts. Personalized audio lessons that adapt to your knowledge gaps. Powered by ElevenLabs and Google Gemini.",
+  keywords: ["AI learning", "voice learning", "ElevenLabs", "machine learning", "adaptive learning", "audio courses"],
+  authors: [{ name: "AdaptLearn Team" }],
+  openGraph: {
+    title: "AdaptLearn - Voice-First AI Learning",
+    description: "Learn AI like you listen to podcasts. Personalized audio lessons powered by ElevenLabs.",
+    type: "website",
+    locale: "en_US",
+    siteName: "AdaptLearn",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AdaptLearn - Voice-First AI Learning",
+    description: "Learn AI like you listen to podcasts. Personalized audio lessons powered by ElevenLabs.",
+  },
 };
 
 export default function RootLayout({
