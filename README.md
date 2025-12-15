@@ -50,7 +50,7 @@ AdaptLearn reimagines AI education as a **voice-first experience**. Every lesson
 - **Learn anywhere** — Voice-first means learning on the go
 - **Adaptive paths** — System detects gaps and adjusts recommendations
 - **Conversational** — Ask questions, get audio answers like a personal tutor
-- **Curated content** — 19 lessons across ML, deep learning, NLP, and practical AI
+- **Curated content** — 42 lessons across ML, deep learning, NLP, generative AI, and more
 
 ---
 
@@ -64,8 +64,8 @@ AdaptLearn reimagines AI education as a **voice-first experience**. Every lesson
 | **Voice Q&A** | Ask questions, get context-aware audio responses |
 | **Adaptive Learning** | Gap detection and personalized recommendations |
 | **Progress Tracking** | Dashboard with streaks, mastery, and milestones |
-| **4 Learning Paths** | Explorer, Practitioner, Specialist, NLP Focus |
-| **19 Curated Lessons** | ML fundamentals, deep learning, NLP, practical AI |
+| **10 Learning Paths** | From beginner to specialist across multiple AI domains |
+| **42 Curated Lessons** | ML, deep learning, NLP, generative AI, ethics, and more |
 
 ### Voice Experience
 
@@ -154,7 +154,7 @@ npm run start
 ```
 adapt-learn/
 ├── content/                 # Lesson and path content
-│   ├── lessons/            # 19 lesson JSON files
+│   ├── lessons/            # 42 lesson JSON files
 │   └── paths/              # Learning path definitions
 ├── docs/                   # Documentation
 │   ├── DEMO-SCRIPT.md      # Demo flow guide
@@ -241,6 +241,12 @@ Questions include full lesson context for relevant, accurate responses.
 | AI Practitioner | 8 | Developers, technical professionals | ~2 hours |
 | AI Specialist | 15 | ML engineers, researchers | ~4 hours |
 | NLP Focus | 9 | Chatbot/language AI developers | ~2.5 hours |
+| Generative AI | 5 | Content creators, artists, writers | ~1 hour |
+| Prompt Engineering | 4 | Anyone using AI tools | ~45 min |
+| Computer Vision | 3 | Visual AI developers | ~45 min |
+| AI Ethics | 4 | Builders, policymakers | ~50 min |
+| AI Tools & APIs | 4 | Developers building AI apps | ~50 min |
+| AI for Business | 3 | Business leaders, managers | ~35 min |
 
 ---
 
