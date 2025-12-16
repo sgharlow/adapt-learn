@@ -38,3 +38,5 @@ next-env.d.ts
 # project specific
 /audio-cache
 status.txt
+
+.vercel
