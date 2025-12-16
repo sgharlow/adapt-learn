@@ -1,4 +1,5 @@
 'use client';
+// Build timestamp: 2024-12-15T23:45:00Z - Force Vercel rebuild
 
 import { useState, useEffect } from 'react';
 
