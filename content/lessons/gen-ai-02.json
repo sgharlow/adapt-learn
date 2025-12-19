@@ -101,7 +101,7 @@
     }
   ],
   "audioUrls": {
-    "full": "/audio/lessons/gen-ai-02.mp3",
+    "full": "https://adaptlearn-audio.s3.us-west-2.amazonaws.com/lessons/gen-ai-02.mp3",
     "summary": null,
     "sections": {}
   },

@@ -100,7 +100,7 @@
     }
   ],
   "audioUrls": {
-    "full": "/audio/lessons/practical-ai-01.mp3",
+    "full": "https://adaptlearn-audio.s3.us-west-2.amazonaws.com/lessons/practical-ai-01.mp3",
     "summary": null,
     "sections": {}
   },

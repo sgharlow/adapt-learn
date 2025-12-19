@@ -101,7 +101,7 @@
     }
   ],
   "audioUrls": {
-    "full": "/audio/lessons/prompting-03.mp3",
+    "full": "https://adaptlearn-audio.s3.us-west-2.amazonaws.com/lessons/prompting-03.mp3",
     "summary": null,
     "sections": {}
   },
