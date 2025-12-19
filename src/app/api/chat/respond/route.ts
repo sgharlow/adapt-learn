@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { ChatRequest, ChatResponse, ChatMessage } from '@/types';
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
 
 export async function POST(request: NextRequest) {
   try {
