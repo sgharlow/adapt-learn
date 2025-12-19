@@ -4,7 +4,10 @@
   "topic": "Practical AI",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["practical-ai-01", "practical-ai-03"],
+  "prerequisites": [
+    "practical-ai-01",
+    "practical-ai-03"
+  ],
   "objectives": [
     "Understand different model serving approaches and their tradeoffs",
     "Learn how to build APIs for real-time model predictions",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "A model that performs perfectly in your Jupyter notebook is worthless until it's deployed and serving predictions in the real world. Deployment introduces new challenges: latency requirements, scale, monitoring, and maintenance. In this lesson, we'll explore how to take models from development to production and keep them running reliably.",
-
     "sections": [
       {
         "title": "Model Serving Patterns: Batch vs Real-Time",
@@ -35,9 +37,7 @@
         "content": "Production models require ongoing maintenance. The world changes, and models must adapt.\n\n**When to retrain**:\n\n**1. Scheduled retraining**:\n- Regular cadence (weekly, monthly)\n- Incorporates new data\n- Captures gradual trends\n- Good default approach\n\n**2. Triggered retraining**:\n- Data drift detected\n- Performance drops below threshold\n- Significant business event (new product launch, policy change)\n- Manual trigger when needed\n\n**3. Continuous learning**:\n- Retrain constantly on streaming data\n- Complex to implement correctly\n- Risk of learning bad patterns\n- Good for rapidly changing environments\n\n**Retraining pipeline**:\n1. Collect new training data (logs, user feedback)\n2. Validate data quality\n3. Train model with current hyperparameters\n4. Evaluate on hold-out test set\n5. If improvement: Deploy new version (with A/B test)\n6. If regression: Investigate before deployment\n\n**Handling feedback loops**:\nModel predictions can influence future data.\n\nExample: Recommendation system\n- Model recommends certain products\n- Users only see recommended products\n- Training data becomes biased toward recommended items\n- Model reinforces initial biases\n\nMitigation:\n- Exploration: Occasionally show random items\n- Debias training data\n- Use causal inference techniques\n\n**Model retirement**:\nEventually, models become obsolete:\n- Business requirements change\n- Better approaches available\n- Maintenance cost exceeds value\n\nRetirement checklist:\n- Notify stakeholders\n- Archive model artifacts and documentation\n- Redirect traffic to replacement\n- Monitor for issues\n- Keep backup for rollback period"
       }
     ],
-
     "summary": "Deploying ML models to production requires choosing appropriate serving patterns (batch vs real-time), building scalable APIs with containers, implementing version control and A/B testing for safe deployments, monitoring system and model performance continuously, and maintaining models through retraining. Production ML is an ongoing process of deployment, monitoring, and iteration — models are never truly 'done'.",
-
     "keyTakeaways": [
       "Choose batch serving for periodic predictions, real-time APIs for immediate responses",
       "Use containers and REST APIs for scalable, reproducible model serving",
@@ -45,7 +45,6 @@
       "Retrain models regularly or when triggered by performance degradation or drift"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +99,11 @@
       "explanation": "Model versioning enables critical production practices: quickly rolling back to a previous version if issues arise, reproducing any historical prediction, comparing performance across versions, and debugging by testing with different model versions. It's essential for maintaining reliable ML systems."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/practical-ai-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google MLOps practices and industry deployment guides",

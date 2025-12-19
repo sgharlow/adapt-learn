@@ -4,7 +4,10 @@
   "topic": "NLP Fundamentals",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["nlp-fundamentals-01", "nlp-fundamentals-02"],
+  "prerequisites": [
+    "nlp-fundamentals-01",
+    "nlp-fundamentals-02"
+  ],
   "objectives": [
     "Understand key practical NLP tasks and their real-world applications",
     "Learn how sentiment analysis works and why it's challenging",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "Understanding language theory is important, but NLP's real power comes from practical applications that solve real problems. In this lesson, we'll explore three fundamental NLP tasks: sentiment analysis, named entity recognition, and text classification. These form the building blocks for countless AI applications you interact with daily.",
-
     "sections": [
       {
         "title": "Sentiment Analysis: Understanding Emotions in Text",
@@ -35,9 +37,7 @@
         "content": "In practice, real-world NLP systems often combine multiple tasks.\n\n**Customer support automation**:\n1. **Intent classification**: What is the customer asking about?\n2. **Sentiment analysis**: How urgent/angry is the customer?\n3. **NER**: Extract account numbers, product names, dates\n4. **Response generation**: Generate or select appropriate response\n\n**Content analysis platform**:\n1. **Topic classification**: Categorize articles\n2. **NER**: Extract people, organizations, locations\n3. **Sentiment**: Determine article tone\n4. **Summarization**: Generate headlines or abstracts\n\n**Key considerations for production**:\n- **Accuracy vs. speed**: Real-time applications may need faster, simpler models\n- **Domain adaptation**: Models trained on news may not work well on tweets\n- **Class imbalance**: Spam is rare, so you might have 100 legitimate emails for every spam\n- **Evaluation**: Choose metrics that match your goals (precision vs. recall trade-offs)\n\nThe best approach depends on your specific use case, available data, and computational resources. Often, a simple model that's well-tuned to your domain outperforms a complex general-purpose model."
       }
     ],
-
     "summary": "Practical NLP applications solve real-world problems through tasks like sentiment analysis (understanding emotional tone), named entity recognition (extracting people, places, organizations), and text classification (categorizing documents). Modern systems often combine multiple NLP tasks and use transfer learning with pre-trained models for better accuracy. Success in production requires balancing accuracy, speed, and domain-specific tuning.",
-
     "keyTakeaways": [
       "Sentiment analysis determines emotional tone but must handle sarcasm and context",
       "Named Entity Recognition extracts structured information like people and places",
@@ -45,7 +45,6 @@
       "Real-world systems combine multiple NLP tasks to solve complex problems"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +99,11 @@
       "explanation": "Text classification assigns documents to predefined categories. Spam detection is a classic example — given an email, classify it as 'spam' or 'not spam'. Other examples include topic categorization, intent classification, and content moderation. The other options are different NLP tasks (translation, generation, speech recognition)."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/nlp-fundamentals-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS224N and industry best practices",

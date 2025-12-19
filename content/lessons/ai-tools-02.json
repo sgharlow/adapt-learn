@@ -4,7 +4,10 @@
   "topic": "AI Tools & APIs",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["ai-tools-01", "prompting-01"],
+  "prerequisites": [
+    "ai-tools-01",
+    "prompting-01"
+  ],
   "objectives": [
     "Master the chat completions API pattern",
     "Understand messages, roles, and conversation history",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "Language Model APIs have become the foundation of modern AI applications—from chatbots to code assistants to content generators. But there's more to these APIs than just sending a prompt and getting a response. In this lesson, we'll dive deep into how language model APIs actually work, exploring chat completions, embeddings, and the powerful technique of function calling that lets AI interact with external tools.",
-
     "sections": [
       {
         "title": "The Chat Completions API Pattern",
@@ -36,9 +38,7 @@
         "content": "Building production applications with language model APIs requires attention to reliability, cost, and user experience.\n\n**1. Error Handling and Retries**\n- Always wrap API calls in try-catch blocks\n- Implement exponential backoff for retries\n- Handle specific error types: rate limits (429), auth errors (401), server errors (500)\n- Set reasonable timeouts—don't let users wait indefinitely\n- Provide fallback responses when API fails\n\n**2. Cost Optimization**\n- Use cheaper models for simple tasks (GPT-3.5 instead of GPT-4)\n- Limit max_tokens to prevent unexpectedly long responses\n- Cache responses for identical requests\n- Implement request deduplication\n- Monitor token usage per user/session\n- Consider streaming responses to reduce perceived latency\n\n**3. Response Streaming**\nMost providers support streaming, where the response comes back incrementally (word by word). This:\n- Improves user experience (feels faster)\n- Allows early display of content\n- Enables cancellation mid-response\n- Reduces perceived latency even though total time is similar\n\n**4. Context Management**\n- Prune old messages when approaching context limits\n- Summarize long conversations to maintain context while reducing tokens\n- Store conversation history efficiently (database, cache, or client-side)\n- Consider separate sessions for different topics\n\n**5. Safety and Moderation**\n- Use moderation APIs to filter inappropriate content\n- Validate and sanitize user inputs\n- Implement rate limiting per user to prevent abuse\n- Monitor for prompt injection attempts\n- Set up content filters for sensitive applications\n\n**6. Monitoring and Observability**\n- Log all API requests and responses (excluding sensitive data)\n- Track latency, error rates, and costs\n- Set up alerts for unusual patterns\n- Monitor token usage trends\n- A/B test different models and prompts\n\nThese practices separate toy projects from production-ready applications."
       }
     ],
-
     "summary": "Language model APIs use a chat completions pattern where you send arrays of messages with roles (system, user, assistant) and receive AI-generated responses. Conversation history must be managed by your application since APIs are stateless. Embeddings convert text into numerical vectors that capture semantic meaning, enabling powerful search and similarity features at low cost. Function calling allows language models to interact with external tools and APIs by determining when to call functions and with what arguments, though you execute the actual functions. Production applications require careful error handling, cost optimization, context management, and monitoring to be reliable and sustainable.",
-
     "keyTakeaways": [
       "Chat APIs use messages with roles: system (instructions), user (input), assistant (responses)",
       "Conversation history must be sent with each request—APIs are stateless",
@@ -47,7 +47,6 @@
       "Production apps need error handling, cost controls, and monitoring"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "Stateless means the API doesn't remember previous requests. Each API call is independent. To maintain a conversation, YOU must send the entire message history (all previous user and assistant messages) with each new request. The API processes this full context to generate the next response, but doesn't store anything between calls."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ai-tools-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Original content based on OpenAI, Anthropic, and Google API documentation",

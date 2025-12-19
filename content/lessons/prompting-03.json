@@ -4,7 +4,9 @@
   "topic": "Prompt Engineering",
   "difficulty": "intermediate",
   "duration": 10,
-  "prerequisites": ["prompting-02"],
+  "prerequisites": [
+    "prompting-02"
+  ],
   "objectives": [
     "Generate structured outputs in JSON, markdown, and other formats",
     "Master prompt chaining and task decomposition",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Advanced prompt engineering goes beyond basic communication with AI. In this lesson, you'll learn techniques that professionals use to build reliable, production-quality AI applications. These strategies help you get consistent, structured outputs and handle complex multi-step workflows.",
-
     "sections": [
       {
         "title": "Structured Outputs: JSON, Markdown, and Tables",
@@ -36,9 +37,7 @@
         "content": "An advanced technique is asking the AI to help design prompts:\n\n**Prompt Improvement:**\n'I want to write a prompt that generates product descriptions for an e-commerce site. Here's my current prompt: [your prompt]. Suggest 3 improvements to make it more effective.'\n\nThe AI can suggest:\n- Missing constraints\n- Better structure\n- Additional examples\n- Clearer language\n\n**Prompt Generation:**\n'Create a prompt template for generating technical documentation that includes: clear prerequisites, step-by-step instructions, code examples, and troubleshooting tips.'\n\n**Prompt Analysis:**\n'Analyze this prompt and identify potential ambiguities or edge cases: [your prompt]'\n\n**A/B Testing Framework:**\n'Generate 3 variations of this prompt, each emphasizing a different aspect: clarity, creativity, and conciseness.'\n\nMeta-prompting is like having a prompt engineering consultant. It's particularly useful when you're stuck or when onboarding team members.\n\nThe AI has learned from millions of prompts and can suggest improvements you might not consider."
       }
     ],
-
     "summary": "Advanced prompting strategies enable production-quality AI applications. Structured outputs using JSON, markdown, or tables make AI responses machine-readable. Prompt chaining breaks complex tasks into simpler sequential or parallel steps. Handling edge cases through defensive prompting, validation instructions, and fallback behaviors creates robust systems. Temperature and other parameters control the randomness and creativity of outputs — use low temperature for factual tasks and higher temperature for creative work. Meta-prompting leverages AI to improve your own prompts.",
-
     "keyTakeaways": [
       "Provide exact schemas and examples for structured outputs",
       "Chain prompts for complex tasks: break into simple steps",
@@ -47,7 +46,6 @@
       "Use meta-prompting to improve and analyze your prompts"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Option B uses defensive prompting by specifying exactly what to do in edge cases (no phone found, multiple phones), includes validation requirements, and defines the expected format. This prevents undefined behavior."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/prompting-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Production prompt engineering practices",

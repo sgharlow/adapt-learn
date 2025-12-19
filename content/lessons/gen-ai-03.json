@@ -4,7 +4,10 @@
   "topic": "Generative AI",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["gen-ai-01", "deep-learning-01"],
+  "prerequisites": [
+    "gen-ai-01",
+    "deep-learning-01"
+  ],
   "objectives": [
     "Understand the evolution from GANs to diffusion models",
     "Learn how diffusion models generate images",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "Type 'a photorealistic astronaut riding a horse on Mars' into Midjourney, and seconds later you have a stunning image that never existed before. Image generation AI has evolved from blurry, unrealistic outputs to photorealistic masterpieces in just a few years. Let's explore the technology that makes this possible.",
-
     "sections": [
       {
         "title": "From GANs to Diffusion Models",
@@ -36,9 +38,7 @@
         "content": "Image generation AI is transforming creative workflows across industries:\n\n**Current Applications:**\n\n**Concept Art & Design**\n- Rapid prototyping of ideas\n- Exploring visual directions before committing resources\n- Game environment and character concept generation\n\n**Marketing & Advertising**\n- Generate unique stock photos\n- Create social media content at scale\n- A/B test visual concepts quickly\n- Personalized visual content\n\n**Product Design**\n- Visualize product variations\n- Generate packaging mockups\n- Create lifestyle product images\n\n**Architecture**\n- Visualize building concepts\n- Generate interior design variations\n- Create photorealistic renderings\n\n**Education**\n- Generate custom illustrations for teaching materials\n- Visualize historical events or scientific concepts\n- Create engaging visual content\n\n**Emerging Trends:**\n\n**Personalization:** Models fine-tuned on your face or art style\n\n**Real-time generation:** Fast enough for video frame-by-frame\n\n**3D integration:** Generating 3D models, not just 2D images\n\n**Video generation:** Extending diffusion to create video clips\n\n**Interactive editing:** Natural language commands to edit images\n\n**Challenges Ahead:**\n- Copyright and intellectual property questions\n- Attribution and artist compensation\n- Deepfakes and misinformation\n- Computational costs and environmental impact\n- Maintaining diversity and avoiding bias\n\nImage generation AI is still in its early stages. The technology improving rapidly, and we're only beginning to explore its creative potential."
       }
     ],
-
     "summary": "Image generation evolved from GANs (adversarial training) to diffusion models (iterative denoising), dramatically improving quality and control. Diffusion models start with random noise and gradually remove it step-by-step, guided by text descriptions encoded as embeddings. The text-to-image pipeline combines text encoders, diffusion models, and upsamplers. DALL-E excels at prompt accuracy, Midjourney at artistic quality, and Stable Diffusion at customization. Applications span concept art, marketing, product design, and education.",
-
     "keyTakeaways": [
       "Diffusion models work by learning to remove noise step-by-step",
       "Text-to-image uses text encoders to guide the diffusion process",
@@ -46,7 +46,6 @@
       "Applications include concept art, marketing, design, and education"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +100,11 @@
       "explanation": "The text encoder converts your text prompt into embeddings — mathematical representations that capture the semantic meaning. These embeddings guide the diffusion model's denoising process at each step, ensuring the generated image matches your description."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/gen-ai-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from OpenAI, Stability AI, and Midjourney research",

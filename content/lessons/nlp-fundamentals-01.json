@@ -4,7 +4,10 @@
   "topic": "NLP Fundamentals",
   "difficulty": "intermediate",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02"
+  ],
   "objectives": [
     "Understand what Natural Language Processing is and why it's challenging",
     "Learn the basic steps of text preprocessing",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "Natural Language Processing, or NLP, is the field of AI that helps computers understand, interpret, and generate human language. From chatbots to translation services, NLP powers some of the most impressive AI applications today. In this lesson, we'll explore what makes language processing so challenging and how machines begin to tackle it.",
-
     "sections": [
       {
         "title": "What is Natural Language Processing?",
@@ -35,9 +37,7 @@
         "content": "Machine learning models work with numbers, not words. The central challenge of NLP is converting text into numerical representations that preserve meaning.\n\nThis is harder than it sounds. We need representations where:\n- Similar words have similar numbers (so the model knows 'happy' and 'joyful' are related)\n- The representation captures context (so 'bank' near 'river' differs from 'bank' near 'money')\n- Relationships are preserved (like 'king' - 'man' + 'woman' = 'queen')\n\nEarly approaches like one-hot encoding treated each word as completely independent. Modern approaches like word embeddings (which we'll cover in the next lesson) create rich representations that capture semantic meaning.\n\nThis transformation from text to numbers is where the magic of NLP happens — and it's what enables computers to truly 'understand' language."
       }
     ],
-
     "summary": "Natural Language Processing enables computers to understand and work with human language, which is inherently ambiguous and context-dependent. Success requires careful preprocessing — including lowercasing, removing stop words, and stemming — followed by tokenization to break text into processable units. The ultimate challenge is converting words into numerical representations that preserve meaning, which is essential for applying machine learning to language tasks.",
-
     "keyTakeaways": [
       "NLP deals with the inherent complexity and ambiguity of human language",
       "Preprocessing steps like lowercasing and removing stop words prepare text for analysis",
@@ -45,7 +45,6 @@
       "Converting text to meaningful numbers is the core technical challenge"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +99,11 @@
       "explanation": "The core challenge is converting words (text) into numbers that machine learning models can process, while preserving the semantic meaning and relationships between words. This transformation enables computers to mathematically reason about language."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/nlp-fundamentals-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS224N and Hugging Face NLP Course",

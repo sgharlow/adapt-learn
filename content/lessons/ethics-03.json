@@ -4,7 +4,9 @@
   "topic": "AI Ethics",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["ethics-01"],
+  "prerequisites": [
+    "ethics-01"
+  ],
   "objectives": [
     "Understand what AI safety means and why it matters",
     "Grasp the alignment problem and its challenges",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "As AI systems become more powerful and autonomous, a critical question emerges: How do we ensure they do what we actually want them to do? This might sound simple, but it's surprisingly difficult. AI safety is about building systems that reliably behave as intended and don't cause unintended harm — even as they become more capable. In this lesson, we'll explore the alignment problem, current approaches to AI safety, and practices for responsible development.",
-
     "sections": [
       {
         "title": "What Is AI Safety and Why It Matters",
@@ -36,9 +37,7 @@
         "content": "There's often tension between safety and speed of development. How do we navigate this?\n\n**The Case for Caution**\n- AI failures can cause real harm\n- Once deployed at scale, problems are harder to fix\n- Public trust, once lost, is hard to regain\n- Some mistakes are irreversible\n\n**The Case for Progress**\n- AI has immense beneficial potential (healthcare, climate, education)\n- Overly cautious approaches might prevent beneficial applications\n- We learn by deploying and getting real-world feedback\n- Competitors without safety concerns might rush ahead\n\n**A Balanced Approach**\n\n**1. Risk Proportionality**\nMatch safety rigor to stakes:\n- Music recommendation: Lower safety bar\n- Medical diagnosis: Very high safety bar\n- Content moderation: Medium-high (impacts speech but not physical safety)\n\n**2. Iterative Deployment**\nDeploy carefully, learn, improve:\n- Small scale → medium scale → large scale\n- Low stakes → medium stakes → high stakes\n- Constant monitoring and improvement\n\n**3. Safety Buffers**\nDon't deploy at the edge of safety:\n- Build in margins for error\n- Account for worst-case scenarios\n- Consider cascading failures\n\n**4. Ongoing Research**\nSafety research should keep pace with capability research:\n- Fund both equally\n- Test safety measures on frontier models\n- Share safety insights across organizations\n\n**5. Adaptive Governance**\nRegulations should evolve with technology:\n- Light touch for low-stakes applications\n- Stricter oversight for high-stakes uses\n- Regular review as technology changes\n\nThe goal isn't to prevent all AI development — it's to ensure that as AI becomes more powerful, it remains beneficial and under human control. This requires ongoing vigilance, not a one-time solution.\n\nRemember: The most advanced AI isn't necessarily the safest AI. Sometimes the right answer is a less capable but more reliable system."
       }
     ],
-
     "summary": "AI safety focuses on building systems that robustly pursue intended goals without causing harm. The alignment problem — ensuring AI systems optimize for what we actually want — is challenging due to specification difficulty, Goodhart's Law, and the complexity of human values. Current research approaches include RLHF (learning from human feedback), Constitutional AI, adversarial testing, interpretability research, and formal verification. Responsible development practices include thorough testing, human-in-the-loop design, staged deployment, fail-safe mechanisms, and organizational accountability. Balancing safety and progress requires risk-proportional approaches, iterative deployment, safety buffers, and ongoing research alongside capability development.",
-
     "keyTakeaways": [
       "AI safety ensures systems do what we intend without unintended harm",
       "The alignment problem: specifying and achieving human-intended goals is hard",
@@ -47,7 +46,6 @@
       "Balance safety and progress through risk-proportional, iterative approaches"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Human-in-the-loop design keeps humans involved in high-stakes decisions, with AI providing suggestions or flagging issues, but humans making final decisions. This provides oversight, catches AI errors, and maintains accountability for critical choices like medical diagnoses."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ethics-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from AI Alignment research (Anthropic, OpenAI, DeepMind), Concrete Problems in AI Safety",

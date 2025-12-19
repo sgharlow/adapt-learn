@@ -4,7 +4,9 @@
   "topic": "AI Ethics",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["ethics-01"],
+  "prerequisites": [
+    "ethics-01"
+  ],
   "objectives": [
     "Understand data privacy challenges in machine learning",
     "Learn how federated learning protects privacy",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Machine learning thrives on data — the more, the better for model performance. But this creates a fundamental tension: How do we build powerful AI systems while protecting individual privacy? From medical records to personal photos to browsing history, the data that makes AI useful is often deeply personal. In this lesson, we'll explore privacy challenges in AI, innovative technical solutions like federated learning and differential privacy, and the emerging regulatory landscape.",
-
     "sections": [
       {
         "title": "Data Privacy Challenges in Machine Learning",
@@ -36,9 +37,7 @@
         "content": "How do you actually build AI systems that respect privacy? Here's a practical framework:\n\n**1. Privacy by Design Principles**\n\n**Data Minimization**: Collect only what you need\n- Do you really need birth date, or just age range?\n- Do you need exact location, or just city?\n- Can you aggregate data before collection?\n\n**Purpose Specification**: Be clear why you're collecting data\n- Specific, explicit purposes\n- Don't repurpose data without consent\n- Document intended uses\n\n**Anonymization and Pseudonymization**:\n- Remove directly identifying information where possible\n- Use pseudonyms/IDs instead of names\n- But remember: Re-identification is often possible\n\n**2. Technical Tools**\n\nCombine techniques for defense in depth:\n\n**Federated Learning** + **Differential Privacy**:\n- Train locally (federated)\n- Add noise to updates (DP)\n- Double protection\n\n**Secure Computation**:\n- Homomorphic encryption: Compute on encrypted data\n- Secure multi-party computation: Multiple parties compute together without revealing individual data\n- (These are advanced and computationally expensive)\n\n**Data Governance**:\n- Access controls (who can see what data)\n- Audit logs (track all data access)\n- Retention policies (delete when no longer needed)\n- Encryption at rest and in transit\n\n**3. Organizational Practices**\n\n- **Privacy impact assessments** before new projects\n- **Privacy team** involvement in AI development\n- **Training** for engineers on privacy techniques\n- **Incident response plans** for breaches\n- **Third-party audits** of privacy practices\n\n**4. User Control and Transparency**\n\n- Clear privacy policies (actually readable)\n- Granular consent (opt-in for specific uses)\n- Data dashboards (show users what you have)\n- Easy data download (portability)\n- Simple deletion (honor right to erasure)\n\n**5. Tradeoffs and Decisions**\n\nYou'll face tradeoffs:\n\n**Privacy vs. Accuracy**: Privacy-preserving techniques often reduce model performance. Is the tradeoff acceptable?\n\n**Privacy vs. Personalization**: Personalized experiences require personal data. What's the right balance?\n\n**Privacy vs. Cost**: Privacy techniques add computational and engineering costs. How much should you invest?\n\nThese aren't purely technical decisions — they require ethical judgment about values and priorities.\n\n**6. Future Directions**\n\nPrivacy-preserving AI is advancing:\n- Better federated learning algorithms\n- More efficient differential privacy\n- Improved anonymization techniques\n- Privacy-preserving hardware\n- Better tools and libraries\n\nBut fundamentally, privacy in AI requires ongoing attention, not a one-time solution. As AI capabilities grow, so must privacy protections.\n\n**Remember**: The goal isn't to prevent all data use — data powers beneficial AI. The goal is informed consent, appropriate protections, and accountability when building AI systems."
       }
     ],
-
     "summary": "AI systems create privacy risks through data centralization, model memorization, inference attacks, and re-identification. Federated learning addresses this by training models on distributed data without centralization — the model comes to the data, not vice versa. Differential privacy provides mathematical guarantees by adding calibrated noise, preventing disclosure of individual information even with background knowledge. Regulations like GDPR, CCPA, and the proposed EU AI Act establish data rights and AI obligations. Building privacy-preserving AI requires combining technical tools (federated learning, differential privacy, encryption), organizational practices (impact assessments, audits), and user controls (transparency, consent, deletion rights). Privacy in AI involves tradeoffs between privacy, accuracy, and utility that require ethical judgment.",
-
     "keyTakeaways": [
       "ML creates privacy risks: memorization, inference attacks, re-identification",
       "Federated learning trains on distributed data without centralization",
@@ -47,7 +46,6 @@
       "Privacy-preserving AI requires technical tools + organizational practices + user control"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Data minimization is a core GDPR principle requiring organizations to collect only data necessary for specific, stated purposes. This affects AI development by limiting massive data collection and requiring clear justification for what data is collected and how it's used."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ethics-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google Federated Learning research, Apple Differential Privacy technical reports, GDPR and AI Act documentation",

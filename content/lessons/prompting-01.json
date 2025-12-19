@@ -4,7 +4,9 @@
   "topic": "Prompt Engineering",
   "difficulty": "beginner",
   "duration": 8,
-  "prerequisites": ["ml-fundamentals-01"],
+  "prerequisites": [
+    "ml-fundamentals-01"
+  ],
   "objectives": [
     "Understand what prompt engineering is and why it matters",
     "Learn the basic components of effective prompts",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Prompt engineering is the art and science of communicating effectively with AI language models. Just as asking the right question matters in human conversation, how you phrase your prompts dramatically affects the quality of AI responses. In this lesson, you'll learn the fundamentals of crafting effective prompts.",
-
     "sections": [
       {
         "title": "What is Prompt Engineering?",
@@ -36,9 +37,7 @@
         "content": "Perfect prompts rarely happen on the first try. Prompt engineering is iterative:\n\n**Start Simple** - Begin with a basic version of your prompt\n\n**Evaluate Output** - Does it match what you wanted? What's missing?\n\n**Refine** - Add clarity, constraints, or examples\n\n**Test Again** - See if the output improves\n\nFor example:\n- Try 1: 'Write a product description'\n- Try 2: 'Write a 100-word product description for wireless headphones'\n- Try 3: 'Write a 100-word product description for wireless headphones targeting fitness enthusiasts, emphasizing water resistance and battery life'\n\nEach iteration gets more specific and produces better results. Don't be discouraged if your first prompt doesn't work perfectly — that's normal and expected."
       }
     ],
-
     "summary": "Prompt engineering is the skill of crafting effective inputs to get better outputs from AI language models. Good prompts include clear context, task description, format requirements, and constraints. Understanding the difference between system prompts (which set the AI's role) and user prompts (which specify tasks) helps you communicate more effectively. Avoid common mistakes like being too vague or assuming context. Remember that prompt engineering is iterative — you'll refine your prompts based on the outputs you receive.",
-
     "keyTakeaways": [
       "Prompt engineering is about communicating effectively with AI",
       "Include context, task, format, constraints, and examples",
@@ -47,7 +46,6 @@
       "Specificity and clarity dramatically improve results"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Option B is specific, includes a clear task (write a paragraph), constraints (200 words, specific topic), and audience (high school). The other options are vague and would produce generic or unhelpful responses."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/prompting-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Best practices in prompt engineering",

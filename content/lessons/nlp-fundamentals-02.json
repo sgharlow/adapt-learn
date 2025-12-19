@@ -4,7 +4,9 @@
   "topic": "NLP Fundamentals",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["nlp-fundamentals-01"],
+  "prerequisites": [
+    "nlp-fundamentals-01"
+  ],
   "objectives": [
     "Understand different approaches to representing words as numbers",
     "Learn how word embeddings capture semantic meaning",
@@ -12,7 +14,6 @@
   ],
   "content": {
     "introduction": "In the previous lesson, we learned that converting text to numbers is NLP's core challenge. But not all number representations are created equal. In this lesson, we'll explore various techniques for representing words — from simple counting methods to sophisticated embeddings that capture meaning and relationships.",
-
     "sections": [
       {
         "title": "Bag of Words: The Simplest Approach",
@@ -35,9 +36,7 @@
         "content": "GloVe (Global Vectors), developed at Stanford, takes a different approach to learning embeddings. Instead of using context windows like Word2Vec, it builds on word co-occurrence statistics from the entire corpus.\n\nGloVe creates a matrix counting how often words appear together, then factorizes this matrix to create embeddings that preserve these co-occurrence patterns.\n\nAdvantages over Word2Vec:\n- Captures global statistical information (Word2Vec is more local)\n- Often performs better on word analogy tasks\n- Training is more efficient on large corpora\n\n**Modern evolution**: Today, we've moved beyond static embeddings to contextual embeddings like those from BERT and GPT. These create different representations for the same word depending on context — so 'bank' in 'river bank' gets a different vector than 'bank' in 'savings bank'.\n\nBut Word2Vec and GloVe remain important foundations for understanding how neural networks learn language."
       }
     ],
-
     "summary": "Word representation techniques evolved from simple counting (Bag of Words) to weighted counting (TF-IDF) to learned semantic embeddings (Word2Vec and GloVe). Traditional approaches treat words as independent symbols, while embeddings capture meaning through dense vectors learned from context. Word2Vec and GloVe can represent semantic relationships like 'king' - 'man' + 'woman' = 'queen', making them far more powerful for capturing language understanding.",
-
     "keyTakeaways": [
       "Bag of Words counts word occurrences but ignores meaning and order",
       "TF-IDF weighs words by importance, highlighting distinctive terms",
@@ -45,7 +44,6 @@
       "Modern embeddings are dense, low-dimensional vectors that enable arithmetic on meaning"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +98,11 @@
       "explanation": "Word embeddings create dense vector representations where semantic relationships are encoded mathematically. This enables vector arithmetic that captures meaning — subtracting 'man' from 'king' and adding 'woman' gives a vector close to 'queen'. This semantic understanding is impossible with simple counting approaches."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/nlp-fundamentals-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS224N and original Word2Vec/GloVe papers",

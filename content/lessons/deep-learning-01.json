@@ -4,7 +4,11 @@
   "topic": "Deep Learning",
   "difficulty": "beginner",
   "duration": 12,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02",
+    "ml-fundamentals-03"
+  ],
   "objectives": [
     "Understand what deep learning is and how it differs from traditional ML",
     "Learn the basic structure of neural networks",
@@ -12,7 +16,6 @@
   ],
   "content": {
     "introduction": "Deep learning has powered some of AI's most impressive breakthroughs — from self-driving cars to ChatGPT. But what exactly is it? At its core, deep learning uses artificial neural networks inspired by the human brain. Let's demystify this powerful technology and understand why it's revolutionizing artificial intelligence.",
-
     "sections": [
       {
         "title": "What is Deep Learning?",
@@ -35,9 +38,7 @@
         "content": "Neural networks aren't new — they were invented in the 1950s. So why are they suddenly so powerful?\n\n**Three factors converged:**\n\n**1. Big Data**\n- Deep learning needs lots of examples to learn well\n- The internet provides millions/billions of images, texts, videos\n- ImageNet dataset: 14 million labeled images\n- Without sufficient data, deep networks overfit\n\n**2. Computational Power**\n- Training deep networks requires massive computation\n- GPUs (graphics cards) accelerate training 10-100x\n- Cloud computing makes powerful hardware accessible\n- What took months now takes hours\n\n**3. Algorithmic Improvements**\n- Better activation functions (ReLU vs sigmoid)\n- Better optimization methods (Adam, batch normalization)\n- Better architectures (ResNet, Transformers)\n- Techniques to train very deep networks\n\n**Results:**\n- Image recognition exceeds human performance\n- Language models can write coherently\n- Game-playing AI beats world champions\n- Speech recognition is highly accurate\n\n**Applications everywhere:**\n- Healthcare: detecting diseases in medical images\n- Automotive: self-driving cars\n- Entertainment: recommendation systems\n- Communication: language translation\n- Creativity: generating images and text\n\nDeep learning excels at problems with large datasets and complex patterns — especially in images, audio, and text."
       }
     ],
-
     "summary": "Deep learning uses artificial neural networks with multiple layers to learn from data. Each neuron receives inputs, multiplies them by learned weights, and applies an activation function to produce an output. Networks are organized in layers — input, hidden, and output — with information flowing forward and learning happening through backpropagation. Deep learning differs from traditional ML by automatically learning features from raw data rather than requiring hand-crafted features. The convergence of big data, powerful GPUs, and algorithmic improvements has made deep learning the dominant approach for complex tasks like image recognition, natural language processing, and game playing.",
-
     "keyTakeaways": [
       "Deep learning uses multi-layer neural networks to learn from data",
       "Neurons combine weighted inputs and apply activation functions",
@@ -47,7 +48,6 @@
       "Excels at images, audio, text — domains with complex patterns"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +102,11 @@
       "explanation": "Three factors converged: (1) Big Data — the internet provided millions/billions of labeled examples needed to train deep networks, (2) GPUs — graphics cards accelerated training by 10-100x, making it practical, and (3) Algorithmic improvements — better activation functions, optimizers, and architectures. All three were necessary; any one alone wasn't sufficient."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/deep-learning-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from fast.ai Chapter 1, Deep Learning by Goodfellow et al., and 3Blue1Brown",

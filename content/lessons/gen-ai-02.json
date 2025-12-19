@@ -4,7 +4,10 @@
   "topic": "Generative AI",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["gen-ai-01", "deep-learning-01"],
+  "prerequisites": [
+    "gen-ai-01",
+    "deep-learning-01"
+  ],
   "objectives": [
     "Understand autoregressive text generation",
     "Learn how tokenization works",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "When you type a prompt into ChatGPT and watch it generate a thoughtful response, what's actually happening under the hood? Text generation might seem like magic, but it's based on elegant mathematical principles. In this lesson, we'll demystify how AI generates human-like text, one token at a time.",
-
     "sections": [
       {
         "title": "Autoregressive Generation Explained",
@@ -36,9 +38,7 @@
         "content": "Let's trace through what happens when you ask ChatGPT: 'Write a haiku about AI'\n\n**Step 1: Tokenization**\nYour prompt gets split into tokens: ['Write', ' a', ' haiku', ' about', ' AI']\n\n**Step 2: Context Processing**\nThe model processes all tokens in the context window (your prompt plus conversation history) through its neural network layers.\n\n**Step 3: Autoregressive Generation**\nThe model predicts token by token:\n- First token: 'Silicon' (probability distribution, sampled with temperature)\n- Add to context: 'Write a haiku about AI Silicon'\n- Next token: ' minds'\n- Continue: 'awaken'\n\n**Step 4: Temperature Application**\nAt each step, temperature adjusts the probability distribution. Higher temperature = more creative word choices.\n\n**Step 5: Stopping**\nThe model generates until it predicts a stop token or you've reached a reasonable haiku length.\n\n**Final output:**\n```\nSilicon minds awaken\nLearning patterns in the dark\nWisdom without soul\n```\n\n**Behind each word** is a complex prediction process considering billions of parameters, but the principle is simple: predict the next token based on what came before, one step at a time.\n\nThis autoregressive process, combined with tokenization, sampling strategies, and context windows, is how every modern text generation system works — from ChatGPT to GitHub Copilot to AI email assistants."
       }
     ],
-
     "summary": "Text generation works through autoregressive prediction — generating one token at a time based on previous tokens. Models use tokenization to break text into subword pieces, enabling efficient vocabulary management. Temperature and sampling strategies control the randomness and creativity of outputs. Context windows limit how much text the model can process at once, creating important constraints on conversation length and document analysis. Understanding these mechanisms helps you use text generation tools more effectively.",
-
     "keyTakeaways": [
       "Autoregressive generation: predict one token at a time using previous context",
       "Tokens are subword pieces, not whole words; ~750 words = 1000 tokens",
@@ -46,7 +46,6 @@
       "Context windows limit memory; exceeding them causes the model to 'forget'"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +100,11 @@
       "explanation": "Tokenization breaks text into subword pieces, allowing models to handle rare words (by combining known pieces), typos, made-up words, and multiple languages efficiently while keeping vocabulary size manageable (50k-100k tokens vs. hundreds of thousands of words)."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/gen-ai-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from OpenAI, Anthropic transformer research",

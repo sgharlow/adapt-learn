@@ -4,7 +4,13 @@
   "topic": "ML Fundamentals",
   "difficulty": "intermediate",
   "duration": 13,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03", "ml-fundamentals-04", "ml-fundamentals-05"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02",
+    "ml-fundamentals-03",
+    "ml-fundamentals-04",
+    "ml-fundamentals-05"
+  ],
   "objectives": [
     "Understand the most common machine learning algorithms",
     "Learn the strengths and weaknesses of each algorithm",
@@ -12,7 +18,6 @@
   ],
   "content": {
     "introduction": "Machine learning offers dozens of algorithms, each with different strengths. Should you use a decision tree or a neural network? Random forest or logistic regression? Understanding the key algorithms and when to use them will help you solve problems more effectively and avoid common pitfalls.",
-
     "sections": [
       {
         "title": "Linear Regression: The Foundation",
@@ -35,9 +40,7 @@
         "content": "Here's a practical guide for algorithm selection:\n\n**Start with the problem type:**\n\n**Regression (predicting numbers):**\n1. Start: Linear Regression\n2. If non-linear: Random Forest or Gradient Boosting\n3. For large datasets: Neural Networks\n\n**Classification (predicting categories):**\n1. Start: Logistic Regression\n2. If non-linear: Random Forest or Gradient Boosting\n3. For images/text: Deep Learning\n4. For small datasets: SVM\n\n**Consider your constraints:**\n\n**Need interpretability?**\n- Linear/Logistic Regression\n- Single Decision Tree\n- Avoid: Neural Networks, large ensembles\n\n**Have limited data (<1,000 samples)?**\n- Linear/Logistic Regression\n- SVM\n- Avoid: Deep Learning (will overfit)\n\n**Have huge data (millions of samples)?**\n- Gradient Boosting\n- Deep Learning\n- Avoid: KNN, SVM (too slow)\n\n**Need fast predictions?**\n- Linear/Logistic Regression\n- Avoid: KNN, large ensembles\n\n**Have text or images?**\n- Deep Learning (CNNs, Transformers)\n- Traditional: TF-IDF + Logistic Regression (baseline)\n\n**Have tabular/structured data?**\n- Random Forest or Gradient Boosting\n- These typically beat neural networks on tabular data\n\n**General strategy:**\n1. Start simple (Linear/Logistic Regression)\n2. Establish a baseline score\n3. Try Random Forest (good default choice)\n4. If accuracy matters most: Gradient Boosting\n5. If data is images/text/audio: Deep Learning\n6. Compare results, choose based on your constraints"
       }
     ],
-
     "summary": "Machine learning offers many algorithms, each suited for different scenarios. Linear regression is simple and interpretable for continuous predictions. Logistic regression handles binary classification. Decision trees are easy to understand but prone to overfitting. Random forests combine many trees for robust performance. Gradient boosting builds trees sequentially for maximum accuracy on tabular data. SVMs work well with high-dimensional data and limited samples. KNN is simple but slow on large datasets. Choose algorithms based on your problem type, data size, need for interpretability, and computational constraints. Start simple, establish baselines, then experiment with more complex approaches.",
-
     "keyTakeaways": [
       "Start simple: try linear/logistic regression first",
       "Random forests are excellent general-purpose algorithms",
@@ -47,7 +50,6 @@
       "No single algorithm is best for everything — experiment and compare"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +104,11 @@
       "explanation": "With limited data (500 samples) and many features (100), you need algorithms that work well in small-data regimes. SVM and regularized logistic regression are designed for this — they can handle high-dimensional data without overfitting. Deep learning needs thousands/millions of examples. Large ensembles would overfit on only 500 samples."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-06.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from scikit-learn documentation, Hands-On Machine Learning by Aurélien Géron, and Kaggle Learn",

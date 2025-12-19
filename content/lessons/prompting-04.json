@@ -4,7 +4,9 @@
   "topic": "Prompt Engineering",
   "difficulty": "intermediate",
   "duration": 10,
-  "prerequisites": ["prompting-02"],
+  "prerequisites": [
+    "prompting-02"
+  ],
   "objectives": [
     "Craft effective prompts for creative writing tasks",
     "Master prompting techniques for code generation",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Different tasks require different prompting strategies. A prompt that works brilliantly for creative writing might fail for code generation. In this lesson, you'll learn task-specific techniques that professionals use to get optimal results across diverse AI applications, from storytelling to data analysis.",
-
     "sections": [
       {
         "title": "Creative Writing Prompts",
@@ -36,9 +37,7 @@
         "content": "Fine-tuning your approach for each task type:\n\n**Classification Tasks:**\n'Classify this customer review as: Positive, Negative, or Neutral.\nReview: [text]\nProvide:\n- Classification: [answer]\n- Confidence: [High/Medium/Low]\n- Key phrases that informed your decision: [quotes]'\n\n**Translation Tasks:**\n'Translate this technical document from English to Spanish:\n- Maintain technical terminology accuracy\n- Preserve formatting (headers, bullets, code blocks)\n- For ambiguous terms, provide alternatives in brackets\n- Use Latin American Spanish, not Spain Spanish'\n\n**Content Moderation:**\n'Review this user comment for:\n- Offensive language\n- Personal attacks\n- Misinformation\n- Spam\n\nProvide:\n- Overall verdict: [Approve/Flag/Reject]\n- Issues found: [list]\n- Severity: [Low/Medium/High]\n- Suggested action: [explanation]'\n\n**Question Answering:**\n'Answer this question using ONLY information from the provided context. If the answer is not in the context, respond with \"Insufficient information.\"\n\nContext: [text]\nQuestion: [question]\nAnswer:'\n\n**Optimization Pattern:**\n1. Study successful prompts for your task type\n2. Identify required elements\n3. Create a template\n4. Test with diverse inputs\n5. Refine based on failures\n6. Document what works\n\nBuilding a library of task-specific templates saves time and improves consistency."
       }
     ],
-
     "summary": "Different tasks require tailored prompting strategies. Creative writing prompts balance freedom with structure, using higher temperature and emotional direction. Code generation demands precision with low temperature, clear requirements, and test cases. Analysis and reasoning prompts need structured frameworks, evidence requirements, and chain-of-thought reasoning. Summarization prompts specify length and format, while extraction prompts define exact fields and structure. Classification, translation, moderation, and question-answering each have specific patterns. Building task-specific templates and testing them across diverse inputs creates reliable, reusable prompts.",
-
     "keyTakeaways": [
       "Creative writing: higher temperature, emotional direction, style references",
       "Code generation: low temperature, clear specs, test cases, type hints",
@@ -47,7 +46,6 @@
       "Build task-specific templates and refine through testing"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Good extraction prompts handle missing data by specifying exactly what to return (null, 'NOT_FOUND', empty string, etc.). This prevents the AI from fabricating information and ensures consistent, machine-readable output."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/prompting-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Task-specific prompt engineering best practices",

@@ -4,7 +4,10 @@
   "topic": "Computer Vision",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["deep-learning-01", "deep-learning-02"],
+  "prerequisites": [
+    "deep-learning-01",
+    "deep-learning-02"
+  ],
   "objectives": [
     "Understand real-world image classification beyond simple datasets",
     "Learn how transfer learning leverages pre-trained models",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "You've learned about neural networks and deep learning fundamentals. Now it's time to apply those concepts to real-world image classification. In this lesson, we'll move beyond toy datasets like MNIST and explore how practitioners actually build image classifiers that work in production. You'll discover the power of transfer learning and understand the architectures that power modern computer vision applications.",
-
     "sections": [
       {
         "title": "Beyond MNIST: Real-World Challenges",
@@ -36,9 +38,7 @@
         "content": "Building production image classifiers requires more than just choosing an architecture. Here are critical practical considerations:\n\n**Data Augmentation** - Artificially expand your training data by applying transformations: rotations, flips, crops, color adjustments, and perspective changes. This helps your model generalize beyond the specific examples you have. But be careful — only apply augmentations that make sense for your domain. Don't flip medical scans if orientation matters diagnostically.\n\n**Input Resolution** - Higher resolution captures more detail but requires more memory and computation. Many models are pre-trained at 224x224, but you can often improve results by fine-tuning at higher resolutions like 384x384 or 512x512, especially if fine details matter for your task.\n\n**Batch Size and Learning Rate** - With transfer learning, use smaller learning rates than training from scratch. You're fine-tuning, not drastically changing the features. A good starting point is 10 to 100 times smaller than the original training learning rate.\n\n**Monitoring Overfitting** - Watch your validation performance. If training accuracy keeps improving but validation plateaus or worsens, you're overfitting. Add regularization, more data augmentation, or stop training earlier.\n\n**Class Imbalance** - If some classes are rare, use techniques like weighted loss functions, oversampling rare classes, or focal loss that focuses learning on hard examples. Don't let your model simply predict the majority class.\n\nRemember: the model is just one piece. Data quality, augmentation strategy, and careful evaluation matter just as much as architecture choice."
       }
     ],
-
     "summary": "Real-world image classification goes far beyond simple datasets like MNIST. Transfer learning allows you to leverage models pre-trained on millions of images, adapting them to your specific task with far less data and training time. You can choose from several fine-tuning strategies based on your data quantity and domain similarity. Modern architectures like ResNet provide reliable performance with skip connections, EfficientNet optimizes for efficiency, and Vision Transformers achieve state-of-the-art results with sufficient data. Success in production requires careful attention to data augmentation, input resolution, learning rates, and handling class imbalance.",
-
     "keyTakeaways": [
       "Transfer learning leverages pre-trained features for faster training and better results with less data",
       "Fine-tuning strategies range from freezing the base to full fine-tuning based on data quantity",
@@ -47,7 +47,6 @@
       "Data quality and augmentation strategy matter as much as architecture choice"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "For limited data scenarios, ResNet and EfficientNet are better choices. They're proven, efficient, and transfer well from pre-training. Vision Transformers typically require larger datasets to reach their full potential, though they can work with transfer learning on moderate data."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/cv-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from fast.ai practical deep learning course",

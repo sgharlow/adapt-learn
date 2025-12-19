@@ -12,7 +12,6 @@
   ],
   "content": {
     "introduction": "Machine learning is one of the most transformative technologies of our time, but what exactly is it? In this lesson, we'll break down machine learning into simple, understandable concepts that anyone can grasp.",
-
     "sections": [
       {
         "title": "The Traditional Programming Approach",
@@ -35,9 +34,7 @@
         "content": "Three things came together to make ML powerful today:\n\n1. **More Data** - The internet generates massive amounts of data to learn from\n\n2. **More Computing Power** - GPUs and cloud computing make training feasible\n\n3. **Better Algorithms** - Researchers discovered techniques that actually work well\n\nThis combination has made machine learning practical for solving real problems."
       }
     ],
-
     "summary": "Machine learning is about teaching computers to learn from examples rather than programming explicit rules. While traditional programming requires you to define the rules, ML systems discover patterns from data. This approach powers everything from spam filters to self-driving cars, and has become practical due to advances in data, computing power, and algorithms.",
-
     "keyTakeaways": [
       "ML learns from examples, not explicit rules",
       "Traditional: Input + Rules = Output",
@@ -45,7 +42,6 @@
       "Data, compute, and algorithms made ML practical"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +96,11 @@
       "explanation": "Machine learning requires examples. By showing the system many photos labeled as 'dog' or 'not dog', it learns to recognize the patterns that distinguish dogs from other things — without being explicitly told what those patterns are."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from fast.ai Chapter 1",

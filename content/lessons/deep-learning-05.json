@@ -4,7 +4,10 @@
   "topic": "Deep Learning",
   "difficulty": "intermediate",
   "duration": 17,
-  "prerequisites": ["deep-learning-01", "deep-learning-04"],
+  "prerequisites": [
+    "deep-learning-01",
+    "deep-learning-04"
+  ],
   "objectives": [
     "Understand what LLMs are and how they differ from earlier language models",
     "Learn how LLMs are trained (pre-training and fine-tuning)",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "Large Language Models like GPT-4, Claude, and Gemini represent one of AI's most dramatic breakthroughs. These models can write essays, code software, answer questions, and converse naturally — capabilities that seemed science fiction just years ago. Built on transformer architectures and trained on vast amounts of text, LLMs demonstrate emergent abilities that appear at scale. Let's explore how these powerful models work and how to use them effectively.",
-
     "sections": [
       {
         "title": "What Are Large Language Models?",
@@ -35,9 +37,7 @@
         "content": "Large Language Models are transforming industries and creating entirely new possibilities:\n\n**Content creation and writing:**\n\n**Marketing and advertising:**\n- Generate ad copy, slogans, product descriptions\n- A/B test variations quickly\n- Personalized content at scale\n- SEO optimization\n\n**Journalism and publishing:**\n- Draft articles, summaries, headlines\n- Research assistance\n- Fact-checking support (with verification)\n- Translation and localization\n\n**Creative writing:**\n- Story ideation and brainstorming\n- Character development\n- Dialogue generation\n- Poetry and song lyrics\n- Some authors use as co-writing tools\n\n**Developer tools and programming:**\n\n**Code completion:**\n- GitHub Copilot: suggest code as you type\n- Context-aware completions\n- Full function generation\n- Increases productivity 35-55% (GitHub studies)\n\n**Code explanation and documentation:**\n- \"Explain what this function does\"\n- Auto-generate docstrings\n- Convert code to natural language\n\n**Debugging and optimization:**\n- Find bugs and suggest fixes\n- Performance optimization recommendations\n- Security vulnerability detection\n\n**Learning and education:**\n- Teach programming concepts\n- Provide examples and exercises\n- Personalized tutoring\n\n**Customer service and support:**\n\n**Chatbots:**\n- 24/7 availability\n- Handle common questions\n- Escalate complex issues to humans\n- Reduced support costs\n\n**Email and ticket management:**\n- Classify and route requests\n- Draft responses\n- Sentiment analysis\n- Summarize long threads\n\n**Knowledge bases:**\n- Question-answering over documentation\n- Conversational search\n- Reduces time to find information\n\n**Research and analysis:**\n\n**Literature review:**\n- Summarize papers\n- Extract key findings\n- Identify themes and gaps\n- Citation assistance\n\n**Data analysis:**\n- Interpret statistics\n- Generate hypotheses\n- Explain visualizations\n- Code for analysis (Python, R)\n\n**Legal and medical:**\n- Contract analysis (legal)\n- Medical record summarization\n- Research synthesis\n- Must be human-verified for high-stakes decisions\n\n**Personal productivity:**\n\n**Email writing:**\n- Compose professional emails\n- Reply suggestions\n- Tone adjustment\n\n**Summarization:**\n- Meeting notes → action items\n- Long articles → key points\n- Research papers → abstracts\n\n**Task planning:**\n- Break down projects\n- Create schedules\n- Suggest approaches\n\n**Education and tutoring:**\n\n**Personalized learning:**\n- Adapt to student level\n- Explain concepts multiple ways\n- Interactive Q&A\n- Practice problem generation\n\n**Language learning:**\n- Conversation practice\n- Grammar correction\n- Translation with explanations\n- Cultural context\n\n**Homework help:**\n- Step-by-step solutions\n- Conceptual explanations\n- Concerns about academic integrity\n\n**Creative tools:**\n\n**Game development:**\n- NPC dialogue generation\n- Quest and story creation\n- Game design brainstorming\n\n**Music and art:**\n- Lyrics writing\n- Artist statements\n- Music theory explanations\n\n**Accessibility:**\n\n**Text-to-speech / Speech-to-text:**\n- Combined with LLMs for natural interaction\n- Assistive communication\n\n**Simplification:**\n- Complex text → simple language\n- Helps those with reading difficulties\n- Translation for non-native speakers\n\n**Business intelligence:**\n\n**Report generation:**\n- Data → narrative insights\n- Automated reporting\n- Executive summaries\n\n**Market research:**\n- Analyze customer feedback\n- Competitive analysis\n- Trend identification\n\n**Emerging applications:**\n\n**Agents and automation:**\n- LLM-powered workflows\n- Multi-step task completion\n- Integration with APIs and databases\n\n**Multimodal systems:**\n- Text + image understanding\n- Visual question answering\n- Image generation from descriptions (DALL-E, Midjourney)\n\n**Personalized AI:**\n- Custom assistants trained on your data\n- Company-specific knowledge bases\n- Individual writing style adaptation\n\n**Societal impact:**\n\n**Positive:**\n- Democratized access to information\n- Productivity gains\n- Educational opportunities\n- Accessibility improvements\n- Accelerated research\n\n**Concerns:**\n- Job displacement (certain roles)\n- Misinformation and deepfakes\n- Academic integrity\n- Bias amplification\n- Environmental cost (compute)\n- Concentration of power\n\n**Responsible use:**\n- Verify outputs for factual accuracy\n- Disclose AI-generated content where appropriate\n- Use as augmentation, not replacement for human judgment\n- Consider ethical implications\n- Ensure human oversight for critical decisions\n\nLLMs are general-purpose technologies — like electricity or the internet — with the potential to transform nearly every field. Their impact is just beginning to unfold."
       }
     ],
-
     "summary": "Large Language Models are transformer-based neural networks with billions to trillions of parameters, trained on massive text corpora to predict and generate natural language. Training involves pre-training on diverse internet text (next-token prediction) followed by fine-tuning with supervised learning and reinforcement learning from human feedback (RLHF) to align models with human preferences. LLMs are interfaced through natural language prompts, with techniques like few-shot learning, chain-of-thought reasoning, and role prompting unlocking their capabilities. They excel at text generation, reasoning, coding, and instruction-following, but have limitations including hallucination, knowledge cutoffs, context limits, and biases. Applications span content creation, programming, customer service, research, education, and more, fundamentally changing how humans interact with computers and information.",
-
     "keyTakeaways": [
       "LLMs are billion+ parameter transformers trained on massive text corpora",
       "Training involves pre-training (next-token prediction) and alignment (SFT + RLHF)",
@@ -47,7 +47,6 @@
       "Applications transforming content creation, programming, research, education, and more"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "Hallucination is when LLMs confidently state false information as fact — fabricating citations, inventing statistics, or mixing truth with fiction in plausible-sounding ways. This happens because LLMs are trained to predict plausible next tokens, not to verify truth. They don't have access to real-time facts or databases (unless augmented with tools). Mitigation strategies include asking for sources, using retrieval-augmented generation (RAG) to ground responses in documents, and human verification for critical information."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/deep-learning-05.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from 'Language Models are Few-Shot Learners' (GPT-3 paper), Anthropic's research, OpenAI documentation, and Stanford CS324",

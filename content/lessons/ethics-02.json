@@ -4,7 +4,9 @@
   "topic": "AI Ethics",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["ethics-01"],
+  "prerequisites": [
+    "ethics-01"
+  ],
   "objectives": [
     "Understand different definitions of fairness in AI",
     "Recognize tradeoffs between competing fairness criteria",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "We know AI systems can be biased, but what does it mean for an AI to be 'fair'? It turns out fairness isn't simple — there are multiple mathematical definitions that can conflict with each other. And beyond fairness, there's a growing demand for AI transparency: can we understand how these systems make decisions? In this lesson, we'll explore the complex landscape of AI fairness and the emerging field of Explainable AI.",
-
     "sections": [
       {
         "title": "What Does Fairness Mean in AI?",
@@ -36,9 +37,7 @@
         "content": "While XAI is valuable, we need to be honest about its limitations:\n\n**1. Explanations Can Be Misleading**\nAn explanation shows what the model used, not necessarily what it should use. If the model learned a biased pattern, the explanation will show that bias, potentially legitimizing it.\n\nExample: If a hiring AI learned to prefer men, SHAP might show that 'male' gender contributes positively — which doesn't make it right.\n\n**2. Post-Hoc Explanations Aren't Perfect**\nTechniques like LIME approximate complex models. The approximation might miss important nuances or oversimplify.\n\n**3. Complexity Still Exists**\nSome models are genuinely doing complex, non-linear reasoning that's hard to summarize simply. A 5-word explanation of a decision made by analyzing millions of parameters may inherently lose information.\n\n**4. Explanation vs. Justification**\nShowing what the model did (explanation) is different from showing the decision was right (justification). XAI provides the former, not necessarily the latter.\n\n**5. The Interpretability Illusion**\nSometimes simple models aren't actually more trustworthy — they're just simpler to describe. A simple but biased model isn't better than a complex fair model.\n\n**Best Practices:**\n\n- Use multiple explanation techniques, not just one\n- Validate explanations with domain experts\n- Be transparent about uncertainty and limitations\n- Combine interpretability with other safeguards (testing, auditing, human oversight)\n- Remember: An explainable decision isn't automatically a fair or correct decision\n\nThe goal isn't perfect transparency — it's sufficient understanding for appropriate trust and accountability."
       }
     ],
-
     "summary": "AI fairness is complex — there are multiple mathematical definitions of fairness that often conflict. Demographic parity, equal opportunity, and predictive parity can't all be satisfied simultaneously, requiring ethical judgment about tradeoffs. Explainable AI (XAI) addresses the need to understand AI decisions through techniques like feature importance, LIME, SHAP, and counterfactual explanations. These provide both global understanding of model behavior and local explanations of individual predictions. However, explainability has limits: explanations can be misleading, post-hoc techniques approximate, and explaining what a model did differs from justifying the decision. Building fair and transparent AI requires combining interpretability with testing, auditing, stakeholder input, and human oversight.",
-
     "keyTakeaways": [
       "Multiple definitions of fairness often mathematically conflict",
       "Fairness requires ethical judgment, not just technical solutions",
@@ -47,7 +46,6 @@
       "Explainability is valuable but has limits — combine with other safeguards"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Counterfactual explanations show what changes to the input would result in a different outcome. For example, 'If your credit score were 50 points higher, your loan would be approved.' This provides actionable information about what could change the decision."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ethics-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Fairness and Machine Learning (Barocas, Hardt, Narayanan), Interpretable ML book (Molnar)",

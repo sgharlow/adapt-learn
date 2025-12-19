@@ -4,7 +4,10 @@
   "topic": "Generative AI",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02"
+  ],
   "objectives": [
     "Define generative AI and understand its types",
     "Distinguish between generative and discriminative AI",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "Generative AI has exploded into public consciousness with tools like ChatGPT, DALL-E, and Midjourney. But what exactly is generative AI, and how does it differ from other types of AI? In this lesson, we'll explore what makes generative AI special and why it's transforming how we create content.",
-
     "sections": [
       {
         "title": "What is Generative AI?",
@@ -36,9 +38,7 @@
         "content": "Generative AI is already transforming industries:\n\n**Content Creation** - Writers use ChatGPT for drafting articles, brainstorming, and editing. Marketing teams generate ad copy and social media posts at scale.\n\n**Design and Art** - Designers use Midjourney and DALL-E for concept art, mockups, and inspiration. Game developers generate textures and environments.\n\n**Software Development** - GitHub Copilot helps developers write code faster, suggesting entire functions based on comments or partial code.\n\n**Education** - AI tutors provide personalized explanations and create custom practice problems. Tools like this very platform adapt lessons to your knowledge gaps.\n\n**Entertainment** - Film studios use AI for storyboarding and visual effects. Musicians experiment with AI-generated melodies and lyrics.\n\n**Business Operations** - Companies automate report writing, email responses, and data analysis. Customer service uses AI to draft personalized replies.\n\n**Healthcare** - Researchers use generative AI to discover new drug molecules and generate synthetic medical data for training diagnostic systems.\n\nThe technology is still early, but its impact is already substantial and growing exponentially."
       }
     ],
-
     "summary": "Generative AI creates new content — text, images, audio, video, and code — by learning patterns from massive datasets. Unlike discriminative AI that classifies existing data, generative AI produces original outputs. Key breakthroughs like GPT-3, DALL-E, Stable Diffusion, and ChatGPT have made this technology accessible and powerful. Today, generative AI transforms content creation, design, software development, education, and countless other fields.",
-
     "keyTakeaways": [
       "Generative AI creates new content; discriminative AI classifies existing content",
       "Main types: text, image, audio, video, and code generation",
@@ -46,7 +46,6 @@
       "Applications span content creation, design, development, education, and more"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +100,11 @@
       "explanation": "GitHub Copilot generates new code based on context and comments — it creates original content. The other options are all discriminative AI tasks (recognition, classification, sorting) that work with existing data."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/gen-ai-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from OpenAI, Anthropic, and Google AI research",

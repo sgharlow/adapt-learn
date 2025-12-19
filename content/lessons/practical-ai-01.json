@@ -4,7 +4,10 @@
   "topic": "Practical AI",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02"
+  ],
   "objectives": [
     "Understand the end-to-end ML project workflow",
     "Learn how to frame problems for machine learning",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "Building your first machine learning project can feel overwhelming. Where do you start? What steps do you take? In this lesson, we'll walk through the complete ML project workflow — from understanding your problem to deploying a working solution. You'll learn that successful ML is less about fancy algorithms and more about systematic problem-solving.",
-
     "sections": [
       {
         "title": "Step 1: Define Your Problem Clearly",
@@ -35,9 +37,7 @@
         "content": "A model that sits on your laptop has zero value. Real impact comes from deployment.\n\n**Deployment options**:\n- **Batch predictions**: Run model periodically on all data (e.g., nightly churn predictions)\n- **Real-time API**: Serve predictions on-demand (e.g., spam filter)\n- **Edge deployment**: Run on devices (e.g., smartphone face recognition)\n\n**Key deployment considerations**:\n- **Latency**: How fast does prediction need to be?\n- **Scale**: How many predictions per second?\n- **Dependencies**: What libraries does your model need?\n- **Updates**: How will you update the model?\n\n**Monitor in production**:\nModels degrade over time as the world changes (called 'data drift').\n\nMonitor:\n- Prediction distribution (are you seeing the same types of inputs?)\n- Model performance (are predictions still accurate?)\n- Input data quality (missing values, outliers)\n- Business metrics (is the model driving expected outcomes?)\n\n**The ML lifecycle is iterative**:\nDeploy → Monitor → Identify issues → Collect new data → Retrain → Deploy\n\nThis cycle continues as long as the model is in use. Machine learning projects are never truly 'done'."
       }
     ],
-
     "summary": "Building ML projects follows a systematic workflow: clearly define the problem, collect and explore data, start with simple models and iterate, evaluate thoroughly, and deploy with monitoring. Most time is spent on data work, not algorithms. Start simple, measure everything, and only add complexity when needed. Successful ML is an iterative process of deployment, monitoring, and continuous improvement.",
-
     "keyTakeaways": [
       "Define problems clearly with specific success metrics before coding",
       "Data quality and quantity often matter more than algorithm choice",
@@ -45,7 +45,6 @@
       "Monitor deployed models continuously as data and the world change"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +99,11 @@
       "explanation": "Data drift occurs when the real-world data distribution changes over time — customer behavior shifts, new product types appear, economic conditions change. Models trained on old patterns may perform poorly on new patterns, so monitoring and retraining are essential for production ML systems."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/practical-ai-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from industry best practices and Google's ML Crash Course",

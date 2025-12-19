@@ -4,7 +4,9 @@
   "topic": "Practical AI",
   "difficulty": "beginner",
   "duration": 11,
-  "prerequisites": ["practical-ai-01"],
+  "prerequisites": [
+    "practical-ai-01"
+  ],
   "objectives": [
     "Learn strategies for collecting high-quality training data",
     "Master essential data cleaning and preprocessing techniques",
@@ -12,7 +14,6 @@
   ],
   "content": {
     "introduction": "Data is the fuel of machine learning. A sophisticated algorithm with poor data will underperform a simple algorithm with good data. In this lesson, we'll explore practical techniques for collecting, cleaning, and preparing data for machine learning. These unglamorous but critical skills separate successful ML projects from failed ones.",
-
     "sections": [
       {
         "title": "Data Sources and Collection Strategies",
@@ -35,9 +36,7 @@
         "content": "Machine learning models need numbers, but many features are categorical (color, country, product type). How do you convert them?\n\n**1. Label Encoding**:\nAssign each category a number: Red=0, Blue=1, Green=2\n- Simple and compact\n- Problem: Implies ordering (Blue > Red) which doesn't exist\n- Only use for ordinal features (Small=0, Medium=1, Large=2)\n\n**2. One-Hot Encoding**:\nCreate binary column for each category\n- Color_Red: [1, 0, 0]\n- Color_Blue: [0, 1, 0]\n- Color_Green: [0, 0, 1]\n- No false ordering implied\n- Problem: High cardinality (many categories) creates many columns\n- Good default for categorical features\n\n**3. Target/Mean Encoding**:\nReplace category with average target value for that category\n- Color_Red → average price of red items\n- Risk of overfitting\n- Needs careful cross-validation\n\n**4. Embedding Encoding**:\nLearn dense representations (like word embeddings)\n- Useful for high-cardinality features (user IDs, product IDs)\n- Requires neural network\n\n**Best practice**: Use one-hot encoding as default. Consider embeddings for very high cardinality or when using neural networks.\n\nRemember to handle unseen categories in test data — add an 'unknown' category or fall back to a default."
       }
     ],
-
     "summary": "Effective data work involves collecting from diverse sources, handling missing values through deletion or imputation, dealing with outliers carefully based on domain knowledge, scaling features to similar ranges, and encoding categorical variables appropriately. The right preprocessing choices depend on your data characteristics and the algorithms you're using. Always fit preprocessing on training data and apply to test data to avoid data leakage.",
-
     "keyTakeaways": [
       "Data quality matters more than algorithm sophistication — invest in good data",
       "Handle missing values through deletion, imputation, or creating missingness indicators",
@@ -45,7 +44,6 @@
       "Encode categorical variables with one-hot encoding by default, embeddings for high cardinality"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +98,11 @@
       "explanation": "You must fit the scaler only on training data to avoid data leakage. If you fit on the test set, you're using information from data the model shouldn't see. The correct approach: fit on training data, then apply that same transformation to validation and test data using the training statistics."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/practical-ai-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from scikit-learn documentation and industry best practices",

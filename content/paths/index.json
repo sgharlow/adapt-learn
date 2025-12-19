@@ -35,8 +35,8 @@
       "name": "AI Practitioner",
       "description": "For developers ready to build. Learn to implement ML models, work with popular frameworks, and deploy AI solutions.",
       "targetAudience": "Software developers, data analysts, technical professionals",
-      "duration": "~2 hours",
-      "lessonCount": 8,
+      "duration": "~2.5 hours",
+      "lessonCount": 10,
       "difficulty": "intermediate",
       "color": "#3B82F6",
       "icon": "code",
@@ -48,7 +48,9 @@
         "ml-fundamentals-05",
         "ml-fundamentals-06",
         "practical-ai-01",
-        "practical-ai-02"
+        "practical-ai-02",
+        "practical-ai-03",
+        "practical-ai-04"
       ],
       "milestones": [
         {
@@ -63,8 +65,13 @@
         },
         {
           "afterLesson": 8,
+          "title": "ML Best Practices",
+          "message": "You understand validation, tuning, and avoiding pitfalls!"
+        },
+        {
+          "afterLesson": 10,
           "title": "AI Practitioner Certified",
-          "message": "You can build and deploy ML projects!"
+          "message": "You can build and deploy ML projects to production!"
         }
       ]
     },

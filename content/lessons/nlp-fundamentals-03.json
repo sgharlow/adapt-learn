@@ -4,7 +4,11 @@
   "topic": "NLP Fundamentals",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["nlp-fundamentals-01", "nlp-fundamentals-02", "deep-learning-01"],
+  "prerequisites": [
+    "nlp-fundamentals-01",
+    "nlp-fundamentals-02",
+    "deep-learning-01"
+  ],
   "objectives": [
     "Understand what language models are and how they work",
     "Learn the evolution from N-gram models to neural language models",
@@ -12,7 +16,6 @@
   ],
   "content": {
     "introduction": "Language models are at the heart of modern NLP — powering everything from autocomplete on your phone to ChatGPT. But what exactly is a language model? At its core, it's a system that learns the probability of word sequences, enabling it to predict what comes next or generate coherent text. Let's explore how these models evolved and how they work.",
-
     "sections": [
       {
         "title": "What is a Language Model?",
@@ -35,9 +38,7 @@
         "content": "GPT (Generative Pre-trained Transformer) demonstrates how modern language models work.\n\n**Architecture**: GPT is a decoder-only Transformer that predicts the next word given all previous words.\n\n**Training approach**:\n1. **Pre-training**: Train on massive text corpora to predict the next word. This teaches the model language patterns, world knowledge, and reasoning.\n2. **Fine-tuning** (optional): Adapt to specific tasks using smaller labeled datasets.\n\n**How generation works** (autoregressive):\n1. Start with a prompt: 'The weather today is'\n2. Model predicts next word: 'sunny' (probability distribution over all words)\n3. Append 'sunny' to context: 'The weather today is sunny'\n4. Predict next word: 'and'\n5. Continue until complete\n\nThis simple prediction task, when done at scale with billions of parameters, produces remarkably coherent and knowledgeable text.\n\n**Key insight**: By learning to predict the next word on internet-scale text, the model implicitly learns grammar, facts, reasoning patterns, and even some common sense."
       }
     ],
-
     "summary": "Language models learn probability distributions over word sequences, enabling them to predict what comes next and generate text. The field evolved from statistical N-gram models through neural RNNs and LSTMs to modern Transformer architectures. GPT-style models use self-attention to process text in parallel and are trained autoregressively to predict the next word, which implicitly teaches them language structure, world knowledge, and reasoning patterns.",
-
     "keyTakeaways": [
       "Language models learn probabilities of word sequences to predict and generate text",
       "N-grams use counting, neural models learn patterns, Transformers use attention",
@@ -45,7 +46,6 @@
       "Autoregressive training (predict next word) implicitly teaches comprehensive language understanding"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +100,11 @@
       "explanation": "Autoregressive generation works by predicting one word at a time: predict the next word given the context so far, add that word to the context, then predict the next word, and repeat. Each prediction builds on all previous predictions, creating coherent text sequences."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/nlp-fundamentals-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS224N, 'Attention is All You Need', and GPT papers",

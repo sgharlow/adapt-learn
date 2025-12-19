@@ -4,7 +4,10 @@
   "topic": "AI Ethics",
   "difficulty": "beginner",
   "duration": 12,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02"
+  ],
   "objectives": [
     "Define AI bias and understand where it originates",
     "Identify different types of bias in AI systems",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "Artificial intelligence systems are increasingly making decisions that affect our lives — from loan approvals to job applications to criminal justice. But what happens when these systems inherit or amplify human biases? In this lesson, we'll explore what AI bias is, where it comes from, and why it matters for everyone building or using AI systems.",
-
     "sections": [
       {
         "title": "What Is AI Bias?",
@@ -36,9 +38,7 @@
         "content": "Some people ask: 'Why does this matter if the AI is just learning from real data?'\n\nHere's why bias in AI is a critical issue:\n\n**Amplification**: AI systems can amplify existing biases. They're often deployed at scale and with authority, making biased patterns more impactful than individual human decisions.\n\n**Automation of Inequality**: When biased systems are used in hiring, lending, criminal justice, and healthcare, they can systematically disadvantage entire groups of people — at machine speed and scale.\n\n**Feedback Loops**: Biased AI decisions can create new biased data. If a biased hiring AI is used, the new hires will reflect that bias, and if that data is used for retraining, the bias gets worse.\n\n**Trust and Adoption**: If AI systems produce unfair outcomes, people lose trust in AI technology, limiting its beneficial applications.\n\n**Legal and Ethical Obligations**: In many jurisdictions, discriminatory outcomes violate civil rights laws, regardless of whether a human or algorithm made the decision.\n\nThe goal isn't to make AI perfect — humans aren't unbiased either. The goal is to make AI systems that don't systematically disadvantage groups of people and to be transparent about their limitations."
       }
     ],
-
     "summary": "AI bias occurs when machine learning systems produce systematically unfair outcomes for certain groups. It comes from three main sources: biased training data, algorithmic choices, and societal structures reflected in data. Real-world examples from hiring, criminal justice, and healthcare show this isn't theoretical — biased AI systems have caused real harm. Detecting bias requires disaggregated evaluation, fairness metrics, systematic audits, and careful data analysis. Addressing bias matters because AI systems can amplify inequality at scale, create feedback loops, and undermine trust in AI technology.",
-
     "keyTakeaways": [
       "AI bias means systematically unfair outcomes for certain groups",
       "Three sources: data bias, algorithmic bias, societal bias",
@@ -47,7 +47,6 @@
       "Bias matters because AI amplifies inequality at scale"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "Disaggregated evaluation means measuring performance separately for different demographic groups rather than just overall accuracy. This reveals if the system performs significantly worse for certain groups, which is a key indicator of bias that overall metrics might hide."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ethics-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from ProPublica's Machine Bias investigation, AI Fairness research",

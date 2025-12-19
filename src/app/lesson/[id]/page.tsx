@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import type { Lesson } from '@/types';
@@ -8,7 +8,6 @@ import AudioPlayer from '@/components/AudioPlayer';
 import LessonNavigation from '@/components/LessonNavigation';
 import VoiceChat from '@/components/VoiceChat';
 import Quiz from '@/components/Quiz';
-import { getCachedAudio, setCachedAudio, generateCacheKey } from '@/lib/audioCache';
 import { logLessonStarted } from '@/lib/progressUtils';
 import { loadProgress, saveProgress } from '@/lib/progressManager';
 import { VoiceCommandButton } from '@/hooks/useVoiceCommands';
@@ -279,57 +278,41 @@ export default function LessonPage() {
   );
 }
 
+/**
+ * LessonAudioPlayer - Static Audio Only (No Runtime Generation)
+ *
+ * This component uses ONLY pre-generated static audio files.
+ * If no static audio exists, it shows an "Audio Coming Soon" message.
+ *
+ * Audio files should be pre-generated using: npm run generate:audio
+ * Files are stored at: /public/audio/lessons/{lessonId}.mp3
+ */
 function LessonAudioPlayer({ lesson }: { lesson: Lesson }) {
-  const [isGenerating, setIsGenerating] = useState(false);
+  // Only use pre-generated static audio from /public/audio/lessons/
+  const staticAudioUrl = lesson.audioUrls?.full || null;
 
-  // Build the full lesson text for audio
-  const getLessonText = useCallback(() => {
-    const parts = [
-      `Lesson: ${lesson.title}.`,
-      lesson.content.introduction,
-      ...lesson.content.sections.map(s => `${s.title}. ${s.content}`),
-      `Summary: ${lesson.content.summary}`,
-      `Key takeaways: ${lesson.content.keyTakeaways.join('. ')}.`,
-    ];
-    return parts.join(' ');
-  }, [lesson]);
+  // If no static audio exists, show unavailable message (NO fallback generation)
+  if (!staticAudioUrl) {
+    return (
+      <div className="flex items-center justify-center gap-4 p-6 rounded-xl bg-slate-800/50 border border-slate-700/50">
+        <div className="w-12 h-12 rounded-full bg-slate-700/50 flex items-center justify-center">
+          <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+          </svg>
+        </div>
+        <div>
+          <p className="text-slate-400 font-medium">Audio Coming Soon</p>
+          <p className="text-slate-500 text-sm">This lesson&apos;s audio is being prepared.</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Check for cached audio
-  const cacheKey = generateCacheKey(lesson.id);
-  const cachedUrl = getCachedAudio(cacheKey);
-
-  const handleGenerateAudio = useCallback(async (): Promise<string> => {
-    // Check cache first
-    if (cachedUrl) return cachedUrl;
-
-    setIsGenerating(true);
-    try {
-      const response = await fetch('/api/audio/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: getLessonText() }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to generate audio');
-      }
-
-      const data = await response.json();
-      setCachedAudio(cacheKey, data.audioUrl);
-      setIsGenerating(false);
-      return data.audioUrl;
-    } catch (error) {
-      setIsGenerating(false);
-      throw error;
-    }
-  }, [getLessonText, cacheKey, cachedUrl]);
-
+  // Static audio exists - render player with instant playback
   return (
     <AudioPlayer
-      audioUrl={cachedUrl}
+      audioUrl={staticAudioUrl}
       title={`Listen: ${lesson.title}`}
-      onGenerateAudio={handleGenerateAudio}
-      isGenerating={isGenerating}
     />
   );
 }

@@ -4,7 +4,10 @@
   "topic": "Deep Learning",
   "difficulty": "intermediate",
   "duration": 16,
-  "prerequisites": ["deep-learning-01", "deep-learning-03"],
+  "prerequisites": [
+    "deep-learning-01",
+    "deep-learning-03"
+  ],
   "objectives": [
     "Understand the self-attention mechanism and why it's powerful",
     "Learn the transformer architecture (encoder-decoder structure)",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "In 2017, a paper titled 'Attention Is All You Need' introduced the transformer architecture and changed AI forever. Transformers power ChatGPT, Claude, BERT, and virtually every modern language model. By replacing recurrence with attention, transformers process sequences in parallel and capture long-range dependencies effortlessly. Let's explore the architecture that launched the modern AI revolution.",
-
     "sections": [
       {
         "title": "The Limitations of RNNs and the Need for Attention",
@@ -35,9 +37,7 @@
         "content": "The transformer architecture has spawned numerous variants, each optimized for different tasks:\n\n**Encoder-only models (BERT family):**\n\n**Architecture:**\n- Only the encoder stack\n- Bidirectional: sees full context (past and future)\n- Used for understanding tasks\n\n**Models:**\n- **BERT** (2018): Bidirectional Encoder Representations\n- **RoBERTa**: BERT with better training\n- **DistilBERT**: Smaller, faster BERT\n- **ALBERT**: Parameter-efficient BERT\n\n**Applications:**\n- Text classification (sentiment, topic)\n- Named entity recognition\n- Question answering (given context)\n- Sentence similarity\n- Embedding generation\n\n**Key technique: Masked Language Modeling**\n- Pre-train by masking 15% of words\n- Model predicts masked words using context\n- Learns bidirectional representations\n\n**Decoder-only models (GPT family):**\n\n**Architecture:**\n- Only the decoder stack\n- Unidirectional: sees only past context\n- Auto-regressive: generates one token at a time\n- Used for generation tasks\n\n**Models:**\n- **GPT** (2018): 117M parameters\n- **GPT-2** (2019): 1.5B parameters\n- **GPT-3** (2020): 175B parameters\n- **GPT-4** (2023): Multi-modal, massive scale\n- **Claude** (Anthropic): Constitutional AI approach\n- **LLaMA** (Meta): Open-source alternatives\n\n**Applications:**\n- Text generation (creative writing, code)\n- Conversational AI (chatbots)\n- Few-shot learning (learn from examples)\n- Code completion (GitHub Copilot)\n- Translation, summarization, Q&A\n\n**Key technique: Causal Language Modeling**\n- Pre-train by predicting next token\n- Given \"The cat sat on\", predict \"the\"\n- Learns to generate coherent text\n\n**Encoder-decoder models (T5, BART):**\n\n**Architecture:**\n- Full transformer: encoder + decoder\n- Best for sequence-to-sequence tasks\n- More parameters but more flexible\n\n**Models:**\n- **T5**: Text-to-Text Transfer Transformer\n- **BART**: Denoising auto-encoder\n- **mT5**: Multilingual T5\n\n**Applications:**\n- Machine translation\n- Summarization\n- Question answering (generative)\n- Data-to-text generation\n\n**Beyond NLP:**\n\n**Vision Transformers (ViT):**\n- Split images into patches\n- Treat patches like words in a sentence\n- Apply transformer architecture\n- Competitive with CNNs on image classification\n\n**Audio Transformers:**\n- Whisper (OpenAI): speech recognition\n- MusicGen: music generation\n- AudioLM: audio continuation\n\n**Multimodal Transformers:**\n- **CLIP**: connects text and images\n- **DALL-E**: text-to-image generation\n- **GPT-4**: understands text, images, and more\n- **Flamingo**: few-shot vision-language tasks\n\n**Protein and DNA:**\n- AlphaFold 2: protein structure prediction (uses attention)\n- ESM: protein language models\n- DNABERT: genomic sequence understanding\n\n**Efficiency improvements:**\n\nStandard transformer attention is O(n²):\n- **Longformer**: sparse attention patterns\n- **Reformer**: locality-sensitive hashing\n- **Linformer**: linear complexity approximation\n- **Flash Attention**: hardware-optimized implementation\n\n**The transformer revolution:**\nWhat started as a neural machine translation architecture became the foundation for modern AI, powering language models, image generators, drug discovery, and more. The attention mechanism's ability to capture long-range dependencies efficiently made scaling to billions of parameters practical, ushering in the era of foundation models."
       }
     ],
-
     "summary": "Transformers revolutionized deep learning by replacing recurrent connections with self-attention mechanisms. Self-attention allows each position in a sequence to attend to all other positions, computing relevance scores dynamically through Query-Key-Value operations. The transformer architecture consists of encoder and decoder stacks, each with multi-head self-attention and feedforward layers, plus residual connections and layer normalization. Unlike RNNs, transformers process entire sequences in parallel, enabling massive computational speedups and capturing long-range dependencies with constant-time paths. This architecture spawned numerous variants: encoder-only (BERT) for understanding, decoder-only (GPT) for generation, and encoder-decoder (T5) for sequence-to-sequence tasks. Transformers' efficiency enabled scaling to billions of parameters and extended beyond NLP to vision, audio, and multimodal applications, fundamentally changing AI.",
-
     "keyTakeaways": [
       "Self-attention allows each word to attend to all others, capturing dependencies dynamically",
       "Transformers process sequences in parallel, unlike sequential RNNs",
@@ -47,7 +47,6 @@
       "Transformers enabled massive scaling and revolutionized NLP and beyond"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "Self-attention computes relevance between words using dot products of their embeddings, which is order-invariant — the same attention scores appear regardless of whether the sequence is 'the cat sat' or 'sat cat the'. Since word order matters for language, transformers add positional encodings (using sine/cosine functions or learned embeddings) to the input embeddings, injecting position information. This allows the model to distinguish between different orderings while maintaining the benefits of parallel attention computation."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/deep-learning-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from 'Attention Is All You Need' (Vaswani et al.), The Illustrated Transformer (Jay Alammar), and Stanford CS224n",

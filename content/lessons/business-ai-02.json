@@ -4,7 +4,9 @@
   "topic": "AI for Business",
   "difficulty": "beginner",
   "duration": 11,
-  "prerequisites": ["business-ai-01"],
+  "prerequisites": [
+    "business-ai-01"
+  ],
   "objectives": [
     "Understand AI applications in healthcare and medical diagnosis",
     "Explore AI use cases in finance and banking",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "AI isn't one-size-fits-all. Different industries face different challenges and have found unique ways to leverage AI for competitive advantage. In this lesson, we'll explore real-world AI applications across healthcare, finance, retail, and manufacturing — giving you concrete examples to inspire your own initiatives.",
-
     "sections": [
       {
         "title": "Healthcare AI Applications",
@@ -36,9 +37,7 @@
         "content": "Looking across these industries, we see common patterns that predict AI success:\n\n**Pattern 1: Start with High-Volume, Repetitive Tasks**\n- Whether it's reading X-rays or detecting fraud, the best AI applications handle tasks done thousands of times\n- Volume provides training data and justifies investment\n\n**Pattern 2: Use AI for Augmentation, Not Replacement**\n- Successful projects position AI as a tool that makes humans more effective\n- Example: Radiologists using AI for decision support, not radiologists being replaced\n\n**Pattern 3: Data Quality Determines Success**\n- Industries with clean, labeled historical data (finance) adopted AI faster than those without (construction)\n- Invest in data infrastructure before AI models\n\n**Pattern 4: Start Narrow, Then Expand**\n- Don't try to solve everything at once\n- Example: Amazon started recommendations with books, then expanded to all products\n\n**Pattern 5: Measure Business Impact, Not AI Metrics**\n- Success isn't measured by model accuracy, but by business outcomes\n- Finance cares about fraud losses prevented, not F1 scores\n\n**Adapting These Ideas to Your Industry:**\n- Look for analogous problems (every industry has fraud, customer service, forecasting)\n- Steal shamelessly from other industries' successes\n- Start with the use case that has the clearest ROI and cleanest data\n- Build internal capabilities with pilots before scaling\n\nRemember: AI is a tool, not a strategy. The winners aren't those with the best algorithms, but those who apply AI to solve real business problems better than competitors."
       }
     ],
-
     "summary": "AI applications vary widely by industry, but follow common patterns. Healthcare uses AI for medical imaging, diagnosis, and drug discovery. Finance leverages AI for fraud detection, credit assessment, and trading. Retail applies AI to recommendations, pricing, and inventory optimization. Manufacturing deploys AI for predictive maintenance, quality control, and supply chain optimization. Success across all industries requires starting with high-volume repetitive tasks, using AI to augment humans, ensuring data quality, starting narrow, and measuring business impact over technical metrics.",
-
     "keyTakeaways": [
       "Healthcare: Medical imaging AI detects diseases earlier; predictive analytics enable early intervention",
       "Finance: Fraud detection saves millions; algorithmic trading captures market opportunities",
@@ -47,7 +46,6 @@
       "Success pattern: Start with high-volume tasks, augment humans, ensure data quality, measure business impact"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Successful AI projects across all industries share key patterns: they tackle high-volume repetitive tasks (which provides training data and ROI), they augment humans rather than replace them entirely, and they measure success through business metrics like cost savings or revenue increase, not just AI accuracy metrics."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/business-ai-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Industry AI Case Studies",

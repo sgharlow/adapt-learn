@@ -4,7 +4,10 @@
   "topic": "Deep Learning",
   "difficulty": "intermediate",
   "duration": 14,
-  "prerequisites": ["deep-learning-01", "deep-learning-02"],
+  "prerequisites": [
+    "deep-learning-01",
+    "deep-learning-02"
+  ],
   "objectives": [
     "Understand how RNNs process sequential data",
     "Learn about LSTM and GRU architectures and why they're needed",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "How do you predict what comes next in a sentence or a stock price trend? Standard neural networks process each input independently, forgetting what came before. Recurrent Neural Networks maintain memory of previous inputs, making them perfect for sequences — from language to music to time series. Let's explore how RNNs give neural networks a sense of time and context.",
-
     "sections": [
       {
         "title": "The Need for Memory: Why Sequence Matters",
@@ -35,9 +37,7 @@
         "content": "RNNs excel at any task involving sequential data and temporal patterns:\n\n**Natural Language Processing:**\n\n**Language modeling:**\n- Predict next word in sequence\n- Foundation for text generation\n- Used in autocomplete, writing assistants\n- Example: GPT-2 was based on transformers, but earlier models used LSTMs\n\n**Machine translation:**\n- English → French, etc.\n- Encoder-decoder architecture\n- Encoder RNN reads input sentence\n- Decoder RNN generates translation\n- Attention mechanism added for better quality\n\n**Sentiment analysis:**\n- Classify text emotion (positive/negative/neutral)\n- Process tweet/review word by word\n- Final hidden state → sentiment classifier\n- Context matters: \"not bad\" vs \"bad\"\n\n**Named entity recognition:**\n- Identify people, places, organizations in text\n- Output label for each word\n- \"Apple announced...\" → Apple = Organization\n- Context disambiguates: apple (fruit) vs Apple (company)\n\n**Time Series Forecasting:**\n\n**Stock market prediction:**\n- Learn from historical price patterns\n- Capture trends and cycles\n- Multivariate: price, volume, news sentiment\n- Bidirectional RNNs use future context\n\n**Weather forecasting:**\n- Temperature, pressure, humidity sequences\n- Spatial-temporal patterns\n- Multiple sensor inputs\n- Predict hours or days ahead\n\n**Demand forecasting:**\n- Retail inventory planning\n- Energy consumption prediction\n- Traffic flow estimation\n- Seasonal patterns and trends\n\n**Speech and Audio:**\n\n**Speech recognition:**\n- Audio → text transcription\n- Process acoustic features over time\n- Combined with attention mechanisms\n- Powers virtual assistants (Siri, Alexa)\n\n**Speech synthesis:**\n- Text → audio generation\n- WaveNet uses dilated convolutions (CNN variant)\n- Char-RNN speaks character sequences\n- Natural-sounding voices\n\n**Music generation:**\n- Learn patterns in MIDI sequences\n- Generate new melodies and harmonies\n- Style transfer (Bach → Jazz)\n- Character-level music composition\n\n**Video Analysis:**\n\n**Action recognition:**\n- Classify activities in video\n- Combines CNN (spatial) + RNN (temporal)\n- Sports analysis, surveillance\n\n**Video captioning:**\n- Generate text descriptions of video\n- CNN extracts frame features\n- RNN generates caption sequence\n\n**Other Applications:**\n\n**Handwriting generation:**\n- Sequence of pen strokes\n- Generate realistic handwriting\n- Style transfer between writers\n\n**Anomaly detection:**\n- Learn normal sequence patterns\n- Flag unusual behavior\n- Fraud detection, equipment monitoring\n\n**The RNN era and beyond:**\n- RNNs dominated sequence modeling (2010-2017)\n- Transformers now preferred for many NLP tasks (parallel processing)\n- RNNs still excellent for time series, real-time processing, and low-resource settings\n- Understanding RNNs is foundational to understanding transformers"
       }
     ],
-
     "summary": "Recurrent Neural Networks process sequential data by maintaining a hidden state — a form of memory that captures information from previous time steps. Unlike feedforward networks, RNNs have loops that allow information to persist, enabling them to handle variable-length sequences. Simple RNNs suffer from vanishing gradients, making it hard to learn long-term dependencies. LSTMs solve this with a cell state and three gates (forget, input, output) that control information flow, allowing them to remember patterns hundreds of steps back. GRUs simplify LSTMs with two gates (update, reset) while maintaining similar performance. RNNs excel at language modeling, translation, speech recognition, time series forecasting, and any task involving temporal patterns, though transformers have supplanted them for many NLP applications.",
-
     "keyTakeaways": [
       "RNNs process sequences by maintaining hidden state (memory) across time steps",
       "Parameter sharing across time allows handling variable-length sequences",
@@ -47,7 +47,6 @@
       "Applications include language, speech, time series, video — any sequential data"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +101,11 @@
       "explanation": "Parameter sharing means the same weights (W_input, W_hidden) are used at every time step. This serves two crucial purposes: (1) It allows the network to handle sequences of any length — you don't need different weights for position 10 vs position 100, and (2) It enables generalization — if the network learns to recognize 'cat' at one position, it automatically recognizes it at any position. This is analogous to how CNNs share filter weights across spatial positions."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/deep-learning-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS224n, Understanding LSTMs by Chris Olah, and Deep Learning by Goodfellow et al.",

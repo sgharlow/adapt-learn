@@ -4,7 +4,9 @@
   "topic": "AI Tools & APIs",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["ai-tools-02"],
+  "prerequisites": [
+    "ai-tools-02"
+  ],
   "objectives": [
     "Understand architecture patterns for AI applications",
     "Master RAG (Retrieval-Augmented Generation) concepts and implementation",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Building AI-powered applications is about more than just calling an API. It requires thoughtful architecture, understanding of techniques like RAG, careful prompt engineering, and awareness of common failure modes. In this lesson, we'll explore proven patterns for building production AI applications, dive deep into RAG systems, and cover best practices that separate successful AI products from failed experiments.",
-
     "sections": [
       {
         "title": "Architecture Patterns for AI Applications",
@@ -36,9 +37,7 @@
         "content": "Before launching your AI application, ensure you've addressed these critical areas:\n\n**Security & Privacy**\n✓ API keys stored securely (environment variables, secret managers)\n✓ User authentication and authorization implemented\n✓ Input validation and sanitization\n✓ Rate limiting to prevent abuse\n✓ PII handling compliant with regulations\n✓ Content moderation for user-generated inputs\n✓ Logging excludes sensitive data\n\n**Performance & Reliability**\n✓ Error handling and retry logic\n✓ Timeouts configured appropriately\n✓ Response streaming implemented\n✓ Caching strategy in place\n✓ Load testing completed\n✓ Fallback mechanisms for API failures\n✓ Monitoring and alerting set up\n\n**Cost Management**\n✓ Budget alerts configured\n✓ Per-user rate limits\n✓ Token usage monitoring\n✓ Caching reduces redundant calls\n✓ Appropriate model selection (cost vs quality)\n✓ Max token limits prevent runaway costs\n\n**User Experience**\n✓ Clear AI disclosure (users know it's AI)\n✓ Loading states and progress indicators\n✓ Helpful error messages\n✓ Conversation history management\n✓ Mobile-responsive design\n✓ Accessibility considerations\n✓ User feedback mechanisms\n\n**Quality & Accuracy**\n✓ Evaluation dataset created\n✓ Baseline metrics established\n✓ Hallucination mitigation strategies\n✓ Citation/source tracking\n✓ Regular quality audits\n✓ A/B testing infrastructure\n\n**Observability**\n✓ Request/response logging\n✓ Performance metrics (latency, tokens, cost)\n✓ Error tracking and alerting\n✓ User analytics (conversations, drop-off points)\n✓ Model performance dashboards\n\n**Legal & Compliance**\n✓ Terms of service updated for AI usage\n✓ Privacy policy covers AI data processing\n✓ GDPR/CCPA compliance verified\n✓ Content moderation policies\n✓ Intellectual property considerations\n\n**Operational**\n✓ Documentation for team members\n✓ Runbooks for common issues\n✓ Incident response plan\n✓ Backup providers/models identified\n✓ Cost forecasting for scale\n✓ Team training on AI limitations\n\n**Testing**\n✓ Unit tests for core logic\n✓ Integration tests for API calls\n✓ End-to-end conversation tests\n✓ Edge case testing (long inputs, special characters)\n✓ Adversarial testing (prompt injection)\n✓ Performance testing under load\n\n**Launch Strategy**\n✓ Soft launch to limited users\n✓ Monitoring during initial rollout\n✓ Feedback collection mechanisms\n✓ Iteration plan based on learnings\n✓ Scaling plan for increased load\n\nAI applications require more careful consideration than traditional software due to their non-deterministic nature, cost structure, and potential for misuse. Taking the time to address these areas will save significant pain later."
       }
     ],
-
     "summary": "Building production AI applications requires understanding key architectural patterns: simple proxies, stateful assistants, RAG systems, agent/tool use, and fine-tuned models. RAG (Retrieval-Augmented Generation) is essential for grounding AI responses in specific documents, dramatically reducing hallucinations by retrieving relevant content and augmenting prompts. Chatbots need conversation management, context window handling, personality definition, input validation, and response enhancement. Common pitfalls include hallucinations, prompt injection, context overflow, inconsistent responses, high latency, runaway costs, poor error handling, privacy issues, over-engineering, and lack of evaluation. Production readiness requires addressing security, performance, cost management, user experience, quality, observability, legal compliance, operations, testing, and launch strategy.",
-
     "keyTakeaways": [
       "RAG grounds AI in your documents: retrieve relevant chunks, augment prompt, reduce hallucinations",
       "Architecture patterns: start simple (proxy), add complexity as needed (RAG, agents)",
@@ -47,7 +46,6 @@
       "Production checklist: security, performance, monitoring, testing, legal compliance"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Cost management requires multiple strategies: set budget alerts in your provider's dashboard, implement per-user rate limiting, monitor token usage daily, cache responses for common queries, limit max tokens per response, and use cheaper models where appropriate. Combining these approaches prevents unexpected bills while maintaining functionality."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ai-tools-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Original content based on production AI application best practices",

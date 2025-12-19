@@ -4,7 +4,12 @@
   "topic": "ML Fundamentals",
   "difficulty": "beginner",
   "duration": 11,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03", "ml-fundamentals-04"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02",
+    "ml-fundamentals-03",
+    "ml-fundamentals-04"
+  ],
   "objectives": [
     "Understand different metrics for evaluating ML models",
     "Learn when to use accuracy, precision, recall, and other metrics",
@@ -12,7 +17,6 @@
   ],
   "content": {
     "introduction": "You've built a machine learning model — but is it any good? A model that's 95% accurate sounds impressive, but what if it fails on the cases that matter most? Understanding how to properly evaluate models is essential for building AI systems that work in the real world.",
-
     "sections": [
       {
         "title": "Accuracy: The Most Obvious Metric",
@@ -35,9 +39,7 @@
         "content": "Sometimes you want a single metric that balances precision and recall:\n\n**F1 Score**: The harmonic mean of precision and recall\n- F1 = 2 × (Precision × Recall) / (Precision + Recall)\n- Ranges from 0 to 1 (higher is better)\n- Only high if BOTH precision and recall are high\n\nUsing our email example:\n- Precision = 94%, Recall = 90%\n- F1 = 2 × (0.94 × 0.90) / (0.94 + 0.90) = 0.92\n\n**Other useful metrics:**\n\n**ROC-AUC** (Receiver Operating Characteristic - Area Under Curve)\n- Measures performance across all possible decision thresholds\n- Value of 0.5 = random guessing, 1.0 = perfect\n- Good for comparing models overall\n\n**Log Loss** (for probability predictions)\n- Rewards confident correct predictions\n- Heavily penalizes confident wrong predictions\n- Better than accuracy when you need probability estimates\n\n**Best practice**: Don't rely on a single metric. Look at multiple metrics to understand different aspects of your model's performance. And always consider real-world impact, not just numbers."
       }
     ],
-
     "summary": "Evaluating machine learning models requires more than just accuracy. The confusion matrix breaks down correct and incorrect predictions into true positives, true negatives, false positives, and false negatives. Precision measures correctness of positive predictions, while recall measures how many positives we catch. Different applications prioritize different metrics — medical screening needs high recall, spam filtering needs high precision. The F1 score balances both, and metrics like ROC-AUC and log loss provide additional perspectives. Choose metrics that align with the real-world consequences of your model's errors.",
-
     "keyTakeaways": [
       "Accuracy can be misleading, especially with imbalanced classes",
       "Precision = correctness of positive predictions",
@@ -47,7 +49,6 @@
       "Use multiple metrics to understand model performance fully"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +103,11 @@
       "explanation": "95% precision means when the model predicts positive, it's correct 95% of the time (few false positives). But 60% recall means it only catches 60% of actual positive cases (many false negatives). This model is conservative — it's careful about what it flags as positive, so it's usually right when it does, but it misses a lot of cases."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-05.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google ML Crash Course and scikit-learn documentation",

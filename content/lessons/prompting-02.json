@@ -4,7 +4,9 @@
   "topic": "Prompt Engineering",
   "difficulty": "intermediate",
   "duration": 9,
-  "prerequisites": ["prompting-01"],
+  "prerequisites": [
+    "prompting-01"
+  ],
   "objectives": [
     "Master zero-shot and few-shot learning techniques",
     "Apply chain-of-thought prompting for complex reasoning",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Now that you understand the basics of prompt engineering, it's time to learn powerful techniques that professional prompt engineers use daily. These methods can dramatically improve the quality and reliability of AI outputs, especially for complex tasks that require reasoning, creativity, or specific expertise.",
-
     "sections": [
       {
         "title": "Zero-Shot vs Few-Shot Learning",
@@ -36,9 +37,7 @@
         "content": "Professional prompt engineering involves systematic refinement:\n\n**Strategy 1: Progressive Specificity**\nStart broad, then narrow:\n- V1: 'Write about electric cars'\n- V2: 'Write about electric car benefits'\n- V3: 'Write a 300-word article about environmental benefits of electric cars for a general audience'\n\n**Strategy 2: Add Constraints Incrementally**\nAdd one constraint at a time to see what helps:\n- Add word count\n- Add tone requirement\n- Add format specification\n- Add audience level\n\n**Strategy 3: Example Refinement**\nImprove your few-shot examples:\n- Start with one example\n- Add a second if needed\n- Ensure examples cover edge cases\n- Make examples high-quality\n\n**Strategy 4: Negative Examples**\nShow what you DON'T want:\n'Do not use jargon. Do not exceed 200 words. Do not use bullet points.'\n\nTrack what works. Keep a collection of your best prompts for reuse and adaptation."
       }
     ],
-
     "summary": "Effective prompting techniques significantly improve AI outputs. Zero-shot prompting provides no examples while few-shot includes examples to guide the AI. Chain-of-thought prompting asks the AI to show its reasoning step-by-step, improving accuracy on complex tasks. Role-playing and persona prompts shape the AI's perspective and expertise. Using structured patterns like RTF and CRISPE makes prompting systematic. Finally, iterative refinement through progressive specificity and incremental constraints helps you optimize your prompts over time.",
-
     "keyTakeaways": [
       "Few-shot prompting (with examples) beats zero-shot for complex tasks",
       "Add 'Let's think step by step' for better reasoning",
@@ -47,7 +46,6 @@
       "Refine prompts iteratively, adding constraints one at a time"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Progressive specificity means starting with a simple, broad prompt and then adding constraints and details incrementally. This helps you understand which elements actually improve the output."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/prompting-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Advanced prompt engineering research and best practices",

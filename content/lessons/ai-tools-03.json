@@ -4,7 +4,9 @@
   "topic": "AI Tools & APIs",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["ai-tools-01"],
+  "prerequisites": [
+    "ai-tools-01"
+  ],
   "objectives": [
     "Understand text-to-speech technology and leading providers",
     "Learn about speech-to-text capabilities and accuracy considerations",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Voice technology has transformed from robotic, monotone computer speech into natural, expressive, human-like audio. Text-to-speech and speech-to-text APIs now power everything from virtual assistants to audiobook narration to accessibility tools. In this lesson, we'll explore how voice AI APIs work, who provides them, and how to build compelling voice-enabled applications.",
-
     "sections": [
       {
         "title": "Text-to-Speech Technology",
@@ -36,9 +37,7 @@
         "content": "Let's put it all together with practical guidance for building voice-enabled apps.\n\n**Use Case 1: Audio Article Reader**\n\nSimplest voice application—convert text articles to audio:\n\n1. Choose TTS provider (e.g., ElevenLabs for quality)\n2. Send article text to TTS API\n3. Receive audio file URL or bytes\n4. Play in browser or save for offline\n\nEnhancements:\n- Let users choose voice and speed\n- Cache generated audio to save costs\n- Split long articles into chunks\n- Add pause/resume controls\n\nCost: ~$0.30 per article for high-quality TTS\n\n**Use Case 2: Voice Note Transcription**\n\nRecord voice notes and convert to text:\n\n1. Capture audio from device microphone\n2. Send to STT API (Whisper, Google STT)\n3. Display transcription\n4. Allow editing and saving\n\nEnhancements:\n- Real-time transcription (streaming)\n- Speaker identification\n- Automatic summarization\n- Export to various formats\n\nCost: ~$0.006 per minute of audio\n\n**Use Case 3: Interactive Voice Bot**\n\nFull conversational experience:\n\n1. User speaks → STT → Text\n2. Text → LLM → Response\n3. Response → TTS → Audio\n4. Manage conversation history\n\nEnhancements:\n- Interruption handling\n- Emotion detection\n- Multi-turn conversations\n- Visual transcript alongside audio\n\nCost: Variable, depends on conversation length ($0.10-0.50 per conversation)\n\n**Development Tips:**\n\n**Start Simple** - Build non-real-time version first, then optimize\n\n**Test Audio Quality** - Try different sample rates, bitrates, codecs\n\n**Handle Permissions** - Request microphone access gracefully\n\n**Provide Fallbacks** - Text input/output if voice fails\n\n**Monitor Costs** - Audio generation can get expensive at scale\n\n**Privacy Considerations:**\n- Don't store audio without consent\n- Be transparent about processing\n- Follow GDPR/privacy regulations\n- Offer opt-out mechanisms\n\n**Platform Differences:**\n- Web: WebRTC, Web Audio API, MediaRecorder\n- iOS: AVFoundation, Speech framework\n- Android: MediaRecorder, SpeechRecognizer\n- Each has unique APIs and limitations\n\nVoice technology is becoming table stakes for modern applications. Start with simple use cases and expand as you learn."
       }
     ],
-
     "summary": "Voice AI APIs have revolutionized audio technology with natural-sounding text-to-speech and accurate speech-to-text capabilities. Leading TTS providers like ElevenLabs, Google, Amazon, and OpenAI offer diverse voices with emotional range and multiple languages. STT services from providers like Whisper, Google, and Amazon achieve 90-95% accuracy in ideal conditions. Voice cloning technology enables creating synthetic speech from audio samples, but requires careful ethical consideration and consent. Real-time voice applications demand low latency, streaming support, and careful architecture to create responsive, interactive experiences. Building voice applications requires choosing the right APIs, optimizing for latency and cost, and handling audio quality across different platforms.",
-
     "keyTakeaways": [
       "Modern TTS (ElevenLabs, Google, Amazon) produces natural, expressive speech",
       "STT accuracy depends on audio quality, accents, and domain vocabulary",
@@ -47,7 +46,6 @@
       "Start with simple use cases (text-to-audio) before building complex conversational AI"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "For natural conversation flow, the complete cycle (STT → LLM → TTS) should ideally complete in under 3 seconds. This includes speech recognition (<300ms), language model processing (500ms-2s), and audio generation (<500ms). Longer delays feel unnatural and frustrate users. Streaming helps by starting audio playback before complete processing finishes."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ai-tools-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Original content based on ElevenLabs, Google, Amazon, and OpenAI documentation",

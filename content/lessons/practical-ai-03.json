@@ -4,7 +4,11 @@
   "topic": "Practical AI",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["practical-ai-01", "practical-ai-02", "ml-fundamentals-03"],
+  "prerequisites": [
+    "practical-ai-01",
+    "practical-ai-02",
+    "ml-fundamentals-03"
+  ],
   "objectives": [
     "Master cross-validation techniques for robust model evaluation",
     "Learn systematic approaches to hyperparameter tuning",
@@ -12,7 +16,6 @@
   ],
   "content": {
     "introduction": "Training a model is more than just calling 'model.fit()'. How you validate performance, tune parameters, and avoid common mistakes determines whether your model works in the real world or just looks good on paper. In this lesson, we'll cover the essential practices that separate amateur ML from production-ready systems.",
-
     "sections": [
       {
         "title": "Cross-Validation: Beyond Simple Train/Test Split",
@@ -35,9 +38,7 @@
         "content": "Regularization techniques prevent models from fitting noise in training data.\n\n**L1 Regularization (Lasso)**:\nAdds penalty proportional to absolute value of coefficients.\n- Penalty = λ × Σ|weights|\n- Drives some weights to exactly zero\n- Performs feature selection automatically\n- Good when you have many irrelevant features\n\n**L2 Regularization (Ridge)**:\nAdds penalty proportional to square of coefficients.\n- Penalty = λ × Σ(weights²)\n- Shrinks weights toward zero but not to zero\n- Preferred when all features are potentially relevant\n- More stable than L1\n\n**Elastic Net**:\nCombines L1 and L2 penalties.\n- Gets benefits of both\n- Good default choice\n\n**Dropout (Neural Networks)**:\nRandomly drop neurons during training.\n- Forces network to learn redundant representations\n- Can't rely on any single neuron\n- Very effective for deep learning\n\n**Early Stopping**:\nStop training when validation error stops improving.\n- Monitor validation loss during training\n- Save model at best validation performance\n- Stop if no improvement for N epochs\n- Simple and effective\n\n**Data Augmentation**:\nCreate modified copies of training data.\n- Images: Rotate, flip, crop\n- Text: Synonym replacement, back-translation\n- Effectively increases training data\n\n**Choosing regularization strength (λ)**:\nUse cross-validation to find the best value. Too low → overfitting, too high → underfitting."
       }
     ],
-
     "summary": "Robust model training requires cross-validation for reliable evaluation, systematic hyperparameter tuning through grid search or Bayesian optimization, and vigilant avoidance of data leakage. Understanding the bias-variance tradeoff helps diagnose whether models are underfitting or overfitting. Regularization techniques like L1/L2 penalties, dropout, and early stopping prevent overfitting and improve generalization to new data.",
-
     "keyTakeaways": [
       "Use K-fold cross-validation for more reliable performance estimates than single train/test split",
       "Prevent data leakage by fitting all preprocessing only on training data",
@@ -45,7 +46,6 @@
       "Apply regularization to prevent overfitting and improve generalization"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -100,13 +100,11 @@
       "explanation": "L1 regularization penalizes the absolute value of weights, which drives some weights to exactly zero — effectively removing those features. This performs automatic feature selection. L2 regularization shrinks weights toward zero but doesn't eliminate them. L1 is useful when you have many irrelevant features."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/practical-ai-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from scikit-learn documentation and Andrew Ng's ML course",

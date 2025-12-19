@@ -4,7 +4,9 @@
   "topic": "Generative AI",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["gen-ai-01"],
+  "prerequisites": [
+    "gen-ai-01"
+  ],
   "objectives": [
     "Understand modern voice synthesis technology",
     "Learn about AI music generation approaches",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "While text and image generation have captured public attention, AI is also revolutionizing audio and video creation. From hyper-realistic voice cloning to AI-generated music and video, these technologies are transforming media production. Let's explore how AI generates sound and motion.",
-
     "sections": [
       {
         "title": "Voice Synthesis Technology",
@@ -32,9 +33,7 @@
         "content": "The future of generative AI is multimodal — systems that understand and generate across text, images, audio, and video simultaneously.\n\n**What is Multimodal AI?**\n\nMultimodal models can:\n- Process multiple types of input (text + images, audio + video)\n- Generate coordinated outputs across modalities\n- Understand relationships between different media types\n\n**Current Multimodal Models:**\n\n**GPT-4 Vision (GPT-4V):**\n- Input: Images + text\n- Output: Text descriptions, analysis, answers\n- Can analyze charts, read handwriting, describe scenes\n- Cannot generate images (input only)\n\n**Gemini 1.5 (Google):**\n- Input: Text, images, audio, video\n- Output: Primarily text (with some image capabilities)\n- Can analyze hour-long videos\n- Understand context across modalities\n\n**Claude 3 (Anthropic):**\n- Input: Images + text\n- Output: Text\n- Excellent at diagram analysis and document understanding\n\n**Meta's ImageBind:**\n- Binds 6 modalities: images, text, audio, depth, thermal, IMU\n- Allows cross-modal retrieval (find images from audio)\n- Research preview, not production\n\n**True Multimodal Generation (Emerging):**\n\n**Video + Audio Generation:**\n- Generate video with synchronized sound effects\n- Text-to-video systems adding audio tracks\n- Still early but promising\n\n**Interactive Avatars:**\n- Combine voice synthesis + video generation\n- Create talking avatars from text\n- Used in video production and virtual presenters\n\n**Music Videos:**\n- Generate visuals synchronized to music\n- Style transfer for entire music videos\n- Experimental but impressive results\n\n**The Vision:**\n\nFuture multimodal systems will:\n- Generate complete media experiences from text prompts\n- Example: 'Create a 2-minute product demo video'\n  - Generate script (text)\n  - Create visuals (video/images)\n  - Add voiceover (audio)\n  - Add background music (audio)\n  - All coordinated and consistent\n\n**Challenges:**\n- Synchronization across modalities\n- Maintaining consistency in style and content\n- Computational requirements\n- Evaluation metrics for quality\n- Copyright and ethical questions\n\n**Why Multimodal Matters:**\n\n1. **Richer communication:** Humans use multiple senses\n2. **Better understanding:** Context from multiple sources\n3. **More creative possibilities:** Combined media is more expressive\n4. **Efficiency:** Generate complete content packages\n5. **Accessibility:** Automatically create captions, audio descriptions\n\nMultimodal AI represents the convergence of all generative capabilities into unified systems that understand and create like humans do — across all senses simultaneously."
       }
     ],
-
     "summary": "Audio and video generation extend generative AI beyond text and images. Modern voice synthesis like ElevenLabs creates natural, cloneable voices through neural TTS. Music generation uses symbolic and audio approaches to create original compositions, though quality is inconsistent. Video generation combines image diffusion with temporal consistency for short clips. Multimodal generation represents the future, combining text, images, audio, and video into unified creative systems.",
-
     "keyTakeaways": [
       "Neural TTS enables realistic voice cloning and synthesis (ElevenLabs)",
       "Music AI generates via symbolic (MIDI) or audio (waveform) approaches",
@@ -42,7 +41,6 @@
       "Multimodal AI combines multiple media types for richer generation"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -97,13 +95,11 @@
       "explanation": "Multimodal AI systems can process and potentially generate across different types of media — text, images, audio, and video. Examples include GPT-4V (text + images) and Gemini (text + images + audio + video)."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/gen-ai-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from ElevenLabs, OpenAI, Google, and Meta research",

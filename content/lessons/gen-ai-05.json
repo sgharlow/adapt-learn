@@ -4,7 +4,10 @@
   "topic": "Generative AI",
   "difficulty": "intermediate",
   "duration": 12,
-  "prerequisites": ["gen-ai-01", "gen-ai-02"],
+  "prerequisites": [
+    "gen-ai-01",
+    "gen-ai-02"
+  ],
   "objectives": [
     "Understand emerging multimodal model capabilities",
     "Explore AI agents and autonomous systems",
@@ -13,7 +16,6 @@
   ],
   "content": {
     "introduction": "Generative AI has progressed from generating simple text to creating images, audio, and video. But where is this technology heading? In this lesson, we'll explore the cutting edge of generative AI — from multimodal models to autonomous agents — while confronting the limitations and ethical challenges that shape its future.",
-
     "sections": [
       {
         "title": "Multimodal Models: Beyond Single Media",
@@ -36,9 +38,7 @@
         "content": "Looking ahead, several trends will shape the next era of generative AI.\n\n**Near-Term (1-3 Years):**\n\n**Better Multimodal Integration:**\n- Seamless generation across text, image, audio, video\n- Coordinated multimedia content creation\n- More natural conversational interfaces with vision and voice\n\n**More Reliable Agents:**\n- AI systems that can complete complex tasks autonomously\n- Better planning and error recovery\n- Integration with business tools and workflows\n\n**Personalization:**\n- Models that learn your preferences and style\n- Consistent characters and voices across generations\n- Long-term memory of interactions\n\n**Real-Time Generation:**\n- Voice conversations with no latency\n- Interactive video generation\n- Live collaboration with AI\n\n**Specialized Models:**\n- Domain-specific AI (medical, legal, scientific)\n- Smaller, more efficient models for specific tasks\n- Edge deployment (AI on your device, not cloud)\n\n**Mid-Term (3-7 Years):**\n\n**AI Coworkers:**\n- AI systems that work alongside humans as team members\n- Handle entire projects from requirements to delivery\n- Proactive assistance and suggestions\n\n**Advanced Reasoning:**\n- Models that can truly 'think' through complex problems\n- Mathematical and scientific reasoning\n- Novel problem-solving, not just pattern matching\n\n**3D and Physical World Understanding:**\n- Generate 3D models from text or images\n- Understand and plan in physical space\n- Integration with robotics\n\n**Continuous Learning:**\n- Models that update and learn from interactions\n- Personalized knowledge bases\n- Adaptation without full retraining\n\n**Long-Term (7+ Years):**\n\n**Artificial General Intelligence (AGI)?**\n- Debate: Will scaled-up models achieve general intelligence?\n- Implications for society if achieved\n- Safety and alignment challenges\n\n**Human-AI Collaboration:**\n- Hybrid creativity combining human insight with AI execution\n- AI as creative partner, not just tool\n- New art forms and media types\n\n**Scientific Discovery:**\n- AI generating novel scientific hypotheses\n- Designing new materials and drugs\n- Accelerating research across all fields\n\n**Embodied AI:**\n- AI in robots that navigate and manipulate the physical world\n- Integration of language, vision, and physical action\n- Domestic and industrial applications\n\n**Key Uncertainties:**\n\n**Will scaling continue to work?** Or will we hit fundamental limits?\n\n**Can we solve alignment?** Ensuring AI systems do what we want.\n\n**How will society adapt?** Regulation, economics, culture.\n\n**What about compute limits?** Energy and hardware constraints.\n\n**The Bottom Line:**\n\nGenerative AI is still in its early stages. The technology will become:\n- More capable (multimodal, agentic, reasoning)\n- More accessible (cheaper, faster, easier to use)\n- More integrated (embedded in all software)\n- More controversial (ethical and economic challenges)\n\nThe question isn't whether generative AI will transform society — it already has. The question is: how do we shape that transformation to benefit everyone?\n\nYour role in this future isn't just to use these tools, but to understand them deeply enough to guide their development and application responsibly."
       }
     ],
-
     "summary": "The future of generative AI lies in multimodal models that seamlessly work across all media types, and autonomous AI agents that can plan and execute complex tasks. Models like GPT-4V, Gemini, and Claude 3 are pioneering true multimodality. Despite progress, significant limitations remain: hallucination, reasoning difficulties, computational costs, and creative constraints. Ethical challenges around copyright, deepfakes, bias, economic disruption, and environmental impact require thoughtful governance. The path forward includes better multimodal integration, more reliable agents, and eventually AI coworkers that augment human capabilities.",
-
     "keyTakeaways": [
       "Multimodal models (GPT-4V, Gemini) process multiple media types simultaneously",
       "AI agents can plan, use tools, and execute complex tasks autonomously",
@@ -46,7 +46,6 @@
       "Ethical challenges: copyright, deepfakes, bias, jobs, environment, privacy"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +100,11 @@
       "explanation": "True multimodal AI systems can understand and potentially generate across different types of media simultaneously — text, images, audio, and video. Examples include Gemini (processes video, audio, images, text) and GPT-4V (processes images and text together)."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/gen-ai-05.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from OpenAI, Google, Anthropic research and AI ethics literature",

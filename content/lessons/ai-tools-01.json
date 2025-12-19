@@ -4,7 +4,9 @@
   "topic": "AI Tools & APIs",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01"],
+  "prerequisites": [
+    "ml-fundamentals-01"
+  ],
   "objectives": [
     "Understand what AI APIs are and their benefits",
     "Learn about major AI API providers and their offerings",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Artificial Intelligence APIs are transforming how developers build applications. Instead of training your own models from scratch—which requires massive data, compute, and expertise—you can access powerful AI capabilities with just a few lines of code. In this lesson, we'll explore what AI APIs are, who provides them, and what you need to know to use them effectively.",
-
     "sections": [
       {
         "title": "What Are AI APIs?",
@@ -36,9 +37,7 @@
         "content": "Making your first AI API call is straightforward. Here's the typical workflow:\n\n**Step 1: Sign Up**\nCreate an account with your chosen provider. Most offer free credits ($5-18) to start experimenting.\n\n**Step 2: Get Your API Key**\nNavigate to the API section of your dashboard and generate a new key. Copy it immediately—some providers only show it once.\n\n**Step 3: Install SDK or Use HTTP**\nMost providers offer software development kits (SDKs) for popular languages like Python, JavaScript, and Java. These handle authentication and formatting for you.\n\n**Step 4: Make a Test Call**\nSend a simple request to verify everything works. For example, ask a language model 'What is 2+2?' and confirm you get a response.\n\n**Step 5: Handle Errors**\nPlan for failures—network issues, rate limits, invalid requests. Always implement retry logic and error handling.\n\n**Best Practices:**\n- Read the provider's documentation thoroughly\n- Start with provided examples and modify them\n- Test in development before production\n- Monitor your usage and costs from day one\n\nThe barrier to entry has never been lower. Within minutes, you can add AI superpowers to your applications."
       }
     ],
-
     "summary": "AI APIs provide on-demand access to powerful AI models without requiring you to train or maintain them yourself. Major providers like OpenAI, Google, Anthropic, Microsoft, and Amazon offer various AI capabilities—from text generation to image creation to speech processing. To use these services, you need API keys for authentication, and you must understand rate limits to avoid being blocked. Pricing typically follows pay-per-use models based on tokens, requests, or compute time. With proper security practices and cost monitoring, AI APIs enable developers to build intelligent applications quickly and affordably.",
-
     "keyTakeaways": [
       "AI APIs let you access powerful models via simple HTTP requests",
       "Major providers: OpenAI, Google, Anthropic, Microsoft Azure, Amazon AWS",
@@ -47,7 +46,6 @@
       "Start small, monitor costs, and scale as needed"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Rate limits protect the service from abuse and ensure fair access. When you hit the limit, you'll receive an error response (typically HTTP 429). You can either wait until your rate limit resets (often per minute) or upgrade to a higher tier with increased limits. Your account isn't banned—it's a temporary restriction."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ai-tools-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Original content based on industry best practices",

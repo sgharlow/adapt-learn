@@ -4,7 +4,9 @@
   "topic": "AI for Business",
   "difficulty": "beginner",
   "duration": 12,
-  "prerequisites": ["ml-fundamentals-01"],
+  "prerequisites": [
+    "ml-fundamentals-01"
+  ],
   "objectives": [
     "Identify AI opportunities within your organization",
     "Understand build vs buy vs partner decisions",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Every business leader today faces the same question: How do we leverage AI? But jumping into AI without a strategy often leads to wasted resources and failed pilots. In this lesson, we'll give you a practical framework for identifying AI opportunities, making smart investment decisions, and measuring success.",
-
     "sections": [
       {
         "title": "Identifying AI Opportunities in Your Business",
@@ -36,9 +37,7 @@
         "content": "A successful AI strategy isn't about doing everything at once — it's about phased, deliberate execution.\n\n**Phase 1: Foundation (Months 1-6)**\n- Conduct AI opportunity assessment across departments\n- Audit data quality and accessibility\n- Build or buy initial AI expertise\n- Launch 1-2 low-risk pilot projects\n\n**Phase 2: Validation (Months 6-12)**\n- Measure pilot results against success metrics\n- Gather user feedback and iterate\n- Develop internal AI governance policies\n- Begin training employees on AI literacy\n\n**Phase 3: Scale (Year 2+)**\n- Expand successful pilots to full deployment\n- Launch new initiatives in additional departments\n- Build centers of excellence for AI\n- Integrate AI into core business processes\n\n**Key Success Factors:**\n- Start small, think big\n- Measure everything\n- Communicate transparently\n- Invest in people, not just technology\n- Be patient — AI transformation takes years, not months\n\nRemember: AI strategy is business strategy. Every decision should tie back to business outcomes, not just technological capability."
       }
     ],
-
     "summary": "Successful AI adoption starts with identifying real business problems, not chasing technology trends. Use the build-buy-partner framework to make smart investment decisions based on your unique needs and capabilities. Define clear ROI metrics before starting any project, and avoid common pitfalls like poor data quality, unrealistic expectations, and lack of executive support. Create a phased roadmap that starts with small pilots, proves value, and then scales across the organization.",
-
     "keyTakeaways": [
       "Identify AI opportunities by looking for repetitive, data-driven tasks with measurable impact",
       "Choose build vs buy vs partner based on uniqueness, urgency, and internal capabilities",
@@ -47,7 +46,6 @@
       "Follow a phased approach: foundation, validation, then scale"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Most AI failures are organizational, not technical. Common pitfalls include starting with technology instead of real problems, poor data quality, unrealistic expectations about what AI can do, and inadequate change management. The technology usually works — it's the strategy and execution that fails."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/business-ai-01.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Business AI Strategy Best Practices",

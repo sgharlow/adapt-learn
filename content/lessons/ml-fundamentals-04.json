@@ -4,7 +4,11 @@
   "topic": "ML Fundamentals",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02", "ml-fundamentals-03"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02",
+    "ml-fundamentals-03"
+  ],
   "objectives": [
     "Understand what features and labels are in machine learning",
     "Learn how to identify good features for a problem",
@@ -12,7 +16,6 @@
   ],
   "content": {
     "introduction": "Every machine learning problem starts with data, but not all data is created equal. How you represent your data — what features you choose and how you prepare them — often matters more than which algorithm you use. Let's explore the building blocks that turn raw data into machine learning gold.",
-
     "sections": [
       {
         "title": "Features: The Input Variables",
@@ -35,9 +38,7 @@
         "content": "Let's see feature engineering in action with a real example:\n\n**Problem**: Predict customer churn (will they cancel their subscription?)\n\n**Raw data available:**\n- Account creation date\n- Last login timestamp\n- Monthly usage hours\n- Support tickets opened\n- Payment history\n\n**Engineered features:**\n- Days_since_signup = today - account_creation_date\n- Days_since_last_login = today - last_login\n- Usage_trend = this_month_hours / last_month_hours\n- Support_ticket_rate = tickets / months_active\n- Missed_payment_count = number of late/failed payments\n- Engagement_score = weighted combination of logins and usage\n\nThese engineered features often predict churn much better than the raw data because they capture relevant patterns:\n- Declining usage suggests dissatisfaction\n- Long time since login indicates disengagement\n- Payment issues are clear warning signs\n\nFeature engineering requires domain knowledge — understanding the problem helps you create features that matter."
       }
     ],
-
     "summary": "Features are the input variables that describe your data, while labels are what you're trying to predict. Choosing good features — relevant, measurable, and available — is crucial for ML success. Feature engineering transforms raw data into more predictive features through techniques like combining variables, extracting temporal information, binning values, and normalization. Often, creative feature engineering improves model performance more than choosing a fancier algorithm. The key is understanding your problem domain well enough to create features that capture meaningful patterns.",
-
     "keyTakeaways": [
       "Features are inputs (what you know); labels are outputs (what you predict)",
       "Good features are relevant, measurable, available, and non-redundant",
@@ -46,7 +47,6 @@
       "Domain knowledge is essential for creating meaningful features"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +101,11 @@
       "explanation": "Creating 'days_since_last_login' is excellent feature engineering — it transforms a raw timestamp into a meaningful metric. Recent logins suggest engagement; long gaps suggest churn risk. Raw signup dates (A) are less meaningful than 'account_age', street addresses (C) have too many unique values, and customer IDs (D) are just identifiers with no predictive value."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-04.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google ML Crash Course and Kaggle Learn",

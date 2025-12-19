@@ -4,7 +4,9 @@
   "topic": "AI for Business",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["business-ai-01"],
+  "prerequisites": [
+    "business-ai-01"
+  ],
   "objectives": [
     "Understand AI team structures and key roles",
     "Navigate the AI project lifecycle from ideation to deployment",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Leading an AI project is different from managing traditional software development. The uncertainty, the need for experimentation, and the specialized skills required create unique management challenges. In this lesson, you'll learn how to structure AI teams, manage the project lifecycle, communicate with stakeholders, and measure success.",
-
     "sections": [
       {
         "title": "AI Team Structures and Roles",
@@ -36,9 +37,7 @@
         "content": "Even with the right team and process, AI projects face unique challenges. Here's how to handle the most common ones.\n\n**Challenge 1: Scope Creep**\n- Problem: Stakeholders keep adding features mid-project\n- Solution: Define 'MVP' clearly upfront. New features go in 'Phase 2' backlog. Require formal approval for scope changes.\n\n**Challenge 2: Data Access Issues**\n- Problem: Data is locked in silos, requires legal/compliance approval, or doesn't exist\n- Solution: Identify data requirements in Phase 1. Escalate access issues to executive sponsor immediately. Don't wait.\n\n**Challenge 3: The Model Works in the Lab but Fails in Production**\n- Problem: Model trained on clean data, but real-world data is messy\n- Solution: Test with real production data early. Build robust data validation. Plan for 'human in the loop' when confidence is low.\n\n**Challenge 4: Team Burnout**\n- Problem: AI projects have tight deadlines and high uncertainty\n- Solution: Build buffer time into plans. Celebrate small wins. Rotate people off intense projects. Don't let the project consume weekends and nights for months.\n\n**Challenge 5: Regulatory and Ethical Concerns**\n- Problem: AI decisions may be biased, lack transparency, or raise privacy issues\n- Solution: Include legal/compliance from the start. Test for bias. Implement explainability tools. Document decisions for audit trail.\n\n**Challenge 6: Executive Loses Patience**\n- Problem: Results take longer than expected, executive sponsor wants to cancel\n- Solution: Set realistic timelines upfront. Report progress frequently. Show incremental value (even a 5% improvement is progress). Have a 'quit early' plan if the approach isn't working.\n\n**Success Pattern — The AI Pilot Framework:**\n1. Start with a narrow, high-value use case\n2. Set a fixed timeline (e.g., 12 weeks) and budget\n3. Define 'good enough' success criteria (don't wait for perfection)\n4. Demo working software every 2 weeks\n5. If it works, scale it. If it doesn't, learn and pivot.\n\nManaging AI projects is as much about managing expectations and communication as it is about technology. The best AI leaders are translators who can speak both business and technical languages fluently."
       }
     ],
-
     "summary": "Managing AI projects requires specialized skills beyond traditional project management. Build teams with data scientists, ML engineers, data engineers, product managers, and domain experts. Follow a lifecycle that includes problem definition, data preparation (50% of time), model development, pilot testing, and production deployment. Communicate differently with executives (business impact), technical teams (requirements and constraints), and end users (how it helps them). Measure success through both technical metrics (accuracy, latency) and business metrics (ROI, cost savings, revenue impact). Address common challenges like scope creep, data access, and production failures with clear processes and frequent communication.",
-
     "keyTakeaways": [
       "AI teams need diverse roles: data scientists, ML engineers, data engineers, product managers, domain experts",
       "Plan for 50% of project time on data preparation; AI projects are 80% data, 20% algorithms",
@@ -47,7 +46,6 @@
       "Address common challenges early: scope creep, data access, production failures, burnout, regulatory concerns"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Models often fail in production because they were trained on clean historical data but encounter messy real-world data. The solution is to test with production data early (not just clean test sets), build data validation to catch bad inputs, and implement 'human in the loop' workflows for low-confidence predictions. This bridges the gap between lab and reality."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/business-ai-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "AI Project Management Best Practices",

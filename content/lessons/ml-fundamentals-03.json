@@ -4,7 +4,10 @@
   "topic": "ML Fundamentals",
   "difficulty": "beginner",
   "duration": 9,
-  "prerequisites": ["ml-fundamentals-01", "ml-fundamentals-02"],
+  "prerequisites": [
+    "ml-fundamentals-01",
+    "ml-fundamentals-02"
+  ],
   "objectives": [
     "Understand the training process in machine learning",
     "Learn why we split data into training and testing sets",
@@ -12,7 +15,6 @@
   ],
   "content": {
     "introduction": "How does a machine actually learn from data? And how do we know if it's learned something useful or just memorized the answers? In this lesson, we'll explore the learning process and discover why testing is just as important as training.",
-
     "sections": [
       {
         "title": "The Learning Process: An Analogy",
@@ -35,9 +37,7 @@
         "content": "Several strategies help prevent overfitting:\n\n**1. More Training Data**\n- Harder to memorize 10,000 examples than 100\n- More data shows the model what truly matters\n\n**2. Simpler Models**\n- Use only as much complexity as needed\n- Start simple, add complexity only if necessary\n\n**3. Regularization**\n- Penalize the model for being too complex\n- Forces it to focus on the strongest patterns\n\n**4. Early Stopping**\n- Stop training when performance on validation data stops improving\n- Don't train longer than necessary\n\n**5. Data Augmentation**\n- Create variations of training examples\n- For images: rotate, flip, zoom, crop\n- Teaches the model to be robust to variations\n\nThe goal is a model that performs well on both training AND test data — evidence it learned generalizable patterns, not just memorized examples."
       }
     ],
-
     "summary": "Machine learning involves training a model on one set of data and testing it on unseen data to ensure it has learned generalizable patterns. We split data into training and test sets to fairly evaluate performance. During training, the model iteratively makes predictions, measures errors, and adjusts to improve. The key challenge is avoiding overfitting — when a model memorizes training data but fails on new examples. Strategies like using more data, simpler models, and early stopping help create models that truly understand patterns rather than just memorizing answers.",
-
     "keyTakeaways": [
       "Split data into training (learn) and test (evaluate) sets",
       "Training is an iterative process: predict, measure error, adjust",
@@ -46,7 +46,6 @@
       "Prevent overfitting with more data, simpler models, and early stopping"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +100,11 @@
       "explanation": "Training for as long as possible often CAUSES overfitting. The model will keep adjusting to fit the training data better and better, including its noise and quirks. Instead, use early stopping — halt training when the model stops improving on validation data."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google ML Crash Course and Andrew Ng's ML course",

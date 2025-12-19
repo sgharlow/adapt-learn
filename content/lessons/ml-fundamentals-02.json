@@ -4,7 +4,9 @@
   "topic": "ML Fundamentals",
   "difficulty": "beginner",
   "duration": 10,
-  "prerequisites": ["ml-fundamentals-01"],
+  "prerequisites": [
+    "ml-fundamentals-01"
+  ],
   "objectives": [
     "Understand the three main types of machine learning",
     "Recognize the difference between supervised and unsupervised learning",
@@ -12,7 +14,6 @@
   ],
   "content": {
     "introduction": "Not all machine learning is the same. Just as there are different ways humans learn — from a teacher, through exploration, or by trial and error — machines can learn in different ways too. Understanding these approaches will help you choose the right tool for any problem.",
-
     "sections": [
       {
         "title": "Supervised Learning: Learning with a Teacher",
@@ -35,9 +36,7 @@
         "content": "How do you know which type to use?\n\n**Use Supervised Learning when:**\n- You have labeled examples (input-output pairs)\n- You want to predict something specific\n- You can clearly define success\n\n**Use Unsupervised Learning when:**\n- You have data but no labels\n- You want to discover hidden patterns\n- You're exploring to understand your data better\n\n**Use Reinforcement Learning when:**\n- The task involves sequences of decisions\n- Feedback comes from interacting with an environment\n- You can define rewards but not specific correct actions\n\nIn practice, many real-world systems combine multiple approaches. A self-driving car might use supervised learning for object detection, unsupervised learning to understand road patterns, and reinforcement learning to improve driving strategy."
       }
     ],
-
     "summary": "Machine learning comes in three main flavors: supervised learning (learning from labeled examples), unsupervised learning (finding patterns without labels), and reinforcement learning (learning through trial and error with rewards). Each type serves different purposes — supervised for prediction tasks with known answers, unsupervised for discovering hidden structure, and reinforcement for sequential decision-making. Understanding these types helps you choose the right approach for your problem.",
-
     "keyTakeaways": [
       "Supervised learning uses labeled examples to predict outcomes",
       "Classification predicts categories, regression predicts numbers",
@@ -46,7 +45,6 @@
       "Choose the type based on your data and goal"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -101,13 +99,11 @@
       "explanation": "This is reinforcement learning — the robot learns through trial and error by taking actions (moving through the warehouse) and receiving rewards (points for deliveries) or penalties (losing points for collisions). The robot isn't given examples of correct paths; it discovers them through experience."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/ml-fundamentals-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Google ML Crash Course and fast.ai",

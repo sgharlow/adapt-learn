@@ -4,7 +4,9 @@
   "topic": "Computer Vision",
   "difficulty": "intermediate",
   "duration": 10,
-  "prerequisites": ["cv-01"],
+  "prerequisites": [
+    "cv-01"
+  ],
   "objectives": [
     "Understand the difference between semantic and instance segmentation",
     "Learn how face recognition and detection systems work",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Computer vision has evolved far beyond simple classification and detection. Today's applications segment images at the pixel level, recognize individual faces among billions, extract text from complex documents, and track objects smoothly through video. In this lesson, we'll explore four powerful application areas that demonstrate the breadth and depth of modern computer vision capabilities.",
-
     "sections": [
       {
         "title": "Image Segmentation: Semantic vs Instance",
@@ -32,9 +33,7 @@
         "content": "Video introduces the temporal dimension — objects move, cameras pan, scenes change. This opens new possibilities but also new challenges.\n\n**Object Tracking** - Following specific objects across video frames. Once you detect an object in frame 1, tracking maintains its identity through subsequent frames even as it moves, rotates, or becomes partially occluded.\n\n**Tracking Approaches**:\n\n*Detection-Based Tracking* - Run an object detector on every frame and associate detections across frames. Algorithms like DeepSORT (Simple Online and Realtime Tracking with Deep Association Metric) use appearance features and motion models to match detections. If object A in frame 1 appears similar and in a plausible location in frame 2, it's probably the same object.\n\n*Tracking-by-Detection* - Detect objects periodically and use faster tracking methods (like correlation filters or optical flow) between detections. This balances accuracy and speed.\n\n*Siamese Networks* - Train networks that compare two image regions and predict if they show the same object. At test time, compare the target in frame 1 with candidate regions in frame 2.\n\n**Action Recognition** - Understanding what's happening in video. Is someone walking, running, falling, fighting? Architectures like I3D (Inflated 3D ConvNets) or SlowFast networks process spatial and temporal information together. They use 3D convolutions that operate over both spatial dimensions and time, capturing motion patterns.\n\n**Video Object Segmentation** - Segmenting objects through video, maintaining their pixel-level boundaries as they move. This combines segmentation with tracking. Applications include video editing (removing backgrounds or objects), surveillance (tracking specific individuals), and sports analysis (tracking players and ball).\n\n**Practical Challenges**:\n\n*Computational Cost* - Processing video requires handling 30-60 frames per second. Running a heavy detector on every frame may be too slow. Solutions include temporal sampling (process every Nth frame), optical flow for motion estimation between frames, or specialized efficient architectures.\n\n*Occlusion and Re-identification* - When an object disappears behind an obstacle, can you re-identify it when it reappears? This requires strong appearance models and sometimes reasoning about physics (if a person walks behind a pillar, they'll likely emerge on the other side).\n\n*Camera Motion* - If the camera moves, everything in the frame moves. Distinguishing actual object motion from camera motion requires stabilization or motion compensation.\n\n*Long-Term Tracking* - Objects' appearance changes over time — lighting changes, people turn around, vehicles change angles. Robust tracking requires updating appearance models while avoiding drift (gradually losing the object).\n\nModern applications combine multiple techniques: detection provides accuracy, tracking provides temporal consistency, segmentation provides precision, and action recognition provides semantic understanding. Together, they enable sophisticated video understanding systems."
       }
     ],
-
     "summary": "Modern computer vision extends far beyond classification and detection. Segmentation identifies exactly which pixels belong to each object, with semantic segmentation classifying all pixels and instance segmentation distinguishing individual objects. Face recognition uses metric learning to create embeddings where the same person's faces cluster together. OCR has evolved from pipeline-based character recognition to end-to-end deep learning systems that handle text detection and recognition jointly. Video analysis adds temporal reasoning, with tracking maintaining object identity across frames and action recognition understanding what's happening. Each application combines multiple techniques and requires specialized approaches for production deployment.",
-
     "keyTakeaways": [
       "Semantic segmentation classifies pixels; instance segmentation distinguishes individual objects",
       "Face recognition uses metric learning to create embeddings, not classification",
@@ -43,7 +42,6 @@
       "Real applications combine multiple techniques: detection, segmentation, tracking, and recognition"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -98,13 +96,11 @@
       "explanation": "The core tracking challenge is maintaining object identity over time. While detection identifies objects in each frame independently, tracking must connect detections across frames, handling movement, rotation, occlusion, and appearance changes while avoiding identity switches or lost tracks. This requires temporal reasoning beyond single-frame detection."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/cv-03.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from modern computer vision research and applications",

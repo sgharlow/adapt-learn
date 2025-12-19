@@ -4,7 +4,9 @@
   "topic": "Deep Learning",
   "difficulty": "intermediate",
   "duration": 15,
-  "prerequisites": ["deep-learning-01"],
+  "prerequisites": [
+    "deep-learning-01"
+  ],
   "objectives": [
     "Understand how CNNs process images and spatial data",
     "Learn the key operations: convolution, pooling, and feature maps",
@@ -12,7 +14,6 @@
   ],
   "content": {
     "introduction": "How do computers see? Convolutional Neural Networks revolutionized computer vision by learning to recognize patterns in images just like our visual cortex does. From facial recognition to medical imaging to self-driving cars, CNNs power most modern image understanding systems. Let's explore how these specialized neural networks work their magic.",
-
     "sections": [
       {
         "title": "Why Regular Neural Networks Don't Work Well for Images",
@@ -35,9 +36,7 @@
         "content": "CNNs revolutionized computer vision and extended into many domains:\n\n**Image Classification:**\n- What's in this image? (cat, dog, car, etc.)\n- ImageNet competition: superhuman accuracy\n- Applications: photo organization, content moderation\n- Example architectures: ResNet, EfficientNet, Vision Transformer\n\n**Object Detection:**\n- Where are objects and what are they?\n- Draws bounding boxes around objects\n- YOLO, R-CNN families\n- Uses: self-driving cars, surveillance, robotics\n\n**Image Segmentation:**\n- Label every pixel with its class\n- Semantic segmentation: all cats labeled \"cat\"\n- Instance segmentation: each cat labeled separately\n- Medical imaging: tumor detection, organ segmentation\n- Autonomous vehicles: road, pedestrians, vehicles\n\n**Face Recognition:**\n- Identify or verify individuals from faces\n- Unlock phones, security systems\n- FaceNet, DeepFace architectures\n- Billions of comparisons per second\n\n**Medical Imaging:**\n- Detect diseases in X-rays, MRIs, CT scans\n- Often matches or exceeds radiologist performance\n- Diabetic retinopathy, cancer detection\n- Faster diagnosis, accessible in remote areas\n\n**Style Transfer and Generation:**\n- Transfer artistic styles between images\n- Generate realistic images (GANs)\n- Enhance image quality (super-resolution)\n- DeepDream visualizations\n\n**Beyond Images:**\n\n**Audio processing:**\n- 1D convolutions over time\n- Speech recognition, music classification\n- WaveNet for audio generation\n\n**Natural language:**\n- 1D convolutions over text sequences\n- Before transformers, CNNs were used for text classification\n- Character-level or word-level patterns\n\n**Video understanding:**\n- 3D convolutions (spatial + temporal)\n- Action recognition, video classification\n- Two-stream networks combining spatial and motion\n\n**Impact:**\nCNNs transformed computer vision from hand-crafted features to learned features, achieving superhuman performance on many tasks and enabling new applications previously impossible."
       }
     ],
-
     "summary": "Convolutional Neural Networks (CNNs) are specialized neural networks designed for processing grid-like data, especially images. Unlike fully-connected networks, CNNs use convolution operations with small filters that slide across the input, detecting patterns like edges and textures. These filters share parameters across the entire image, dramatically reducing the number of weights needed. CNNs build feature hierarchies by stacking layers — early layers detect simple patterns like edges, while deeper layers recognize complex objects and scenes. Pooling layers downsample feature maps, reducing computation and providing translation invariance. CNNs excel at computer vision tasks including image classification, object detection, segmentation, and face recognition, and have extended to audio, text, and video processing.",
-
     "keyTakeaways": [
       "CNNs use convolution operations to detect patterns efficiently across images",
       "Filters (kernels) slide across the input, sharing parameters and reducing model size",
@@ -47,7 +46,6 @@
       "Applications include classification, detection, segmentation, and medical imaging"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Pooling layers (typically max pooling) downsample feature maps by taking the maximum (or average) value in small regions. This serves three purposes: (1) Reduces spatial size by half, cutting computation and memory, (2) Makes the network invariant to small translations — the object is detected even if it shifts slightly, and (3) Increases each neuron's receptive field, letting it see more of the original image. Pooling doesn't have learnable parameters."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/deep-learning-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from Stanford CS231n, Deep Learning by Goodfellow et al., and fast.ai Practical Deep Learning",

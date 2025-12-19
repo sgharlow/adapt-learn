@@ -4,7 +4,9 @@
   "topic": "Computer Vision",
   "difficulty": "intermediate",
   "duration": 11,
-  "prerequisites": ["cv-01"],
+  "prerequisites": [
+    "cv-01"
+  ],
   "objectives": [
     "Understand the difference between classification and object detection",
     "Learn key concepts: bounding boxes, IoU, and anchor boxes",
@@ -13,7 +15,6 @@
   ],
   "content": {
     "introduction": "Image classification tells you what's in an image. Object detection tells you what's there and where it is. This seemingly small difference creates fascinating challenges and requires entirely different approaches. In this lesson, you'll learn how object detection works, understand the metrics that matter, and explore the architectures that power everything from autonomous vehicles to security systems.",
-
     "sections": [
       {
         "title": "From Classification to Detection: What Changes?",
@@ -36,9 +37,7 @@
         "content": "Real-world object detection presents challenges beyond architecture selection:\n\n**Class Imbalance** - Most anchor boxes don't contain objects. In a 13x13 grid with 5 anchors, you have 845 predictions, but maybe only 3-10 actual objects. This creates massive imbalance between background and foreground. Solution: focal loss, which reduces the loss contribution from easy negative examples (empty anchors) and focuses learning on hard cases.\n\n**Small Objects** - Detecting tiny objects is hard because they occupy few pixels and their features might disappear in deep networks. Solutions include: using feature pyramids that combine high-resolution early features with semantic late features, increasing input resolution, and using specialized architectures like RetinaNet designed for multi-scale detection.\n\n**Occlusion** - When objects overlap or hide behind each other, detection becomes challenging. No perfect solution exists, but training on diverse data with occlusions helps. Some architectures use part-based models that can detect partially visible objects.\n\n**Real-Time Requirements** - If you need 30+ FPS, you must optimize aggressively. Use model pruning to remove unnecessary parameters, quantization to use 8-bit integers instead of 32-bit floats, and optimize inference with frameworks like TensorRT or ONNX Runtime. Choose efficient backbones like MobileNet or EfficientNet instead of ResNet-101.\n\n**Domain Adaptation** - Models trained on standard datasets like COCO might struggle in your specific domain. Satellite imagery looks different from street photos. Security camera footage has different characteristics than smartphone pictures. Always fine-tune on domain-specific data.\n\n**Evaluation Metrics** - Mean Average Precision (mAP) is the standard metric. It measures both localization accuracy (via IoU thresholds) and classification accuracy (via precision-recall curves) across all classes. Understanding mAP@0.5 versus mAP@0.5:0.95 helps you know if your model localizes precisely or just roughly."
       }
     ],
-
     "summary": "Object detection extends classification by not just identifying what's in an image, but also locating where each object is with bounding boxes. Key concepts include IoU for measuring box overlap and anchor boxes as prediction starting points. YOLO pioneered one-stage detection, predicting all objects in a single forward pass for real-time performance. Two-stage detectors like Faster R-CNN prioritize accuracy with separate region proposal and classification stages. Practical challenges include class imbalance, small object detection, occlusion handling, and meeting real-time speed requirements. Success requires choosing the right architecture for your speed-accuracy needs and fine-tuning on domain-specific data.",
-
     "keyTakeaways": [
       "Object detection predicts what objects exist and where they're located via bounding boxes",
       "IoU measures box overlap quality; anchor boxes provide prediction starting points",
@@ -47,7 +46,6 @@
       "Practical challenges include small objects, occlusion, class imbalance, and domain adaptation"
     ]
   },
-
   "quiz": [
     {
       "id": "q1",
@@ -102,13 +100,11 @@
       "explanation": "Two-stage detectors like Faster R-CNN typically achieve higher accuracy, especially on small objects and crowded scenes, but are slower (5-15 FPS). Choose them when precision matters more than speed, such as medical diagnosis or high-precision quality control. For real-time applications, one-stage detectors are better."
     }
   ],
-
   "audioUrls": {
-    "full": null,
+    "full": "/audio/lessons/cv-02.mp3",
     "summary": null,
     "sections": {}
   },
-
   "metadata": {
     "author": "AdaptLearn",
     "source": "Adapted from YOLO papers and fast.ai computer vision course",

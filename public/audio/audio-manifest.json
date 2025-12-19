@@ -1,0 +1,257 @@
+{
+  "generatedAt": "2025-12-19T02:58:02.831Z",
+  "lessons": {
+    "ai-tools-01": {
+      "audioFile": "/audio/lessons/ai-tools-01.mp3",
+      "contentHash": "b43ab4eb6b64",
+      "generatedAt": "2025-12-19T00:11:45.592Z",
+      "fileSize": 8064985
+    },
+    "ai-tools-02": {
+      "audioFile": "/audio/lessons/ai-tools-02.mp3",
+      "contentHash": "993da93371f4",
+      "generatedAt": "2025-12-19T00:14:26.732Z",
+      "fileSize": 12014699
+    },
+    "business-ai-01": {
+      "audioFile": "/audio/lessons/business-ai-01.mp3",
+      "contentHash": "adaadfa3600c",
+      "generatedAt": "2025-12-19T00:16:30.490Z",
+      "fileSize": 8340420
+    },
+    "business-ai-02": {
+      "audioFile": "/audio/lessons/business-ai-02.mp3",
+      "contentHash": "a75af0c894cf",
+      "generatedAt": "2025-12-19T00:19:22.631Z",
+      "fileSize": 12879039
+    },
+    "ai-tools-03": {
+      "audioFile": "/audio/lessons/ai-tools-03.mp3",
+      "contentHash": "4372b5bd82ce",
+      "generatedAt": "2025-12-19T00:24:30.736Z",
+      "fileSize": 15050382
+    },
+    "ai-tools-04": {
+      "audioFile": "/audio/lessons/ai-tools-04.mp3",
+      "contentHash": "2ff9612b6668",
+      "generatedAt": "2025-12-19T00:28:57.723Z",
+      "fileSize": 19912082
+    },
+    "ml-fundamentals-01": {
+      "audioFile": "/audio/lessons/ml-fundamentals-01.mp3",
+      "contentHash": "2bbbdc5f87ec",
+      "generatedAt": "2025-12-19T00:30:30.067Z",
+      "fileSize": 3744123
+    },
+    "business-ai-03": {
+      "audioFile": "/audio/lessons/business-ai-03.mp3",
+      "contentHash": "7444347b8363",
+      "generatedAt": "2025-12-19T01:35:15.853Z",
+      "fileSize": 14923740
+    },
+    "cv-01": {
+      "audioFile": "/audio/lessons/cv-01.mp3",
+      "contentHash": "c36b3784752d",
+      "generatedAt": "2025-12-19T01:37:40.344Z",
+      "fileSize": 10425618
+    },
+    "cv-02": {
+      "audioFile": "/audio/lessons/cv-02.mp3",
+      "contentHash": "9a8bdbfed8df",
+      "generatedAt": "2025-12-19T01:40:35.114Z",
+      "fileSize": 12782535
+    },
+    "cv-03": {
+      "audioFile": "/audio/lessons/cv-03.mp3",
+      "contentHash": "e59c84a41521",
+      "generatedAt": "2025-12-19T01:43:37.400Z",
+      "fileSize": 13225989
+    },
+    "deep-learning-01": {
+      "audioFile": "/audio/lessons/deep-learning-01.mp3",
+      "contentHash": "c757c9bec626",
+      "generatedAt": "2025-12-19T01:45:34.903Z",
+      "fileSize": 8726196
+    },
+    "deep-learning-02": {
+      "audioFile": "/audio/lessons/deep-learning-02.mp3",
+      "contentHash": "363d29cf5cbe",
+      "generatedAt": "2025-12-19T01:48:10.570Z",
+      "fileSize": 11815751
+    },
+    "deep-learning-03": {
+      "audioFile": "/audio/lessons/deep-learning-03.mp3",
+      "contentHash": "3cb6e6e4fed9",
+      "generatedAt": "2025-12-19T01:51:31.531Z",
+      "fileSize": 15004824
+    },
+    "deep-learning-04": {
+      "audioFile": "/audio/lessons/deep-learning-04.mp3",
+      "contentHash": "43d8c9252189",
+      "generatedAt": "2025-12-19T01:55:43.418Z",
+      "fileSize": 19053594
+    },
+    "deep-learning-05": {
+      "audioFile": "/audio/lessons/deep-learning-05.mp3",
+      "contentHash": "d95e2b81781b",
+      "generatedAt": "2025-12-19T02:01:30.167Z",
+      "fileSize": 25434205
+    },
+    "ethics-01": {
+      "audioFile": "/audio/lessons/ethics-01.mp3",
+      "contentHash": "227c5751a232",
+      "generatedAt": "2025-12-19T02:03:27.631Z",
+      "fileSize": 8725360
+    },
+    "ethics-02": {
+      "audioFile": "/audio/lessons/ethics-02.mp3",
+      "contentHash": "73fee91803ae",
+      "generatedAt": "2025-12-19T02:06:11.505Z",
+      "fileSize": 12119233
+    },
+    "ethics-03": {
+      "audioFile": "/audio/lessons/ethics-03.mp3",
+      "contentHash": "dc7a050e9ff9",
+      "generatedAt": "2025-12-19T02:09:24.342Z",
+      "fileSize": 14200670
+    },
+    "ethics-04": {
+      "audioFile": "/audio/lessons/ethics-04.mp3",
+      "contentHash": "e57fcc4e6a6b",
+      "generatedAt": "2025-12-19T02:13:32.826Z",
+      "fileSize": 18374410
+    },
+    "gen-ai-01": {
+      "audioFile": "/audio/lessons/gen-ai-01.mp3",
+      "contentHash": "7a43ea62a6e2",
+      "generatedAt": "2025-12-19T02:15:16.577Z",
+      "fileSize": 7753605
+    },
+    "gen-ai-02": {
+      "audioFile": "/audio/lessons/gen-ai-02.mp3",
+      "contentHash": "71c084c0b739",
+      "generatedAt": "2025-12-19T02:17:21.858Z",
+      "fileSize": 9221060
+    },
+    "gen-ai-03": {
+      "audioFile": "/audio/lessons/gen-ai-03.mp3",
+      "contentHash": "ab705dcc4173",
+      "generatedAt": "2025-12-19T02:20:02.436Z",
+      "fileSize": 11957483
+    },
+    "gen-ai-04": {
+      "audioFile": "/audio/lessons/gen-ai-04.mp3",
+      "contentHash": "7e14493a03f0",
+      "generatedAt": "2025-12-19T02:22:59.199Z",
+      "fileSize": 13152428
+    },
+    "gen-ai-05": {
+      "audioFile": "/audio/lessons/gen-ai-05.mp3",
+      "contentHash": "52e200d7dc7a",
+      "generatedAt": "2025-12-19T02:27:29.498Z",
+      "fileSize": 20282812
+    },
+    "ml-fundamentals-02": {
+      "audioFile": "/audio/lessons/ml-fundamentals-02.mp3",
+      "contentHash": "c491ceef7edc",
+      "generatedAt": "2025-12-19T02:28:45.610Z",
+      "fileSize": 5554722
+    },
+    "ml-fundamentals-03": {
+      "audioFile": "/audio/lessons/ml-fundamentals-03.mp3",
+      "contentHash": "21fba633f182",
+      "generatedAt": "2025-12-19T02:30:06.100Z",
+      "fileSize": 5981458
+    },
+    "ml-fundamentals-04": {
+      "audioFile": "/audio/lessons/ml-fundamentals-04.mp3",
+      "contentHash": "c21415cd154d",
+      "generatedAt": "2025-12-19T02:31:42.891Z",
+      "fileSize": 7130846
+    },
+    "ml-fundamentals-05": {
+      "audioFile": "/audio/lessons/ml-fundamentals-05.mp3",
+      "contentHash": "cbf12499f79d",
+      "generatedAt": "2025-12-19T02:33:24.802Z",
+      "fileSize": 7364903
+    },
+    "ml-fundamentals-06": {
+      "audioFile": "/audio/lessons/ml-fundamentals-06.mp3",
+      "contentHash": "366016295fd3",
+      "generatedAt": "2025-12-19T02:35:51.330Z",
+      "fileSize": 11080142
+    },
+    "nlp-fundamentals-01": {
+      "audioFile": "/audio/lessons/nlp-fundamentals-01.mp3",
+      "contentHash": "cceffe939c92",
+      "generatedAt": "2025-12-19T02:37:20.111Z",
+      "fileSize": 6467963
+    },
+    "nlp-fundamentals-02": {
+      "audioFile": "/audio/lessons/nlp-fundamentals-02.mp3",
+      "contentHash": "5eac11319927",
+      "generatedAt": "2025-12-19T02:38:52.789Z",
+      "fileSize": 6737129
+    },
+    "nlp-fundamentals-03": {
+      "audioFile": "/audio/lessons/nlp-fundamentals-03.mp3",
+      "contentHash": "eda6d0af8a50",
+      "generatedAt": "2025-12-19T02:40:30.345Z",
+      "fileSize": 7196048
+    },
+    "nlp-fundamentals-04": {
+      "audioFile": "/audio/lessons/nlp-fundamentals-04.mp3",
+      "contentHash": "7b031068c107",
+      "generatedAt": "2025-12-19T02:42:24.957Z",
+      "fileSize": 8548564
+    },
+    "practical-ai-01": {
+      "audioFile": "/audio/lessons/practical-ai-01.mp3",
+      "contentHash": "65bda49baf4c",
+      "generatedAt": "2025-12-19T02:44:11.784Z",
+      "fileSize": 7962167
+    },
+    "practical-ai-02": {
+      "audioFile": "/audio/lessons/practical-ai-02.mp3",
+      "contentHash": "029cf08a0337",
+      "generatedAt": "2025-12-19T02:46:15.664Z",
+      "fileSize": 9379885
+    },
+    "practical-ai-03": {
+      "audioFile": "/audio/lessons/practical-ai-03.mp3",
+      "contentHash": "048f7ea38df5",
+      "generatedAt": "2025-12-19T02:48:33.217Z",
+      "fileSize": 9683323
+    },
+    "practical-ai-04": {
+      "audioFile": "/audio/lessons/practical-ai-04.mp3",
+      "contentHash": "ec583776f825",
+      "generatedAt": "2025-12-19T02:50:50.616Z",
+      "fileSize": 10054053
+    },
+    "prompting-01": {
+      "audioFile": "/audio/lessons/prompting-01.mp3",
+      "contentHash": "9ccaad2684a6",
+      "generatedAt": "2025-12-19T02:52:15.328Z",
+      "fileSize": 6173720
+    },
+    "prompting-02": {
+      "audioFile": "/audio/lessons/prompting-02.mp3",
+      "contentHash": "7b2677c7a2e1",
+      "generatedAt": "2025-12-19T02:53:56.016Z",
+      "fileSize": 6741308
+    },
+    "prompting-03": {
+      "audioFile": "/audio/lessons/prompting-03.mp3",
+      "contentHash": "4ee59ba42463",
+      "generatedAt": "2025-12-19T02:55:52.187Z",
+      "fileSize": 8187447
+    },
+    "prompting-04": {
+      "audioFile": "/audio/lessons/prompting-04.mp3",
+      "contentHash": "1f3b8a327784",
+      "generatedAt": "2025-12-19T02:58:02.830Z",
+      "fileSize": 9941622
+    }
+  }
+}
