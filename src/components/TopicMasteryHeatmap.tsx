@@ -22,10 +22,10 @@ export default function TopicMasteryHeatmap({ analysis }: TopicMasteryHeatmapPro
       {/* Overall Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <StatBadge
-          value={analysis.overallMastery}
+          value={Math.min(100, analysis.overallMastery)}
           label="Overall Mastery"
           suffix="%"
-          color={analysis.overallMastery >= MASTERY_THRESHOLD ? '#10B981' : '#F59E0B'}
+          color={Math.min(100, analysis.overallMastery) >= MASTERY_THRESHOLD ? '#10B981' : '#F59E0B'}
         />
         <StatBadge
           value={analysis.masteredTopics}
@@ -132,7 +132,7 @@ function TopicCard({ topic }: { topic: TopicGap }) {
         <div
           className="h-full rounded-full transition-all duration-500"
           style={{
-            width: `${topic.score}%`,
+            width: `${Math.min(100, topic.score)}%`,
             backgroundColor: color,
           }}
         />
@@ -142,7 +142,7 @@ function TopicCard({ topic }: { topic: TopicGap }) {
         <span className="text-slate-400">
           {topic.lessonsCompleted} lesson{topic.lessonsCompleted !== 1 ? 's' : ''} completed
         </span>
-        <span style={{ color }}>{topic.score}%</span>
+        <span style={{ color }}>{Math.min(100, topic.score)}%</span>
       </div>
 
       {/* Review Links */}

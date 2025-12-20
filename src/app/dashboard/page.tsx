@@ -568,7 +568,7 @@ function RecentQuizResults({ results }: { results: Record<string, { lessonId: st
   return (
     <div className="space-y-3">
       {sortedResults.map(result => {
-        const percentage = Math.round((result.score / result.totalQuestions) * 100);
+        const percentage = Math.min(100, Math.round((Math.min(result.score, result.totalQuestions) / result.totalQuestions) * 100));
         const isPassing = percentage >= 70;
         return (
           <Link key={result.lessonId} href={`/lesson/${result.lessonId}`} className="block group">
@@ -585,7 +585,7 @@ function RecentQuizResults({ results }: { results: Record<string, { lessonId: st
                   {formatLessonName(result.lessonId)}
                 </p>
                 <p className="text-slate-500 text-xs">
-                  {result.score}/{result.totalQuestions} correct
+                  {Math.min(result.score, result.totalQuestions)}/{result.totalQuestions} correct
                 </p>
               </div>
               {isPassing ? (
@@ -609,12 +609,12 @@ function KnowledgeInsights({ progress }: { progress: UserProgress }) {
 
   if (totalQuizzes === 0) return null;
 
-  const totalScore = results.reduce((sum, r) => sum + r.score, 0);
+  const totalScore = results.reduce((sum, r) => sum + Math.min(r.score, r.totalQuestions), 0);
   const totalQuestions = results.reduce((sum, r) => sum + r.totalQuestions, 0);
-  const averageScore = Math.round((totalScore / totalQuestions) * 100);
+  const averageScore = Math.min(100, Math.round((totalScore / totalQuestions) * 100));
 
-  const needsReview = results.filter(r => (r.score / r.totalQuestions) < 0.7);
-  const mastered = results.filter(r => (r.score / r.totalQuestions) >= 0.9);
+  const needsReview = results.filter(r => (Math.min(r.score, r.totalQuestions) / r.totalQuestions) < 0.7);
+  const mastered = results.filter(r => (Math.min(r.score, r.totalQuestions) / r.totalQuestions) >= 0.9);
 
   return (
     <div className="space-y-4">
@@ -673,7 +673,7 @@ function QuickLessonOptions({
       if (l === excludeLesson) return false;
       const result = progress.quizResults[l];
       if (!result) return false;
-      return (result.score / result.totalQuestions) < 0.7;
+      return (Math.min(result.score, result.totalQuestions) / result.totalQuestions) < 0.7;
     })
     .slice(0, 2);
 
@@ -693,7 +693,7 @@ function QuickLessonOptions({
           <div className="space-y-2">
             {reviewLessons.map(lessonId => {
               const result = progress.quizResults[lessonId];
-              const score = result ? Math.round((result.score / result.totalQuestions) * 100) : 0;
+              const score = result ? Math.min(100, Math.round((Math.min(result.score, result.totalQuestions) / result.totalQuestions) * 100)) : 0;
               return (
                 <Link
                   key={lessonId}

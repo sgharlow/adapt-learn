@@ -141,7 +141,7 @@ export default function PathProgress({ path, progress, compact = false }: PathPr
                     )}
                     {isCompleted && progress.quizResults?.[lessonId] && (
                       <p className="text-sm text-slate-500">
-                        Quiz: {Math.round((progress.quizResults[lessonId].score / progress.quizResults[lessonId].totalQuestions) * 100)}%
+                        Quiz: {Math.min(100, Math.round((Math.min(progress.quizResults[lessonId].score, progress.quizResults[lessonId].totalQuestions) / progress.quizResults[lessonId].totalQuestions) * 100))}%
                       </p>
                     )}
                   </div>

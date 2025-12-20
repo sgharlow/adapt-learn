@@ -202,7 +202,7 @@ export function calculateStats(progress: UserProgress) {
   const quizResults = Object.values(progress.quizResults);
   let averageScore = 0;
   if (quizResults.length > 0) {
-    const totalScore = quizResults.reduce((sum, r) => sum + (r.score / r.totalQuestions) * 100, 0);
+    const totalScore = quizResults.reduce((sum, r) => sum + (Math.min(r.score, r.totalQuestions) / r.totalQuestions) * 100, 0);
     averageScore = Math.round(totalScore / quizResults.length);
   }
 
@@ -211,9 +211,9 @@ export function calculateStats(progress: UserProgress) {
     .filter(t => t.score >= 70).length;
   const totalTopics = Object.keys(progress.topicMastery).length;
 
-  // Overall mastery percentage
+  // Overall mastery percentage (capped at 100)
   const overallMastery = totalTopics > 0
-    ? Math.round(Object.values(progress.topicMastery).reduce((sum, t) => sum + t.score, 0) / totalTopics)
+    ? Math.min(100, Math.round(Object.values(progress.topicMastery).reduce((sum, t) => sum + Math.min(100, t.score), 0) / totalTopics))
     : 0;
 
   return {

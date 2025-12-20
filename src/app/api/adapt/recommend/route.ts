@@ -135,7 +135,7 @@ function getEnhancedRecommendation(
     const result = quizResults[reviewLesson];
     const score = Math.round((result.score / result.totalQuestions) * 100);
     const details = lessonDetails[reviewLesson] || { title: reviewLesson, topic: 'General', prerequisites: [] };
-    const topicMastery = progress.topicMastery[details.topic]?.score || null;
+    const topicMastery = progress.topicMastery[details.topic]?.score ? Math.min(100, progress.topicMastery[details.topic].score) : null;
 
     return {
       nextLesson: reviewLesson,
@@ -175,7 +175,7 @@ function getEnhancedRecommendation(
     const result = quizResults[reviewLesson];
     const score = Math.round((result.score / result.totalQuestions) * 100);
     const details = lessonDetails[reviewLesson] || { title: reviewLesson, topic: 'General', prerequisites: [] };
-    const topicMastery = progress.topicMastery[details.topic]?.score || null;
+    const topicMastery = progress.topicMastery[details.topic]?.score ? Math.min(100, progress.topicMastery[details.topic].score) : null;
 
     // Offer to continue OR review
     const alternatives: AlternativeLesson[] = [];
@@ -207,7 +207,7 @@ function getEnhancedRecommendation(
   // Priority 4: Continue to next lesson in path
   if (nextInPath) {
     const details = lessonDetails[nextInPath] || { title: nextInPath, topic: 'General', prerequisites: [] };
-    const topicMastery = progress.topicMastery[details.topic]?.score || null;
+    const topicMastery = progress.topicMastery[details.topic]?.score ? Math.min(100, progress.topicMastery[details.topic].score) : null;
     const isNewTopic = !completedLessons.some(l => lessonTopicMap[l] === details.topic);
 
     const alternatives: AlternativeLesson[] = [];
@@ -246,7 +246,7 @@ function getEnhancedRecommendation(
   if (gapAnalysis.recommendations.length > 0) {
     const gapRec = gapAnalysis.recommendations[0];
     const details = lessonDetails[gapRec.lessonId] || { title: gapRec.lessonId, topic: gapRec.topic, prerequisites: [] };
-    const topicMastery = progress.topicMastery[gapRec.topic]?.score || null;
+    const topicMastery = progress.topicMastery[gapRec.topic]?.score ? Math.min(100, progress.topicMastery[gapRec.topic].score) : null;
 
     return {
       nextLesson: gapRec.lessonId,

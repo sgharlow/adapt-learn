@@ -138,10 +138,10 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
     const existingMastery = progress.topicMastery[topic];
 
     if (existingMastery) {
-      // Average with previous score for this topic
+      // Average with previous score for this topic (capped at 100)
       progress.topicMastery[topic] = {
         topic,
-        score: Math.round((existingMastery.score + percentage) / 2),
+        score: Math.min(100, Math.round((Math.min(100, existingMastery.score) + percentage) / 2)),
         lessonsCompleted: (existingMastery.lessonsCompleted || 1) + 1,
         totalLessons: existingMastery.totalLessons || 1,
         lastUpdated: new Date().toISOString(),
@@ -149,7 +149,7 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
     } else {
       progress.topicMastery[topic] = {
         topic,
-        score: percentage,
+        score: Math.min(100, percentage),
         lessonsCompleted: 1,
         totalLessons: 1,
         lastUpdated: new Date().toISOString(),

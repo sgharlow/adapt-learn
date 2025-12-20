@@ -81,7 +81,7 @@ export function calculateTopicMastery(
 
   for (const [lessonId, result] of Object.entries(quizResults)) {
     const topic = lessonTopicMap[lessonId] || 'General';
-    const percentage = Math.round((result.score / result.totalQuestions) * 100);
+    const percentage = Math.min(100, Math.round((Math.min(result.score, result.totalQuestions) / result.totalQuestions) * 100));
 
     if (!topicScores[topic]) {
       topicScores[topic] = { total: 0, count: 0, lessons: 0 };
@@ -145,7 +145,7 @@ export function analyzeGaps(
       topicGap.lessonsNeededForReview = topicLessons.filter(lessonId => {
         const result = progress.quizResults[lessonId];
         if (!result) return false;
-        const percentage = (result.score / result.totalQuestions) * 100;
+        const percentage = Math.min(100, (Math.min(result.score, result.totalQuestions) / result.totalQuestions) * 100);
         return percentage < MASTERY_THRESHOLD;
       });
     }

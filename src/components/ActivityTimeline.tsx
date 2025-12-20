@@ -60,8 +60,8 @@ function ActivityItem({ activity, isLast }: { activity: ActivityLogEntry; isLast
           {activity.score !== undefined && activity.totalQuestions && (
             <>
               <span>•</span>
-              <span className={activity.score / activity.totalQuestions >= 0.7 ? 'text-green-400' : 'text-yellow-400'}>
-                {Math.round((activity.score / activity.totalQuestions) * 100)}%
+              <span className={Math.min(activity.score, activity.totalQuestions) / activity.totalQuestions >= 0.7 ? 'text-green-400' : 'text-yellow-400'}>
+                {Math.min(100, Math.round((Math.min(activity.score, activity.totalQuestions) / activity.totalQuestions) * 100))}%
               </span>
             </>
           )}
@@ -119,7 +119,7 @@ function getActivityConfig(activity: ActivityLogEntry) {
 
     case 'quiz_completed':
       const score = activity.score && activity.totalQuestions
-        ? Math.round((activity.score / activity.totalQuestions) * 100)
+        ? Math.min(100, Math.round((Math.min(activity.score, activity.totalQuestions) / activity.totalQuestions) * 100))
         : 0;
       const isPassing = score >= 70;
       return {
