@@ -48,7 +48,7 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
   const [isLoading, setIsLoading] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [isGeneratingAudio, setIsGeneratingAudio] = useState(false);
-  const [autoPlayAudio, setAutoPlayAudio] = useState(true);
+  const [autoPlayAudio, setAutoPlayAudio] = useState(false); // Default to text-first, audio on-demand
   const [error, setError] = useState<{ message: string; retryable: boolean } | null>(null);
   const [lastResponse, setLastResponse] = useState<string | null>(null);
   const [playbackSpeed, setPlaybackSpeed] = useState(1);

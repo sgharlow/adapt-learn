@@ -94,43 +94,20 @@ export default function RecommendationCard({
     ),
   };
 
-  const playVoiceAnnouncement = useCallback(async () => {
-    if (isPlayingVoice) return;
+  // Check if Web Speech API is available (no ElevenLabs API fallback - text-only if unavailable)
+  const canPlayVoice = typeof window !== 'undefined' && 'speechSynthesis' in window;
+
+  const playVoiceAnnouncement = useCallback(() => {
+    if (isPlayingVoice || !canPlayVoice) return;
 
     setIsPlayingVoice(true);
-    try {
-      // Use Web Speech API for quick announcement
-      if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(recommendation.voiceAnnouncement);
-        utterance.rate = 1.0;
-        utterance.pitch = 1.0;
-        utterance.onend = () => setIsPlayingVoice(false);
-        utterance.onerror = () => setIsPlayingVoice(false);
-        speechSynthesis.speak(utterance);
-      } else {
-        // Fallback: try to generate audio via API
-        const response = await fetch('/api/audio/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: recommendation.voiceAnnouncement }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          if (data.audioUrl) {
-            const audio = new Audio(data.audioUrl);
-            audio.onended = () => setIsPlayingVoice(false);
-            audio.onerror = () => setIsPlayingVoice(false);
-            await audio.play();
-          }
-        }
-        setIsPlayingVoice(false);
-      }
-    } catch (error) {
-      console.error('Error playing voice announcement:', error);
-      setIsPlayingVoice(false);
-    }
-  }, [recommendation.voiceAnnouncement, isPlayingVoice]);
+    const utterance = new SpeechSynthesisUtterance(recommendation.voiceAnnouncement);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.onend = () => setIsPlayingVoice(false);
+    utterance.onerror = () => setIsPlayingVoice(false);
+    speechSynthesis.speak(utterance);
+  }, [recommendation.voiceAnnouncement, isPlayingVoice, canPlayVoice]);
 
   const config = priorityConfig[recommendation.priority];
   const icon = reasoningIcons[recommendation.reasoningType];
@@ -154,8 +131,8 @@ export default function RecommendationCard({
           </div>
         </div>
 
-        {/* Voice button */}
-        {showVoice && (
+        {/* Voice button - only show if Web Speech API available */}
+        {showVoice && canPlayVoice && (
           <button
             onClick={playVoiceAnnouncement}
             disabled={isPlayingVoice}
