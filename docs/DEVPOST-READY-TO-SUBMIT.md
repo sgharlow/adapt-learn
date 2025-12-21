@@ -1,7 +1,7 @@
 # AdaptLearn - DevPost Submission (READY TO SUBMIT)
 
 **Deadline:** December 31, 2025 @ 2:00pm PST (9 days remaining)
-**Last Updated:** December 22, 2025
+**Last Updated:** December 22, 2025 (added merger market context)
 
 ---
 
@@ -35,11 +35,26 @@ Learn AI like you listen to podcasts — personalized audio lessons that adapt t
 
 ### The Problem
 
-Learning AI and machine learning is challenging. Traditional resources are text-heavy, require dedicated screen time, and follow a one-size-fits-all approach. Busy professionals, commuters, and multitaskers are left behind. Meanwhile, podcast listeners have proven that audio learning is powerful — but there's no "Duolingo for AI" that combines audio-first learning with adaptive personalization.
+Learning AI and machine learning is challenging. Traditional resources are text-heavy, require dedicated screen time, and follow a one-size-fits-all approach. Busy professionals, commuters, and multitaskers are left behind.
+
+The online education landscape just consolidated dramatically — Coursera is acquiring Udemy in a $2.5 billion merger, creating a 270-million-learner giant focused on enterprise workforce training. But this consolidation leaves critical gaps:
+
+- **Discovery overwhelm:** Tens of thousands of courses with no personalized guidance
+- **Enterprise focus:** Platforms optimizing for corporate L&D, not individual learners
+- **Screen-bound content:** Traditional video lectures that don't fit modern lifestyles
+- **One-size-fits-all:** No true adaptive learning at scale
+
+Meanwhile, podcast listeners have proven that audio learning is powerful — but there's no "Duolingo for AI" that combines audio-first learning with adaptive personalization.
+
+### Why Now?
+
+As education giants consolidate around enterprise sales and video content, a massive opportunity emerges for accessible, personalized learning experiences. We're building what the giants can't: voice-first education that adapts to YOU, not your employer's training budget.
 
 ### Our Solution
 
 **AdaptLearn** reimagines AI education as a voice-first experience. Think Duolingo meets NotebookLM — every lesson is available as natural, engaging audio powered by ElevenLabs, while Google Gemini provides intelligent Q&A and adaptive recommendations.
+
+While platforms consolidate around enterprise, we pioneer accessible voice-first learning for individuals.
 
 ### Key Features
 
@@ -145,11 +160,17 @@ Gemini powers our intelligent features:
 - Mobile app (React Native)
 - Additional lessons in emerging AI topics
 
-### Long-Term
-- Multi-voice podcast-style discussions
-- Community-contributed content
-- Enterprise training integration
-- Additional subject areas (data science, cloud, etc.)
+### Long-Term Vision
+
+As education giants consolidate around enterprise B2B, we see a future where individual learners deserve better:
+
+- **Multi-voice podcast-style discussions** — AI experts debating concepts in your ears
+- **Community-contributed content** — Democratizing AI education creation
+- **Cross-platform integration** — Learn from the best content regardless of source
+- **Expanded subjects** — Data science, cloud computing, cybersecurity
+- **Accessibility-first** — Serving learners underserved by screen-based platforms
+
+The $2.5B Coursera-Udemy merger validates the AI education market. We're building the personalized, accessible alternative that individuals deserve.
 
 ---
 
