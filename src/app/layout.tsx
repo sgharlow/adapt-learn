@@ -24,11 +24,20 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "AdaptLearn",
+    images: [
+      {
+        url: "https://adapt-learn-rosy.vercel.app/og-image.png",
+        width: 1280,
+        height: 720,
+        alt: "AdaptLearn - Voice-First AI Learning Platform",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AdaptLearn - Voice-First AI Learning",
     description: "Learn AI like you listen to podcasts. Personalized audio lessons powered by ElevenLabs.",
+    images: ["https://adapt-learn-rosy.vercel.app/og-image.png"],
   },
 };
 

@@ -346,7 +346,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ## Author
 
-Built by [Your Name] for the AI Partner Catalyst Hackathon 2025.
+Built by Shawn Gharib for the AI Partner Catalyst Hackathon 2025.
 
 ---
 
