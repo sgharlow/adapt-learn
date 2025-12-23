@@ -16,8 +16,8 @@ Built for the **AI Partner Catalyst Hackathon — ElevenLabs Track**
 
 ## Demo
 
-- **Live Demo:** [Coming Soon]
-- **Demo Video:** [YouTube Link]
+- **Live Demo:** [https://adapt-learn-rosy.vercel.app](https://adapt-learn-rosy.vercel.app)
+- **Demo Video:** Coming soon (YouTube upload pending)
 
 ### Quick Demo URLs
 

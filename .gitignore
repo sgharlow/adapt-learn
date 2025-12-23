@@ -41,3 +41,11 @@ status.txt
 
 .vercel
 # Trigger rebuild
+
+# Generated audio files (too large for git, regenerate with scripts/generate-audio.ts)
+/public/audio/lessons/
+
+# Demo recordings (local only)
+/recordings/
+*.mp4
+*.webm
