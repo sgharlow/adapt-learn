@@ -39,7 +39,7 @@
 
 **[Screen: Homepage]**
 
-> "Hi, I'm [Your Name], and this is AdaptLearn - a voice-first AI learning platform that makes learning AI as easy as listening to a podcast.
+> "Hi, I'm Steve Harlow, and this is AdaptLearn - a voice-first AI learning platform that makes learning AI as easy as listening to a podcast.
 >
 > The problem we're solving: Most people want to learn AI but don't have time to sit through long video courses. AdaptLearn lets you learn during your commute, at the gym, or while cooking dinner.
 >
@@ -235,7 +235,7 @@ Key Features:
 3. 4 learning paths from beginner to advanced
 4. Adaptive learning with quizzes and progress tracking
 
-GitHub: [Your repo URL if public]
+GitHub: https://github.com/sgharlow/adapt-learn
 ```
 
 ---

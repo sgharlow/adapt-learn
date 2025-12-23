@@ -217,7 +217,7 @@ The dashboard shows your progress, celebrates milestones, and provides AI-powere
 
 ## Team
 
-[Your name/team info here]
+Steve Harlow (sgharlow@gmail.com)
 
 ---
 

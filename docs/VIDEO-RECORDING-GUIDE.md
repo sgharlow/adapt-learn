@@ -252,7 +252,7 @@ Scenes 1-8 as recorded
 
 [Closing Card - 3s]
 ElevenLabs + Google Gemini
-github.com/[your-repo]
+github.com/sgharlow/adapt-learn
 ```
 
 ### Suggested Transitions

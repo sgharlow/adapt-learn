@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   title: "AdaptLearn - Voice-First AI Learning",
   description: "Learn AI like you listen to podcasts. Personalized audio lessons that adapt to your knowledge gaps. Powered by ElevenLabs and Google Gemini.",
   keywords: ["AI learning", "voice learning", "ElevenLabs", "machine learning", "adaptive learning", "audio courses"],
-  authors: [{ name: "AdaptLearn Team" }],
+  authors: [{ name: "Steve Harlow" }],
   openGraph: {
     title: "AdaptLearn - Voice-First AI Learning",
     description: "Learn AI like you listen to podcasts. Personalized audio lessons powered by ElevenLabs.",

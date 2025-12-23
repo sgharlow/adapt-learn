@@ -109,7 +109,7 @@ AdaptLearn reimagines AI education as a **voice-first experience**. Every lesson
 
 ```bash
 # Clone the repository
-git clone https://github.com/[your-username]/adapt-learn.git
+git clone https://github.com/sgharlow/adapt-learn.git
 cd adapt-learn
 
 # Install dependencies
@@ -346,7 +346,7 @@ MIT License - See [LICENSE](LICENSE) for details.
 
 ## Author
 
-Built by Shawn Gharib for the AI Partner Catalyst Hackathon 2025.
+Built by Steve Harlow for the AI Partner Catalyst Hackathon 2025.
 
 ---
 

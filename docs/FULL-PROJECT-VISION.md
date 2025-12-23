@@ -373,5 +373,5 @@ AdaptLearn transforms how professionals learn AI by:
 
 *Document Version: 1.0*
 *Created: December 13, 2025*
-*Author: AdaptLearn Team*
+*Author: Steve Harlow*
 *Classification: Strategic Planning*
