@@ -11,7 +11,7 @@
 |-------|-----|
 | **Live Demo** | https://adapt-learn-rosy.vercel.app |
 | **GitHub Repo** | https://github.com/sgharlow/adapt-learn |
-| **Demo Video** | [PENDING - video not yet recorded] |
+| **Demo Video** | [PENDING - upload demo-recording.mp4 to YouTube] |
 
 ---
 
@@ -206,8 +206,8 @@ ElevenLabs Challenge
 
 ## REMAINING TASKS BEFORE SUBMISSION
 
-- [ ] Make GitHub repository PUBLIC (currently private - causes 404)
-- [ ] Record demo video (3-5 minutes) - OPTIONAL but recommended
+- [x] Make GitHub repository PUBLIC ✅ DONE
+- [x] Record demo video (demo-recording.mp4, 1.4 MB) ✅ DONE
 - [ ] Upload video to YouTube (unlisted)
 - [ ] Fill out DevPost form and submit
 
