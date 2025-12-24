@@ -1,7 +1,7 @@
 # AdaptLearn - DevPost Submission (READY TO SUBMIT)
 
-**Deadline:** December 31, 2025 @ 2:00pm PST (9 days remaining)
-**Last Updated:** December 22, 2025 (added merger market context)
+**Deadline:** December 31, 2025 @ 2:00pm PST (8 days remaining)
+**Last Updated:** December 23, 2025 (final review pass, all assets verified)
 
 ---
 
@@ -26,7 +26,7 @@ AdaptLearn: Voice-First Adaptive AI Learning Platform
 ## FORM FIELD: Tagline (140 characters max)
 
 ```
-Learn AI like you listen to podcasts — personalized audio lessons that adapt to your knowledge gaps.
+Learn AI like you listen to podcasts — adaptive audio lessons that find your gaps.
 ```
 
 ---
@@ -138,7 +138,8 @@ Gemini powers our intelligent features:
 - **Seamless ElevenLabs + Gemini Integration:** Voice synthesis and AI reasoning work together naturally
 - **True Audio-First Experience:** Not just an afterthought — voice is the primary interface
 - **Professional UI/UX:** Polished, responsive design that doesn't feel like a hackathon project
-- **42 Curated Lessons:** Quality content across ML, deep learning, NLP, generative AI, ethics, and more
+- **42 Lessons, 10 Paths, ~12 Hours of Content:** Comprehensive coverage of ML, deep learning, NLP, generative AI, ethics, and more
+- **Production-Ready:** Deployed live at adapt-learn-rosy.vercel.app with real API integrations
 - **Working Adaptive System:** Gap detection and recommendations actually work in practice
 
 ---
@@ -159,6 +160,11 @@ Gemini powers our intelligent features:
 - Spaced repetition for review scheduling
 - Mobile app (React Native)
 - Additional lessons in emerging AI topics
+
+### Business Model
+- **Freemium for individuals** — Core learning paths free, premium content unlocked
+- **Team plans** — For bootcamps, study groups, and corporate training
+- **Content creator partnerships** — Revenue share with AI educators
 
 ### Long-Term Vision
 
@@ -190,7 +196,7 @@ ElevenLabs Challenge
 
 ---
 
-## SCREENSHOTS (already captured - in /screenshots folder)
+## SCREENSHOTS (VERIFIED - all 7 files present in /screenshots folder)
 
 | # | File | Description |
 |---|------|-------------|
@@ -208,7 +214,8 @@ ElevenLabs Challenge
 
 - [x] Make GitHub repository PUBLIC ✅ DONE
 - [x] Record demo video (demo-recording.mp4, 1.4 MB) ✅ DONE
-- [ ] Upload video to YouTube (unlisted)
+- [x] Capture 7 screenshots (all verified present)
+- [ ] **Upload video to YouTube (unlisted)** <- USER ACTION REQUIRED
 - [ ] Fill out DevPost form and submit
 
 ---
@@ -225,4 +232,4 @@ ElevenLabs Challenge
 
 ---
 
-*Ready to submit as of December 22, 2025*
+*Ready to submit as of December 23, 2025 — pending YouTube upload*
