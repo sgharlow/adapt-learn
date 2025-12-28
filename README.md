@@ -267,16 +267,33 @@ Pre-cache audio at `/demo-preload` before recording demos.
 
 ## Screenshots
 
-[Add screenshots here after capture]
+### Landing Page
+![Landing Page Hero](public/screenshots/adapt-learn-01-landing-hero.png)
+*Voice-first AI learning — learn like you listen to podcasts*
 
-1. Landing Page Hero
-2. Learning Paths Selection
-3. Audio Lesson Player
-4. Voice Q&A Chat
-5. Quiz with Feedback
-6. Progress Dashboard
+### Learning Paths
+![Learning Paths Selection](public/screenshots/adapt-learn-02-learning-paths.png)
+*10 curated paths from beginner to specialist*
+
+### Audio Lesson Player
+![Lesson Player](public/screenshots/adapt-learn-03-lesson-player.png)
+*Natural voice synthesis via ElevenLabs with playback controls*
+
+### Voice Q&A
+![AI Chat](public/screenshots/adapt-learn-04-ai-chat.png)
+*Ask questions, get context-aware audio responses powered by Gemini*
+
+### Quiz Assessment
+![Quiz](public/screenshots/adapt-learn-05-quiz.png)
+*Personalized feedback and gap detection*
+
+### Progress Dashboard
+![Dashboard](public/screenshots/adapt-learn-06-dashboard.png)
+*Track streaks, mastery, and learning milestones*
 
 ---
+
+## Deployment
 
 ## Deployment
 
