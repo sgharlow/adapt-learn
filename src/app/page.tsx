@@ -157,7 +157,7 @@ export default function Home() {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto px-4">
             <StatItem value="30+" label="Audio Lessons" />
-            <StatItem value="4" label="Learning Paths" />
+            <StatItem value="10" label="Learning Paths" />
             <StatItem value="AI" label="Powered Tutoring" />
             <StatItem value="100%" label="Free to Use" />
           </div>
@@ -274,7 +274,7 @@ export default function Home() {
             <span className="badge badge-green mb-4">Learning Paths</span>
             <h2 className="section-heading">Choose Your Path</h2>
             <p className="section-subheading">
-              Four carefully crafted learning paths for different experience levels
+              Ten carefully crafted learning paths for different experience levels
             </p>
           </div>
 

@@ -18,6 +18,7 @@ export default function PathPage() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lessonTitles, setLessonTitles] = useState<Record<string, string>>({});
 
   useEffect(() => {
     // Load progress using progress manager
@@ -34,6 +35,12 @@ export default function PathPage() {
         setAllPaths(data.paths);
         const foundPath = data.paths.find(p => p.id === pathId);
         setPath(foundPath || null);
+        
+        // Fetch lesson titles for all lessons in this path
+        if (foundPath) {
+          fetchLessonTitles(foundPath.lessons);
+        }
+        
         setLoading(false);
       })
       .catch((err) => {
@@ -41,6 +48,28 @@ export default function PathPage() {
         setLoading(false);
       });
   }, [pathId]);
+
+  const fetchLessonTitles = async (lessonIds: string[]) => {
+    const titles: Record<string, string> = {};
+    await Promise.all(
+      lessonIds.map(async (lessonId) => {
+        try {
+          const res = await fetch(`/api/lessons/${lessonId}`);
+          if (res.ok) {
+            const lesson = await res.json();
+            titles[lessonId] = lesson.title;
+          }
+        } catch {
+          // If fetch fails, fall back to formatted ID
+        }
+      })
+    );
+    setLessonTitles(titles);
+  };
+
+  const getLessonTitle = (lessonId: string): string => {
+    return lessonTitles[lessonId] || lessonId.replace(/-/g, " ").replace(/\w/g, l => l.toUpperCase());
+  };
 
   const startPath = () => {
     if (!path || path.lessons.length === 0) return;
@@ -248,7 +277,7 @@ export default function PathPage() {
 
                     <div className="flex-1">
                       <p className={`font-medium ${isCompleted ? 'text-green-400' : 'text-white'}`}>
-                        {lessonId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        {getLessonTitle(lessonId)}
                       </p>
                       {isNext && <p className="text-blue-400 text-sm">Up next</p>}
                     </div>

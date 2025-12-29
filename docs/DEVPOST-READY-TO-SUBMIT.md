@@ -7,11 +7,11 @@
 
 ## SUBMISSION URLS
 
-| Field | URL |
-|-------|-----|
-| **Live Demo** | https://adapt-learn-rosy.vercel.app |
-| **GitHub Repo** | https://github.com/sgharlow/adapt-learn |
-| **Demo Video** | [PENDING - upload demo-recording.mp4 to YouTube] |
+| Field           | URL                                              |
+| --------------- | ------------------------------------------------ |
+| **Live Demo**   | https://adapt-learn-rosy.vercel.app              |
+| **GitHub Repo** | https://github.com/sgharlow/adapt-learn          |
+| **Demo Video**  | [PENDING - upload demo-recording.mp4 to YouTube] |
 
 ---
 
@@ -68,6 +68,7 @@ Our gap detection system monitors your quiz performance across topics. Score bel
 Confused about a concept? Just ask! Our AI tutor, powered by Google Gemini, provides context-aware explanations. And yes — the response is spoken back to you using ElevenLabs, maintaining the audio-first experience.
 
 **4. Ten Curated Learning Paths**
+
 - **AI Explorer:** Perfect for beginners — understand AI without coding
 - **AI Practitioner:** For developers ready to build ML applications
 - **AI Specialist:** Deep dive into transformers, LLMs, and advanced topics
@@ -95,18 +96,19 @@ Track your learning journey with visual progress indicators, topic mastery heatm
 
 ### Technology Stack
 
-| Layer | Technology | Purpose |
-|-------|------------|---------|
-| Frontend | Next.js 16, React, TypeScript | Modern web application |
-| Styling | Tailwind CSS | Responsive, polished UI |
-| Voice Synthesis | ElevenLabs API | Natural text-to-speech |
-| AI/LLM | Google Gemini (Vertex AI) | Contextual Q&A, quiz evaluation |
-| State | React Context + localStorage | Client-side progress tracking |
-| Hosting | Vercel | Serverless deployment |
+| Layer           | Technology                    | Purpose                         |
+| --------------- | ----------------------------- | ------------------------------- |
+| Frontend        | Next.js 16, React, TypeScript | Modern web application          |
+| Styling         | Tailwind CSS                  | Responsive, polished UI         |
+| Voice Synthesis | ElevenLabs API                | Natural text-to-speech          |
+| AI/LLM          | Google Gemini (Vertex AI)     | Contextual Q&A, quiz evaluation |
+| State           | React Context + localStorage  | Client-side progress tracking   |
+| Hosting         | Vercel                        | Serverless deployment           |
 
 ### ElevenLabs Integration
 
 We use ElevenLabs' **Multilingual v2** model for all audio generation with optimized voice settings for educational content:
+
 - Text-to-speech for lesson narration
 - Conversational audio for Q&A responses
 - Audio caching for instant playback
@@ -115,6 +117,7 @@ We use ElevenLabs' **Multilingual v2** model for all audio generation with optim
 ### Google Gemini Integration
 
 Gemini powers our intelligent features:
+
 1. **Contextual Q&A:** Questions are answered with lesson context for relevant explanations
 2. **Quiz Evaluation:** Gemini provides personalized feedback on quiz answers
 3. **Adaptive Recommendations:** AI considers gaps, prerequisites, and learning history
@@ -156,12 +159,14 @@ Gemini powers our intelligent features:
 ## FORM FIELD: What's Next
 
 ### Short-Term
+
 - User authentication and cloud persistence
 - Spaced repetition for review scheduling
 - Mobile app (React Native)
 - Additional lessons in emerging AI topics
 
 ### Business Model
+
 - **Freemium for individuals** — Core learning paths free, premium content unlocked
 - **Team plans** — For bootcamps, study groups, and corporate training
 - **Content creator partnerships** — Revenue share with AI educators
@@ -198,17 +203,67 @@ ElevenLabs Challenge
 
 ## SCREENSHOTS (VERIFIED - all 7 files present in /screenshots folder)
 
-| # | File | Description |
-|---|------|-------------|
-| 1 | adapt-learn-01-landing-hero.png | Landing page hero |
-| 2 | adapt-learn-02-learning-paths.png | Learning paths grid |
-| 3 | adapt-learn-03-lesson-player.png | Audio lesson player |
-| 4 | adapt-learn-04-ai-chat.png | Voice Q&A chat |
-| 5 | adapt-learn-05-quiz.png | Quiz with feedback |
-| 6 | adapt-learn-06-dashboard.png | Progress dashboard |
-| 7 | adapt-learn-thumbnail-1280x720.png | Thumbnail for gallery |
+| #   | File                               | Description           |
+| --- | ---------------------------------- | --------------------- |
+| 1   | adapt-learn-01-landing-hero.png    | Landing page hero     |
+| 2   | adapt-learn-02-learning-paths.png  | Learning paths grid   |
+| 3   | adapt-learn-03-lesson-player.png   | Audio lesson player   |
+| 4   | adapt-learn-04-ai-chat.png         | Voice Q&A chat        |
+| 5   | adapt-learn-05-quiz.png            | Quiz with feedback    |
+| 6   | adapt-learn-06-dashboard.png       | Progress dashboard    |
+| 7   | adapt-learn-thumbnail-1280x720.png | Thumbnail for gallery |
 
 ---
+
+Google Generative AI (Gemini API)
+
+- Model: gemini-2.0-flash
+- Used for:
+  - AI-powered Q&A conversational responses (/api/chat/respond)
+  - Intelligent quiz evaluation and personalized feedback (/api/quiz/evaluate)
+  - Adaptive learning recommendations based on knowledge gaps
+- API Endpoint: generativelanguage.googleapis.com
+
+---
+
+AI/Voice Services:
+
+- ElevenLabs API - Text-to-speech for audio lessons (voice: Sarah, model: eleven_multilingual_v2)
+  Frontend Framework:
+
+- Next.js 16.0.10 - React framework with SSR and API routes
+
+- React 18 - UI components and state management
+
+- TypeScript 5 - Type-safe development
+
+- Tailwind CSS 3.4.1 - Styling
+  Browser APIs:
+
+- Web Speech API - Voice input/recognition
+
+- Web Audio API - Audio playback
+
+- localStorage - Client-side progress persistence
+  Deployment & Hosting:
+
+- Vercel - Serverless deployment platform
+  Development Tools:
+
+- Node.js - Runtime for scripts
+
+- ESLint - Code linting
+
+- Playwright 1.57.0 - Browser automation/testing
+
+- PostCSS - CSS processing
+  Content Management:
+
+- JSON-based lesson and learning path storage (42 lessons, 10 learning paths)
+  
+  ---
+  
+  
 
 ## REMAINING TASKS BEFORE SUBMISSION
 
@@ -222,13 +277,13 @@ ElevenLabs Challenge
 
 ## PROJECT STATISTICS
 
-| Metric | Count |
-|--------|-------|
-| Lessons | 42 |
-| Learning Paths | 10 |
-| Screenshots | 7 |
-| React Components | 15+ |
-| API Routes | 6 |
+| Metric           | Count |
+| ---------------- | ----- |
+| Lessons          | 42    |
+| Learning Paths   | 10    |
+| Screenshots      | 7     |
+| React Components | 15+   |
+| API Routes       | 6     |
 
 ---
 
