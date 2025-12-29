@@ -28,7 +28,7 @@
 **Actions:**
 1. Show landing page hero
 2. Scroll to show learning paths section
-3. Highlight the 4 learning paths
+3. Highlight the 10 learning paths
 4. Click "Start Learning Free" or "Take Assessment"
 
 ---

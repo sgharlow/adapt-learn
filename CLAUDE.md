@@ -31,7 +31,7 @@ AdaptLearn is a voice-first adaptive AI learning platform being built for the AI
 ## MVP Features (Must Complete)
 
 1. 30-50 curated AI lessons
-2. 3 learning paths (Explorer, Practitioner, Specialist)
+2. 10 learning paths (Explorer, Practitioner, Specialist, NLP Focus, Generative AI, Prompt Engineering, Computer Vision, AI Ethics, AI Tools, AI for Business)
 3. Audio lesson generation via ElevenLabs
 4. Voice Q&A (ask questions, get audio answers)
 5. Quiz assessment after lessons

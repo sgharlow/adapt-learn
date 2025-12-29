@@ -27,7 +27,7 @@
 ### 2. LEARNING PATHS (20 sec)
 **Show:** Path cards
 
-> "Four learning paths from beginner to specialist. Each has curated audio lessons that build progressively."
+> "Ten learning paths from beginner to specialist. Each has curated audio lessons that build progressively."
 
 **Do:** Click "AI Explorer" path
 

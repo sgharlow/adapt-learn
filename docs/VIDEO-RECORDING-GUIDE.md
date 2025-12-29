@@ -59,7 +59,7 @@ Format: MP4 (H.264)
 |------|----------|--------|--------|
 | 1.1 | 5s | Show landing page hero | "AdaptLearn - voice-first adaptive learning for AI education" |
 | 1.2 | 10s | Scroll to show features | "Think Duolingo meets NotebookLM - personalized audio lessons that adapt to you" |
-| 1.3 | 10s | Show learning paths | "Four curated paths from beginner to specialist" |
+| 1.3 | 10s | Show learning paths | "Ten curated paths from beginner to specialist" |
 | 1.4 | 5s | Click "Start Learning" | "Let's see how it works" |
 
 **Tips:**
