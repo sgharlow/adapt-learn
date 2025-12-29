@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import type { PathsData, LearningPath, UserProgress } from '@/types';
+import { useLessonTitles } from '@/hooks/useLessonTitles';
 
 interface LessonNavigationProps {
   currentLessonId: string;
@@ -11,6 +12,14 @@ interface LessonNavigationProps {
 export default function LessonNavigation({ currentLessonId }: LessonNavigationProps) {
   const [pathData, setPathData] = useState<{ path: LearningPath; index: number } | null>(null);
   const [progress, setProgress] = useState<UserProgress | null>(null);
+
+  // Get all lesson IDs from the path for title fetching
+  const allLessonIds = useMemo(() => {
+    return pathData?.path.lessons || [];
+  }, [pathData]);
+
+  // Fetch lesson titles
+  const { getTitle } = useLessonTitles(allLessonIds);
 
   useEffect(() => {
     // Load user progress to get current path
@@ -83,7 +92,7 @@ export default function LessonNavigation({ currentLessonId }: LessonNavigationPr
           href={`/path/${path.id}`}
           className="text-blue-400 hover:text-blue-300 text-sm"
         >
-          View Full Path →
+          View Full Path -&gt;
         </Link>
       </div>
 
@@ -100,7 +109,7 @@ export default function LessonNavigation({ currentLessonId }: LessonNavigationPr
             <div className="text-left">
               <p className="text-xs text-slate-500 uppercase">Previous</p>
               <p className="text-slate-300 group-hover:text-white transition-colors font-medium truncate">
-                {formatLessonName(prevLesson)}
+                {getTitle(prevLesson)}
               </p>
             </div>
           </Link>
@@ -116,7 +125,7 @@ export default function LessonNavigation({ currentLessonId }: LessonNavigationPr
             <div className="text-right">
               <p className="text-xs text-slate-500 uppercase">Next</p>
               <p className="text-slate-300 group-hover:text-white transition-colors font-medium truncate">
-                {formatLessonName(nextLesson)}
+                {getTitle(nextLesson)}
               </p>
             </div>
             <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -164,7 +173,7 @@ export default function LessonNavigation({ currentLessonId }: LessonNavigationPr
                       ? `${path.color}80`
                       : '#334155',
                 }}
-                title={formatLessonName(lessonId)}
+                title={getTitle(lessonId)}
               />
             );
           })}
@@ -172,12 +181,4 @@ export default function LessonNavigation({ currentLessonId }: LessonNavigationPr
       </div>
     </div>
   );
-}
-
-function formatLessonName(lessonId: string): string {
-  return lessonId
-    .replace(/-/g, ' ')
-    .replace(/(\d+)$/, ' $1')
-    .replace(/\b\w/g, l => l.toUpperCase())
-    .trim();
 }

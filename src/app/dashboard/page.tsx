@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import type { UserProgress, PathsData, LearningPath, Lesson } from '@/types';
 import PathProgress from '@/components/PathProgress';
@@ -34,6 +34,7 @@ export default function Dashboard() {
   const [progress, setProgress] = useState<UserProgress | null>(null);
   const [pathsData, setPathsData] = useState<PathsData | null>(null);
   const [lessons, setLessons] = useState<Lesson[]>([]);
+  const [lessonTitlesMap, setLessonTitlesMap] = useState<Record<string, string>>({});
   const [gapAnalysis, setGapAnalysis] = useState<GapAnalysis | null>(null);
   const [recommendation, setRecommendation] = useState<EnhancedRecommendation | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +53,13 @@ export default function Dashboard() {
       .then(async ([pathData, lessonData]) => {
         setPathsData(pathData);
         setLessons(lessonData);
+
+        // Build lesson titles map
+        const titlesMap: Record<string, string> = {};
+        lessonData.forEach((lesson: Lesson) => {
+          titlesMap[lesson.id] = lesson.title;
+        });
+        setLessonTitlesMap(titlesMap);
 
         // Analyze gaps
         if (lessonData.length > 0) {
@@ -114,6 +122,11 @@ export default function Dashboard() {
       return [];
     }
   }
+
+  // Helper function to get lesson title
+  const getLessonTitle = (lessonId: string): string => {
+    return lessonTitlesMap[lessonId] || lessonId.replace(/-/g, ' ').replace(/(\d+)$/, ' $1').replace(/\b\w/g, l => l.toUpperCase()).trim();
+  };
 
   if (loading) {
     return (
@@ -257,9 +270,9 @@ export default function Dashboard() {
             </div>
             {currentPath && progress ? (
               recommendation ? (
-                <QuickLessonOptions path={currentPath} progress={progress} excludeLesson={recommendation.nextLesson} />
+                <QuickLessonOptions path={currentPath} progress={progress} excludeLesson={recommendation.nextLesson} getLessonTitle={getLessonTitle} />
               ) : (
-                <NextLessonCard path={currentPath} progress={progress} />
+                <NextLessonCard path={currentPath} progress={progress} getLessonTitle={getLessonTitle} />
               )
             ) : (
               <div className="text-center py-6">
@@ -285,7 +298,7 @@ export default function Dashboard() {
               <h3 className="text-lg font-semibold text-white">Recent Quiz Scores</h3>
             </div>
             {Object.keys(progress?.quizResults || {}).length > 0 ? (
-              <RecentQuizResults results={progress?.quizResults || {}} />
+              <RecentQuizResults results={progress?.quizResults || {}} getLessonTitle={getLessonTitle} />
             ) : (
               <div className="text-center py-8">
                 <div className="w-14 h-14 rounded-2xl bg-slate-700/50 flex items-center justify-center mx-auto mb-4">
@@ -329,7 +342,7 @@ export default function Dashboard() {
               </div>
               <h3 className="text-lg font-semibold text-white">Knowledge Insights</h3>
             </div>
-            <KnowledgeInsights progress={progress} />
+            <KnowledgeInsights progress={progress} getLessonTitle={getLessonTitle} />
           </div>
         )}
       </div>
@@ -506,7 +519,7 @@ function StatCard({
   );
 }
 
-function NextLessonCard({ path, progress }: { path: LearningPath; progress: UserProgress }) {
+function NextLessonCard({ path, progress, getLessonTitle }: { path: LearningPath; progress: UserProgress; getLessonTitle: (id: string) => string }) {
   const nextLesson = path.lessons.find(l => !progress.completedLessons.includes(l));
   const nextIndex = nextLesson ? path.lessons.indexOf(nextLesson) + 1 : 0;
 
@@ -539,7 +552,7 @@ function NextLessonCard({ path, progress }: { path: LearningPath; progress: User
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-white font-medium truncate group-hover:text-blue-400 transition-colors">
-              {formatLessonName(nextLesson)}
+              {getLessonTitle(nextLesson)}
             </p>
             <p className="text-sm" style={{ color: path.color }}>Up next in your path</p>
           </div>
@@ -560,7 +573,7 @@ function formatLessonName(lessonId: string): string {
     .trim();
 }
 
-function RecentQuizResults({ results }: { results: Record<string, { lessonId: string; score: number; totalQuestions: number; completedAt: string }> }) {
+function RecentQuizResults({ results, getLessonTitle }: { results: Record<string, { lessonId: string; score: number; totalQuestions: number; completedAt: string }>; getLessonTitle: (id: string) => string }) {
   const sortedResults = Object.values(results)
     .sort((a, b) => new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime())
     .slice(0, 4);
@@ -582,7 +595,7 @@ function RecentQuizResults({ results }: { results: Record<string, { lessonId: st
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-slate-200 text-sm font-medium truncate group-hover:text-white transition-colors">
-                  {formatLessonName(result.lessonId)}
+                  {getLessonTitle(result.lessonId)}
                 </p>
                 <p className="text-slate-500 text-xs">
                   {Math.min(result.score, result.totalQuestions)}/{result.totalQuestions} correct
@@ -603,7 +616,7 @@ function RecentQuizResults({ results }: { results: Record<string, { lessonId: st
   );
 }
 
-function KnowledgeInsights({ progress }: { progress: UserProgress }) {
+function KnowledgeInsights({ progress, getLessonTitle }: { progress: UserProgress; getLessonTitle: (id: string) => string }) {
   const results = Object.values(progress.quizResults);
   const totalQuizzes = results.length;
 
@@ -645,7 +658,7 @@ function KnowledgeInsights({ progress }: { progress: UserProgress }) {
                 href={`/lesson/${r.lessonId}`}
                 className="badge badge-yellow hover:bg-yellow-500/30 transition-colors"
               >
-                {formatLessonName(r.lessonId)}
+                {getLessonTitle(r.lessonId)}
               </Link>
             ))}
           </div>
@@ -659,10 +672,12 @@ function QuickLessonOptions({
   path,
   progress,
   excludeLesson,
+  getLessonTitle,
 }: {
   path: LearningPath;
   progress: UserProgress;
   excludeLesson: string;
+  getLessonTitle: (id: string) => string;
 }) {
   const availableLessons = path.lessons.filter(
     l => !progress.completedLessons.includes(l) && l !== excludeLesson
@@ -702,7 +717,7 @@ function QuickLessonOptions({
                 >
                   <div>
                     <p className="text-sm text-white group-hover:text-amber-300 transition-colors">
-                      {formatLessonName(lessonId)}
+                      {getLessonTitle(lessonId)}
                     </p>
                     <p className="text-xs text-amber-500">Quiz score: {score}%</p>
                   </div>
@@ -734,7 +749,7 @@ function QuickLessonOptions({
                     {path.lessons.indexOf(lessonId) + 1}
                   </div>
                   <p className="text-sm text-slate-200 group-hover:text-white transition-colors">
-                    {formatLessonName(lessonId)}
+                    {getLessonTitle(lessonId)}
                   </p>
                 </div>
                 <svg className="w-4 h-4 text-slate-500 group-hover:text-white group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">

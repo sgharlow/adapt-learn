@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import Link from 'next/link';
 import {
   TopicGap,
@@ -9,6 +10,7 @@ import {
   getMasteryBgColor,
   MASTERY_THRESHOLD,
 } from '@/lib/gapDetection';
+import { useLessonTitles } from '@/hooks/useLessonTitles';
 
 interface TopicMasteryHeatmapProps {
   analysis: GapAnalysis;
@@ -16,6 +18,23 @@ interface TopicMasteryHeatmapProps {
 
 export default function TopicMasteryHeatmap({ analysis }: TopicMasteryHeatmapProps) {
   const allTopics = [...analysis.strengths, ...analysis.gaps];
+
+  // Collect all lesson IDs for title fetching
+  const allLessonIds = useMemo(() => {
+    const ids: string[] = [];
+    allTopics.forEach(topic => {
+      topic.lessonsNeededForReview.forEach(id => {
+        if (!ids.includes(id)) ids.push(id);
+      });
+    });
+    analysis.recommendations.forEach(rec => {
+      if (!ids.includes(rec.lessonId)) ids.push(rec.lessonId);
+    });
+    return ids;
+  }, [allTopics, analysis.recommendations]);
+
+  // Fetch lesson titles
+  const { getTitle } = useLessonTitles(allLessonIds);
 
   return (
     <div className="space-y-6">
@@ -49,7 +68,7 @@ export default function TopicMasteryHeatmap({ analysis }: TopicMasteryHeatmapPro
         <h4 className="text-sm font-medium text-slate-400 mb-3">Topic Mastery</h4>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {allTopics.map((topic) => (
-            <TopicCard key={topic.topic} topic={topic} />
+            <TopicCard key={topic.topic} topic={topic} getTitle={getTitle} />
           ))}
           {allTopics.length === 0 && (
             <p className="text-slate-500 text-sm col-span-2 text-center py-4">
@@ -65,7 +84,7 @@ export default function TopicMasteryHeatmap({ analysis }: TopicMasteryHeatmapPro
           <h4 className="text-sm font-medium text-slate-400 mb-3">Recommended Actions</h4>
           <div className="space-y-2">
             {analysis.recommendations.map((rec, i) => (
-              <RecommendationCard key={i} recommendation={rec} />
+              <RecommendationCard key={i} recommendation={rec} getTitle={getTitle} />
             ))}
           </div>
         </div>
@@ -98,7 +117,7 @@ function StatBadge({
   );
 }
 
-function TopicCard({ topic }: { topic: TopicGap }) {
+function TopicCard({ topic, getTitle }: { topic: TopicGap; getTitle: (id: string) => string }) {
   const color = getMasteryColor(topic.level);
   const bgColor = getMasteryBgColor(topic.level);
 
@@ -156,7 +175,7 @@ function TopicCard({ topic }: { topic: TopicGap }) {
                 href={`/lesson/${lessonId}`}
                 className="text-xs px-2 py-1 rounded bg-slate-700 text-slate-300 hover:bg-slate-600 transition-colors"
               >
-                {formatLessonName(lessonId)}
+                {getTitle(lessonId)}
               </Link>
             ))}
           </div>
@@ -166,7 +185,7 @@ function TopicCard({ topic }: { topic: TopicGap }) {
   );
 }
 
-function RecommendationCard({ recommendation }: { recommendation: GapRecommendation }) {
+function RecommendationCard({ recommendation, getTitle }: { recommendation: GapRecommendation; getTitle: (id: string) => string }) {
   const priorityColors = {
     high: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400' },
     medium: { bg: 'bg-yellow-500/10', border: 'border-yellow-500/30', text: 'text-yellow-400' },
@@ -203,7 +222,7 @@ function RecommendationCard({ recommendation }: { recommendation: GapRecommendat
           <div className="flex-1 min-w-0">
             <p className="text-sm text-white">{recommendation.reason}</p>
             <p className={`text-xs mt-1 ${colors.text}`}>
-              {recommendation.type === 'review' ? 'Review' : recommendation.type === 'practice' ? 'Start' : 'Continue'}: {formatLessonName(recommendation.lessonId)}
+              {recommendation.type === 'review' ? 'Review' : recommendation.type === 'practice' ? 'Start' : 'Continue'}: {getTitle(recommendation.lessonId)}
             </p>
           </div>
           <svg className="w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -213,12 +232,4 @@ function RecommendationCard({ recommendation }: { recommendation: GapRecommendat
       </div>
     </Link>
   );
-}
-
-function formatLessonName(lessonId: string): string {
-  return lessonId
-    .replace(/-/g, ' ')
-    .replace(/(\d+)$/, ' $1')
-    .replace(/\b\w/g, (l) => l.toUpperCase())
-    .trim();
 }
