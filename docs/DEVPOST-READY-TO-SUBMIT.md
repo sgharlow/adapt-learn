@@ -1,7 +1,7 @@
 # AdaptLearn - DevPost Submission (READY TO SUBMIT)
 
-**Deadline:** December 31, 2025 @ 2:00pm PST (8 days remaining)
-**Last Updated:** December 23, 2025 (final review pass, all assets verified)
+**Deadline:** December 31, 2025 @ 2:00pm PST
+**Last Updated:** December 29, 2025 (final review pass, all assets verified)
 
 ---
 
@@ -287,4 +287,4 @@ AI/Voice Services:
 
 ---
 
-*Ready to submit as of December 23, 2025 — pending YouTube upload*
+*Ready to submit as of December 29, 2025 — pending YouTube upload*

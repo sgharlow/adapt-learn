@@ -25,7 +25,7 @@ AdaptLearn reimagines AI education as an audio-first experience. Every lesson is
 • AI-Powered Q&A — Ask questions, get spoken answers using ElevenLabs
 • Adaptive Gap Detection — Quiz-based system identifies what you need to learn
 • 10 Learning Paths — From AI Explorer to Prompt Engineering to AI Ethics
-• 42 Curated Lessons — Covering ML, deep learning, NLP, and genertic AI
+• 42 Curated Lessons — Covering ML, deep learning, NLP, and generative AI
 • Progress Dashboard — Track your learning journey
 
 🔗 LINKS
