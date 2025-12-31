@@ -159,10 +159,10 @@ After deployment, verify these features work:
 
 ### For Best Demo Performance
 
-1. **Pre-cache audio:**
-   - Visit `/demo-preload` before demo
-   - Click "Preload All"
-   - Wait for all lessons to cache
+1. **Audio is ready:**
+   - All lesson audio is pre-generated at build time
+   - Served as static files from `/public/audio/lessons/`
+   - No preloading or caching step needed
 
 2. **Use demo mode:**
    - Start with `/?demo=progress`
@@ -219,7 +219,7 @@ Before final submission:
 - [ ] Build succeeds without errors
 - [ ] All features tested on production URL
 - [ ] Demo mode works (`?demo=progress`)
-- [ ] Audio preloader works (`/demo-preload`)
+- [ ] Audio plays instantly (pre-generated static files)
 - [ ] No console errors in browser
 - [ ] Mobile responsive
 - [ ] Copy production URL for Devpost

@@ -45,7 +45,7 @@ Format: MP4 (H.264)
    - Test microphone before recording
 
 3. **App Preparation:**
-   - Navigate to `/demo-preload` and cache all audio
+   - Audio is pre-generated (no setup needed)
    - Start fresh with `/?demo=fresh` or `/?demo=progress`
    - Test all demo flows before recording
 
@@ -184,7 +184,7 @@ Format: MP4 (H.264)
 - [ ] Clear browser tabs
 - [ ] Disable notifications (system + browser)
 - [ ] Test microphone levels
-- [ ] Run `/demo-preload` to cache audio
+- [ ] Audio is pre-generated (plays instantly)
 - [ ] Set demo data: `/?demo=progress` or start fresh
 - [ ] Test full demo flow once
 - [ ] Have script visible (second monitor or printed)
@@ -275,9 +275,9 @@ github.com/sgharlow/adapt-learn
 
 Type the question instead. Say: "You can also type questions for a quick response."
 
-### If Audio Generation is Slow
+### If Audio Takes a Moment
 
-Use pre-cached audio. All demo lessons should be cached from `/demo-preload`.
+Audio files are pre-generated and served statically. If playback seems slow, check your internet connection.
 
 ### If You Make a Mistake
 
@@ -310,7 +310,6 @@ Upload to: YouTube (unlisted) for Devpost submission
 | Progress demo | `http://localhost:3000/?demo=progress` |
 | Gaps demo | `http://localhost:3000/?demo=gaps` |
 | Complete demo | `http://localhost:3000/?demo=complete` |
-| Audio preloader | `http://localhost:3000/demo-preload` |
 
 ---
 

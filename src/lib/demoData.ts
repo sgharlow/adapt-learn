@@ -362,7 +362,8 @@ export function getDemoData(scenario: DemoScenario): UserProgress {
 // Load demo data into localStorage
 export function loadDemoData(scenario: DemoScenario): void {
   const data = getDemoData(scenario);
-  localStorage.setItem('adaptlearn_progress', JSON.stringify(data));
+  // Use 'adaptlearn-progress' to match progressManager.ts PROGRESS_KEY
+  localStorage.setItem('adaptlearn-progress', JSON.stringify(data));
   console.log(`[Demo] Loaded ${scenario} demo data`);
 }
 

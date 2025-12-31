@@ -20,46 +20,66 @@ export default function PathProgress({ path, progress, compact = false }: PathPr
   };
 
   if (compact) {
+    // Find the next uncompleted lesson
+    const nextLessonIndex = path.lessons.findIndex(l => !completedLessons.includes(l));
+
     return (
-      <div className="card">
+      <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-white">{path.name}</h3>
-          <span className="text-2xl font-bold" style={{ color: path.color }}>
+          <span className="text-slate-400 text-sm">{completedCount} of {path.lessons.length} lessons</span>
+          <span className="text-lg font-bold" style={{ color: path.color }}>
             {progressPercent}%
           </span>
         </div>
 
-        {/* Compact Progress Bar */}
-        <div className="relative mb-3">
-          <div className="w-full bg-slate-700 rounded-full h-3">
+        {/* Compact Progress Bar with clickable lesson indicators */}
+        <div className="relative mb-4">
+          <div className="w-full bg-slate-700 rounded-full h-2">
             <div
-              className="h-3 rounded-full transition-all duration-500"
+              className="h-2 rounded-full transition-all duration-500"
               style={{ width: `${progressPercent}%`, backgroundColor: path.color }}
             />
           </div>
-          {/* Milestone markers */}
-          {path.milestones.map(milestone => {
-            const position = (milestone.afterLesson / path.lessons.length) * 100;
-            const isReached = completedCount >= milestone.afterLesson;
+        </div>
+
+        {/* Clickable lesson pills */}
+        <div className="flex flex-wrap gap-1.5">
+          {path.lessons.map((lessonId, index) => {
+            const isCompleted = completedLessons.includes(lessonId);
+            const isNext = index === nextLessonIndex;
+
             return (
-              <div
-                key={milestone.afterLesson}
-                className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 transition-colors"
+              <Link
+                key={lessonId}
+                href={`/lesson/${lessonId}`}
+                className={`
+                  w-8 h-8 rounded-lg flex items-center justify-center text-xs font-medium
+                  transition-all hover:scale-110 hover:shadow-lg
+                  ${isCompleted
+                    ? 'text-white'
+                    : isNext
+                      ? 'ring-2 ring-offset-1 ring-offset-slate-800'
+                      : 'bg-slate-700 text-slate-400 hover:bg-slate-600 hover:text-white'
+                  }
+                `}
                 style={{
-                  left: `${position}%`,
-                  transform: 'translate(-50%, -50%)',
-                  backgroundColor: isReached ? path.color : '#334155',
-                  borderColor: isReached ? path.color : '#475569',
-                }}
-                title={milestone.title}
-              />
+                  backgroundColor: isCompleted ? path.color : isNext ? `${path.color}30` : undefined,
+                  color: isNext && !isCompleted ? path.color : undefined,
+                  '--tw-ring-color': isNext ? path.color : undefined,
+                } as React.CSSProperties}
+                title={formatLessonName(lessonId)}
+              >
+                {isCompleted ? (
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                ) : (
+                  index + 1
+                )}
+              </Link>
             );
           })}
         </div>
-
-        <p className="text-slate-400 text-sm">
-          {completedCount} of {path.lessons.length} lessons completed
-        </p>
       </div>
     );
   }

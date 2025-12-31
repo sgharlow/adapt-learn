@@ -1,12 +1,58 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import Link from 'next/link';
 import { useVoiceInput } from '@/hooks/useVoiceInput';
 import LessonNavigation from '@/components/LessonNavigation';
 import type { Lesson, QuizQuestion, UserProgress } from '@/types';
 import { logQuizCompleted, logLessonCompleted } from '@/lib/progressUtils';
 import { loadProgress, saveProgress } from '@/lib/progressManager';
+
+// Seeded random number generator for consistent shuffling
+function seededRandom(seed: string): () => number {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  return function() {
+    hash = (hash * 1103515245 + 12345) & 0x7fffffff;
+    return hash / 0x7fffffff;
+  };
+}
+
+// Shuffle options and return new options array with updated correct answer
+function shuffleQuizOptions(question: QuizQuestion, lessonId: string): { options: string[]; correct: string } {
+  const seed = `${lessonId}-${question.id}`;
+  const random = seededRandom(seed);
+
+  // Create array of {option, originalLetter}
+  const optionsWithLetters = question.options.map((opt, idx) => ({
+    option: opt,
+    originalLetter: String.fromCharCode(65 + idx), // A, B, C, D
+  }));
+
+  // Fisher-Yates shuffle with seeded random
+  for (let i = optionsWithLetters.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [optionsWithLetters[i], optionsWithLetters[j]] = [optionsWithLetters[j], optionsWithLetters[i]];
+  }
+
+  // Find new position of correct answer and create new options with updated letters
+  let newCorrect = 'A';
+  const newOptions = optionsWithLetters.map((item, idx) => {
+    const newLetter = String.fromCharCode(65 + idx);
+    // Update the correct answer letter if this was the original correct answer
+    if (item.originalLetter === question.correct) {
+      newCorrect = newLetter;
+    }
+    // Replace original letter prefix with new letter prefix
+    return `${newLetter}:${item.option.substring(2)}`;
+  });
+
+  return { options: newOptions, correct: newCorrect };
+}
 
 interface QuizProps {
   lesson: Lesson;
@@ -31,7 +77,19 @@ export default function Quiz({ lesson, lessonId, onComplete }: QuizProps) {
   const [voiceEnabled, setVoiceEnabled] = useState(false);
   const [isProcessingVoice, setIsProcessingVoice] = useState(false);
 
-  const question = lesson.quiz[currentQuestion];
+  // Memoize shuffled questions to ensure consistent ordering throughout the quiz session
+  const shuffledQuestions = useMemo(() => {
+    return lesson.quiz.map(q => {
+      const shuffled = shuffleQuizOptions(q, lessonId);
+      return {
+        ...q,
+        options: shuffled.options,
+        correct: shuffled.correct,
+      };
+    });
+  }, [lesson.quiz, lessonId]);
+
+  const question = shuffledQuestions[currentQuestion];
 
   // Voice input for quiz answers
   const handleVoiceResult = useCallback((transcript: string) => {

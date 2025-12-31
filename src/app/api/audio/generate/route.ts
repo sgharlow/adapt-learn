@@ -29,6 +29,17 @@ interface ExtendedAudioRequest extends AudioGenerateRequest {
   isConversational?: boolean;
 }
 
+/**
+ * PROTECTED ENDPOINT: AI Tutor Text-to-Speech Only
+ *
+ * This endpoint is ONLY for generating audio for short AI tutor responses.
+ * Full lesson audio must be pre-generated using: npm run generate:audio
+ *
+ * Protection measures:
+ * 1. Requires isConversational=true (tutor responses only)
+ * 2. Max text length of 2000 characters (tutor responses are short)
+ * 3. Blocks requests that look like full lesson content
+ */
 export async function POST(request: NextRequest) {
   try {
     const body: ExtendedAudioRequest = await request.json();
@@ -41,9 +52,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Limit text length to avoid excessive API usage
-    const maxLength = 5000;
-    const trimmedText = text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    // PROTECTION 1: Only allow conversational/tutor audio generation
+    // Full lesson audio must be pre-generated via npm run generate:audio
+    if (!isConversational) {
+      return NextResponse.json(
+        { error: 'Real-time audio generation is only available for AI tutor responses. Lesson audio must be pre-generated.' },
+        { status: 403 }
+      );
+    }
+
+    // PROTECTION 2: Block requests that look like full lesson content
+    // Full lessons start with "Lesson:" prefix from buildLessonText()
+    if (text.startsWith('Lesson:') || text.includes('\n\nSummary:') || text.includes('\n\nKey takeaways:')) {
+      return NextResponse.json(
+        { error: 'Full lesson audio generation is not allowed via API. Use npm run generate:audio instead.' },
+        { status: 403 }
+      );
+    }
+
+    // PROTECTION 3: Strict length limit for tutor responses (2000 chars max)
+    // This prevents generating expensive long-form audio
+    const maxLength = 2000;
+    if (text.length > maxLength) {
+      return NextResponse.json(
+        { error: `Text too long for real-time generation. Maximum ${maxLength} characters for tutor responses.` },
+        { status: 400 }
+      );
+    }
+
+    const trimmedText = text;
 
     if (!ELEVENLABS_API_KEY) {
       return NextResponse.json(

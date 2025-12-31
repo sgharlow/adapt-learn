@@ -1,189 +1,213 @@
 # AdaptLearn Demo Script
 
-**Duration:** 3-4 minutes
-**Purpose:** Showcase voice-first adaptive AI learning for the ElevenLabs Hackathon
+**Duration:** 3 minutes
+**Purpose:** Showcase voice-first adaptive AI learning for the AI Partner Catalyst Hackathon
+**URL:** https://adapt-learn-rosy.vercel.app
 
 ---
 
-## Pre-Demo Setup
+## Pre-Demo Setup (2 minutes)
 
-1. Open browser to `http://localhost:3000` (or production URL)
-2. **Pre-generate audio**: Navigate to `/demo-preload` and click "Preload All"
-   - Wait for all 6 demo lessons to show green checkmarks
-   - This ensures instant audio playback during the demo
-3. Clear localStorage: `localStorage.clear()` in console (only clears progress, not audio cache)
-4. Or use Demo Mode: Add `?demo=progress` to URL to load pre-configured state
-5. Ensure audio is working and volume is appropriate
-6. Have microphone ready for voice input demo
+1. Open Chrome incognito window
+2. Navigate to homepage: `https://adapt-learn-rosy.vercel.app`
+3. Test audio: volume on, speakers working
+4. Have script visible on second monitor
+
+> **Note:** Audio files are pre-generated and served as static assets. No preloading step needed - lessons play instantly!
 
 ---
 
 ## Demo Flow
 
-### Scene 1: Landing Page (30 seconds)
+### Scene 1: Landing Page (0:00 - 0:25)
+
+**URL:** `https://adapt-learn-rosy.vercel.app`
 
 **Script:**
-> "AdaptLearn is a voice-first adaptive learning platform for AI education. Think of it as Duolingo meets NotebookLM - personalized audio lessons that adapt to your knowledge gaps."
+> "What if learning AI was as easy as listening to a podcast? Introducing AdaptLearn — a voice-first AI learning platform that adapts to YOU. Learn during your commute, at the gym, or cooking dinner. Powered by ElevenLabs and Google Gemini."
 
 **Actions:**
-1. Show landing page hero
-2. Scroll to show learning paths section
-3. Highlight the 10 learning paths
-4. Click "Start Learning Free" or "Take Assessment"
+1. Show landing page hero (pause 2 seconds)
+2. Scroll down to "How It Works" section
+3. Continue scrolling to reveal the 10 learning path cards
 
 ---
 
-### Scene 2: Assessment Quiz (45 seconds)
+### Scene 2: Path Selection (0:25 - 0:40)
 
 **Script:**
-> "New learners take a quick 6-question assessment. Based on their coding experience, learning goals, and time commitment, we recommend a personalized learning path."
+> "Ten learning paths from beginner to specialist. Let's explore the AI Explorer path. Five lessons, about an hour to complete."
 
 **Actions:**
-1. Answer questions quickly (pre-planned answers for NLP Focus path):
-   - Q1: "I code professionally"
-   - Q2: "Work with text, chatbots, or language AI"
-   - Q3: "3-5 hours"
-   - Q4: "Followed some tutorials"
-   - Q5: "I know the concept"
-   - Q6: "Very interested - it's my main focus"
-2. Show recommended path result
-3. Click to start the NLP Focus path
+1. Click the **"AI Explorer"** path card (first card, whole card is clickable)
+2. Show path page with lesson list
+3. Point out the progress bar and lesson count
 
 ---
 
-### Scene 3: Path Overview (20 seconds)
+### Scene 3: Audio Lesson (0:40 - 1:20) - KEY FEATURE
 
 **Script:**
-> "Each learning path shows your progress and the lessons ahead. The system tracks which lessons you've completed and suggests what to learn next."
+> "Click into any lesson to start learning. Every lesson features high-quality audio narration powered by ElevenLabs."
 
 **Actions:**
-1. Show path page with lesson list
-2. Point out the milestone markers
-3. Click on the first lesson
+1. Click **"What is Machine Learning?"** (first lesson in list)
+2. Wait for lesson page to load
+3. Click the **PLAY button** (triangle icon in audio player)
+4. Let audio play for **8-10 seconds**
+
+**Script:**
+> "Adjust playback speed for busy schedules. Learn completely hands-free."
+
+**Actions:**
+5. Click **"1x"** speed button to show options
+6. Click **PAUSE**
 
 ---
 
-### Scene 4: Audio Lesson (60 seconds) - KEY FEATURE
+### Scene 4: AI Tutor (1:20 - 2:10) - MOST IMPORTANT FEATURE
 
 **Script:**
-> "Here's where the magic happens. Every lesson is available as an audio experience, powered by ElevenLabs. You can learn AI concepts while commuting, exercising, or doing chores."
+> "Have a question? Ask the AI tutor. Powered by Google Gemini, it understands the lesson context."
 
 **Actions:**
-1. Show lesson page with content
-2. Click Play on the audio player
-3. Let audio play for 10-15 seconds
-4. Show playback speed controls (1.25x, 1.5x)
-5. Show the waveform visualization
-6. Pause the audio
+1. Click **"Ask AI Tutor"** button (floating button at bottom right of screen)
+2. Wait for chat panel to open
+3. Click **"Give me a real-world example"** (quick action button)
+4. Wait for response to appear (3-5 seconds)
+
+**Script:**
+> "And here's the magic — ElevenLabs reads the answer back to you."
+
+**Actions:**
+5. Let the audio response play for **5-8 seconds**
+6. Close the chat panel (click X or outside)
+
+**Script:**
+> "A truly conversational learning experience. Like having a personal tutor 24/7."
 
 ---
 
-### Scene 5: Voice Q&A (45 seconds) - KEY FEATURE
+### Scene 5: Quiz (2:10 - 2:35)
 
 **Script:**
-> "Have a question? Just ask! Our AI tutor, powered by Google Gemini, answers in context. And yes - the response is spoken back to you using ElevenLabs."
-
-**Actions:**
-1. Click the floating AI chat button
-2. Click the microphone button OR type a question
-3. Ask: "What's the difference between supervised and unsupervised learning?"
-4. Wait for response
-5. Show audio auto-playing the answer
-6. Point out the quick action buttons (Repeat, Simpler, Example)
-
----
-
-### Scene 6: Quiz & Gap Detection (45 seconds)
-
-**Script:**
-> "After each lesson, a quick quiz tests your understanding. The system uses your results to detect knowledge gaps and adapt your learning path."
+> "After each lesson, a quick quiz reinforces what you've learned. Four questions test your understanding with instant feedback."
 
 **Actions:**
 1. Scroll down to quiz section
-2. Click "Start Quiz"
-3. Answer 2-3 questions quickly
-4. Show quiz results with score
-5. If score < 70%, show the "needs review" indicator
-
----
-
-### Scene 7: Dashboard (30 seconds)
+2. Click **"Start Quiz"** button
+3. Answer **2 questions** (click any answers quickly)
+4. Show the feedback after each answer
 
 **Script:**
-> "Your dashboard shows overall progress, recent activity, and personalized recommendations. The AI considers your quiz scores and knowledge gaps to suggest what to learn next."
-
-**Actions:**
-1. Navigate to Dashboard
-2. Show progress ring and stats
-3. Show the AI recommendation card
-4. Point out the knowledge map/topic mastery
-5. Show the learning streak
+> "The system tracks your scores and identifies knowledge gaps."
 
 ---
 
-### Closing (15 seconds)
+### Scene 6: Dashboard (2:35 - 2:50)
+
+**Navigate to:** `https://adapt-learn-rosy.vercel.app/dashboard?demo=gaps`
 
 **Script:**
-> "AdaptLearn - learn AI like you listen to podcasts. Voice-first, adaptive, and powered by ElevenLabs and Google Gemini. Thank you!"
+> "Your dashboard brings it all together — progress, streaks, and AI-powered recommendations."
 
 **Actions:**
-1. Return to landing page
-2. Show the tech badges (ElevenLabs, Google Gemini)
+1. Point at the **progress ring** (shows 63% mastery)
+2. Point at **"Recommended Next"** card (shows review suggestion)
+3. Scroll to **"Knowledge Map"** section
+4. Point at topic bars showing mastery levels
+
+**Script:**
+> "The Knowledge Map shows exactly where you're strong and where you need practice. The AI recommends exactly what to study next."
 
 ---
 
-## Demo Data Configuration
+### Scene 7: Closing (2:50 - 3:00)
 
-For a smooth demo, use these pre-configured states:
+**Script:**
+> "AdaptLearn — learn AI like you listen to podcasts. Voice-first, adaptive, powered by ElevenLabs and Google Gemini. Try it free at adapt-learn-rosy.vercel.app. Thanks for watching!"
 
-### Fresh Start (Assessment Flow)
-- Clear all localStorage
-- URL: `/?demo=fresh`
+**Actions:**
+1. Show the URL clearly OR navigate back to homepage
 
-### Mid-Progress (Dashboard Demo)
-- Completed: 3 lessons
-- Quiz scores: 80%, 70%, 90%
-- Current streak: 3 days
-- URL: `/?demo=progress`
+---
 
-### Gap Detection Demo
-- Completed: 5 lessons
-- Mixed quiz scores (some below 70%)
-- Shows knowledge gaps clearly
-- URL: `/?demo=gaps`
+## Quick Reference - Exact UI Labels
+
+| What You Need | Exact Label/Location |
+|---------------|---------------------|
+| Start path | Click entire path card (e.g., "AI Explorer") |
+| First lesson | "What is Machine Learning?" |
+| Play audio | Triangle play button in audio player |
+| Speed control | "1x" button (shows 0.75x, 1x, 1.25x, 1.5x, 2x) |
+| AI Tutor | **"Ask AI Tutor"** (floating button, bottom right) |
+| Quick question | "Give me a real-world example" |
+| Start quiz | **"Start Quiz"** button |
+| Dashboard | "Dashboard" in nav OR direct URL |
+
+---
+
+## Demo Mode URLs
+
+Use these to show different progress states:
+
+| URL | What It Shows |
+|-----|---------------|
+| `/dashboard?demo=fresh` | Empty state - new user |
+| `/dashboard?demo=progress` | 3 lessons done, 33% complete |
+| `/dashboard?demo=gaps` | **Best for demo** - 6 lessons, mixed scores, review recommendations visible |
+| `/dashboard?demo=complete` | Path completed state |
+
+**Recommendation:** Use `?demo=gaps` for the dashboard section to show the adaptive/gap detection features clearly.
 
 ---
 
 ## Backup Plans
 
-### If Voice Input Fails:
-- Type the question instead
-- Say: "Voice input also works, but let me type for the demo"
-
-### If Audio Generation is Slow:
-- Use pre-generated audio (cached)
-- Say: "Audio is pre-generated for a smooth experience"
-
-### If API Errors:
-- Show the graceful error handling
-- Say: "The system handles errors gracefully with fallbacks"
+| Problem | Solution |
+|---------|----------|
+| Audio won't play | Refresh page, check browser volume |
+| AI Tutor slow | Say "The AI is processing..." and wait |
+| Wrong page | Use browser back button or type URL |
+| Quiz wrong answer | Perfect! Shows the feedback feature working |
+| Site loading slow | Pre-load pages in multiple tabs before recording |
 
 ---
 
-## Key Talking Points
+## Must Mention (Hackathon Requirements)
 
-1. **Voice-First**: Learn during commute, exercise, chores
-2. **Adaptive**: AI detects gaps and personalizes the path
-3. **ElevenLabs Integration**: Natural, high-quality voice synthesis
-4. **Google Gemini**: Contextual Q&A with lesson awareness
-5. **Progress Tracking**: Streaks, mastery, recommendations
+1. **"ElevenLabs"** — at least 2x (lesson audio + AI response audio)
+2. **"Google Gemini"** — at least 1x (powers the AI tutor)
+3. **"Voice-first"** or **"like a podcast"** — core value proposition
+4. **"Adaptive"** or **"knowledge gaps"** — the smart recommendation feature
+5. **URL:** adapt-learn-rosy.vercel.app
 
 ---
 
-## Technical Highlights to Mention
+## Timing Checkpoints
+
+Keep yourself on track:
+
+| Time | Where You Should Be |
+|------|---------------------|
+| 0:25 | Clicking AI Explorer path card |
+| 0:40 | On lesson page, about to play audio |
+| 1:20 | Opening AI Tutor |
+| 2:10 | Starting quiz |
+| 2:35 | On dashboard with demo=gaps |
+| 3:00 | Done! |
+
+---
+
+## Technical Info (if judges ask)
 
 - Built with Next.js 16 and TypeScript
-- ElevenLabs Multilingual v2 model for natural speech
+- ElevenLabs Multilingual v2 for natural speech synthesis
 - Google Gemini for contextual AI responses
 - Client-side progress tracking (localStorage)
-- Responsive design for mobile learning
+- Responsive design works on mobile
+- 40+ curated AI lessons across 10 paths
+
+---
+
+*Print this script. Follow the timestamps. You've got this!*

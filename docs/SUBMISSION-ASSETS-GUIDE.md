@@ -345,7 +345,7 @@ This page is pre-designed with:
 ## Pre-Capture Checklist
 
 - [ ] App running locally (`npm run dev`)
-- [ ] Demo audio pre-cached (`/demo-preload`)
+- [ ] Audio plays instantly (pre-generated static files)
 - [ ] Demo data loaded (`?demo=progress`)
 - [ ] Browser window sized correctly
 - [ ] Bookmarks bar hidden

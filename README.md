@@ -26,9 +26,10 @@ Built for the **AI Partner Catalyst Hackathon — ElevenLabs Track**
 /?demo=progress   # Mid-progress - shows dashboard features
 /?demo=gaps       # Gap detection - shows knowledge gaps
 /?demo=complete   # Completed path - celebration state
-/demo-preload     # Pre-cache audio for smooth demo
 /brand            # Screenshot for thumbnail
 ```
+
+> **Note:** Audio files are pre-generated at build time. No preloading needed!
 
 ---
 
@@ -261,7 +262,7 @@ For demonstrations and testing, use URL parameters:
 /?demo=complete   # Path completed, celebration
 ```
 
-Pre-cache audio at `/demo-preload` before recording demos.
+Audio files are pre-generated and served statically. No preloading needed!
 
 ---
 

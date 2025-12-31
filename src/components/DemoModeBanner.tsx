@@ -45,7 +45,7 @@ export default function DemoModeBanner({ scenario }: DemoModeBannerProps) {
 
             <div className="flex flex-wrap gap-2">
               <Link
-                href="/?demo=fresh"
+                href="/dashboard?demo=fresh"
                 className={`px-2 py-1 text-xs rounded-full transition-colors ${
                   scenario === 'fresh'
                     ? 'bg-black text-white'
@@ -55,7 +55,7 @@ export default function DemoModeBanner({ scenario }: DemoModeBannerProps) {
                 Fresh
               </Link>
               <Link
-                href="/?demo=progress"
+                href="/dashboard?demo=progress"
                 className={`px-2 py-1 text-xs rounded-full transition-colors ${
                   scenario === 'progress'
                     ? 'bg-black text-white'
@@ -65,7 +65,7 @@ export default function DemoModeBanner({ scenario }: DemoModeBannerProps) {
                 Progress
               </Link>
               <Link
-                href="/?demo=gaps"
+                href="/dashboard?demo=gaps"
                 className={`px-2 py-1 text-xs rounded-full transition-colors ${
                   scenario === 'gaps'
                     ? 'bg-black text-white'
@@ -75,7 +75,7 @@ export default function DemoModeBanner({ scenario }: DemoModeBannerProps) {
                 Gaps
               </Link>
               <Link
-                href="/?demo=complete"
+                href="/dashboard?demo=complete"
                 className={`px-2 py-1 text-xs rounded-full transition-colors ${
                   scenario === 'complete'
                     ? 'bg-black text-white'

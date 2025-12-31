@@ -14,7 +14,7 @@
 - [x] All 42 lessons have content and quizzes
 - [x] 10 learning paths configured
 - [x] Demo mode works (`?demo=progress`)
-- [x] Audio preloader works (`/demo-preload`)
+- [x] Audio plays instantly (pre-generated static files)
 
 ### Documentation
 - [x] README.md polished with badges

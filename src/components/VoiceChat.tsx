@@ -27,7 +27,7 @@ const LESSON_PROMPTS = [
 
 // Quick action commands
 const QUICK_ACTIONS = [
-  { id: 'repeat', label: 'Repeat', icon: '🔄', command: 'Please repeat your last response.' },
+  { id: 'play-audio', label: 'Play Audio', icon: '🔊', command: '' },
   { id: 'simpler', label: 'Simpler', icon: '📝', command: 'Can you explain that in simpler terms?' },
   { id: 'example', label: 'Example', icon: '💡', command: 'Can you give me a concrete example?' },
   { id: 'more', label: 'Tell me more', icon: '➕', command: 'Can you elaborate on that?' },
@@ -35,7 +35,7 @@ const QUICK_ACTIONS = [
 
 // Voice command patterns
 const VOICE_COMMANDS: { pattern: RegExp; action: string }[] = [
-  { pattern: /^(repeat|say that again|repeat that)/i, action: 'repeat' },
+  { pattern: /^(play audio|play that|play response|repeat|say that again)/i, action: 'play-audio' },
   { pattern: /^(slower|speak slower|slow down)/i, action: 'slower' },
   { pattern: /^(explain|explain that|explain more)/i, action: 'simpler' },
   { pattern: /^(example|give me an example)/i, action: 'example' },
@@ -88,7 +88,7 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
   // Handle voice commands
   const handleVoiceCommand = useCallback((action: string) => {
     switch (action) {
-      case 'repeat':
+      case 'play-audio':
         if (lastResponse) {
           generateAudioAndPlay(lastResponse);
         }
@@ -266,9 +266,9 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
 
   // Quick action handler
   const handleQuickAction = (action: typeof QUICK_ACTIONS[0]) => {
-    if (action.id === 'repeat' && lastResponse) {
+    if (action.id === 'play-audio' && lastResponse) {
       generateAudioAndPlay(lastResponse);
-    } else {
+    } else if (action.command) {
       setInputText(action.command);
       sendMessage(action.command);
     }
@@ -390,7 +390,7 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
                 Voice commands:
               </p>
               <div className="flex flex-wrap gap-2">
-                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Repeat that&quot;</span>
+                <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Play audio&quot;</span>
                 <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Slower&quot;</span>
                 <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Give me an example&quot;</span>
                 <span className="text-xs px-2 py-1 bg-slate-800 text-slate-400 rounded">&quot;Stop&quot;</span>
@@ -459,7 +459,7 @@ export default function VoiceChat({ lessonContext, lessonTitle, onClose }: Voice
               <button
                 key={action.id}
                 onClick={() => handleQuickAction(action)}
-                disabled={action.id === 'repeat' && !lastResponse}
+                disabled={action.id === 'play-audio' && !lastResponse}
                 className="px-3 py-1.5 text-xs text-slate-300 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/50 hover:border-blue-500/50 rounded-full transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1.5"
               >
                 <span>{action.icon}</span>
