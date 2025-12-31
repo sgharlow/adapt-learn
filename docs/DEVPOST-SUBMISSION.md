@@ -196,9 +196,9 @@ The dashboard shows your progress, celebrates milestones, and provides AI-powere
 
 ## Try It Out
 
-- **Live Demo:** [Vercel URL]
-- **GitHub:** [Repository URL]
-- **Demo Video:** [YouTube URL]
+- **Live Demo:** https://adapt-learn-rosy.vercel.app
+- **GitHub:** https://github.com/sgharlow/adapt-learn
+- **Demo Video:** https://youtu.be/GtZp6YBSQZU
 
 ---
 

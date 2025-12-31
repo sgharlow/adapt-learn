@@ -1,7 +1,7 @@
 # AdaptLearn - DevPost Submission (READY TO SUBMIT)
 
 **Deadline:** December 31, 2025 @ 2:00pm PST
-**Last Updated:** December 29, 2025 (final review pass, all assets verified)
+**Last Updated:** December 31, 2025 (final review pass, all assets verified)
 
 ---
 
@@ -11,7 +11,7 @@
 | --------------- | ------------------------------------------------ |
 | **Live Demo**   | https://adapt-learn-rosy.vercel.app              |
 | **GitHub Repo** | https://github.com/sgharlow/adapt-learn          |
-| **Demo Video**  | [PENDING - upload demo-recording.mp4 to YouTube] |
+| **Demo Video**  | https://youtu.be/GtZp6YBSQZU |
 
 ---
 
@@ -270,7 +270,7 @@ AI/Voice Services:
 - [x] Make GitHub repository PUBLIC ✅ DONE
 - [x] Record demo video (demo-recording.mp4, 1.4 MB) ✅ DONE
 - [x] Capture 7 screenshots (all verified present)
-- [ ] **Upload video to YouTube (unlisted)** <- USER ACTION REQUIRED
+- [x] **Upload video to YouTube (unlisted)** ✅ https://youtu.be/GtZp6YBSQZU
 - [ ] Fill out DevPost form and submit
 
 ---
@@ -287,4 +287,4 @@ AI/Voice Services:
 
 ---
 
-*Ready to submit as of December 29, 2025 — pending YouTube upload*
+*Ready to submit as of December 31, 2025 — YouTube video uploaded*

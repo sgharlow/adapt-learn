@@ -83,7 +83,7 @@ elevenlabs, google-gemini, vertex-ai, nextjs, react, typescript, tailwindcss, ve
 **Try It Out Links:**
 - Live Demo: https://adapt-learn-rosy.vercel.app
 - GitHub: https://github.com/sgharlow/adapt-learn
-- Demo Video: [PENDING - upload to YouTube]
+- Demo Video: https://youtu.be/GtZp6YBSQZU
 
 **Challenges:**
 ```
@@ -138,7 +138,7 @@ Fill in your actual URLs:
 ```
 Live Demo URL: https://adapt-learn-rosy.vercel.app
 GitHub URL: https://github.com/sgharlow/adapt-learn
-Demo Video URL: https://www.youtube.com/watch?v=[video-id]
+Demo Video URL: https://youtu.be/GtZp6YBSQZU
 ```
 
 ---
