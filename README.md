@@ -369,3 +369,5 @@ Built by Steve Harlow for the AI Partner Catalyst Hackathon 2025.
 ---
 
 *Learn AI like you listen to podcasts.*
+
+<!-- Vercel auto-deploy test: 2026-02-03T18:16:37Z -->
