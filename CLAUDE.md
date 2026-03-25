@@ -16,7 +16,7 @@ AdaptLearn is a voice-first adaptive AI learning platform being built for the AI
 
 ## Tech Stack
 
-- **Frontend:** Next.js 14, React, TypeScript, Tailwind CSS
+- **Frontend:** Next.js 16, React 18, TypeScript, Tailwind CSS
 - **Voice:** ElevenLabs API (TTS, Conversational AI)
 - **AI/LLM:** Google Vertex AI / Gemini
 - **State:** React Context + localStorage (no database for MVP)
