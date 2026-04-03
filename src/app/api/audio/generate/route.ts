@@ -49,9 +49,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Rate limit: 10 requests per minute per IP (audio generation is expensive)
+    // Rate limit: 5 requests per minute per IP (audio generation is expensive)
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
-    const rl = await checkRateLimit(`audio:${ip}`, 10, 60);
+    const rl = await checkRateLimit(`audio:${ip}`, 5, 60);
     if (!rl.allowed) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },
