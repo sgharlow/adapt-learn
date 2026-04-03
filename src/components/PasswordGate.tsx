@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react';
 
-const SITE_PASSWORD = process.env.NEXT_PUBLIC_SITE_PASSWORD || 'adaptlearn2025';
+const SITE_PASSWORD = process.env.NEXT_PUBLIC_SITE_PASSWORD;
 const STORAGE_KEY = 'adaptlearn-access-granted';
 
 export default function PasswordGate({ children }: { children: React.ReactNode }) {
@@ -52,6 +52,20 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
   // Authenticated - show app
   if (isAuthenticated) {
     return <>{children}</>;
+  }
+
+  // Access not configured - deny access if no password is set
+  if (!SITE_PASSWORD) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8 shadow-2xl text-center">
+            <h1 className="text-2xl font-bold text-white mb-4">Access Not Configured</h1>
+            <p className="text-slate-400">Site access has not been configured. Please contact the administrator.</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   // Not authenticated - show password gate
