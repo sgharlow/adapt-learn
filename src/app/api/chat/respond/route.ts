@@ -1,11 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { ChatRequest, ChatResponse, ChatMessage } from '@/types';
+import { checkRateLimit } from '@/lib/rate-limit';
+import { isAuthenticated } from '@/lib/auth';
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.0-flash';
 
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    if (!(await isAuthenticated())) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit: 20 requests per minute per IP
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+    const rl = await checkRateLimit(`chat:${ip}`, 20, 60);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSeconds) } }
+      );
+    }
+
     const body: ChatRequest = await request.json();
     const { message, lessonContext, conversationHistory } = body;
 

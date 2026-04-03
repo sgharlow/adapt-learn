@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import type { AudioGenerateRequest, AudioGenerateResponse } from '@/types';
+import { checkRateLimit } from '@/lib/rate-limit';
+import { isAuthenticated } from '@/lib/auth';
 
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID || 'EXAVITQu4vr4xnSDxMaL'; // Default: Sarah
@@ -42,6 +44,21 @@ interface ExtendedAudioRequest extends AudioGenerateRequest {
  */
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    if (!(await isAuthenticated())) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit: 10 requests per minute per IP (audio generation is expensive)
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+    const rl = await checkRateLimit(`audio:${ip}`, 10, 60);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSeconds) } }
+      );
+    }
+
     const body: ExtendedAudioRequest = await request.json();
     const { text, voice, voiceSettings, isConversational } = body;
 

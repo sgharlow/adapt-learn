@@ -9,6 +9,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
+
+    // Validate lesson ID to prevent path traversal
+    if (!/^[a-z0-9-]+$/.test(id)) {
+      return NextResponse.json({ error: 'Invalid lesson ID' }, { status: 400 });
+    }
+
     const lessonPath = join(process.cwd(), 'content', 'lessons', `${id}.json`);
     const data = readFileSync(lessonPath, 'utf-8');
     const lesson: Lesson = JSON.parse(data);

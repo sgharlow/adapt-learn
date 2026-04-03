@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import type { QuizEvaluateRequest, QuizEvaluateResponse } from '@/types';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { checkRateLimit } from '@/lib/rate-limit';
+import { isAuthenticated } from '@/lib/auth';
 
 const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
@@ -12,6 +14,21 @@ interface ExtendedQuizEvaluateRequest extends QuizEvaluateRequest {
 
 export async function POST(request: NextRequest) {
   try {
+    // Auth check
+    if (!(await isAuthenticated())) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    // Rate limit: 30 requests per minute per IP
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+    const rl = await checkRateLimit(`quiz:${ip}`, 30, 60);
+    if (!rl.allowed) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded. Please try again later.' },
+        { status: 429, headers: { 'Retry-After': String(rl.retryAfterSeconds) } }
+      );
+    }
+
     const body: ExtendedQuizEvaluateRequest = await request.json();
     const { lessonId, questionId, answer, enhancedFeedback } = body;
 
@@ -20,6 +37,11 @@ export async function POST(request: NextRequest) {
         { error: 'lessonId, questionId, and answer are required' },
         { status: 400 }
       );
+    }
+
+    // Validate lessonId to prevent path traversal
+    if (!/^[a-z0-9-]+$/.test(lessonId)) {
+      return NextResponse.json({ error: 'Invalid lesson ID' }, { status: 400 });
     }
 
     // Load lesson data to find the question

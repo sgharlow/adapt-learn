@@ -3,7 +3,6 @@
 
 import { useState, useEffect } from 'react';
 
-const SITE_PASSWORD = process.env.NEXT_PUBLIC_SITE_PASSWORD;
 const STORAGE_KEY = 'adaptlearn-access-granted';
 
 export default function PasswordGate({ children }: { children: React.ReactNode }) {
@@ -22,22 +21,30 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
-    // Simple delay to prevent brute force
-    setTimeout(() => {
-      if (password === SITE_PASSWORD) {
+    try {
+      const resp = await fetch('/api/auth/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'same-origin',
+        body: JSON.stringify({ password }),
+      });
+      const data = await resp.json();
+      if (data.valid) {
         localStorage.setItem(STORAGE_KEY, 'true');
         setIsAuthenticated(true);
       } else {
         setError('Incorrect password. Please try again.');
         setPassword('');
       }
-      setIsLoading(false);
-    }, 500);
+    } catch {
+      setError('Network error. Please try again.');
+    }
+    setIsLoading(false);
   };
 
   // Loading state
@@ -52,20 +59,6 @@ export default function PasswordGate({ children }: { children: React.ReactNode }
   // Authenticated - show app
   if (isAuthenticated) {
     return <>{children}</>;
-  }
-
-  // Access not configured - deny access if no password is set
-  if (!SITE_PASSWORD) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-        <div className="w-full max-w-md">
-          <div className="bg-slate-800/50 backdrop-blur-sm rounded-2xl border border-slate-700/50 p-8 shadow-2xl text-center">
-            <h1 className="text-2xl font-bold text-white mb-4">Access Not Configured</h1>
-            <p className="text-slate-400">Site access has not been configured. Please contact the administrator.</p>
-          </div>
-        </div>
-      </div>
-    );
   }
 
   // Not authenticated - show password gate
